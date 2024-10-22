@@ -4,6 +4,7 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>entidades.UnidadAcademicaEntidad</class>
     <class>entidades.EstudianteEntidad</class>
+    <class>entidades.CentroComputoEntidad</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://sql3.freesqldatabase.com:3306/sql3739745"/>
       <property name="javax.persistence.jdbc.user" value="sql3739745"/>
