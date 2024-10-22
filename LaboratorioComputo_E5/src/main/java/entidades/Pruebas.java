@@ -4,7 +4,6 @@
  */
 package entidades;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -12,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.Calendar;
+import java.time.Instant;
 import java.util.Date;
 
 /**
@@ -39,15 +39,22 @@ public class Pruebas {
         EstudianteEntidad estudianteEntidad2 = new EstudianteEntidad("Juan", "Ramirez", "Lopez", "123est321", "Inscrito", uaEntidad);
         CentroComputoEntidad ccEntidad = new CentroComputoEntidad("Cisco", "10cntro01comp1209", new GregorianCalendar(0, 0, 0, 14, 30, 0), new GregorianCalendar(0, 0, 0, 19, 30, 0), uaEntidad);
         ComputadoraEntidad coEntidad = new ComputadoraEntidad(ccEntidad, estudianteEntidad, "192.168.0.1", "Disponible", 0, sfwr);
-        BloqueoEntidad bEntidad = new BloqueoEntidad("Ladrón", Calendar.getInstance(), estudianteEntidad);
+
         
         estudiantes.add(estudianteEntidad);
         estudiantes.add(estudianteEntidad2);
-        CarreraEntidad caEntidad = new CarreraEntidad("Software", Date.from(Instant.MIN), estudiantes);
+        CarreraEntidad caEntidad = new CarreraEntidad("Software", Date.from(Instant.now()), estudiantes);
+        
+                BloqueoEntidad bEntidad = new BloqueoEntidad("Ladrón", Calendar.getInstance(), estudianteEntidad);
+        List<BloqueoEntidad> bloqueos = new ArrayList<>();
+        bloqueos.add(bEntidad);
         
         coEntidad.setEstudiante(estudianteEntidad);
+        
         estudianteEntidad.setComputadora(coEntidad);
         estudianteEntidad.setCarrera(caEntidad);
+        estudianteEntidad.setBloqueo(bloqueos);
+        
         
         entityManager.persist(uaEntidad);
         entityManager.persist(estudianteEntidad);

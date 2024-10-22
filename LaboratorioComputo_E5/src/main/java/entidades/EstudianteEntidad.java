@@ -63,11 +63,11 @@ public class EstudianteEntidad implements Serializable {
     @JoinColumn(name = "idUnidadAcademica", nullable = false)
     private UnidadAcademicaEntidad unidadAcademica;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "idBloqueo")
     private List<BloqueoEntidad> bloqueo;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "idCarrera", referencedColumnName = "nombre")
     private CarreraEntidad carrera;
 

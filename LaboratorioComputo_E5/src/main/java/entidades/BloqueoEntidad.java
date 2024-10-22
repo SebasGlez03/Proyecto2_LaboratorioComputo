@@ -6,6 +6,7 @@ package entidades;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -57,7 +58,7 @@ public class BloqueoEntidad implements Serializable {
      * Relación con la entidad {@code EstudianteEntidad}, que indica el estudiante al que se le aplica el bloqueo.
      * Es una relación de muchos a uno y es obligatoria.
      */
-    @ManyToOne
+    @ManyToOne ()
     @JoinColumn(name = "idEstudiante", nullable = false)
     private EstudianteEntidad estudiante;
 
