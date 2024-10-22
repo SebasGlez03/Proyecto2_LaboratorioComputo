@@ -34,7 +34,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "tblComputadora")
-public class computadoraEntidad implements Serializable {
+public class ComputadoraEntidad implements Serializable {
 
     /**
      * Identificador único de la computadora. Es generado automáticamente.
@@ -49,7 +49,7 @@ public class computadoraEntidad implements Serializable {
      */
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "idCentroComputo", nullable = false)
-    private centroComputoEntidad centroComputoEntidad;    
+    private CentroComputoEntidad centroComputoEntidad;    
 
     /**
      * Relación de uno-a-uno con el estudiante que está utilizando la computadora.
@@ -90,7 +90,7 @@ public class computadoraEntidad implements Serializable {
      * Constructor por defecto de la entidad. 
      * Es requerido por JPA para crear instancias de la entidad.
      */
-    public computadoraEntidad() {
+    public ComputadoraEntidad() {
     }
 
     /**
@@ -114,18 +114,18 @@ public class computadoraEntidad implements Serializable {
     /**
      * Obtiene el centro de cómputo al que pertenece esta computadora.
      * 
-     * @return La entidad {@link centroComputoEntidad} asociada.
+     * @return La entidad {@link CentroComputoEntidad} asociada.
      */
-    public centroComputoEntidad getCentroComputoEntidad() {
+    public CentroComputoEntidad getCentroComputoEntidad() {
         return centroComputoEntidad;
     }
 
     /**
      * Establece el centro de cómputo al que pertenece esta computadora.
      * 
-     * @param centroComputoEntidad La nueva entidad {@link centroComputoEntidad} asociada.
+     * @param centroComputoEntidad La nueva entidad {@link CentroComputoEntidad} asociada.
      */
-    public void setCentroComputoEntidad(centroComputoEntidad centroComputoEntidad) {
+    public void setCentroComputoEntidad(CentroComputoEntidad centroComputoEntidad) {
         this.centroComputoEntidad = centroComputoEntidad;
     }
 

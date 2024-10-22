@@ -32,7 +32,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "tblCentroComputo")
-public class centroComputoEntidad implements Serializable {
+public class CentroComputoEntidad implements Serializable {
 
     /**
      * El identificador único del centro de cómputo.
@@ -44,12 +44,12 @@ public class centroComputoEntidad implements Serializable {
     
     /**
      * Lista de computadoras que pertenecen a este centro de cómputo.
-     * La relación es de uno a muchos (OneToMany) con la entidad {@link computadoraEntidad}.
+     * La relación es de uno a muchos (OneToMany) con la entidad {@link ComputadoraEntidad}.
      * La operación de persistencia se hace en cascada (CascadeType.PERSIST).
      */
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "idComputadora", nullable = false)
-    private List<computadoraEntidad> computadoraEntidad;    
+    private List<ComputadoraEntidad> computadoraEntidad;    
 
     /**
      * El nombre del centro de cómputo.
@@ -82,7 +82,7 @@ public class centroComputoEntidad implements Serializable {
     /**
      * Constructor vacío necesario para JPA.
      */
-    public centroComputoEntidad() {
+    public CentroComputoEntidad() {
     }
 
     // Getters y Setters
@@ -108,9 +108,9 @@ public class centroComputoEntidad implements Serializable {
     /**
      * Obtiene la lista de computadoras asociadas al centro de cómputo.
      * 
-     * @return La lista de {@link computadoraEntidad}.
+     * @return La lista de {@link ComputadoraEntidad}.
      */
-    public List<computadoraEntidad> getComputadoraEntidad() {
+    public List<ComputadoraEntidad> getComputadoraEntidad() {
         return computadoraEntidad;
     }
 
@@ -119,7 +119,7 @@ public class centroComputoEntidad implements Serializable {
      * 
      * @param computadoraEntidad La lista de computadoras a asociar.
      */
-    public void setComputadoraEntidad(List<computadoraEntidad> computadoraEntidad) {
+    public void setComputadoraEntidad(List<ComputadoraEntidad> computadoraEntidad) {
         this.computadoraEntidad = computadoraEntidad;
     }
 
