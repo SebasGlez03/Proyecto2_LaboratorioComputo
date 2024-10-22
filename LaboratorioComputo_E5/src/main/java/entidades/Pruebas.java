@@ -13,6 +13,7 @@ import javax.persistence.Persistence;
  * @author PC
  */
 public class Pruebas {
+
     public static void main(String[] args) {
         // CREAMOS UNA FACTORY DE ENTITY MANAGERS
         EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
@@ -21,9 +22,9 @@ public class Pruebas {
         //INICIAMOS LA TRANSACCION
         entityManager.getTransaction().begin();
 
-        UnidadAcademicaEntidad uaEntidad = new UnidadAcademicaEntidad("Nainari");
+        EstudianteEntidad estudianteEntidad = new EstudianteEntidad("Pedro", "Ramirez", "Lopez", "123est321", "Inscrito");
 
-        entityManager.persist(uaEntidad);
+        entityManager.persist(estudianteEntidad);
 
         //MANDAMOS A EJECUTAR LA TRANSACCION
         entityManager.getTransaction().commit();
