@@ -22,8 +22,10 @@ public class Pruebas {
         //INICIAMOS LA TRANSACCION
         entityManager.getTransaction().begin();
 
-        EstudianteEntidad estudianteEntidad = new EstudianteEntidad("Pedro", "Ramirez", "Lopez", "123est321", "Inscrito");
+        UnidadAcademicaEntidad uaEntidad = new UnidadAcademicaEntidad("Nainari");
+        EstudianteEntidad estudianteEntidad = new EstudianteEntidad("Pedro", "Ramirez", "Lopez", "123est321", "Inscrito", uaEntidad);
 
+        entityManager.persist(uaEntidad);
         entityManager.persist(estudianteEntidad);
 
         //MANDAMOS A EJECUTAR LA TRANSACCION

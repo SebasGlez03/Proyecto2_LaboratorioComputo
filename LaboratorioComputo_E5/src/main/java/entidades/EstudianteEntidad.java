@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -41,6 +43,10 @@ public class EstudianteEntidad implements Serializable {
     @Column(name = "estatusInscripcion", length = 15, nullable = false)
     private String estatusInscripcion;
 
+    @ManyToOne()
+    @JoinColumn(name = "idUnidadAcademica", nullable = false)
+    private UnidadAcademicaEntidad unidadAcademica;
+
     /**
      * Constructor por omision
      */
@@ -48,7 +54,8 @@ public class EstudianteEntidad implements Serializable {
     }
 
     /**
-     * Constructor que establece los valores de los atributos de la clase
+     * Constructor que establece los valores de los atributos de la clase a
+     * excepcion de la relacion de la unidadAcademica
      *
      * @param nombre nombre del estudiante
      * @param apellidoPaterno apellido paterno del estudiante
@@ -62,6 +69,25 @@ public class EstudianteEntidad implements Serializable {
         this.apellidoMaterno = apellidoMaterno;
         this.contrasenia = contrasenia;
         this.estatusInscripcion = estatusInscripcion;
+    }
+
+    /**
+     * Constructor que establece los valores de los atributos de la clase
+     *
+     * @param nombre nombre del estudiante
+     * @param apellidoPaterno apellido paterno del estudiante
+     * @param apellidoMaterno apellido materno del estudiante
+     * @param contrasenia contrasenia del estudiante
+     * @param estatusInscripcion estatus de la inscripcion del estudiante
+     * @param unidadAcademica relacion entre el estudiante y una unidadAcademica
+     */
+    public EstudianteEntidad(String nombre, String apellidoPaterno, String apellidoMaterno, String contrasenia, String estatusInscripcion, UnidadAcademicaEntidad unidadAcademica) {
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.contrasenia = contrasenia;
+        this.estatusInscripcion = estatusInscripcion;
+        this.unidadAcademica = unidadAcademica;
     }
 
     /**
@@ -171,6 +197,25 @@ public class EstudianteEntidad implements Serializable {
      */
     public void setEstatusInscripcion(String estatusInscripcion) {
         this.estatusInscripcion = estatusInscripcion;
+    }
+
+    /**
+     * Metodo que obtiene la relacion de la UnidadAcademica y el estudiante
+     *
+     * @return relacion de la UnidadAcademica con el estudiante
+     */
+    public UnidadAcademicaEntidad getUnidadAcademica() {
+        return unidadAcademica;
+    }
+
+    /**
+     * Metodo que establece la relacion de la UnidadAcademida y el estudiante
+     *
+     * @param unidadAcademica relacion de la UnidadAcademica con el estudiante a
+     * establecer
+     */
+    public void setUnidadAcademica(UnidadAcademicaEntidad unidadAcademica) {
+        this.unidadAcademica = unidadAcademica;
     }
 
     @Override

@@ -5,11 +5,13 @@
 package entidades;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -28,6 +30,9 @@ public class UnidadAcademicaEntidad implements Serializable {
 
     @Column(name = "nombre", length = 50, nullable = false)
     private String nombre;
+
+    @OneToMany(mappedBy = "unidadAcademica")
+    private List<EstudianteEntidad> estudiantes;
 
     /**
      * Constructor por omision
@@ -78,6 +83,27 @@ public class UnidadAcademicaEntidad implements Serializable {
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    /**
+     * Metodo que obtiene la lista de la relacion entre estudiante y
+     * unidadAcademica
+     *
+     * @return lista de la relacion entre estudiante y unidadAcademica
+     */
+    public List<EstudianteEntidad> getEstudiantes() {
+        return estudiantes;
+    }
+
+    /**
+     * Metodo que establece la lista de la relacion entre estudiante y
+     * unidadAcademica
+     *
+     * @param estudiantes lista de la relacion entre estudiante y
+     * unidadAcademica a establecer
+     */
+    public void setEstudiantes(List<EstudianteEntidad> estudiantes) {
+        this.estudiantes = estudiantes;
     }
 
     @Override
