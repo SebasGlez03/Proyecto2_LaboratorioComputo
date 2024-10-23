@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -61,7 +62,7 @@ public class CarreraEntidad implements Serializable {
      * Lista de estudiantes asociados a la carrera.
      * Esta es una relación de uno a muchos con la entidad {@code EstudianteEntidad}.
      */
-    @OneToMany
+    @OneToMany (cascade = CascadeType.PERSIST)
     @JoinColumn(name = "idEstudiante", nullable = false)
     private List<EstudianteEntidad> estudiante;
 

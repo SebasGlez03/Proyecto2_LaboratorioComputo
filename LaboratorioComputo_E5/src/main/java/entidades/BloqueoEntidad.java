@@ -27,7 +27,7 @@ import javax.persistence.TemporalType;
  * @author santi
  */
 @Entity
-@Table(name = "tblBloqueoo") 
+@Table(name = "tblBloqueo") 
 public class BloqueoEntidad implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,7 +44,7 @@ public class BloqueoEntidad implements Serializable {
     /**
      * Motivo del bloqueo. Es obligatorio y tiene un límite de 50 caracteres.
      */
-    @Column(name = "Motivo de Bloqueo", length = 50, nullable = false)
+    @Column(name = "motivoBloqueo", length = 50, nullable = false)
     private String motivo;
 
     /**
@@ -58,8 +58,8 @@ public class BloqueoEntidad implements Serializable {
      * Relación con la entidad {@code EstudianteEntidad}, que indica el estudiante al que se le aplica el bloqueo.
      * Es una relación de muchos a uno y es obligatoria.
      */
-    @ManyToOne ()
-    @JoinColumn(name = "idEstudiante", nullable = false)
+    @ManyToOne 
+    @JoinColumn(name = "estudiante")
     private EstudianteEntidad estudiante;
 
     /**

@@ -38,7 +38,7 @@ public class EstudianteEntidad implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idEstudiante")
-    private Long id;
+    private Long idEstudiante;
 
     @Column(name = "nombre", length = 50, nullable = false)
     private String nombre;
@@ -63,8 +63,7 @@ public class EstudianteEntidad implements Serializable {
     @JoinColumn(name = "idUnidadAcademica", nullable = false)
     private UnidadAcademicaEntidad unidadAcademica;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "idBloqueo")
+    @OneToMany (mappedBy = "estudiante", cascade = CascadeType.PERSIST)
     private List<BloqueoEntidad> bloqueo;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
@@ -129,7 +128,7 @@ public class EstudianteEntidad implements Serializable {
      * @param carrera relación entre el estudiante y una carrera.
      */
     public EstudianteEntidad(Long id, String nombre, String apellidoPaterno, ComputadoraEntidad computadora, String apellidoMaterno, String contrasenia, String estatusInscripcion, UnidadAcademicaEntidad unidadAcademica, CarreraEntidad carrera) {
-        this.id = id;
+        this.idEstudiante = id;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.computadora = computadora;
@@ -146,7 +145,7 @@ public class EstudianteEntidad implements Serializable {
      * @return id del estudiante.
      */
     public Long getId() {
-        return id;
+        return idEstudiante;
     }
 
     /**
@@ -155,7 +154,7 @@ public class EstudianteEntidad implements Serializable {
      * @param id id del estudiante a establecer.
      */
     public void setId(Long id) {
-        this.id = id;
+        this.idEstudiante = id;
     }
 
     /**
@@ -327,6 +326,6 @@ public class EstudianteEntidad implements Serializable {
      */
     @Override
     public String toString() {
-        return "EstudianteEntidad{" + "id=" + id + ", nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno + ", contrasenia=" + contrasenia + ", estatusInscripcion=" + estatusInscripcion + ", unidadAcademica=" + unidadAcademica + ", carrera=" + carrera + '}';
+        return "EstudianteEntidad{" + "id=" + idEstudiante + ", nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno + ", contrasenia=" + contrasenia + ", estatusInscripcion=" + estatusInscripcion + ", unidadAcademica=" + unidadAcademica + ", carrera=" + carrera + '}';
     }
 }
