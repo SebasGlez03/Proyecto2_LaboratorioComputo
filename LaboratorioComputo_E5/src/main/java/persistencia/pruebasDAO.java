@@ -19,7 +19,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
- *@deprecated
+ *
  * @author santi
  */
 public class pruebasDAO {
@@ -73,9 +73,13 @@ public class pruebasDAO {
 //        estudianteDAO.guardarEstudiante(estudianteEntidad);
 //        computadoraDAO.guardarComputadora(computadoraEntidad);
 //        centroComputoDAO.guardarCentroComputo(centroComputoEntidad);
-carreraDAO.guardarCarrera(caEntidad);
-
-
+//        carreraDAO.guardarCarrera(caEntidad);
+//        
+//        
+//        System.out.println("Una = " + carreraDAO.buscarUnaCarrera(caEntidad.getIdCarrera()).toString());
+//        System.out.println("Todas = " + carreraDAO.buscarTodasCarrera().toString());
+//          System.out.println(bloqueoDAO.buscarUnBloqueo(bloqueoEntidad.getId()));
+//          System.out.println(bloqueoDAO.buscarTodosBloqueos());
         
     }
     

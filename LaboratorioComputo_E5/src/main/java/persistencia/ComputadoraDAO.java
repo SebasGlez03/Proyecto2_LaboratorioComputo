@@ -4,11 +4,14 @@
  */
 package persistencia;
 
+import entidades.CentroComputoEntidad;
 import entidades.ComputadoraEntidad;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import javax.swing.JOptionPane;
 
 /**
@@ -142,6 +145,65 @@ public class ComputadoraDAO {
                 JOptionPane.showMessageDialog(null, "Error en Persistencia = " + e.getMessage());
             }
             e.printStackTrace(); // Imprime la traza del error en la consola
+        } finally {
+            if (entityManager != null) {
+                // Cerramos el EntityManager
+                entityManager.close();
+            }
+        }
+    }
+    
+    /**
+     * Busca un objeto de la tabla respectiva en la base de datos.
+     *  
+     * @param Long id
+     */
+    public ComputadoraEntidad buscarUnaComputadora(Long id) {
+
+        try{
+            // Construimos el EntityManager
+            managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
+            entityManager = managerFactory.createEntityManager();
+            
+            // Buscamos la entidad en la base de datos
+            ComputadoraEntidad Computadora = entityManager.find(ComputadoraEntidad.class, id);
+
+            // Regresamos la entidad
+            return Computadora;     
+        } catch (Exception e){
+                JOptionPane.showMessageDialog(null, "Error en Persistencia = " + e.getMessage());
+                return null;
+        } finally {
+            if (entityManager != null) {
+                // Cerramos el EntityManager
+                System.out.println("cierras");
+                entityManager.close();
+            }
+        }
+ 
+    }    
+    
+    /**
+     * Busca todos los objetos de la tabla respectiva en la base de datos.
+     * 
+     * 
+     * 
+     */
+    public List<ComputadoraEntidad> buscarTodosComputadora() {
+
+        try{
+            // Construimos el EntityManager
+            managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
+            entityManager = managerFactory.createEntityManager();
+            
+            // Buscamos las entidades en la base de datos
+            TypedQuery<ComputadoraEntidad> query = entityManager.createQuery("SELECT a FROM ComputadoraEntidad a", ComputadoraEntidad.class);
+
+            // Regresamos la entidad
+            return query.getResultList();
+            } catch (Exception e){
+                JOptionPane.showMessageDialog(null, "Error en Persistencia = " + e.getMessage());
+                return null;
         } finally {
             if (entityManager != null) {
                 // Cerramos el EntityManager

@@ -5,10 +5,13 @@
 package persistencia;
 
 import entidades.BloqueoEntidad;
+import entidades.CarreraEntidad;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import javax.swing.JOptionPane;
 
 /**
@@ -149,4 +152,63 @@ public class BloqueoDAO {
             }
         }
     }
+    
+    /**
+     * Busca un objeto de la tabla respectiva en la base de datos.
+     *  
+     * @param Long id
+     */
+    public BloqueoEntidad buscarUnBloqueo(Long id) {
+
+        try{
+            // Construimos el EntityManager
+            managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
+            entityManager = managerFactory.createEntityManager();
+            
+            // Buscamos la entidad en la base de datos
+            BloqueoEntidad Bloqueo = entityManager.find(BloqueoEntidad.class, id);
+
+            // Regresamos la entidad
+            return Bloqueo;     
+        } catch (Exception e){
+                JOptionPane.showMessageDialog(null, "Error en Persistencia = " + e.getMessage());
+                return null;
+        } finally {
+            if (entityManager != null) {
+                // Cerramos el EntityManager
+                System.out.println("cierras");
+                entityManager.close();
+            }
+        }
+ 
+    }    
+    
+    /**
+     * Busca todos los objetos de la tabla respectiva en la base de datos.
+     * 
+     * 
+     * 
+     */
+    public List<BloqueoEntidad> buscarTodosBloqueos() {
+
+        try{
+            // Construimos el EntityManager
+            managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
+            entityManager = managerFactory.createEntityManager();
+            
+            // Buscamos las entidades en la base de datos
+            TypedQuery<BloqueoEntidad> query = entityManager.createQuery("SELECT a FROM BloqueoEntidad a", BloqueoEntidad.class);
+
+            // Regresamos la entidad
+            return query.getResultList();
+            } catch (Exception e){
+                JOptionPane.showMessageDialog(null, "Error en Persistencia = " + e.getMessage());
+                return null;
+        } finally {
+            if (entityManager != null) {
+                // Cerramos el EntityManager
+                entityManager.close();
+            }
+        }
+    } 
 }

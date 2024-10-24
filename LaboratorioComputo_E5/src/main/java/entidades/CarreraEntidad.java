@@ -188,4 +188,14 @@ public class CarreraEntidad implements Serializable {
         this.unidadAcademica = unidadAcademica;
     }
 
+    /**
+     * ToString
+     *
+     */
+    @Override
+    public String toString() {
+        return "CarreraEntidad{" + "idCarrera=" + idCarrera + ", nombre=" + nombre + ", tiempoDiario=" + tiempoDiario + ", unidadAcademica=" + unidadAcademica + ", estudiante=" + estudiante + '}';
+    }
+
+    
 }
