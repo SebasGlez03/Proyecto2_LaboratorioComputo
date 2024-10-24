@@ -32,6 +32,10 @@ public class pruebasDAO {
         RentaDAO rentaDAO = new RentaDAO();
         UnidadAcademicaDAO unidadAcademicaDAO = new UnidadAcademicaDAO();
         BloqueoDAO bloqueoDAO = new BloqueoDAO();
+        EstudianteDAO estudianteDAO = new EstudianteDAO();
+        ComputadoraDAO computadoraDAO = new ComputadoraDAO();
+        CentroComputoDAO centroComputoDAO = new CentroComputoDAO();
+        CarreraDAO carreraDAO = new CarreraDAO();
         
         List<String> sfwr = new ArrayList<>();
         sfwr.add("Photoshop");
@@ -65,7 +69,11 @@ public class pruebasDAO {
 //        
 //        rentaDAO.eliminarRenta(rentaEntidad);
 //        unidadAcademicaDAO.guardarUnidadAcademica(uaEntidad);
-        bloqueoDAO.guardarBloqueo(bloqueoEntidad);
+//        bloqueoDAO.guardarBloqueo(bloqueoEntidad);
+//        estudianteDAO.guardarEstudiante(estudianteEntidad);
+//        computadoraDAO.guardarComputadora(computadoraEntidad);
+//        centroComputoDAO.guardarCentroComputo(centroComputoEntidad);
+carreraDAO.guardarCarrera(caEntidad);
 
 
         
