@@ -35,13 +35,13 @@ public class FrmLogin extends javax.swing.JFrame {
         background_img = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sistema de Apartado");
         setUndecorated(true);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnAdmin.png"))); // NOI18N
         btnAdmin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnAdmin.setPreferredSize(new java.awt.Dimension(121, 54));
         btnAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnAdminMouseClicked(evt);
