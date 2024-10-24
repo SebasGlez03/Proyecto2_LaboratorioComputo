@@ -35,8 +35,8 @@ public class Pruebas {
         List<EstudianteEntidad> estudiantes = new ArrayList<>();
         
         UnidadAcademicaEntidad uaEntidad = new UnidadAcademicaEntidad("Nainari");
-        EstudianteEntidad estudianteEntidad = new EstudianteEntidad("Pedro", "Ramirez", "Lopez", "123est321", "Inscrito", uaEntidad);
-        EstudianteEntidad estudianteEntidad2 = new EstudianteEntidad("Juan", "Ramirez", "Lopez", "123est321", "Inscrito", uaEntidad);
+        EstudianteEntidad estudianteEntidad = new EstudianteEntidad("Pedro", "Ramirez", "Lopez", "123est321", "Inscrito");
+        EstudianteEntidad estudianteEntidad2 = new EstudianteEntidad("Juan", "Ramirez", "Lopez", "123est321", "Inscrito");
         CentroComputoEntidad ccEntidad = new CentroComputoEntidad("Cisco", "10cntro01comp1209", new GregorianCalendar(0, 0, 0, 14, 30, 0), new GregorianCalendar(0, 0, 0, 19, 30, 0), uaEntidad);
         ComputadoraEntidad coEntidad = new ComputadoraEntidad(ccEntidad, estudianteEntidad, "192.168.0.1", "Disponible", 0, sfwr);
         BloqueoEntidad bEntidad = new BloqueoEntidad("Ladrón", Calendar.getInstance(), estudianteEntidad);
