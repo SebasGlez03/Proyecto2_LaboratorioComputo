@@ -22,11 +22,12 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * La clase {@code CarreraEntidad} representa una carrera universitaria en la base de datos.
- * Cada carrera tiene un nombre, un tiempo diario y una lista de estudiantes asociados.
- * 
+ * La clase {@code CarreraEntidad} representa una carrera universitaria en la
+ * base de datos. Cada carrera tiene un nombre, un tiempo diario y una lista de
+ * estudiantes asociados.
+ *
  * Esta clase está mapeada a la tabla {@code tblCarrera} en la base de datos.
- * 
+ *
  * @author santi
  */
 @Entity
@@ -36,8 +37,8 @@ public class CarreraEntidad implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Identificador único de la carrera.
-     * Se genera automáticamente utilizando la estrategia de identidad.
+     * Identificador único de la carrera. Se genera automáticamente utilizando
+     * la estrategia de identidad.
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,18 +52,26 @@ public class CarreraEntidad implements Serializable {
     private String nombre;
 
     /**
-     * Tiempo diario que los estudiantes dedican a la carrera. Se guarda como una hora (tipo {@code Calendar}).
-     * Es obligatorio.
+     * Tiempo diario que los estudiantes dedican a la carrera. Se guarda como
+     * una hora (tipo {@code Calendar}). Es obligatorio.
      */
     @Temporal(TemporalType.TIME)
     @Column(name = "tiempoDiario", nullable = false)
     private Date tiempoDiario;
 
     /**
-     * Lista de estudiantes asociados a la carrera.
-     * Esta es una relación de uno a muchos con la entidad {@code EstudianteEntidad}.
+     * Lista de unidadesAcademmias asociadas a la carrera. Esta es una relacion
+     * de muchos a uno con la entidad (@code UnidadAcademicaEntidad)
      */
-    @OneToMany (cascade = CascadeType.PERSIST)
+    @ManyToOne()
+    @JoinColumn(name = "idUnidadAcademica", nullable = false)
+    private UnidadAcademicaEntidad unidadAcademica;
+
+    /**
+     * Lista de estudiantes asociados a la carrera. Esta es una relación de uno
+     * a muchos con la entidad {@code EstudianteEntidad}.
+     */
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "idEstudiante", nullable = false)
     private List<EstudianteEntidad> estudiante;
 
@@ -73,21 +82,25 @@ public class CarreraEntidad implements Serializable {
     }
 
     /**
-     * Constructor que inicializa una carrera con su nombre, tiempo diario y lista de estudiantes.
+     * Constructor que inicializa una carrera con su nombre, tiempo diario,
+     * unidad academica y lista de estudiantes.
      *
      * @param nombre El nombre de la carrera.
      * @param tiempoDiario El tiempo diario que se dedica a la carrera.
+     * @param unidadAcademica La unidad academica en la que se encuentra la
+     * carrera,
      * @param estudiante La lista de estudiantes asociados a la carrera.
      */
-    public CarreraEntidad(String nombre, Date tiempoDiario, List<EstudianteEntidad> estudiante) {
+    public CarreraEntidad(String nombre, Date tiempoDiario, UnidadAcademicaEntidad unidadAcademica, List<EstudianteEntidad> estudiante) {
         this.nombre = nombre;
         this.tiempoDiario = tiempoDiario;
+        this.unidadAcademica = unidadAcademica;
         this.estudiante = estudiante;
     }
 
     /**
      * Obtiene el identificador único de la carrera.
-     * 
+     *
      * @return El identificador de la carrera.
      */
     public Long getIdCarrera() {
@@ -96,7 +109,7 @@ public class CarreraEntidad implements Serializable {
 
     /**
      * Establece el identificador único de la carrera.
-     * 
+     *
      * @param idCarrera El nuevo identificador de la carrera.
      */
     public void setIdCarrera(Long idCarrera) {
@@ -105,7 +118,7 @@ public class CarreraEntidad implements Serializable {
 
     /**
      * Obtiene el nombre de la carrera.
-     * 
+     *
      * @return El nombre de la carrera.
      */
     public String getNombre() {
@@ -114,7 +127,7 @@ public class CarreraEntidad implements Serializable {
 
     /**
      * Establece el nombre de la carrera.
-     * 
+     *
      * @param nombre El nuevo nombre de la carrera.
      */
     public void setNombre(String nombre) {
@@ -123,7 +136,7 @@ public class CarreraEntidad implements Serializable {
 
     /**
      * Obtiene el tiempo diario que los estudiantes dedican a la carrera.
-     * 
+     *
      * @return El tiempo diario de la carrera como un {@code Calendar}.
      */
     public Date getTiempoDiario() {
@@ -132,7 +145,7 @@ public class CarreraEntidad implements Serializable {
 
     /**
      * Establece el tiempo diario que los estudiantes dedican a la carrera.
-     * 
+     *
      * @param tiempoDiario El nuevo tiempo diario a establecer.
      */
     public void setTiempoDiario(Date tiempoDiario) {
@@ -141,7 +154,7 @@ public class CarreraEntidad implements Serializable {
 
     /**
      * Obtiene la lista de estudiantes asociados a la carrera.
-     * 
+     *
      * @return La lista de estudiantes.
      */
     public List<EstudianteEntidad> getEstudiante() {
@@ -150,11 +163,29 @@ public class CarreraEntidad implements Serializable {
 
     /**
      * Establece la lista de estudiantes asociados a la carrera.
-     * 
+     *
      * @param estudiante La nueva lista de estudiantes.
      */
     public void setEstudiante(List<EstudianteEntidad> estudiante) {
         this.estudiante = estudiante;
+    }
+
+    /**
+     * Obtiene la lista de unidadesAcademicas asociadas a la carrera.
+     *
+     * @return La lista de unidadesAcademicas.
+     */
+    public UnidadAcademicaEntidad getUnidadAcademica() {
+        return unidadAcademica;
+    }
+
+    /**
+     * Establece la lista de unidadesAcademicas asociadas a la carrera.
+     *
+     * @param unidadAcademica La nueva lista de unidadesAcademicas.
+     */
+    public void setUnidadAcademica(UnidadAcademicaEntidad unidadAcademica) {
+        this.unidadAcademica = unidadAcademica;
     }
 
 }

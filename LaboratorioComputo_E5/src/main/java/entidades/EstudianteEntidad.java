@@ -61,6 +61,9 @@ public class EstudianteEntidad implements Serializable {
     @OneToMany(mappedBy = "estudiante", cascade = CascadeType.PERSIST)
     private List<BloqueoEntidad> bloqueo;
 
+    @OneToMany(mappedBy = "estudiante")
+    private List<RentaEntidad> rentas;
+
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "idCarrera", referencedColumnName = "nombre")
     private CarreraEntidad carrera;
@@ -257,6 +260,24 @@ public class EstudianteEntidad implements Serializable {
      */
     public void setBloqueo(List<BloqueoEntidad> bloqueo) {
         this.bloqueo = bloqueo;
+    }
+
+    /**
+     * Obtiene la lista de rentas asociadas a un estudiante.
+     *
+     * @return Una lista de rentas asociadas al estudiante.
+     */
+    public List<RentaEntidad> getRentas() {
+        return rentas;
+    }
+
+    /**
+     * Establece la lista de rentas asociadas a un estudiante.
+     *
+     * @param rentas La lista de rentas a establecer.
+     */
+    public void setRentas(List<RentaEntidad> rentas) {
+        this.rentas = rentas;
     }
 
     /**

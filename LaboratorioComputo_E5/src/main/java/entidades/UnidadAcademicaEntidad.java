@@ -36,6 +36,9 @@ public class UnidadAcademicaEntidad implements Serializable {
     @OneToMany(mappedBy = "unidadAcademica")
     private List<CentroComputoEntidad> centrosComputo;
 
+    @OneToMany(mappedBy = "unidadAcademica")
+    private List<CarreraEntidad> carreras;
+
     /**
      * Constructor por omision
      */
@@ -107,6 +110,27 @@ public class UnidadAcademicaEntidad implements Serializable {
      */
     public void setCentrosComputo(List<CentroComputoEntidad> centrosComputo) {
         this.centrosComputo = centrosComputo;
+    }
+
+    /**
+     * Metodo que obtiene la lista de la relacion entre las carreras y la
+     * unidadAcademica
+     *
+     * @return lista de relacion entre los centros de computo y la
+     * unidadAcademica
+     */
+    public List<CarreraEntidad> getCarreras() {
+        return carreras;
+    }
+
+    /**
+     * Metodo que establece la lista de la relacion entre los centros de computo
+     * y la unidadAcadmeica
+     *
+     * @param carreras lista de relacion entre las carreras y la unidadAcademica
+     */
+    public void setCarreras(List<CarreraEntidad> carreras) {
+        this.carreras = carreras;
     }
 
 }
