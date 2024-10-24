@@ -50,15 +50,15 @@ public class BloqueoEntidad implements Serializable {
     /**
      * Fecha en la que se aplica el bloqueo. Es obligatoria.
      */
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "fechaBloqueo", nullable = false)
     private Calendar fechaBloqueo;
 
     /**
      * Fecha en la que se libera el bloqueo. No es obligatoria.
      */
-    @Temporal(TemporalType.DATE)
-    @Column(name = "fechaLiberacion", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "fechaLiberacion")
     private Calendar fechaLiberacion;
 
     /**
@@ -66,7 +66,7 @@ public class BloqueoEntidad implements Serializable {
      * estudiante al que se le aplica el bloqueo. Es una relación de muchos a
      * uno y es obligatoria.
      */
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "estudiante")
     private EstudianteEntidad estudiante;
 

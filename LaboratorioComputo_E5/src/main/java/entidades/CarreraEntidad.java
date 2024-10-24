@@ -63,7 +63,7 @@ public class CarreraEntidad implements Serializable {
      * Lista de unidadesAcademmias asociadas a la carrera. Esta es una relacion
      * de muchos a uno con la entidad (@code UnidadAcademicaEntidad)
      */
-    @ManyToOne()
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "idUnidadAcademica", nullable = false)
     private UnidadAcademicaEntidad unidadAcademica;
 
