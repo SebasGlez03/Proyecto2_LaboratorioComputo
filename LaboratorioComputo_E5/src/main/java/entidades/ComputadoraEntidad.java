@@ -43,7 +43,7 @@ public class ComputadoraEntidad implements Serializable {
      * Identificador único de la computadora. Es generado automáticamente.
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idComputadora;
 
     /**

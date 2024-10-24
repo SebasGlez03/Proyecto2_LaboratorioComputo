@@ -19,14 +19,13 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
- * La clase {@code EstudianteEntidad} representa un estudiante
- * en la base de datos.
+ * La clase {@code EstudianteEntidad} representa un estudiante en la base de
+ * datos.
  * <p>
- * Esta entidad contiene información básica del estudiante,
- * así como relaciones con otras entidades como la unidad
- * académica, bloqueos, y carrera.
+ * Esta entidad contiene información básica del estudiante, así como relaciones
+ * con otras entidades como la unidad académica, bloqueos, y carrera.
  * </p>
- * 
+ *
  * @author sebasglez
  */
 @Entity
@@ -59,11 +58,7 @@ public class EstudianteEntidad implements Serializable {
     @Column(name = "estatusInscripcion", length = 15, nullable = false)
     private String estatusInscripcion;
 
-    @ManyToOne()
-    @JoinColumn(name = "idUnidadAcademica", nullable = false)
-    private UnidadAcademicaEntidad unidadAcademica;
-
-    @OneToMany (mappedBy = "estudiante", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "estudiante", cascade = CascadeType.PERSIST)
     private List<BloqueoEntidad> bloqueo;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
@@ -95,39 +90,19 @@ public class EstudianteEntidad implements Serializable {
     }
 
     /**
-     * Constructor que establece los valores de los atributos de la clase,
-     * incluyendo la relación con la unidad académica.
-     *
-     * @param nombre nombre del estudiante.
-     * @param apellidoPaterno apellido paterno del estudiante.
-     * @param apellidoMaterno apellido materno del estudiante.
-     * @param contrasenia contraseña del estudiante.
-     * @param estatusInscripcion estatus de la inscripción del estudiante.
-     * @param unidadAcademica relación entre el estudiante y una unidad académica.
-     */
-    public EstudianteEntidad(String nombre, String apellidoPaterno, String apellidoMaterno, String contrasenia, String estatusInscripcion, UnidadAcademicaEntidad unidadAcademica) {
-        this.nombre = nombre;
-        this.apellidoPaterno = apellidoPaterno;
-        this.apellidoMaterno = apellidoMaterno;
-        this.contrasenia = contrasenia;
-        this.estatusInscripcion = estatusInscripcion;
-        this.unidadAcademica = unidadAcademica;
-    }
-
-    /**
      * Constructor que establece todos los valores de los atributos de la clase.
      *
      * @param id identificador del estudiante.
      * @param nombre nombre del estudiante.
      * @param apellidoPaterno apellido paterno del estudiante.
-     * @param computadora entidad que representa la computadora rentada por el estudiante.
+     * @param computadora entidad que representa la computadora rentada por el
+     * estudiante.
      * @param apellidoMaterno apellido materno del estudiante.
      * @param contrasenia contraseña del estudiante.
      * @param estatusInscripcion estatus de la inscripción del estudiante.
-     * @param unidadAcademica relación entre el estudiante y una unidad académica.
      * @param carrera relación entre el estudiante y una carrera.
      */
-    public EstudianteEntidad(Long id, String nombre, String apellidoPaterno, ComputadoraEntidad computadora, String apellidoMaterno, String contrasenia, String estatusInscripcion, UnidadAcademicaEntidad unidadAcademica, CarreraEntidad carrera) {
+    public EstudianteEntidad(Long id, String nombre, String apellidoPaterno, ComputadoraEntidad computadora, String apellidoMaterno, String contrasenia, String estatusInscripcion, CarreraEntidad carrera) {
         this.idEstudiante = id;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
@@ -135,7 +110,6 @@ public class EstudianteEntidad implements Serializable {
         this.apellidoMaterno = apellidoMaterno;
         this.contrasenia = contrasenia;
         this.estatusInscripcion = estatusInscripcion;
-        this.unidadAcademica = unidadAcademica;
         this.carrera = carrera;
     }
 
@@ -241,35 +215,18 @@ public class EstudianteEntidad implements Serializable {
     /**
      * Método que establece el estatus de la inscripción del estudiante.
      *
-     * @param estatusInscripcion estatus de la inscripción del estudiante a establecer.
+     * @param estatusInscripcion estatus de la inscripción del estudiante a
+     * establecer.
      */
     public void setEstatusInscripcion(String estatusInscripcion) {
         this.estatusInscripcion = estatusInscripcion;
     }
 
     /**
-     * Método que obtiene la relación de la unidad académica y el estudiante.
-     *
-     * @return relación de la unidad académica con el estudiante.
-     */
-    public UnidadAcademicaEntidad getUnidadAcademica() {
-        return unidadAcademica;
-    }
-
-    /**
-     * Método que establece la relación de la unidad académica y el estudiante.
-     *
-     * @param unidadAcademica relación de la unidad académica con el estudiante a establecer.
-     */
-    public void setUnidadAcademica(UnidadAcademicaEntidad unidadAcademica) {
-        this.unidadAcademica = unidadAcademica;
-    }
-
-    /**
      * Método que obtiene la relación de la computadora y el estudiante.
      *
      * @return relación de la computadora con el estudiante.
-     */    
+     */
     public ComputadoraEntidad getComputadora() {
         return computadora;
     }
@@ -277,7 +234,8 @@ public class EstudianteEntidad implements Serializable {
     /**
      * Método que establece la relación de la computadora y el estudiante.
      *
-     * @param computadora relación de la computadora con el estudiante a establecer.
+     * @param computadora relación de la computadora con el estudiante a
+     * establecer.
      */
     public void setComputadora(ComputadoraEntidad computadora) {
         this.computadora = computadora;
@@ -285,7 +243,7 @@ public class EstudianteEntidad implements Serializable {
 
     /**
      * Obtiene la lista de bloqueos asociados a un estudiante.
-     * 
+     *
      * @return Una lista de bloqueos asociados al estudiante.
      */
     public List<BloqueoEntidad> getBloqueo() {
@@ -294,7 +252,7 @@ public class EstudianteEntidad implements Serializable {
 
     /**
      * Establece la lista de bloqueos asociados a un estudiante.
-     * 
+     *
      * @param bloqueo La lista de bloqueos a establecer.
      */
     public void setBloqueo(List<BloqueoEntidad> bloqueo) {
@@ -326,6 +284,6 @@ public class EstudianteEntidad implements Serializable {
      */
     @Override
     public String toString() {
-        return "EstudianteEntidad{" + "id=" + idEstudiante + ", nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno + ", contrasenia=" + contrasenia + ", estatusInscripcion=" + estatusInscripcion + ", unidadAcademica=" + unidadAcademica + ", carrera=" + carrera + '}';
+        return "EstudianteEntidad{" + "id=" + idEstudiante + ", nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno + ", contrasenia=" + contrasenia + ", estatusInscripcion=" + estatusInscripcion + ", carrera=" + carrera + '}';
     }
 }

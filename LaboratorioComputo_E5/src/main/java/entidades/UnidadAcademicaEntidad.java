@@ -15,8 +15,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
- * La clase {@code UnidadAcademicaEntidad} representa una unidad de ITSON en la bd.
- * 
+ * La clase {@code UnidadAcademicaEntidad} representa una unidad de ITSON en la
+ * bd.
+ *
  * @author sebasglez
  */
 @Entity
@@ -31,9 +32,6 @@ public class UnidadAcademicaEntidad implements Serializable {
 
     @Column(name = "nombre", length = 50, nullable = false)
     private String nombre;
-
-    @OneToMany(mappedBy = "unidadAcademica")
-    private List<EstudianteEntidad> estudiantes;
 
     @OneToMany(mappedBy = "unidadAcademica")
     private List<CentroComputoEntidad> centrosComputo;
@@ -90,27 +88,6 @@ public class UnidadAcademicaEntidad implements Serializable {
     }
 
     /**
-     * Metodo que obtiene la lista de la relacion entre estudiante y
-     * unidadAcademica
-     *
-     * @return lista de la relacion entre estudiante y unidadAcademica
-     */
-    public List<EstudianteEntidad> getEstudiantes() {
-        return estudiantes;
-    }
-
-    /**
-     * Metodo que establece la lista de la relacion entre estudiante y
-     * unidadAcademica
-     *
-     * @param estudiantes lista de la relacion entre estudiante y
-     * unidadAcademica a establecer
-     */
-    public void setEstudiantes(List<EstudianteEntidad> estudiantes) {
-        this.estudiantes = estudiantes;
-    }
-
-    /**
      * Metodo que obtiene la lista de la relacion entre los centros de computo y
      * la unidadAcademica
      *
@@ -131,6 +108,5 @@ public class UnidadAcademicaEntidad implements Serializable {
     public void setCentrosComputo(List<CentroComputoEntidad> centrosComputo) {
         this.centrosComputo = centrosComputo;
     }
-
 
 }
