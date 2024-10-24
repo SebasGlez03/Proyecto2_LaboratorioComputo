@@ -26,6 +26,9 @@ public class FrmLogin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnAdmin = new javax.swing.JLabel();
+        btnAceptar = new javax.swing.JLabel();
+        btnCancelar = new javax.swing.JLabel();
         btnClose = new javax.swing.JLabel();
         txtContrasenia = new javax.swing.JTextField();
         txtId = new javax.swing.JTextField();
@@ -35,6 +38,34 @@ public class FrmLogin extends javax.swing.JFrame {
         setUndecorated(true);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnAdmin.png"))); // NOI18N
+        btnAdmin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAdmin.setPreferredSize(new java.awt.Dimension(121, 54));
+        btnAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAdminMouseClicked(evt);
+            }
+        });
+        getContentPane().add(btnAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 640, -1, -1));
+
+        btnAceptar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnAceptar_azul.png"))); // NOI18N
+        btnAceptar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAceptar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAceptarMouseClicked(evt);
+            }
+        });
+        getContentPane().add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 560, 121, 54));
+
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnCancelar.png"))); // NOI18N
+        btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCancelarMouseClicked(evt);
+            }
+        });
+        getContentPane().add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 560, 121, 54));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/close_btn.png"))); // NOI18N
         btnClose.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -65,6 +96,18 @@ public class FrmLogin extends javax.swing.JFrame {
     private void btnCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseClicked
         dispose();
     }//GEN-LAST:event_btnCloseMouseClicked
+
+    private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
+        System.out.println("boton cancelar click!");
+    }//GEN-LAST:event_btnCancelarMouseClicked
+
+    private void btnAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAceptarMouseClicked
+        System.out.println("boton aceptar click!");
+    }//GEN-LAST:event_btnAceptarMouseClicked
+
+    private void btnAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdminMouseClicked
+        System.out.println("boton admin click!");
+    }//GEN-LAST:event_btnAdminMouseClicked
 
     /**
      * @param args the command line arguments
@@ -103,6 +146,9 @@ public class FrmLogin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel background_img;
+    private javax.swing.JLabel btnAceptar;
+    private javax.swing.JLabel btnAdmin;
+    private javax.swing.JLabel btnCancelar;
     private javax.swing.JLabel btnClose;
     private javax.swing.JTextField txtContrasenia;
     private javax.swing.JTextField txtId;
