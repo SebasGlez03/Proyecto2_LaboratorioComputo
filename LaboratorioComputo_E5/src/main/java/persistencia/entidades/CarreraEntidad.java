@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package entidades;
+package persistencia.entidades;
 
 import java.io.Serializable;
 import java.util.Calendar;
@@ -188,4 +188,14 @@ public class CarreraEntidad implements Serializable {
         this.unidadAcademica = unidadAcademica;
     }
 
+    /**
+     * ToString
+     *
+     */
+    @Override
+    public String toString() {
+        return "CarreraEntidad{" + "idCarrera=" + idCarrera + ", nombre=" + nombre + ", tiempoDiario=" + tiempoDiario + ", unidadAcademica=" + unidadAcademica + ", estudiante=" + estudiante + '}';
+    }
+
+    
 }

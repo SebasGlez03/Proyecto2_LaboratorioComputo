@@ -2,18 +2,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package persistencia;
+package persistencia.DAO;
 
-import entidades.BloqueoEntidad;
+import persistencia.entidades.CarreraEntidad;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import javax.swing.JOptionPane;
 
 /**
- * La clase {@code BloqueoDAO} maneja las operaciones de persistencia
- * relacionadas con la entidad {@code BloqueoEntidad}.
+ * La clase {@code CarreraDAO} maneja las operaciones de persistencia
+ * relacionadas con la entidad {@code CarreraEntidad}.
  * Esta clase implementa métodos para guardar, eliminar y modificar registros
  * en la base de datos utilizando JPA y {@code EntityManager}.
  * 
@@ -23,7 +25,7 @@ import javax.swing.JOptionPane;
  * 
  * @author santi
  */
-public class BloqueoDAO {
+public class CarreraDAO {
 
     // Instancias para manejar el contexto de persistencia
     EntityManager entityManager = null;
@@ -31,24 +33,24 @@ public class BloqueoDAO {
     EntityTransaction transaction = null;
 
     /**
-     * Constructor por defecto para inicializar un objeto {@code BloqueoDAO}.
+     * Constructor por defecto para inicializar un objeto {@code CarreraDAO}.
      * Este constructor no requiere parámetros y se puede utilizar para crear instancias
      * de la clase.
      */
-    public BloqueoDAO() {
+    public CarreraDAO() {
         // Constructor vacío
     }
 
     /**
-     * Guarda un nuevo bloqueo en la base de datos.
+     * Guarda una nueva carrera en la base de datos.
      * 
-     * Este método inicia una transacción, persiste la entidad {@code BloqueoEntidad}
+     * Este método inicia una transacción, persiste la entidad {@code CarreraEntidad}
      * en la base de datos y confirma la transacción si no ocurre ningún error.
      * En caso de error, se realiza un rollback de la transacción para deshacer los cambios.
      * 
-     * @param bloqueo La entidad {@code BloqueoEntidad} que se desea persistir en la base de datos.
+     * @param Carrera La entidad {@code CarreraEntidad} que se desea persistir en la base de datos.
      */
-    public void guardarBloqueo(BloqueoEntidad bloqueo) {
+    public void guardarCarrera(CarreraEntidad Carrera) {
         try {
             // Construimos el EntityManager
             managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
@@ -57,7 +59,7 @@ public class BloqueoDAO {
             transaction.begin();
 
             // Persistimos la entidad en la base de datos
-            entityManager.persist(bloqueo);
+            entityManager.persist(Carrera);
 
             // Todo salió bien, se confirma la transacción
             transaction.commit();
@@ -77,15 +79,15 @@ public class BloqueoDAO {
     }
 
     /**
-     * Elimina un bloqueo existente en la base de datos.
+     * Elimina una carrera existente en la base de datos.
      * 
-     * Este método inicia una transacción, elimina la entidad {@code BloqueoEntidad}
+     * Este método inicia una transacción, elimina la entidad {@code CarreraEntidad}
      * de la base de datos y confirma la transacción si no ocurre ningún error.
      * En caso de error, se realiza un rollback de la transacción para deshacer los cambios.
      * 
-     * @param bloqueo La entidad {@code BloqueoEntidad} que se desea eliminar de la base de datos.
+     * @param Carrera La entidad {@code CarreraEntidad} que se desea eliminar de la base de datos.
      */
-    public void eliminarBloqueo(BloqueoEntidad bloqueo) {
+    public void eliminarCarrera(CarreraEntidad Carrera) {
         try {
             // Construimos el EntityManager
             managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
@@ -94,7 +96,7 @@ public class BloqueoDAO {
             transaction.begin();
 
             // Eliminamos la entidad de la base de datos
-            entityManager.remove(entityManager.contains(bloqueo) ? bloqueo : entityManager.merge(bloqueo));
+            entityManager.remove(entityManager.contains(Carrera) ? Carrera : entityManager.merge(Carrera));
 
             // Todo salió bien, se confirma la transacción
             transaction.commit();
@@ -114,15 +116,15 @@ public class BloqueoDAO {
     }
 
     /**
-     * Modifica un bloqueo existente en la base de datos.
+     * Modifica una carrera existente en la base de datos.
      * 
-     * Este método inicia una transacción, actualiza la entidad {@code BloqueoEntidad}
+     * Este método inicia una transacción, actualiza la entidad {@code CarreraEntidad}
      * en la base de datos y confirma la transacción si no ocurre ningún error.
      * En caso de error, se realiza un rollback de la transacción para deshacer los cambios.
      * 
-     * @param bloqueo La entidad {@code BloqueoEntidad} con los nuevos valores que se desean actualizar en la base de datos.
+     * @param Carrera La entidad {@code CarreraEntidad} con los nuevos valores que se desean actualizar en la base de datos.
      */
-    public void modificarBloqueo(BloqueoEntidad bloqueo) {
+    public void modificarCarrera(CarreraEntidad Carrera) {
         try {
             // Construimos el EntityManager
             managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
@@ -131,7 +133,7 @@ public class BloqueoDAO {
             transaction.begin();
 
             // Actualizamos la entidad en la base de datos
-            entityManager.merge(bloqueo);
+            entityManager.merge(Carrera);
 
             // Todo salió bien, se confirma la transacción
             transaction.commit();
@@ -149,4 +151,65 @@ public class BloqueoDAO {
             }
         }
     }
+    
+    /**
+     * Busca un {@code CarreraEntidad} en la base de datos.
+     * 
+     * Este método busca la entidad {@code CarreraEntidad}en la base de datos.
+     * 
+     * @param Carrera La entidad {@code CarreraEntidad} con los nuevos valores que se desean actualizar en la base de datos.
+     */
+    public CarreraEntidad buscarUnaCarrera(Long id) {
+
+        try{
+            // Construimos el EntityManager
+            managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
+            entityManager = managerFactory.createEntityManager();
+            
+            // Buscamos la entidad en la base de datos
+            CarreraEntidad carrera = entityManager.find(CarreraEntidad.class, id);
+
+            // Regresamos la entidad
+            return carrera;     
+        } catch (Exception e){
+                JOptionPane.showMessageDialog(null, "Error en Persistencia = " + e.getMessage());
+                return null;
+        } finally {
+            if (entityManager != null) {
+                // Cerramos el EntityManager
+                entityManager.close();
+            }
+        }
+ 
+    }    
+    
+    /**
+     * Busca todos los {@code CarreraEntidad} en la base de datos.
+     * 
+     * Este método busca la entidad {@code CarreraEntidad}en la base de datos.
+     * 
+     * @param Carrera La entidad {@code CarreraEntidad} con los nuevos valores que se desean actualizar en la base de datos.
+     */
+    public List<CarreraEntidad> buscarTodasCarrera() {
+
+        try{
+            // Construimos el EntityManager
+            managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
+            entityManager = managerFactory.createEntityManager();
+            
+            // Buscamos las entidades en la base de datos
+            TypedQuery<CarreraEntidad> query = entityManager.createQuery("SELECT a FROM CarreraEntidad a", CarreraEntidad.class);
+
+            // Regresamos la entidad
+            return query.getResultList();
+            } catch (Exception e){
+                JOptionPane.showMessageDialog(null, "Error en Persistencia = " + e.getMessage());
+                return null;
+        } finally {
+            if (entityManager != null) {
+                // Cerramos el EntityManager
+                entityManager.close();
+            }
+        }
+    }    
 }

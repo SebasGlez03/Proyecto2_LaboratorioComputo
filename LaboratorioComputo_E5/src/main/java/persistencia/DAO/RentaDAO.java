@@ -2,16 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package persistencia;
+package persistencia.DAO;
 
-import entidades.ComputadoraEntidad;
-import entidades.EstudianteEntidad;
-import entidades.RentaEntidad;
+import persistencia.entidades.ComputadoraEntidad;
+import persistencia.entidades.EstudianteEntidad;
+import persistencia.entidades.RentaEntidad;
 import java.util.Calendar;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import javax.swing.JOptionPane;
 
 /**
@@ -125,6 +127,65 @@ public class RentaDAO {
                 JOptionPane.showMessageDialog(null, "Error en Persistencia = " + e.getMessage());
             }
             e.printStackTrace(); // Imprime la traza del error en la consola
+        } finally {
+            if (entityManager != null) {
+                // Cerramos el EntityManager
+                entityManager.close();
+            }
+        }
+    }
+    
+    /**
+     * Busca un objeto de la tabla respectiva en la base de datos.
+     *  
+     * @param Long id
+     */
+    public RentaEntidad buscarUnaRenta(Long id) {
+
+        try{
+            // Construimos el EntityManager
+            managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
+            entityManager = managerFactory.createEntityManager();
+            
+            // Buscamos la entidad en la base de datos
+            RentaEntidad Renta = entityManager.find(RentaEntidad.class, id);
+
+            // Regresamos la entidad
+            return Renta;     
+        } catch (Exception e){
+                JOptionPane.showMessageDialog(null, "Error en Persistencia = " + e.getMessage());
+                return null;
+        } finally {
+            if (entityManager != null) {
+                // Cerramos el EntityManager
+                System.out.println("cierras");
+                entityManager.close();
+            }
+        }
+ 
+    }    
+    
+    /**
+     * Busca todos los objetos de la tabla respectiva en la base de datos.
+     * 
+     * 
+     * 
+     */
+    public List<RentaEntidad> buscarTodasRenta() {
+
+        try{
+            // Construimos el EntityManager
+            managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
+            entityManager = managerFactory.createEntityManager();
+            
+            // Buscamos las entidades en la base de datos
+            TypedQuery<RentaEntidad> query = entityManager.createQuery("SELECT a FROM RentaEntidad a", RentaEntidad.class);
+
+            // Regresamos la entidad
+            return query.getResultList();
+            } catch (Exception e){
+                JOptionPane.showMessageDialog(null, "Error en Persistencia = " + e.getMessage());
+                return null;
         } finally {
             if (entityManager != null) {
                 // Cerramos el EntityManager
