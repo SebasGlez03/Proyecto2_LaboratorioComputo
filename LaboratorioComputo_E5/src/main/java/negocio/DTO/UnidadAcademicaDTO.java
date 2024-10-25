@@ -4,8 +4,10 @@
  */
 package negocio.DTO;
 
+import java.util.ArrayList;
 import java.util.List;
 import persistencia.entidades.CentroComputoEntidad;
+import persistencia.entidades.UnidadAcademicaEntidad;
 
 /**
  *
@@ -15,15 +17,30 @@ public class UnidadAcademicaDTO {
     
     Long id;
     String nombre;
-    List<CentroComputoEntidad> centros;
+    List<CentroComputoDTO> centros;
 
     public UnidadAcademicaDTO() {
     }
 
-    public UnidadAcademicaDTO(Long id, String nombre, List<CentroComputoEntidad> centros) {
+    public UnidadAcademicaDTO(Long id, String nombre, List<CentroComputoDTO> centros) {
         this.id = id;
         this.nombre = nombre;
         this.centros = centros;
+    }
+    
+    public UnidadAcademicaDTO(UnidadAcademicaEntidad uaE){
+    
+        this.id = uaE.getId();
+        this.nombre = uaE.getNombre();
+        List<CentroComputoDTO> centros = new ArrayList<>();
+        
+        for (CentroComputoEntidad centro : uaE.getCentrosComputo()) {
+            CentroComputoDTO c = new CentroComputoDTO(centro);
+            centros.add(c);
+        }
+        
+        this.centros = centros;
+        
     }
 
     public Long getId() {
@@ -42,11 +59,11 @@ public class UnidadAcademicaDTO {
         this.nombre = nombre;
     }
 
-    public List<CentroComputoEntidad> getCentros() {
+    public List<CentroComputoDTO> getCentros() {
         return centros;
     }
 
-    public void setCentros(List<CentroComputoEntidad> centros) {
+    public void setCentros(List<CentroComputoDTO> centros) {
         this.centros = centros;
     }
 

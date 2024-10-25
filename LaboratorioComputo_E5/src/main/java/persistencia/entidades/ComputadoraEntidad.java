@@ -272,6 +272,8 @@ public class ComputadoraEntidad implements Serializable {
         this.apartado = rentas;
     }
 
+    
+    
     /**
      * Proporciona una representación en cadena de la entidad.
      *

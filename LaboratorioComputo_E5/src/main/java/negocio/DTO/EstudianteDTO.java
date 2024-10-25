@@ -4,7 +4,11 @@
  */
 package negocio.DTO;
 
+import java.util.ArrayList;
 import java.util.List;
+import persistencia.entidades.ApartadoEntidad;
+import persistencia.entidades.BloqueoEntidad;
+import persistencia.entidades.EstudianteEntidad;
 
 /**
  *
@@ -35,6 +39,35 @@ public class EstudianteDTO {
         this.estatusInscripcion = estatusInscripcion;
         this.bloqueos = bloqueos;
         this.apartados = apartados;
+    }
+
+    public EstudianteDTO(EstudianteEntidad e) {
+       
+        this.id = e.getId();
+        this.nombre = e.getNombre();
+        this.apellidoPaterno = e.getApellidoPaterno();
+        this.apellidoMaterno = e.getApellidoMaterno();
+        ComputadoraDTO c = new ComputadoraDTO(e.getComputadora());
+        this.computadora = c;
+        this.contrasenia = e.getContrasenia();
+        this.estatusInscripcion = e.getEstatusInscripcion();
+        
+        List<ApartadoDTO> apartados = new ArrayList<>();
+        for (ApartadoEntidad y : e.getApartado()) {
+            ApartadoDTO x = new ApartadoDTO(y);
+            apartados.add(x);
+        }
+        
+        this.apartados = apartados;
+        
+        List<BloqueoDTO> bloqueos = new ArrayList<>();
+        for (BloqueoEntidad y : e.getBloqueo()) {
+            BloqueoDTO x = new BloqueoDTO(y);
+            bloqueos.add(x);
+        }
+        
+        this.bloqueos = bloqueos;        
+        
     }
 
     public Long getId() {

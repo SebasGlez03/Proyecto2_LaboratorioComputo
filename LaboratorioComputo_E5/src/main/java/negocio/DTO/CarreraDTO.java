@@ -4,8 +4,11 @@
  */
 package negocio.DTO;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import persistencia.entidades.CarreraEntidad;
+import persistencia.entidades.EstudianteEntidad;
 
 /**
  * CarreraDTO representa el DTO (Data Transfer Object) para las carreras en un sistema académico.
@@ -56,6 +59,22 @@ public class CarreraDTO {
         this.id = id;
         this.nombre = nombre;
         this.tiempoDiario = tiempoDiario;
+        this.estudiantes = estudiantes;
+    }
+    
+    public CarreraDTO (CarreraEntidad c) {
+    
+        this.id = c.getIdCarrera();
+        this.nombre = c.getNombre();
+        this.tiempoDiario = c.getTiempoDiario();
+        
+        List<EstudianteDTO> estudiantes = new ArrayList<>();
+        
+        for (EstudianteEntidad y : c.getEstudiante()) {
+            EstudianteDTO x = new EstudianteDTO(y);
+            estudiantes.add(x);
+        }
+        
         this.estudiantes = estudiantes;
     }
 

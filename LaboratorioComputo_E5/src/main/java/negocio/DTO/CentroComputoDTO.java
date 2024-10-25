@@ -5,6 +5,7 @@
 package negocio.DTO;
 
 import java.util.Calendar;
+import persistencia.entidades.CentroComputoEntidad;
 
 /**
  *
@@ -29,6 +30,18 @@ public class CentroComputoDTO {
         this.horaInicioServicio = horaInicioServicio;
         this.horaFinServicio = horaFinServicio;
         this.unidad = unidad;
+    }
+    
+    public CentroComputoDTO(CentroComputoEntidad ccE){
+    
+        this.id = ccE.getId();
+        this.nombre = ccE.getNombre();
+        this.contraseniaMaestra = ccE.getContraseniaMaestra();
+        this.horaInicioServicio = ccE.getHoraInicioServicio();
+        this.horaFinServicio = ccE.getHoraFinServicio();
+        UnidadAcademicaDTO unidad = new UnidadAcademicaDTO(ccE.getUnidadAcademica());
+        this.unidad = unidad;
+        
     }
 
     public Long getId() {

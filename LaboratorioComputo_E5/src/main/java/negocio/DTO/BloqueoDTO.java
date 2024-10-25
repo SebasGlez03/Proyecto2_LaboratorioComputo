@@ -5,6 +5,7 @@
 package negocio.DTO;
 
 import java.util.Calendar;
+import persistencia.entidades.BloqueoEntidad;
 
 /**
  * BloqueoDTO representa el DTO (Data Transfer Object) para los bloqueos aplicados a los estudiantes
@@ -35,7 +36,7 @@ public class BloqueoDTO {
     /**
      * Fecha de inicio de la condición que llevó al bloqueo.
      */
-    Calendar fechaInicio;
+    Calendar fechaLiberacion;
 
     /**
      * Estudiante afectado por el bloqueo.
@@ -54,15 +55,26 @@ public class BloqueoDTO {
      * @param id El identificador único del bloqueo.
      * @param motivo El motivo del bloqueo.
      * @param fechaBloqueo La fecha en la que se aplicó el bloqueo.
-     * @param fechaInicio La fecha de inicio de la condición que llevó al bloqueo.
+     * @param fechaLiberacion La fecha de inicio de la condición que llevó al bloqueo.
      * @param estudiante El DTO del estudiante afectado.
      */
-    public BloqueoDTO(Long id, String motivo, Calendar fechaBloqueo, Calendar fechaInicio, EstudianteDTO estudiante) {
+    public BloqueoDTO(Long id, String motivo, Calendar fechaBloqueo, Calendar fechaLiberacion, EstudianteDTO estudiante) {
         this.id = id;
         this.motivo = motivo;
         this.fechaBloqueo = fechaBloqueo;
-        this.fechaInicio = fechaInicio;
+        this.fechaLiberacion = fechaLiberacion;
         this.estudiante = estudiante;
+    }
+    
+    public BloqueoDTO(BloqueoEntidad b){
+    
+        this.id = b.getId();
+        this.motivo = b.getMotivo();
+        this.fechaBloqueo = b.getFechaBloqueo();
+        this.fechaLiberacion = b.getFechaLiberacion();
+        EstudianteDTO e = new EstudianteDTO(b.getEstudiante());
+        this.estudiante = e;
+        
     }
 
     /**
@@ -124,17 +136,17 @@ public class BloqueoDTO {
      * 
      * @return La fecha de inicio de la condición.
      */
-    public Calendar getFechaInicio() {
-        return fechaInicio;
+    public Calendar getFechaLiberacion() {
+        return fechaLiberacion;
     }
 
     /**
      * Establece la fecha de inicio de la condición que llevó al bloqueo.
      * 
-     * @param fechaInicio La nueva fecha de inicio de la condición.
+     * @param fechaLiberacion La nueva fecha de inicio de la condición.
      */
-    public void setFechaInicio(Calendar fechaInicio) {
-        this.fechaInicio = fechaInicio;
+    public void setFechaLiberacion(Calendar fechaLiberacion) {
+        this.fechaLiberacion = fechaLiberacion;
     }
 
     /**
@@ -162,6 +174,6 @@ public class BloqueoDTO {
      */
     @Override
     public String toString() {
-        return "BloqueoDTO{" + "id=" + id + ", motivo=" + motivo + ", fechaBloqueo=" + fechaBloqueo + ", fechaInicio=" + fechaInicio + ", estudiante=" + estudiante + '}';
+        return "BloqueoDTO{" + "id=" + id + ", motivo=" + motivo + ", fechaBloqueo=" + fechaBloqueo + ", fechaInicio=" + fechaLiberacion + ", estudiante=" + estudiante + '}';
     }
 }

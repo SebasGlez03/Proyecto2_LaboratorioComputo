@@ -4,8 +4,11 @@
  */
 package negocio.DTO;
 
+import java.util.ArrayList;
 import java.util.List;
+import persistencia.entidades.ApartadoEntidad;
 import persistencia.entidades.CentroComputoEntidad;
+import persistencia.entidades.ComputadoraEntidad;
 
 /**
  *
@@ -30,6 +33,25 @@ public class ComputadoraDTO {
         this.estudiante = estudiante;
         this.ip = ip;
         this.apartados = apartados;
+    }
+    
+    public ComputadoraDTO(ComputadoraEntidad cE){
+    
+        this.id = cE.getIdComputadora();
+        this.esAdmin = cE.isEsAdmin();
+        CentroComputoDTO centro = new CentroComputoDTO(cE.getCentroComputoEntidad());
+        this.centroComputo = centro;
+        EstudianteDTO estudiante = new EstudianteDTO(cE.getEstudiante());
+        this.estudiante = estudiante;
+        this.ip = cE.getIp();
+        
+        List<ApartadoDTO> apartados = new ArrayList<>();
+        for (ApartadoEntidad a : cE.getApartado()) {
+            ApartadoDTO c = new ApartadoDTO(a);
+            apartados.add(c);
+        }
+        this.apartados = apartados;
+        
     }
 
     public Long getId() {

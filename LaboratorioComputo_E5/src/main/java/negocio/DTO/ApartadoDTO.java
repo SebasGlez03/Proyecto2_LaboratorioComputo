@@ -6,6 +6,8 @@ package negocio.DTO;
 
 import java.util.Calendar;
 import persistencia.entidades.ApartadoEntidad;
+import persistencia.entidades.ComputadoraEntidad;
+import persistencia.entidades.EstudianteEntidad;
 
 /**
  * Representa el DTO (Data Transfer Object) para los apartados de una computadora en un centro de cómputo.
@@ -71,7 +73,8 @@ public class ApartadoDTO {
         this.id = aE.getId();
         this.fechaInicio = aE.getFechaInicio();
         this.fechaFin = aE.getFechaFin();
-        this.estudiante = aE.getEstudiante();
+        this.estudiante = EstudianteDTO(aE.getEstudiante());
+        this.computadora = ComputadoraDTO(aE.getComputadora());
         
     }
 
@@ -173,5 +176,13 @@ public class ApartadoDTO {
     @Override
     public String toString() {
         return "ApartadoDTO{" + "id=" + id + ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", estudiante=" + estudiante + ", computadora=" + computadora + '}';
+    }
+
+    private EstudianteDTO EstudianteDTO(EstudianteEntidad estudiante) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private ComputadoraDTO ComputadoraDTO(ComputadoraEntidad computadora) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
