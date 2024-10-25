@@ -2,18 +2,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package presentacion.AdminMenu;
+package presentacion.AdminMenu.GestionarBloqueo;
+
+import presentacion.AdminMenu.FrmAdminMenu;
 
 /**
  *
  * @author nomar
  */
-public class FrmGestionarCarrera extends javax.swing.JFrame {
+public class FrmGestionarBloqueo extends javax.swing.JFrame {
 
     /**
-     * Creates new form FrmGestionarCarrera
+     * Creates new form FrmGestionarBloqueo
      */
-    public FrmGestionarCarrera() {
+    public FrmGestionarBloqueo() {
         initComponents();
     }
 
@@ -43,8 +45,8 @@ public class FrmGestionarCarrera extends javax.swing.JFrame {
 
         centroDeComputo.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         centroDeComputo.setForeground(new java.awt.Color(255, 255, 255));
-        centroDeComputo.setText("Carrera");
-        getContentPane().add(centroDeComputo, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 90, -1, -1));
+        centroDeComputo.setText("Bloqueo");
+        getContentPane().add(centroDeComputo, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 90, -1, -1));
 
         reporte.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         reporte.setForeground(new java.awt.Color(255, 255, 255));
@@ -119,20 +121,20 @@ public class FrmGestionarCarrera extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmGestionarCarrera.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmGestionarBloqueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmGestionarCarrera.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmGestionarBloqueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmGestionarCarrera.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmGestionarBloqueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmGestionarCarrera.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmGestionarBloqueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmGestionarCarrera().setVisible(true);
+                new FrmGestionarBloqueo().setVisible(true);
             }
         });
     }

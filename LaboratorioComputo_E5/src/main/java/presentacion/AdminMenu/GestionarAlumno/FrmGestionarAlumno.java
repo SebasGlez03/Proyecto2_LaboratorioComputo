@@ -2,18 +2,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package presentacion.AdminMenu;
+package presentacion.AdminMenu.GestionarAlumno;
+
+import presentacion.AdminMenu.FrmAdminMenu;
 
 /**
  *
  * @author nomar
  */
-public class FrmGestionarBloqueo extends javax.swing.JFrame {
+public class FrmGestionarAlumno extends javax.swing.JFrame {
 
     /**
-     * Creates new form FrmGestionarBloqueo
+     * Creates new form FrmGestionarAlumno
      */
-    public FrmGestionarBloqueo() {
+    public FrmGestionarAlumno() {
         initComponents();
     }
 
@@ -28,13 +30,13 @@ public class FrmGestionarBloqueo extends javax.swing.JFrame {
 
         centroDeComputo = new javax.swing.JLabel();
         reporte = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         btnAtras = new javax.swing.JLabel();
         btnAgregar = new javax.swing.JLabel();
         btnEditar = new javax.swing.JLabel();
         btnEliminar = new javax.swing.JLabel();
         btnFlechaDerecha = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         btnFlechaIzquierda = new javax.swing.JLabel();
         fondo = new javax.swing.JLabel();
 
@@ -43,13 +45,28 @@ public class FrmGestionarBloqueo extends javax.swing.JFrame {
 
         centroDeComputo.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         centroDeComputo.setForeground(new java.awt.Color(255, 255, 255));
-        centroDeComputo.setText("Bloqueo");
-        getContentPane().add(centroDeComputo, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 90, -1, -1));
+        centroDeComputo.setText("Alumno");
+        getContentPane().add(centroDeComputo, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 90, -1, -1));
 
         reporte.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         reporte.setForeground(new java.awt.Color(255, 255, 255));
         reporte.setText("Gestionar");
         getContentPane().add(reporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 40, -1, -1));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, 810, -1));
 
         btnAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnAtras.png"))); // NOI18N
         btnAtras.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -70,21 +87,6 @@ public class FrmGestionarBloqueo extends javax.swing.JFrame {
 
         btnFlechaDerecha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnFlechaD.png"))); // NOI18N
         getContentPane().add(btnFlechaDerecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 410, -1, -1));
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
-
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, 810, -1));
 
         btnFlechaIzquierda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnFlechaI.png"))); // NOI18N
         getContentPane().add(btnFlechaIzquierda, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, -1, -1));
@@ -119,20 +121,20 @@ public class FrmGestionarBloqueo extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmGestionarBloqueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmGestionarAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmGestionarBloqueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmGestionarAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmGestionarBloqueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmGestionarAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmGestionarBloqueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmGestionarAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmGestionarBloqueo().setVisible(true);
+                new FrmGestionarAlumno().setVisible(true);
             }
         });
     }
