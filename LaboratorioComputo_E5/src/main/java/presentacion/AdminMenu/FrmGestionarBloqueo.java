@@ -42,14 +42,21 @@ public class FrmGestionarBloqueo extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         centroDeComputo.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        centroDeComputo.setForeground(new java.awt.Color(255, 255, 255));
         centroDeComputo.setText("Bloqueo");
         getContentPane().add(centroDeComputo, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 90, -1, -1));
 
         reporte.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        reporte.setForeground(new java.awt.Color(255, 255, 255));
         reporte.setText("Gestionar");
         getContentPane().add(reporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 40, -1, -1));
 
         btnAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnAtras.png"))); // NOI18N
+        btnAtras.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAtrasMouseClicked(evt);
+            }
+        });
         getContentPane().add(btnAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 680, -1, -1));
 
         btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnAgregar.png"))); // NOI18N
@@ -88,6 +95,12 @@ public class FrmGestionarBloqueo extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAtrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtrasMouseClicked
+        // TODO add your handling code here:
+        new FrmAdminMenu().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnAtrasMouseClicked
 
     /**
      * @param args the command line arguments

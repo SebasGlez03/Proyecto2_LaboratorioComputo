@@ -4,6 +4,8 @@
  */
 package presentacion.Reportes;
 
+import presentacion.AdminMenu.FrmReportes;
+
 /**
  *
  * @author nomar
@@ -28,18 +30,29 @@ public class FrmReporteCarrera extends javax.swing.JFrame {
 
         reporte = new javax.swing.JLabel();
         carrera = new javax.swing.JLabel();
+        btnAtras = new javax.swing.JLabel();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         reporte.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        reporte.setForeground(new java.awt.Color(255, 255, 255));
         reporte.setText("Reporte");
         getContentPane().add(reporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 40, -1, -1));
 
         carrera.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        carrera.setForeground(new java.awt.Color(255, 255, 255));
         carrera.setText("Carreras");
         getContentPane().add(carrera, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 90, -1, -1));
+
+        btnAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnAtras.png"))); // NOI18N
+        btnAtras.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAtrasMouseClicked(evt);
+            }
+        });
+        getContentPane().add(btnAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 680, -1, -1));
 
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BackGroundGeneral.jpg"))); // NOI18N
         getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -47,6 +60,12 @@ public class FrmReporteCarrera extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAtrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtrasMouseClicked
+        // TODO add your handling code here:
+        new FrmReportes().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnAtrasMouseClicked
 
     /**
      * @param args the command line arguments
@@ -84,6 +103,7 @@ public class FrmReporteCarrera extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btnAtras;
     private javax.swing.JLabel carrera;
     private javax.swing.JLabel fondo;
     private javax.swing.JLabel reporte;

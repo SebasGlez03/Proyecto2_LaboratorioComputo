@@ -28,18 +28,29 @@ public class FrmInsertarUnidad extends javax.swing.JFrame {
 
         centroDeComputo = new javax.swing.JLabel();
         reporte = new javax.swing.JLabel();
+        btnAtras = new javax.swing.JLabel();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         centroDeComputo.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        centroDeComputo.setForeground(new java.awt.Color(255, 255, 255));
         centroDeComputo.setText("Unidad");
         getContentPane().add(centroDeComputo, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 90, -1, -1));
 
         reporte.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        reporte.setForeground(new java.awt.Color(255, 255, 255));
         reporte.setText("Insertar");
         getContentPane().add(reporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 40, -1, -1));
+
+        btnAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnAtras.png"))); // NOI18N
+        btnAtras.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAtrasMouseClicked(evt);
+            }
+        });
+        getContentPane().add(btnAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 680, -1, -1));
 
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BackGroundGeneral.jpg"))); // NOI18N
         getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -47,6 +58,12 @@ public class FrmInsertarUnidad extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAtrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtrasMouseClicked
+        // TODO add your handling code here:
+        new FrmAdminMenu().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnAtrasMouseClicked
 
     /**
      * @param args the command line arguments
@@ -84,6 +101,7 @@ public class FrmInsertarUnidad extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btnAtras;
     private javax.swing.JLabel centroDeComputo;
     private javax.swing.JLabel fondo;
     private javax.swing.JLabel reporte;

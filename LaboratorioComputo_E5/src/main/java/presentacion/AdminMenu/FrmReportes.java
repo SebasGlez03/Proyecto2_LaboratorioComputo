@@ -4,7 +4,9 @@
  */
 package presentacion.AdminMenu;
 
-import presentacion.AdminMenu.FrmAdminMenu;
+import presentacion.Reportes.FrmReporteCarrera;
+import presentacion.Reportes.FrmReporteBloqueos;
+import presentacion.Reportes.FrmReporteCentroDeComputo;
 
 /**
  *
@@ -78,15 +80,20 @@ public class FrmReportes extends javax.swing.JFrame {
 
     private void btnBloqueosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBloqueosMouseClicked
         // TODO add your handling code here:
+        new FrmReporteBloqueos().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnBloqueosMouseClicked
 
     private void btnCarreraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCarreraMouseClicked
         // TODO add your handling code here:
+        new FrmReporteCarrera().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnCarreraMouseClicked
 
     private void btnCentroDeComputoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCentroDeComputoMouseClicked
         // TODO add your handling code here:
-
+        new FrmReporteCentroDeComputo().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnCentroDeComputoMouseClicked
 
     private void btnAtrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtrasMouseClicked
