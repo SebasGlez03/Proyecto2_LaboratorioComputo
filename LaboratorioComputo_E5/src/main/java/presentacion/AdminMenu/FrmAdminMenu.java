@@ -65,6 +65,7 @@ public class FrmAdminMenu extends javax.swing.JFrame {
         getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnReporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReporteMouseClicked
@@ -75,22 +76,32 @@ public class FrmAdminMenu extends javax.swing.JFrame {
 
     private void btnInsetarUnidadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInsetarUnidadesMouseClicked
         // TODO add your handling code here:
+        new FrmInsertarUnidad().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnInsetarUnidadesMouseClicked
 
     private void btnGestionarCarreraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGestionarCarreraMouseClicked
         // TODO add your handling code here:
+        new FrmGestionarCarrera().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnGestionarCarreraMouseClicked
 
     private void btnGestionarAlumnosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGestionarAlumnosMouseClicked
         // TODO add your handling code here:
+        new FrmGestionarAlumno().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnGestionarAlumnosMouseClicked
 
     private void btnGestionarBloqueosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGestionarBloqueosMouseClicked
         // TODO add your handling code here:
+        new FrmGestionarBloqueo().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnGestionarBloqueosMouseClicked
 
     private void btnGestionarComputadoraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGestionarComputadoraMouseClicked
         // TODO add your handling code here:
+        new FrmGestionarComputadora().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnGestionarComputadoraMouseClicked
 
     private void btnAtrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtrasMouseClicked
