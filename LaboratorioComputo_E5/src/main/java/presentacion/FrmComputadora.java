@@ -26,20 +26,43 @@ public class FrmComputadora extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        txtNumComputadora = new javax.swing.JLabel();
+        txtContrasenia = new javax.swing.JTextField();
+        txtId = new javax.swing.JTextField();
+        btnDesbloquear = new javax.swing.JLabel();
+        background_img = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txtNumComputadora.setBackground(new java.awt.Color(187, 187, 187));
+        txtNumComputadora.setFont(new java.awt.Font("Arial", 1, 128)); // NOI18N
+        txtNumComputadora.setForeground(new java.awt.Color(153, 153, 153));
+        txtNumComputadora.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtNumComputadora.setText("52");
+        getContentPane().add(txtNumComputadora, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 40, 164, 155));
+
+        txtContrasenia.setBackground(new java.awt.Color(114, 114, 114));
+        txtContrasenia.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtContrasenia.setForeground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(txtContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 630, 260, 40));
+
+        txtId.setBackground(new java.awt.Color(114, 114, 114));
+        txtId.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtId.setForeground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 540, 260, 40));
+
+        btnDesbloquear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnDesbloquear.png"))); // NOI18N
+        btnDesbloquear.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        getContentPane().add(btnDesbloquear, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 690, 157, 41));
+
+        background_img.setIcon(new javax.swing.ImageIcon(getClass().getResource("/background_Computadora.png"))); // NOI18N
+        getContentPane().add(background_img, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 750));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**
@@ -78,5 +101,10 @@ public class FrmComputadora extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel background_img;
+    private javax.swing.JLabel btnDesbloquear;
+    private javax.swing.JTextField txtContrasenia;
+    private javax.swing.JTextField txtId;
+    private javax.swing.JLabel txtNumComputadora;
     // End of variables declaration//GEN-END:variables
 }
