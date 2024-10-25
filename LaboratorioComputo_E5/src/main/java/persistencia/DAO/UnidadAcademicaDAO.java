@@ -4,7 +4,7 @@
  */
 package persistencia.DAO;
 
-import persistencia.entidades.RentaEntidad;
+import persistencia.entidades.ApartadoEntidad;
 import persistencia.entidades.UnidadAcademicaEntidad;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -13,6 +13,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import javax.swing.JOptionPane;
+import persistencia.Interfaces.IUnidadAcademicaDAO;
 
 /**
  * La clase {@code UnidadAcademicaDAO} maneja las operaciones de persistencia
@@ -26,7 +27,7 @@ import javax.swing.JOptionPane;
  * 
  * @author santi
  */
-public class UnidadAcademicaDAO {
+public class UnidadAcademicaDAO implements IUnidadAcademicaDAO{
 
     // Instancias para manejar el contexto de persistencia
     EntityManager entityManager = null;

@@ -12,6 +12,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import javax.swing.JOptionPane;
+import persistencia.Interfaces.ICarreraDAO;
 
 /**
  * La clase {@code CarreraDAO} maneja las operaciones de persistencia
@@ -25,7 +26,7 @@ import javax.swing.JOptionPane;
  * 
  * @author santi
  */
-public class CarreraDAO {
+public class CarreraDAO implements ICarreraDAO{
 
     // Instancias para manejar el contexto de persistencia
     EntityManager entityManager = null;

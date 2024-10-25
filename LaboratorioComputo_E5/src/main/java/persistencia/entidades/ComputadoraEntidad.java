@@ -93,7 +93,7 @@ public class ComputadoraEntidad implements Serializable {
     private int numMaquina;
 
     @OneToMany(mappedBy = "computadora")
-    private List<RentaEntidad> rentas;
+    private List<ApartadoEntidad> apartado;
 
     /**
      * Constructor por defecto de la entidad. Es requerido por JPA para crear
@@ -254,22 +254,22 @@ public class ComputadoraEntidad implements Serializable {
     }
 
     /**
-     * Obtiene la lista de rentas que estan asociadas ca una computadora.
+     * Obtiene la lista de apartado que estan asociadas ca una computadora.
      *
-     * @return Lista de rentas que estan asociadas con la computadora.
+     * @return Lista de apartado que estan asociadas con la computadora.
      */
-    public List<RentaEntidad> getRentas() {
-        return rentas;
+    public List<ApartadoEntidad> getApartado() {
+        return apartado;
     }
 
     /**
-     * Establece la lista de rentas que estan asociadas a una computadora.
+     * Establece la lista de apartado que estan asociadas a una computadora.
      *
-     * @param rentas Lista de rentas que estan asociadas a una computadora a
-     * establecer.
+     * @param rentas Lista de apartado que estan asociadas a una computadora a
+ establecer.
      */
-    public void setRentas(List<RentaEntidad> rentas) {
-        this.rentas = rentas;
+    public void setApartado(List<ApartadoEntidad> rentas) {
+        this.apartado = rentas;
     }
 
     /**
@@ -280,7 +280,7 @@ public class ComputadoraEntidad implements Serializable {
      */
     @Override
     public String toString() {
-        return "ComputadoraEntidad{" + "idComputadora=" + idComputadora + ", esAdmin=" + esAdmin + ", centroComputoEntidad=" + centroComputoEntidad + ", estudiante=" + estudiante + ", ip=" + ip + ", software=" + software + ", numMaquina=" + numMaquina + ", rentas=" + rentas + '}';
+        return "ComputadoraEntidad{" + "idComputadora=" + idComputadora + ", esAdmin=" + esAdmin + ", centroComputoEntidad=" + centroComputoEntidad + ", estudiante=" + estudiante + ", ip=" + ip + ", software=" + software + ", numMaquina=" + numMaquina + ", rentas=" + apartado + '}';
     }
 
 }

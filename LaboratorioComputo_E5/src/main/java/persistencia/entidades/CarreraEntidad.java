@@ -59,13 +59,6 @@ public class CarreraEntidad implements Serializable {
     @Column(name = "tiempoDiario", nullable = false)
     private Date tiempoDiario;
 
-    /**
-     * Lista de unidadesAcademmias asociadas a la carrera. Esta es una relacion
-     * de muchos a uno con la entidad (@code UnidadAcademicaEntidad)
-     */
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "idUnidadAcademica", nullable = false)
-    private UnidadAcademicaEntidad unidadAcademica;
 
     /**
      * Lista de estudiantes asociados a la carrera. Esta es una relación de uno
@@ -91,10 +84,9 @@ public class CarreraEntidad implements Serializable {
      * carrera,
      * @param estudiante La lista de estudiantes asociados a la carrera.
      */
-    public CarreraEntidad(String nombre, Date tiempoDiario, UnidadAcademicaEntidad unidadAcademica, List<EstudianteEntidad> estudiante) {
+    public CarreraEntidad(String nombre, Date tiempoDiario, List<EstudianteEntidad> estudiante) {
         this.nombre = nombre;
         this.tiempoDiario = tiempoDiario;
-        this.unidadAcademica = unidadAcademica;
         this.estudiante = estudiante;
     }
 
@@ -171,30 +163,12 @@ public class CarreraEntidad implements Serializable {
     }
 
     /**
-     * Obtiene la lista de unidadesAcademicas asociadas a la carrera.
-     *
-     * @return La lista de unidadesAcademicas.
-     */
-    public UnidadAcademicaEntidad getUnidadAcademica() {
-        return unidadAcademica;
-    }
-
-    /**
-     * Establece la lista de unidadesAcademicas asociadas a la carrera.
-     *
-     * @param unidadAcademica La nueva lista de unidadesAcademicas.
-     */
-    public void setUnidadAcademica(UnidadAcademicaEntidad unidadAcademica) {
-        this.unidadAcademica = unidadAcademica;
-    }
-
-    /**
      * ToString
      *
      */
     @Override
     public String toString() {
-        return "CarreraEntidad{" + "idCarrera=" + idCarrera + ", nombre=" + nombre + ", tiempoDiario=" + tiempoDiario + ", unidadAcademica=" + unidadAcademica + ", estudiante=" + estudiante + '}';
+        return "CarreraEntidad{" + "idCarrera=" + idCarrera + ", nombre=" + nombre + ", tiempoDiario=" + tiempoDiario +  ", estudiante=" + estudiante + '}';
     }
 
     

@@ -9,7 +9,7 @@ import persistencia.entidades.CarreraEntidad;
 import persistencia.entidades.CentroComputoEntidad;
 import persistencia.entidades.ComputadoraEntidad;
 import persistencia.entidades.EstudianteEntidad;
-import persistencia.entidades.RentaEntidad;
+import persistencia.entidades.ApartadoEntidad;
 import persistencia.entidades.UnidadAcademicaEntidad;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public class pruebasDAO {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        RentaDAO rentaDAO = new RentaDAO();
+        ApartadoDAO rentaDAO = new ApartadoDAO();
         UnidadAcademicaDAO unidadAcademicaDAO = new UnidadAcademicaDAO();
         BloqueoDAO bloqueoDAO = new BloqueoDAO();
         EstudianteDAO estudianteDAO = new EstudianteDAO();
@@ -52,7 +52,7 @@ public class pruebasDAO {
 
         estudiantes.add(estudianteEntidad);
         estudiantes.add(estudianteEntidad2);
-        CarreraEntidad caEntidad = new CarreraEntidad("Software", Date.from(Instant.now()), uaEntidad, estudiantes);
+        CarreraEntidad caEntidad = new CarreraEntidad("Software", Date.from(Instant.now()), estudiantes);
 
         List<BloqueoEntidad> bloqueos = new ArrayList<>();
         bloqueos.add(bloqueoEntidad);
@@ -64,7 +64,7 @@ public class pruebasDAO {
         estudianteEntidad2.setCarrera(caEntidad);
         estudianteEntidad.setBloqueo(bloqueos);
         
-//        RentaEntidad rentaEntidad = new RentaEntidad(Calendar.getInstance(), estudianteEntidad, computadoraEntidad);
+//        ApartadoEntidad rentaEntidad = new ApartadoEntidad(Calendar.getInstance(), estudianteEntidad, computadoraEntidad);
 //        rentaDAO.guardarRenta(rentaEntidad);
 //        
 //        rentaDAO.eliminarRenta(rentaEntidad);

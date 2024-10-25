@@ -40,11 +40,11 @@ public class Pruebas {
         CentroComputoEntidad centroComputoEntidad = new CentroComputoEntidad("Cisco", "10cntro01comp1209", new GregorianCalendar(0, 0, 0, 14, 30, 0), new GregorianCalendar(0, 0, 0, 19, 30, 0), uaEntidad);
         ComputadoraEntidad computadoraEntidad = new ComputadoraEntidad(false, centroComputoEntidad, estudianteEntidad, "192.168.0.1", sfwr, 1);
         BloqueoEntidad bloqueoEntidad = new BloqueoEntidad("Ladrón", Calendar.getInstance(), Calendar.getInstance(), estudianteEntidad);
-        RentaEntidad rentaEntidad = new RentaEntidad(Calendar.getInstance(), Calendar.getInstance(), estudianteEntidad, computadoraEntidad);
+        ApartadoEntidad rentaEntidad = new ApartadoEntidad(Calendar.getInstance(), Calendar.getInstance(), estudianteEntidad, computadoraEntidad);
 
         estudiantes.add(estudianteEntidad);
         estudiantes.add(estudianteEntidad2);
-        CarreraEntidad caEntidad = new CarreraEntidad("Software", Date.from(Instant.now()), uaEntidad, estudiantes);
+        CarreraEntidad caEntidad = new CarreraEntidad("Software", Date.from(Instant.now()), estudiantes);
 
         List<BloqueoEntidad> bloqueos = new ArrayList<>();
         bloqueos.add(bloqueoEntidad);

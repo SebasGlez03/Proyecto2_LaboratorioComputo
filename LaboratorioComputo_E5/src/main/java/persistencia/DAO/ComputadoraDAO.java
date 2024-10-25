@@ -13,6 +13,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import javax.swing.JOptionPane;
+import persistencia.Interfaces.IComputadoraDAO;
 
 /**
  * La clase {@code ComputadoraDAO} maneja las operaciones de persistencia
@@ -26,7 +27,7 @@ import javax.swing.JOptionPane;
  * 
  * @author santi
  */
-public class ComputadoraDAO {
+public class ComputadoraDAO implements IComputadoraDAO{
 
     // Instancias para manejar el contexto de persistencia
     EntityManager entityManager = null;

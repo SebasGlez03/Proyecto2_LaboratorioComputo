@@ -22,13 +22,13 @@ import javax.persistence.TemporalType;
  * @author PC
  */
 @Entity
-@Table(name = "tblRenta")
-public class RentaEntidad implements Serializable {
+@Table(name = "tblApartado")
+public class ApartadoEntidad implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idRenta")
+    @Column(name = "idApartado")
     private Long id;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -50,7 +50,7 @@ public class RentaEntidad implements Serializable {
     /**
      * Constructor por omision
      */
-    public RentaEntidad() {
+    public ApartadoEntidad() {
     }
 
     /**
@@ -61,7 +61,7 @@ public class RentaEntidad implements Serializable {
      * @param estudiante Estudiante asociado con la renta
      * @param computadora Computadora asociada con la renta
      */
-    public RentaEntidad(Calendar fechaInicio, Calendar fechaFin, EstudianteEntidad estudiante, ComputadoraEntidad computadora) {
+    public ApartadoEntidad(Calendar fechaInicio, Calendar fechaFin, EstudianteEntidad estudiante, ComputadoraEntidad computadora) {
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.estudiante = estudiante;

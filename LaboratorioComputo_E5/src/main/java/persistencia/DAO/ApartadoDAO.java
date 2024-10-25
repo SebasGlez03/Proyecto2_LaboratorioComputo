@@ -6,7 +6,7 @@ package persistencia.DAO;
 
 import persistencia.entidades.ComputadoraEntidad;
 import persistencia.entidades.EstudianteEntidad;
-import persistencia.entidades.RentaEntidad;
+import persistencia.entidades.ApartadoEntidad;
 import java.util.Calendar;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -15,15 +15,16 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import javax.swing.JOptionPane;
+import persistencia.Interfaces.IRentaDAO;
 
 /**
- * La clase {@code RentaDAO} maneja las operaciones de persistencia relacionadas con la entidad {@code RentaEntidad}.
+ * La clase {@code ApartadoDAO} maneja las operaciones de persistencia relacionadas con la entidad {@code ApartadoEntidad}.
  * Esta clase implementa métodos para guardar, eliminar y modificar registros en la base de datos
  * utilizando JPA y {@code EntityManager}.
  * 
  * @author santi
  */
-public class RentaDAO {
+public class ApartadoDAO implements IRentaDAO{
 
     EntityManager entityManager = null;
     EntityManagerFactory managerFactory = null;             
@@ -32,16 +33,16 @@ public class RentaDAO {
     /**
      * Constructor por defecto para inicializar un objeto {@code RentaDAO}.
      */
-    public RentaDAO() {
+    public ApartadoDAO() {
         // Constructor vacío
     }
 
     /**
      * Guarda una nueva renta en la base de datos.
      * 
-     * @param renta La entidad {@code RentaEntidad} que se desea persistir en la base de datos.
+     * @param renta La entidad {@code ApartadoEntidad} que se desea persistir en la base de datos.
      */
-    public void guardarRenta(RentaEntidad renta) {
+    public void guardarRenta(ApartadoEntidad renta) {
         try {
             // Construimos el EntityManager
             managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
@@ -72,9 +73,9 @@ public class RentaDAO {
     /**
      * Elimina una renta existente en la base de datos.
      * 
-     * @param renta La entidad {@code RentaEntidad} que se desea eliminar de la base de datos.
+     * @param renta La entidad {@code ApartadoEntidad} que se desea eliminar de la base de datos.
      */
-    public void eliminarRenta(RentaEntidad renta) {
+    public void eliminarRenta(ApartadoEntidad renta) {
         try {
             // Construimos el EntityManager
             managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
@@ -105,9 +106,9 @@ public class RentaDAO {
     /**
      * Modifica una renta existente en la base de datos.
      * 
-     * @param renta La entidad {@code RentaEntidad} con los nuevos valores que se desean actualizar en la base de datos.
+     * @param renta La entidad {@code ApartadoEntidad} con los nuevos valores que se desean actualizar en la base de datos.
      */
-    public void modificarRenta(RentaEntidad renta) {
+    public void modificarRenta(ApartadoEntidad renta) {
         try {
             // Construimos el EntityManager
             managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
@@ -140,7 +141,7 @@ public class RentaDAO {
      *  
      * @param Long id
      */
-    public RentaEntidad buscarUnaRenta(Long id) {
+    public ApartadoEntidad buscarUnaRenta(Long id) {
 
         try{
             // Construimos el EntityManager
@@ -148,7 +149,7 @@ public class RentaDAO {
             entityManager = managerFactory.createEntityManager();
             
             // Buscamos la entidad en la base de datos
-            RentaEntidad Renta = entityManager.find(RentaEntidad.class, id);
+            ApartadoEntidad Renta = entityManager.find(ApartadoEntidad.class, id);
 
             // Regresamos la entidad
             return Renta;     
@@ -171,7 +172,7 @@ public class RentaDAO {
      * 
      * 
      */
-    public List<RentaEntidad> buscarTodasRenta() {
+    public List<ApartadoEntidad> buscarTodasRenta() {
 
         try{
             // Construimos el EntityManager
@@ -179,7 +180,7 @@ public class RentaDAO {
             entityManager = managerFactory.createEntityManager();
             
             // Buscamos las entidades en la base de datos
-            TypedQuery<RentaEntidad> query = entityManager.createQuery("SELECT a FROM RentaEntidad a", RentaEntidad.class);
+            TypedQuery<ApartadoEntidad> query = entityManager.createQuery("SELECT a FROM RentaEntidad a", ApartadoEntidad.class);
 
             // Regresamos la entidad
             return query.getResultList();
