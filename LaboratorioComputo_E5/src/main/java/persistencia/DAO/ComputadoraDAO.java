@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package persistencia;
+package persistencia.DAO;
 
-import entidades.BloqueoEntidad;
-import entidades.CentroComputoEntidad;
+import persistencia.entidades.CentroComputoEntidad;
+import persistencia.entidades.ComputadoraEntidad;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -15,18 +15,18 @@ import javax.persistence.TypedQuery;
 import javax.swing.JOptionPane;
 
 /**
- * La clase {@code CentroComputoDAO} maneja las operaciones de persistencia
- * relacionadas con la entidad {@code CentroComputoEntidad}. 
+ * La clase {@code ComputadoraDAO} maneja las operaciones de persistencia
+ * relacionadas con la entidad {@code ComputadoraEntidad}.
  * Esta clase implementa métodos para guardar, eliminar y modificar registros
  * en la base de datos utilizando JPA y {@code EntityManager}.
- *
- * La clase se asegura de manejar las transacciones y cualquier error durante
- * las operaciones de persistencia, mostrando mensajes de error en una ventana
- * emergente mediante {@code JOptionPane} si es necesario.
- *
+ * 
+ * La clase se asegura de manejar las transacciones y cualquier error durante las
+ * operaciones de persistencia, mostrando mensajes de error en una ventana emergente
+ * mediante {@code JOptionPane} si es necesario.
+ * 
  * @author santi
  */
-public class CentroComputoDAO {
+public class ComputadoraDAO {
 
     // Instancias para manejar el contexto de persistencia
     EntityManager entityManager = null;
@@ -34,26 +34,24 @@ public class CentroComputoDAO {
     EntityTransaction transaction = null;
 
     /**
-     * Constructor por defecto para inicializar un objeto
-     * {@code CentroComputoDAO}. Este constructor no requiere parámetros y se
-     * puede utilizar para crear instancias de la clase.
+     * Constructor por defecto para inicializar un objeto {@code ComputadoraDAO}.
+     * Este constructor no requiere parámetros y se puede utilizar para crear instancias
+     * de la clase.
      */
-    public CentroComputoDAO() {
+    public ComputadoraDAO() {
         // Constructor vacío
     }
 
     /**
-     * Guarda un nuevo centro de cómputo en la base de datos.
-     *
-     * Este método inicia una transacción, persiste la entidad
-     * {@code CentroComputoEntidad} en la base de datos y confirma la transacción
-     * si no ocurre ningún error. En caso de error, se realiza un rollback de la
-     * transacción para deshacer los cambios.
-     *
-     * @param CentroComputo La entidad {@code CentroComputoEntidad} que se desea
-     * persistir en la base de datos.
+     * Guarda una nueva computadora en la base de datos.
+     * 
+     * Este método inicia una transacción, persiste la entidad {@code ComputadoraEntidad}
+     * en la base de datos y confirma la transacción si no ocurre ningún error.
+     * En caso de error, se realiza un rollback de la transacción para deshacer los cambios.
+     * 
+     * @param Computadora La entidad {@code ComputadoraEntidad} que se desea persistir en la base de datos.
      */
-    public void guardarCentroComputo(CentroComputoEntidad CentroComputo) {
+    public void guardarComputadora(ComputadoraEntidad Computadora) {
         try {
             // Construimos el EntityManager
             managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
@@ -62,7 +60,7 @@ public class CentroComputoDAO {
             transaction.begin();
 
             // Persistimos la entidad en la base de datos
-            entityManager.persist(CentroComputo);
+            entityManager.persist(Computadora);
 
             // Todo salió bien, se confirma la transacción
             transaction.commit();
@@ -82,17 +80,15 @@ public class CentroComputoDAO {
     }
 
     /**
-     * Elimina un centro de cómputo existente en la base de datos.
-     *
-     * Este método inicia una transacción, elimina la entidad
-     * {@code CentroComputoEntidad} de la base de datos y confirma la transacción
-     * si no ocurre ningún error. En caso de error, se realiza un rollback de la
-     * transacción para deshacer los cambios.
-     *
-     * @param CentroComputo La entidad {@code CentroComputoEntidad} que se desea
-     * eliminar de la base de datos.
+     * Elimina una computadora existente en la base de datos.
+     * 
+     * Este método inicia una transacción, elimina la entidad {@code ComputadoraEntidad}
+     * de la base de datos y confirma la transacción si no ocurre ningún error.
+     * En caso de error, se realiza un rollback de la transacción para deshacer los cambios.
+     * 
+     * @param Computadora La entidad {@code ComputadoraEntidad} que se desea eliminar de la base de datos.
      */
-    public void eliminarCentroComputo(CentroComputoEntidad CentroComputo) {
+    public void eliminarComputadora(ComputadoraEntidad Computadora) {
         try {
             // Construimos el EntityManager
             managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
@@ -101,7 +97,7 @@ public class CentroComputoDAO {
             transaction.begin();
 
             // Eliminamos la entidad de la base de datos
-            entityManager.remove(entityManager.contains(CentroComputo) ? CentroComputo : entityManager.merge(CentroComputo));
+            entityManager.remove(entityManager.contains(Computadora) ? Computadora : entityManager.merge(Computadora));
 
             // Todo salió bien, se confirma la transacción
             transaction.commit();
@@ -121,17 +117,15 @@ public class CentroComputoDAO {
     }
 
     /**
-     * Modifica un centro de cómputo existente en la base de datos.
-     *
-     * Este método inicia una transacción, actualiza la entidad
-     * {@code CentroComputoEntidad} en la base de datos y confirma la transacción
-     * si no ocurre ningún error. En caso de error, se realiza un rollback de la
-     * transacción para deshacer los cambios.
-     *
-     * @param CentroComputo La entidad {@code CentroComputoEntidad} con los nuevos
-     * valores que se desean actualizar en la base de datos.
+     * Modifica una computadora existente en la base de datos.
+     * 
+     * Este método inicia una transacción, actualiza la entidad {@code ComputadoraEntidad}
+     * en la base de datos y confirma la transacción si no ocurre ningún error.
+     * En caso de error, se realiza un rollback de la transacción para deshacer los cambios.
+     * 
+     * @param Computadora La entidad {@code ComputadoraEntidad} con los nuevos valores que se desean actualizar en la base de datos.
      */
-    public void modificarCentroComputo(CentroComputoEntidad CentroComputo) {
+    public void modificarComputadora(ComputadoraEntidad Computadora) {
         try {
             // Construimos el EntityManager
             managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
@@ -140,7 +134,7 @@ public class CentroComputoDAO {
             transaction.begin();
 
             // Actualizamos la entidad en la base de datos
-            entityManager.merge(CentroComputo);
+            entityManager.merge(Computadora);
 
             // Todo salió bien, se confirma la transacción
             transaction.commit();
@@ -164,7 +158,7 @@ public class CentroComputoDAO {
      *  
      * @param Long id
      */
-    public CentroComputoEntidad buscarUnCentroComputo(Long id) {
+    public ComputadoraEntidad buscarUnaComputadora(Long id) {
 
         try{
             // Construimos el EntityManager
@@ -172,10 +166,10 @@ public class CentroComputoDAO {
             entityManager = managerFactory.createEntityManager();
             
             // Buscamos la entidad en la base de datos
-            CentroComputoEntidad CentroComputo = entityManager.find(CentroComputoEntidad.class, id);
+            ComputadoraEntidad Computadora = entityManager.find(ComputadoraEntidad.class, id);
 
             // Regresamos la entidad
-            return CentroComputo;     
+            return Computadora;     
         } catch (Exception e){
                 JOptionPane.showMessageDialog(null, "Error en Persistencia = " + e.getMessage());
                 return null;
@@ -195,7 +189,7 @@ public class CentroComputoDAO {
      * 
      * 
      */
-    public List<CentroComputoEntidad> buscarTodosCentroComputo() {
+    public List<ComputadoraEntidad> buscarTodosComputadora() {
 
         try{
             // Construimos el EntityManager
@@ -203,7 +197,7 @@ public class CentroComputoDAO {
             entityManager = managerFactory.createEntityManager();
             
             // Buscamos las entidades en la base de datos
-            TypedQuery<CentroComputoEntidad> query = entityManager.createQuery("SELECT a FROM CentroComputoEntidad a", CentroComputoEntidad.class);
+            TypedQuery<ComputadoraEntidad> query = entityManager.createQuery("SELECT a FROM ComputadoraEntidad a", ComputadoraEntidad.class);
 
             // Regresamos la entidad
             return query.getResultList();
@@ -216,5 +210,5 @@ public class CentroComputoDAO {
                 entityManager.close();
             }
         }
-    } 
+    }
 }

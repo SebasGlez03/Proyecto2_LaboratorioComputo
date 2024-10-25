@@ -2,15 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
-package persistencia;
+package persistencia.DAO;
 
-import entidades.BloqueoEntidad;
-import entidades.CarreraEntidad;
-import entidades.CentroComputoEntidad;
-import entidades.ComputadoraEntidad;
-import entidades.EstudianteEntidad;
-import entidades.RentaEntidad;
-import entidades.UnidadAcademicaEntidad;
+import persistencia.entidades.BloqueoEntidad;
+import persistencia.entidades.CarreraEntidad;
+import persistencia.entidades.CentroComputoEntidad;
+import persistencia.entidades.ComputadoraEntidad;
+import persistencia.entidades.EstudianteEntidad;
+import persistencia.entidades.RentaEntidad;
+import persistencia.entidades.UnidadAcademicaEntidad;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Calendar;

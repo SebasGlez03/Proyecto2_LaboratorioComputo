@@ -2,10 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package persistencia;
+package persistencia.DAO;
 
-import entidades.RentaEntidad;
-import entidades.UnidadAcademicaEntidad;
+import persistencia.entidades.CarreraEntidad;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -15,8 +14,8 @@ import javax.persistence.TypedQuery;
 import javax.swing.JOptionPane;
 
 /**
- * La clase {@code UnidadAcademicaDAO} maneja las operaciones de persistencia
- * relacionadas con la entidad {@code UnidadAcademicaEntidad}.
+ * La clase {@code CarreraDAO} maneja las operaciones de persistencia
+ * relacionadas con la entidad {@code CarreraEntidad}.
  * Esta clase implementa métodos para guardar, eliminar y modificar registros
  * en la base de datos utilizando JPA y {@code EntityManager}.
  * 
@@ -26,7 +25,7 @@ import javax.swing.JOptionPane;
  * 
  * @author santi
  */
-public class UnidadAcademicaDAO {
+public class CarreraDAO {
 
     // Instancias para manejar el contexto de persistencia
     EntityManager entityManager = null;
@@ -34,24 +33,24 @@ public class UnidadAcademicaDAO {
     EntityTransaction transaction = null;
 
     /**
-     * Constructor por defecto para inicializar un objeto {@code UnidadAcademicaDAO}.
+     * Constructor por defecto para inicializar un objeto {@code CarreraDAO}.
      * Este constructor no requiere parámetros y se puede utilizar para crear instancias
      * de la clase.
      */
-    public UnidadAcademicaDAO() {
+    public CarreraDAO() {
         // Constructor vacío
     }
 
     /**
-     * Guarda una nueva unidad académica en la base de datos.
+     * Guarda una nueva carrera en la base de datos.
      * 
-     * Este método inicia una transacción, persiste la entidad {@code UnidadAcademicaEntidad}
+     * Este método inicia una transacción, persiste la entidad {@code CarreraEntidad}
      * en la base de datos y confirma la transacción si no ocurre ningún error.
      * En caso de error, se realiza un rollback de la transacción para deshacer los cambios.
      * 
-     * @param unidadAcademica La entidad {@code UnidadAcademicaEntidad} que se desea persistir en la base de datos.
+     * @param Carrera La entidad {@code CarreraEntidad} que se desea persistir en la base de datos.
      */
-    public void guardarUnidadAcademica(UnidadAcademicaEntidad unidadAcademica) {
+    public void guardarCarrera(CarreraEntidad Carrera) {
         try {
             // Construimos el EntityManager
             managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
@@ -60,7 +59,7 @@ public class UnidadAcademicaDAO {
             transaction.begin();
 
             // Persistimos la entidad en la base de datos
-            entityManager.persist(unidadAcademica);
+            entityManager.persist(Carrera);
 
             // Todo salió bien, se confirma la transacción
             transaction.commit();
@@ -80,15 +79,15 @@ public class UnidadAcademicaDAO {
     }
 
     /**
-     * Elimina una unidad académica existente en la base de datos.
+     * Elimina una carrera existente en la base de datos.
      * 
-     * Este método inicia una transacción, elimina la entidad {@code UnidadAcademicaEntidad}
+     * Este método inicia una transacción, elimina la entidad {@code CarreraEntidad}
      * de la base de datos y confirma la transacción si no ocurre ningún error.
      * En caso de error, se realiza un rollback de la transacción para deshacer los cambios.
      * 
-     * @param unidadAcademica La entidad {@code UnidadAcademicaEntidad} que se desea eliminar de la base de datos.
+     * @param Carrera La entidad {@code CarreraEntidad} que se desea eliminar de la base de datos.
      */
-    public void eliminarUnidadAcademica(UnidadAcademicaEntidad unidadAcademica) {
+    public void eliminarCarrera(CarreraEntidad Carrera) {
         try {
             // Construimos el EntityManager
             managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
@@ -97,7 +96,7 @@ public class UnidadAcademicaDAO {
             transaction.begin();
 
             // Eliminamos la entidad de la base de datos
-            entityManager.remove(entityManager.contains(unidadAcademica) ? unidadAcademica : entityManager.merge(unidadAcademica));
+            entityManager.remove(entityManager.contains(Carrera) ? Carrera : entityManager.merge(Carrera));
 
             // Todo salió bien, se confirma la transacción
             transaction.commit();
@@ -117,15 +116,15 @@ public class UnidadAcademicaDAO {
     }
 
     /**
-     * Modifica una unidad académica existente en la base de datos.
+     * Modifica una carrera existente en la base de datos.
      * 
-     * Este método inicia una transacción, actualiza la entidad {@code UnidadAcademicaEntidad}
+     * Este método inicia una transacción, actualiza la entidad {@code CarreraEntidad}
      * en la base de datos y confirma la transacción si no ocurre ningún error.
      * En caso de error, se realiza un rollback de la transacción para deshacer los cambios.
      * 
-     * @param unidadAcademica La entidad {@code UnidadAcademicaEntidad} con los nuevos valores que se desean actualizar en la base de datos.
+     * @param Carrera La entidad {@code CarreraEntidad} con los nuevos valores que se desean actualizar en la base de datos.
      */
-    public void modificarUnidadAcademica(UnidadAcademicaEntidad unidadAcademica) {
+    public void modificarCarrera(CarreraEntidad Carrera) {
         try {
             // Construimos el EntityManager
             managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
@@ -134,7 +133,7 @@ public class UnidadAcademicaDAO {
             transaction.begin();
 
             // Actualizamos la entidad en la base de datos
-            entityManager.merge(unidadAcademica);
+            entityManager.merge(Carrera);
 
             // Todo salió bien, se confirma la transacción
             transaction.commit();
@@ -154,11 +153,13 @@ public class UnidadAcademicaDAO {
     }
     
     /**
-     * Busca un objeto de la tabla respectiva en la base de datos.
-     *  
-     * @param Long id
+     * Busca un {@code CarreraEntidad} en la base de datos.
+     * 
+     * Este método busca la entidad {@code CarreraEntidad}en la base de datos.
+     * 
+     * @param Carrera La entidad {@code CarreraEntidad} con los nuevos valores que se desean actualizar en la base de datos.
      */
-    public UnidadAcademicaEntidad buscarUnaUnidadAcademica(Long id) {
+    public CarreraEntidad buscarUnaCarrera(Long id) {
 
         try{
             // Construimos el EntityManager
@@ -166,17 +167,16 @@ public class UnidadAcademicaDAO {
             entityManager = managerFactory.createEntityManager();
             
             // Buscamos la entidad en la base de datos
-            UnidadAcademicaEntidad UnidadAcademica = entityManager.find(UnidadAcademicaEntidad.class, id);
+            CarreraEntidad carrera = entityManager.find(CarreraEntidad.class, id);
 
             // Regresamos la entidad
-            return UnidadAcademica;     
+            return carrera;     
         } catch (Exception e){
                 JOptionPane.showMessageDialog(null, "Error en Persistencia = " + e.getMessage());
                 return null;
         } finally {
             if (entityManager != null) {
                 // Cerramos el EntityManager
-                System.out.println("cierras");
                 entityManager.close();
             }
         }
@@ -184,12 +184,13 @@ public class UnidadAcademicaDAO {
     }    
     
     /**
-     * Busca todos los objetos de la tabla respectiva en la base de datos.
+     * Busca todos los {@code CarreraEntidad} en la base de datos.
      * 
+     * Este método busca la entidad {@code CarreraEntidad}en la base de datos.
      * 
-     * 
+     * @param Carrera La entidad {@code CarreraEntidad} con los nuevos valores que se desean actualizar en la base de datos.
      */
-    public List<UnidadAcademicaEntidad> buscarTodasUnidadAcademica() {
+    public List<CarreraEntidad> buscarTodasCarrera() {
 
         try{
             // Construimos el EntityManager
@@ -197,7 +198,7 @@ public class UnidadAcademicaDAO {
             entityManager = managerFactory.createEntityManager();
             
             // Buscamos las entidades en la base de datos
-            TypedQuery<UnidadAcademicaEntidad> query = entityManager.createQuery("SELECT a FROM UnidadAcademicaEntidad a", UnidadAcademicaEntidad.class);
+            TypedQuery<CarreraEntidad> query = entityManager.createQuery("SELECT a FROM CarreraEntidad a", CarreraEntidad.class);
 
             // Regresamos la entidad
             return query.getResultList();
@@ -210,5 +211,5 @@ public class UnidadAcademicaDAO {
                 entityManager.close();
             }
         }
-    }
+    }    
 }
