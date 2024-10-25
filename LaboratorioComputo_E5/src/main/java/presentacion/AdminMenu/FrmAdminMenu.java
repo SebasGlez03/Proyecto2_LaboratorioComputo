@@ -2,7 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package presentacion;
+package presentacion.AdminMenu;
+
+import presentacion.FrmLogin;
 
 /**
  *
@@ -39,66 +41,30 @@ public class FrmAdminMenu extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnReportes.png"))); // NOI18N
-        btnReporte.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnReporteMouseClicked(evt);
-            }
-        });
         getContentPane().add(btnReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 280, -1, -1));
 
         btnGestionarAlumnos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnGestionarAlumno.png"))); // NOI18N
-        btnGestionarAlumnos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnGestionarAlumnosMouseClicked(evt);
-            }
-        });
         getContentPane().add(btnGestionarAlumnos, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 280, -1, -1));
 
         btnInsetarUnidades.setIcon(new javax.swing.ImageIcon(getClass().getResource("/InsetarUnidades.png"))); // NOI18N
-        btnInsetarUnidades.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnInsetarUnidadesMouseClicked(evt);
-            }
-        });
         getContentPane().add(btnInsetarUnidades, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 400, -1, -1));
 
         btnGestionarBloqueos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GestionarBloqueo.png"))); // NOI18N
-        btnGestionarBloqueos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnGestionarBloqueosMouseClicked(evt);
-            }
-        });
         getContentPane().add(btnGestionarBloqueos, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 400, -1, -1));
 
         btnGestionarCarrera.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GestionarCarrera.png"))); // NOI18N
-        btnGestionarCarrera.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnGestionarCarreraMouseClicked(evt);
-            }
-        });
         getContentPane().add(btnGestionarCarrera, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 520, -1, -1));
 
         btnGestionarComputadora.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GestionarComputadora.png"))); // NOI18N
-        btnGestionarComputadora.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnGestionarComputadoraMouseClicked(evt);
-            }
-        });
         getContentPane().add(btnGestionarComputadora, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 520, -1, -1));
 
         btnAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnAtras.png"))); // NOI18N
-        btnAtras.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnAtrasMouseClicked(evt);
-            }
-        });
         getContentPane().add(btnAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 680, -1, -1));
 
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/AdminMenu.jpg"))); // NOI18N
         getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnReporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReporteMouseClicked
