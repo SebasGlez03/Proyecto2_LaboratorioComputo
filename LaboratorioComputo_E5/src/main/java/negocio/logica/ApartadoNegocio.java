@@ -6,6 +6,7 @@ package negocio.logica;
 
 import negocio.DTO.ApartadoDTO;
 import negocio.DTO.EstudianteDTO;
+import persistencia.DAO.ApartadoDAO;
 import persistencia.entidades.ApartadoEntidad;
 
 /**
@@ -14,9 +15,27 @@ import persistencia.entidades.ApartadoEntidad;
  */
 public class ApartadoNegocio {
 
+    ApartadoDAO apartadoDAO = null;
+    
     public ApartadoNegocio() {
+        
+        ApartadoDAO apartadoDAO = new ApartadoDAO(); 
+        this.apartadoDAO = apartadoDAO;
+        
     }
     
-
+    public ApartadoEntidad convertir(ApartadoDTO ap){
+    
+        ApartadoEntidad apartado = new ApartadoEntidad();
+        
+        apartado.setId(ap.getId());
+        
+    }
+    
+    public void guardarApartado(ApartadoDTO ap){
+    
+        apartadoDAO.guardarRenta(renta);
+        
+    }
     
 }
