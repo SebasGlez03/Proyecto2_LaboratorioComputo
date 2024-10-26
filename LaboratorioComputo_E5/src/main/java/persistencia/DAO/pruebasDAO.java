@@ -77,6 +77,9 @@ public class pruebasDAO {
 //        System.out.println("Todas = " + carreraDAO.buscarTodasCarrera().toString());
 //          System.out.println(bloqueoDAO.buscarUnBloqueo(bloqueoEntidad.getId()));
 //          System.out.println(bloqueoDAO.buscarTodosBloqueos());
+
+        System.out.println(centroComputoDAO.buscarCentrosPorUnidad(Long.parseLong("1")).toString());
+        System.out.println(computadoraDAO.buscarComputadorasPorCentro(Long.parseLong("1")).toString());
         
     }
     

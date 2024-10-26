@@ -79,14 +79,14 @@ public class ComputadoraDTO {
         this.numComputadora = cE.getNumMaquina();
         this.software = cE.getSoftware();
 
-        if (cE.getApartado() != null){
-        List<ApartadoDTO> apartados = new ArrayList<>();
-        for (ApartadoEntidad a : cE.getApartado()) {
-            ApartadoDTO c = new ApartadoDTO(a);
-            apartados.add(c);
-        }
-        this.apartados = apartados;
-        } else{       this.apartados = null;}
+//        if (cE.getApartado() != null){
+//        List<ApartadoDTO> apartados = new ArrayList<>();
+//        for (ApartadoEntidad a : cE.getApartado()) {
+//            ApartadoDTO c = new ApartadoDTO(a);
+//            apartados.add(c);
+//        }
+//        this.apartados = apartados;
+//        } else{       this.apartados = null;}
     }
 
     /**

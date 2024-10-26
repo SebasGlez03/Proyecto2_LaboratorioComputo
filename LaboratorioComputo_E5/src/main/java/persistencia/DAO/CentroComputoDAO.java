@@ -218,4 +218,23 @@ public class CentroComputoDAO implements ICentroComputoDAO{
             }
         }
     } 
+    
+    /**
+     *  Retorna una lista con todas las computadoras asociadas a un centroDeComputoespecífico.
+     * 
+     * @param uaID
+     * @return
+     */
+    public List<CentroComputoEntidad> buscarCentrosPorUnidad(Long uaID) {
+        managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
+        entityManager = managerFactory.createEntityManager();
+        
+        TypedQuery<CentroComputoEntidad> query = entityManager.createQuery(
+                "SELECT a FROM CentroComputoEntidad a LEFT JOIN a.unidadAcademica p WHERE p.id = :uaID", CentroComputoEntidad.class);
+        query.setParameter("uaID", uaID);
+        List<CentroComputoEntidad> ccE = query.getResultList();
+
+        entityManager.close();
+        return ccE;
+    }
 }

@@ -52,7 +52,7 @@ public class EstudianteNegocio {
         BloqueoNegocio bN = new BloqueoNegocio();
         CarreraNegocio caN = new CarreraNegocio();
         ApartadoNegocio aN = new ApartadoNegocio();
-        ComputadoraNegocio cN = new ComputadoraNegocio();
+        CarreraNegocio cN = new CarreraNegocio();
         EstudianteEntidad entidad = new EstudianteEntidad();
 
         entidad.setId(dto.getId());
@@ -61,6 +61,10 @@ public class EstudianteNegocio {
         entidad.setApellidoPaterno(dto.getApellidoPaterno());
         entidad.setEstatusInscripcion(dto.getEstatusInscripcion());
         entidad.setContrasenia(dto.getContrasenia());
+        
+        if (dto.getCarrera() != null){
+        entidad.setCarrera(cN.convertir(dto.getCarrera()));
+        }
 
         // Convierte la lista de ApartadoDTO a ApartadoEntidad si existen
         if (dto.getApartados() != null) {
@@ -130,8 +134,18 @@ public class EstudianteNegocio {
      * @return un objeto EstudianteDTO con los datos del estudiante encontrado.
      */
     public EstudianteDTO buscarEstudiante(Long id) {
-        EstudianteDTO estudiante = new EstudianteDTO(estudianteDAO.buscarUnEstudiante(id));
+        
+        EstudianteDTO estudiante = new EstudianteDTO();
+        
+        if (estudianteDAO.buscarUnEstudiante(id) != null){
+        estudiante = new EstudianteDTO(estudianteDAO.buscarUnEstudiante(id));
         return estudiante;
+        }
+        else{
+        
+            return null;
+            
+        }
     }
 
     /**

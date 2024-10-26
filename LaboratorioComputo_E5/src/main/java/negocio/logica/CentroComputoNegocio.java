@@ -123,4 +123,26 @@ public class CentroComputoNegocio {
             return null;
         }
     }
+
+    /**
+     * Obtiene una lista de todos los centros de cómputo registrados en la unidad.
+     * 
+     * @return una lista de objetos CentroComputoDTO que representa todos los centros de cómputo de la unidad.
+     *         Si no hay centros de cómputo, retorna null.
+     */
+    public List<CentroComputoDTO> buscarCentrosComputosPorUnidad(Long id) {
+        List<CentroComputoDTO> centros = new ArrayList<>();
+        List<CentroComputoEntidad> bE = new ArrayList<>();
+        bE = centroComputoDAO.buscarCentrosPorUnidad(id);
+        
+        if (centros != null) {
+            for (CentroComputoEntidad y : bE) {
+                CentroComputoDTO x = new CentroComputoDTO(y);
+                centros.add(x);
+            }
+            return centros;
+        } else { 
+            return null;
+        }
+    }
 }
