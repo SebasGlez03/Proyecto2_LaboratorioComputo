@@ -61,9 +61,13 @@ public class CarreraDTO {
         this.tiempoDiario = tiempoDiario;
         this.estudiantes = estudiantes;
     }
-    
-    public CarreraDTO (CarreraEntidad c) {
-    
+
+    /**
+     * Constructor que crea un CarreraDTO a partir de una entidad CarreraEntidad.
+     * 
+     * @param c La entidad CarreraEntidad de la cual se extraen los datos.
+     */
+    public CarreraDTO(CarreraEntidad c) {
         this.id = c.getIdCarrera();
         this.nombre = c.getNombre();
         this.tiempoDiario = c.getTiempoDiario();
@@ -159,7 +163,4 @@ public class CarreraDTO {
     public String toString() {
         return "CarreraDTO{" + "id=" + id + ", nombre=" + nombre + ", tiempoDiario=" + tiempoDiario + ", estudiantes=" + estudiantes + '}';
     }
-    
-    
-    
 }

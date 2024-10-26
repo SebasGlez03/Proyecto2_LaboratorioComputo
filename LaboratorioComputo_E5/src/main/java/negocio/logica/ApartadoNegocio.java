@@ -24,17 +24,27 @@ public class ApartadoNegocio {
         
     }
     
-    public ApartadoEntidad convertir(ApartadoDTO ap){
+    public ApartadoEntidad convertir(ApartadoDTO dto){
     
-        ApartadoEntidad apartado = new ApartadoEntidad();
+        ComputadoraNegocio cN = new ComputadoraNegocio();
+        EstudianteNegocio eN = new EstudianteNegocio();
+        ApartadoEntidad entidad = new ApartadoEntidad();
         
-        apartado.setId(ap.getId());
+        entidad.setId(dto.getId());
+        entidad.setFechaInicio(dto.getFechaInicio());
+        entidad.setFechaFin(dto.getFechaFin());
+        
+        entidad.setComputadora(cN.convertir(dto.getComputadora()));
+        entidad.setEstudiante(eN.convertir(dto.getEstudiante()));
+        
+        return entidad;
         
     }
     
     public void guardarApartado(ApartadoDTO ap){
     
-        apartadoDAO.guardarRenta(renta);
+        
+        apartadoDAO.guardarApartado(convertir(ap));
         
     }
     

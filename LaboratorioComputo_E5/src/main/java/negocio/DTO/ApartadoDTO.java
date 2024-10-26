@@ -68,15 +68,22 @@ public class ApartadoDTO {
         this.computadora = computadora;
     }
     
+    /**
+     * Constructor que convierte una entidad de ApartadoEntidad en un objeto ApartadoDTO.
+     * 
+     * @param aE La entidad ApartadoEntidad que contiene los datos del apartado.
+     */
     public ApartadoDTO(ApartadoEntidad aE){
-    
         this.id = aE.getId();
         this.fechaInicio = aE.getFechaInicio();
         this.fechaFin = aE.getFechaFin();
-        this.estudiante = EstudianteDTO(aE.getEstudiante());
-        this.computadora = ComputadoraDTO(aE.getComputadora());
-        
+        EstudianteDTO estudiante = new EstudianteDTO(aE.getEstudiante());
+        this.estudiante = estudiante;
+        ComputadoraDTO computadora = new ComputadoraDTO(aE.getComputadora());
+        this.computadora = computadora;
     }
+
+    // Getters y setters
 
     /**
      * Obtiene el identificador único del apartado.
@@ -178,11 +185,5 @@ public class ApartadoDTO {
         return "ApartadoDTO{" + "id=" + id + ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", estudiante=" + estudiante + ", computadora=" + computadora + '}';
     }
 
-    private EstudianteDTO EstudianteDTO(EstudianteEntidad estudiante) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
-    private ComputadoraDTO ComputadoraDTO(ComputadoraEntidad computadora) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }

@@ -62,7 +62,7 @@ public class EstudianteEntidad implements Serializable {
     private List<BloqueoEntidad> bloqueo;
 
     @OneToMany(mappedBy = "estudiante")
-    private List<ApartadoEntidad> rentas;
+    private List<ApartadoEntidad> apartados;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "idCarrera", referencedColumnName = "nombre")
@@ -268,7 +268,7 @@ public class EstudianteEntidad implements Serializable {
      * @return Una lista de rentas asociadas al estudiante.
      */
     public List<ApartadoEntidad> getApartado() {
-        return rentas;
+        return apartados;
     }
 
     /**
@@ -277,7 +277,7 @@ public class EstudianteEntidad implements Serializable {
      * @param rentas La lista de rentas a establecer.
      */
     public void setApartado(List<ApartadoEntidad> rentas) {
-        this.rentas = rentas;
+        this.apartados = rentas;
     }
 
     /**

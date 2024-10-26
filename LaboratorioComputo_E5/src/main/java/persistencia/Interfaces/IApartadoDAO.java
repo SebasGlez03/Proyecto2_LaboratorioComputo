@@ -11,16 +11,16 @@ import persistencia.entidades.ApartadoEntidad;
  *
  * @author santi
  */
-public interface IRentaDAO {
+public interface IApartadoDAO {
     
-    public void guardarRenta(ApartadoEntidad renta);
+    public void guardarApartado(ApartadoEntidad renta);
     
-    public void eliminarRenta(ApartadoEntidad renta);
+    public void eliminarApartado(ApartadoEntidad renta);
     
-    public void modificarRenta(ApartadoEntidad renta);
+    public void modificarApartado(ApartadoEntidad renta);
     
-    public ApartadoEntidad buscarUnaRenta(Long id);
+    public ApartadoEntidad buscarUnApartado(Long id);
     
-    public List<ApartadoEntidad> buscarTodasRenta();
+    public List<ApartadoEntidad> buscarTodosApartados();
     
 }
