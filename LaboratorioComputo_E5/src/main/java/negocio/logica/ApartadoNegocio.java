@@ -99,12 +99,17 @@ public class ApartadoNegocio {
      */
     public List<ApartadoDTO> buscarTodosApartados(){
         List<ApartadoDTO> apartados = new ArrayList<>();
+        List<ApartadoEntidad> aE = new ArrayList<>();
+        aE = apartadoDAO.buscarTodosApartados();
         // Convertir cada entidad encontrada en la base de datos a un DTO.
-        for (ApartadoEntidad y : apartadoDAO.buscarTodosApartados()){
+        if (aE != null){
+        for (ApartadoEntidad y : aE){
             ApartadoDTO x = new ApartadoDTO(y);
             apartados.add(x);
         }
         
         return apartados;
+        }
+        else{ return null;}
     }
 }

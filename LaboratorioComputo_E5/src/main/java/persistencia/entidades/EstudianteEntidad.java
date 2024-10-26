@@ -45,10 +45,6 @@ public class EstudianteEntidad implements Serializable {
     @Column(name = "apellidoPaterno", length = 50, nullable = false)
     private String apellidoPaterno;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "computadoraRentada", referencedColumnName = "idComputadora")
-    private ComputadoraEntidad computadora;
-
     @Column(name = "apellidoMaterno", length = 50, nullable = false)
     private String apellidoMaterno;
 
@@ -105,11 +101,10 @@ public class EstudianteEntidad implements Serializable {
      * @param estatusInscripcion estatus de la inscripción del estudiante.
      * @param carrera relación entre el estudiante y una carrera.
      */
-    public EstudianteEntidad(Long id, String nombre, String apellidoPaterno, ComputadoraEntidad computadora, String apellidoMaterno, String contrasenia, String estatusInscripcion, CarreraEntidad carrera) {
+    public EstudianteEntidad(Long id, String nombre, String apellidoPaterno, String apellidoMaterno, String contrasenia, String estatusInscripcion, CarreraEntidad carrera) {
         this.idEstudiante = id;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
-        this.computadora = computadora;
         this.apellidoMaterno = apellidoMaterno;
         this.contrasenia = contrasenia;
         this.estatusInscripcion = estatusInscripcion;
@@ -223,25 +218,6 @@ public class EstudianteEntidad implements Serializable {
      */
     public void setEstatusInscripcion(String estatusInscripcion) {
         this.estatusInscripcion = estatusInscripcion;
-    }
-
-    /**
-     * Método que obtiene la relación de la computadora y el estudiante.
-     *
-     * @return relación de la computadora con el estudiante.
-     */
-    public ComputadoraEntidad getComputadora() {
-        return computadora;
-    }
-
-    /**
-     * Método que establece la relación de la computadora y el estudiante.
-     *
-     * @param computadora relación de la computadora con el estudiante a
-     * establecer.
-     */
-    public void setComputadora(ComputadoraEntidad computadora) {
-        this.computadora = computadora;
     }
 
     /**

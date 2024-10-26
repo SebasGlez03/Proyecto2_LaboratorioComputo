@@ -44,6 +44,7 @@ public class pruebasNegocio {
         CarreraNegocio carreraN = new CarreraNegocio();
         UnidadAcademicaNegocio unidadAcademicaN = new UnidadAcademicaNegocio();
         CentroComputoNegocio centroComputoN = new CentroComputoNegocio();
+        ComputadoraNegocio computadoraN = new ComputadoraNegocio();
  
         List<String> sfwr = new ArrayList<>();
         sfwr.add("Photoshop");
@@ -55,37 +56,37 @@ public class pruebasNegocio {
         EstudianteEntidad estudianteEntidad = new EstudianteEntidad("Pedro", "Ramirez", "Lopez", "123est321", "Inscrito");
         EstudianteEntidad estudianteEntidad2 = new EstudianteEntidad("Juan", "Ramirez", "Lopez", "123est321", "Inscrito");
         CentroComputoEntidad centroComputoEntidad = new CentroComputoEntidad("Cisco", "10cntro01comp1209", new GregorianCalendar(0, 0, 0, 14, 30, 0), new GregorianCalendar(0, 0, 0, 19, 30, 0), uaEntidad);
-        ComputadoraEntidad computadoraEntidad = new ComputadoraEntidad(false, centroComputoEntidad, estudianteEntidad, "192.168.0.1", sfwr, 1);
+        ComputadoraEntidad computadoraEntidad = new ComputadoraEntidad(false, centroComputoEntidad, "192.168.0.1", sfwr, 1);
         BloqueoEntidad bloqueoEntidad = new BloqueoEntidad("Ladrón", Calendar.getInstance(), Calendar.getInstance(), estudianteEntidad);
 
-        estudiantes.add(estudianteEntidad);
-        estudiantes.add(estudianteEntidad2);
-        CarreraEntidad caEntidad = new CarreraEntidad("Software", Date.from(Instant.now()), estudiantes);
+
 
         List<BloqueoEntidad> bloqueos = new ArrayList<>();
         bloqueos.add(bloqueoEntidad);
 
-        computadoraEntidad.setEstudiante(estudianteEntidad);
         computadoraEntidad.setCentroComputoEntidad(centroComputoEntidad);
 
-        estudianteEntidad.setComputadora(computadoraEntidad);
-        estudianteEntidad.setCarrera(caEntidad);
-        estudianteEntidad2.setCarrera(caEntidad);
         estudianteEntidad.setBloqueo(bloqueos);
         
+        estudiantes.add(estudianteEntidad);
+        estudiantes.add(estudianteEntidad2);
+        CarreraEntidad caEntidad = new CarreraEntidad("Software", Date.from(Instant.now()), estudiantes);
         
+        ApartadoEntidad apartadoEntidad = new ApartadoEntidad(Calendar.getInstance(), Calendar.getInstance(), estudianteEntidad, computadoraEntidad);
+     
+        ApartadoDTO apNeg = new ApartadoDTO(apartadoEntidad);
+        List<ApartadoDTO> apN = new ArrayList<>();    
+
+        apN.add(apNeg);
         
-//        ApartadoEntidad apartadoEntidad = new ApartadoEntidad(Calendar.getInstance(), Calendar.getInstance(), estudianteEntidad, computadoraEntidad);
-//        
-//        ApartadoDTO apN = new ApartadoDTO(apartadoEntidad);
-//        
-//        apartadoN.guardarApartado(apN);
-//        System.out.println(apartadoN.buscarTodosApartados().toString());
-//
+        caEntidad.setEstudiante(estudiantes);
+        
+        apartadoN.guardarApartado(apNeg);
+
         CarreraDTO carreraDTO = new CarreraDTO(caEntidad);
         
         carreraN.guardarCarrera(carreraDTO);
-//
+
         UnidadAcademicaDTO unidadAcademicaDTO = new UnidadAcademicaDTO(uaEntidad);
         
         unidadAcademicaN.guardarUnidadAcademica(unidadAcademicaDTO);
@@ -93,6 +94,10 @@ public class pruebasNegocio {
         CentroComputoDTO centroComputoDTO = new CentroComputoDTO(centroComputoEntidad);
         
         centroComputoN.guardarCentroComputo(centroComputoDTO);
+        
+        Long id = Long.decode("1");
+        
+
         
     }
     

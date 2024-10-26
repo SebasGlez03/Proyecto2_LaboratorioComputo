@@ -28,8 +28,6 @@ public class EstudianteDTO {
     /** Apellido materno del estudiante */
     String apellidoMaterno;
 
-    /** Computadora asignada al estudiante */
-    ComputadoraDTO computadora;
 
     /** Contraseña del estudiante */
     String contrasenia;
@@ -66,12 +64,11 @@ public class EstudianteDTO {
      * @param apartados Lista de apartados realizados por el estudiante
      * @param carrera Carrera del estudiante
      */
-    public EstudianteDTO(Long id, String nombre, String apellidoPaterno, CarreraDTO carrera, String apellidoMaterno, ComputadoraDTO computadora, String contrasenia, String estatusInscripcion, List<BloqueoDTO> bloqueos, List<ApartadoDTO> apartados) {
+    public EstudianteDTO(Long id, String nombre, String apellidoPaterno, CarreraDTO carrera, String apellidoMaterno, String contrasenia, String estatusInscripcion, List<BloqueoDTO> bloqueos, List<ApartadoDTO> apartados) {
         this.id = id;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
-        this.computadora = computadora;
         this.contrasenia = contrasenia;
         this.estatusInscripcion = estatusInscripcion;
         this.bloqueos = bloqueos;
@@ -92,22 +89,28 @@ public class EstudianteDTO {
 
         this.contrasenia = e.getContrasenia();
         this.estatusInscripcion = e.getEstatusInscripcion();
-        CarreraDTO ca = new CarreraDTO(e.getCarrera());
-        this.carrera = ca;
 
-        List<ApartadoDTO> apartados = new ArrayList<>();
-        for (ApartadoEntidad y : e.getApartado()) {
-            ApartadoDTO x = new ApartadoDTO(y);
-            apartados.add(x);
-        }
-        this.apartados = apartados;
-
-        List<BloqueoDTO> bloqueos = new ArrayList<>();
-        for (BloqueoEntidad y : e.getBloqueo()) {
-            BloqueoDTO x = new BloqueoDTO(y);
-            bloqueos.add(x);
-        }
-        this.bloqueos = bloqueos;        
+//
+//        if (e.getApartado()!= null){
+//        List<ApartadoDTO> apartados = new ArrayList<>();
+//        for (ApartadoEntidad y : e.getApartado()) {
+//            ApartadoDTO x = new ApartadoDTO(y);
+//            apartados.add(x);
+//        }
+//        this.apartados = apartados;
+//                } else{        this.apartados = null;}
+//
+//        
+//        if (e.getBloqueo() != null){
+//        List<BloqueoDTO> bloqueos = new ArrayList<>();
+//        for (BloqueoEntidad y : e.getBloqueo()) {
+//            BloqueoDTO x = new BloqueoDTO(y);
+//            bloqueos.add(x);
+//        }
+//        this.bloqueos = bloqueos;     
+//        
+//                } else{        this.bloqueos = null;}
+//        
     }
 
     /**
@@ -182,23 +185,7 @@ public class EstudianteDTO {
         this.apellidoMaterno = apellidoMaterno;
     }
 
-    /**
-     * Obtiene la computadora asignada al estudiante.
-     * 
-     * @return computadora Computadora asignada
-     */
-    public ComputadoraDTO getComputadora() {
-        return computadora;
-    }
 
-    /**
-     * Establece la computadora asignada al estudiante.
-     * 
-     * @param computadora Computadora asignada
-     */
-    public void setComputadora(ComputadoraDTO computadora) {
-        this.computadora = computadora;
-    }
 
     /**
      * Obtiene la contraseña del estudiante.
@@ -297,6 +284,6 @@ public class EstudianteDTO {
      */
     @Override
     public String toString() {
-        return "EstudianteDTO{" + "id=" + id + ", nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno + ", computadora=" + computadora + ", contrasenia=" + contrasenia + ", estatusInscripcion=" + estatusInscripcion + ", bloqueos=" + bloqueos + ", apartados=" + apartados + '}';
+        return "EstudianteDTO{" + "id=" + id + ", nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno  + ", contrasenia=" + contrasenia + ", estatusInscripcion=" + estatusInscripcion + ", bloqueos=" + bloqueos + ", apartados=" + apartados + '}';
     }
 }

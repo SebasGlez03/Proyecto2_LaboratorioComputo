@@ -26,9 +26,6 @@ public class ComputadoraDTO {
     /** Centro de cómputo al que pertenece la computadora */
     CentroComputoDTO centroComputo;
 
-    /** Estudiante asignado a la computadora */
-    EstudianteDTO estudiante;
-
     /** Dirección IP de la computadora */
     String ip;
 
@@ -57,11 +54,10 @@ public class ComputadoraDTO {
      * @param ip Dirección IP de la computadora
      * @param apartados Lista de apartados reservados
      */
-    public ComputadoraDTO(Long id, boolean esAdmin, CentroComputoDTO centroComputo, EstudianteDTO estudiante, String ip, List<ApartadoDTO> apartados, int numComputadora, List<String> software) {
+    public ComputadoraDTO(Long id, boolean esAdmin, CentroComputoDTO centroComputo, String ip, List<ApartadoDTO> apartados, int numComputadora, List<String> software) {
         this.id = id;
         this.esAdmin = esAdmin;
         this.centroComputo = centroComputo;
-        this.estudiante = estudiante;
         this.ip = ip;
         this.apartados = apartados;
         this.numComputadora = numComputadora;
@@ -79,18 +75,18 @@ public class ComputadoraDTO {
         this.esAdmin = cE.isEsAdmin();
         CentroComputoDTO centro = new CentroComputoDTO(cE.getCentroComputoEntidad());
         this.centroComputo = centro;
-        EstudianteDTO estudiante = new EstudianteDTO(cE.getEstudiante());
-        this.estudiante = estudiante;
         this.ip = cE.getIp();
         this.numComputadora = cE.getNumMaquina();
         this.software = cE.getSoftware();
 
+        if (cE.getApartado() != null){
         List<ApartadoDTO> apartados = new ArrayList<>();
         for (ApartadoEntidad a : cE.getApartado()) {
             ApartadoDTO c = new ApartadoDTO(a);
             apartados.add(c);
         }
         this.apartados = apartados;
+        } else{       this.apartados = null;}
     }
 
     /**
@@ -147,23 +143,7 @@ public class ComputadoraDTO {
         this.centroComputo = centroComputo;
     }
 
-    /**
-     * Obtiene el estudiante asignado a la computadora
-     * 
-     * @return estudiante Estudiante asignado
-     */
-    public EstudianteDTO getEstudiante() {
-        return estudiante;
-    }
 
-    /**
-     * Establece el estudiante asignado a la computadora
-     * 
-     * @param estudiante Estudiante asignado
-     */
-    public void setEstudiante(EstudianteDTO estudiante) {
-        this.estudiante = estudiante;
-    }
 
     /**
      * Obtiene la dirección IP de la computadora
@@ -244,7 +224,7 @@ public class ComputadoraDTO {
      */
     @Override
     public String toString() {
-        return "ComputadoraDTO{" + "id=" + id + ", esAdmin=" + esAdmin + ", centroComputo=" + centroComputo + ", estudiante=" + estudiante + ", ip=" + ip + ", numComputadora=" + numComputadora + ", apartados=" + apartados + ", software=" + software + '}';
+        return "ComputadoraDTO{" + "id=" + id + ", esAdmin=" + esAdmin + ", centroComputo=" + centroComputo + ", ip=" + ip + ", numComputadora=" + numComputadora + ", apartados=" + apartados + ", software=" + software + '}';
     }
 
 

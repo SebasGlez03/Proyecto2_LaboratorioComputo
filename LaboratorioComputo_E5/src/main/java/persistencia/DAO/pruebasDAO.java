@@ -47,7 +47,7 @@ public class pruebasDAO {
         EstudianteEntidad estudianteEntidad = new EstudianteEntidad("Pedro", "Ramirez", "Lopez", "123est321", "Inscrito");
         EstudianteEntidad estudianteEntidad2 = new EstudianteEntidad("Juan", "Ramirez", "Lopez", "123est321", "Inscrito");
         CentroComputoEntidad centroComputoEntidad = new CentroComputoEntidad("Cisco", "10cntro01comp1209", new GregorianCalendar(0, 0, 0, 14, 30, 0), new GregorianCalendar(0, 0, 0, 19, 30, 0), uaEntidad);
-        ComputadoraEntidad computadoraEntidad = new ComputadoraEntidad(false, centroComputoEntidad, estudianteEntidad, "192.168.0.1", sfwr, 1);
+        ComputadoraEntidad computadoraEntidad = new ComputadoraEntidad(false, centroComputoEntidad, "192.168.0.1", sfwr, 1);
         BloqueoEntidad bloqueoEntidad = new BloqueoEntidad("Ladrón", Calendar.getInstance(), Calendar.getInstance(), estudianteEntidad);
 
         estudiantes.add(estudianteEntidad);
@@ -57,9 +57,6 @@ public class pruebasDAO {
         List<BloqueoEntidad> bloqueos = new ArrayList<>();
         bloqueos.add(bloqueoEntidad);
 
-        computadoraEntidad.setEstudiante(estudianteEntidad);
-
-        estudianteEntidad.setComputadora(computadoraEntidad);
         estudianteEntidad.setCarrera(caEntidad);
         estudianteEntidad2.setCarrera(caEntidad);
         estudianteEntidad.setBloqueo(bloqueos);
