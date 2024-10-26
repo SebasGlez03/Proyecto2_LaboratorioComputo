@@ -15,7 +15,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import javax.swing.JOptionPane;
-import persistencia.Interfaces.IRentaDAO;
+import persistencia.Interfaces.IApartadoDAO;
 
 /**
  * La clase {@code ApartadoDAO} maneja las operaciones de persistencia relacionadas con la entidad {@code ApartadoEntidad}.
@@ -24,7 +24,7 @@ import persistencia.Interfaces.IRentaDAO;
  * 
  * @author santi
  */
-public class ApartadoDAO implements IRentaDAO{
+public class ApartadoDAO implements IApartadoDAO{
 
     EntityManager entityManager = null;
     EntityManagerFactory managerFactory = null;             
@@ -42,7 +42,7 @@ public class ApartadoDAO implements IRentaDAO{
      * 
      * @param renta La entidad {@code ApartadoEntidad} que se desea persistir en la base de datos.
      */
-    public void guardarRenta(ApartadoEntidad renta) {
+    public void guardarApartado(ApartadoEntidad renta) {
         try {
             // Construimos el EntityManager
             managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
@@ -75,7 +75,7 @@ public class ApartadoDAO implements IRentaDAO{
      * 
      * @param renta La entidad {@code ApartadoEntidad} que se desea eliminar de la base de datos.
      */
-    public void eliminarRenta(ApartadoEntidad renta) {
+    public void eliminarApartado(ApartadoEntidad renta) {
         try {
             // Construimos el EntityManager
             managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
@@ -108,7 +108,7 @@ public class ApartadoDAO implements IRentaDAO{
      * 
      * @param renta La entidad {@code ApartadoEntidad} con los nuevos valores que se desean actualizar en la base de datos.
      */
-    public void modificarRenta(ApartadoEntidad renta) {
+    public void modificarApartado(ApartadoEntidad renta) {
         try {
             // Construimos el EntityManager
             managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
@@ -141,7 +141,7 @@ public class ApartadoDAO implements IRentaDAO{
      *  
      * @param Long id
      */
-    public ApartadoEntidad buscarUnaRenta(Long id) {
+    public ApartadoEntidad buscarUnApartado(Long id) {
 
         try{
             // Construimos el EntityManager
@@ -172,7 +172,7 @@ public class ApartadoDAO implements IRentaDAO{
      * 
      * 
      */
-    public List<ApartadoEntidad> buscarTodasRenta() {
+    public List<ApartadoEntidad> buscarTodosApartados() {
 
         try{
             // Construimos el EntityManager

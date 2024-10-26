@@ -8,6 +8,7 @@
     <class>persistencia.entidades.CentroComputoEntidad</class>
     <class>persistencia.entidades.CarreraEntidad</class>
     <class>persistencia.entidades.ComputadoraEntidad</class>
+    <class>persistencia.entidades.ApartadoEntidad</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://sql3.freesqldatabase.com:3306/sql3739745"/>
       <property name="javax.persistence.jdbc.user" value="sql3739745"/>

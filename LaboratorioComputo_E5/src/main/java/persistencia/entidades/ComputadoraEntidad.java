@@ -61,15 +61,6 @@ public class ComputadoraEntidad implements Serializable {
     private CentroComputoEntidad centroComputoEntidad;
 
     /**
-     * Relación de uno-a-uno con el estudiante que está utilizando la
-     * computadora. Está mapeado a la columna "idEstudiante" en la base de
-     * datos.
-     */
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "nombreReservado", referencedColumnName = "nombre")
-    private EstudianteEntidad estudiante;
-
-    /**
      * Dirección IP de la computadora. No puede ser nula y debe tener un máximo
      * de 50 caracteres.
      */
@@ -117,10 +108,9 @@ public class ComputadoraEntidad implements Serializable {
      * @param numMaquina El numero de maquna de la computadora dentro del centro
      * de computo.
      */
-    public ComputadoraEntidad(boolean esAdmin, CentroComputoEntidad centroComputoEntidad, EstudianteEntidad estudiante, String ip, List<String> software, int numMaquina) {
+    public ComputadoraEntidad(boolean esAdmin, CentroComputoEntidad centroComputoEntidad, String ip, List<String> software, int numMaquina) {
         this.esAdmin = esAdmin;
         this.centroComputoEntidad = centroComputoEntidad;
-        this.estudiante = estudiante;
         this.ip = ip;
         this.software = software;
         this.numMaquina = numMaquina;
@@ -236,24 +226,6 @@ public class ComputadoraEntidad implements Serializable {
     }
 
     /**
-     * Obtiene el estudiante usando la maquina.
-     *
-     * @return El estudiante usando la maquina.
-     */
-    public EstudianteEntidad getEstudiante() {
-        return estudiante;
-    }
-
-    /**
-     * Establece el estudiante usando la maquina.
-     *
-     * @param estudiante El estudiante usando la máquina.
-     */
-    public void setEstudiante(EstudianteEntidad estudiante) {
-        this.estudiante = estudiante;
-    }
-
-    /**
      * Obtiene la lista de apartado que estan asociadas ca una computadora.
      *
      * @return Lista de apartado que estan asociadas con la computadora.
@@ -272,6 +244,8 @@ public class ComputadoraEntidad implements Serializable {
         this.apartado = rentas;
     }
 
+    
+    
     /**
      * Proporciona una representación en cadena de la entidad.
      *
@@ -280,7 +254,7 @@ public class ComputadoraEntidad implements Serializable {
      */
     @Override
     public String toString() {
-        return "ComputadoraEntidad{" + "idComputadora=" + idComputadora + ", esAdmin=" + esAdmin + ", centroComputoEntidad=" + centroComputoEntidad + ", estudiante=" + estudiante + ", ip=" + ip + ", software=" + software + ", numMaquina=" + numMaquina + ", rentas=" + apartado + '}';
+        return "ComputadoraEntidad{" + "idComputadora=" + idComputadora + ", esAdmin=" + esAdmin + ", centroComputoEntidad=" + centroComputoEntidad + ", ip=" + ip + ", software=" + software + ", numMaquina=" + numMaquina + ", rentas=" + apartado + '}';
     }
 
 }

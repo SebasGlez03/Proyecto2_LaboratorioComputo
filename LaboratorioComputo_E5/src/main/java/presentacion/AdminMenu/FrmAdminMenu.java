@@ -4,6 +4,10 @@
  */
 package presentacion.AdminMenu;
 
+import presentacion.AdminMenu.GestionarComputadora.FrmGestionarComputadora;
+import presentacion.AdminMenu.GestionarCarrera.FrmGestionarCarrera;
+import presentacion.AdminMenu.GestionarBloqueo.FrmGestionarBloqueo;
+import presentacion.AdminMenu.GestionarAlumno.FrmGestionarAlumno;
 import presentacion.FrmLogin;
 
 /**
