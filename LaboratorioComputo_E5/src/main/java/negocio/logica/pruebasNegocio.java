@@ -75,16 +75,17 @@ public class pruebasNegocio {
         
         
         
-        ApartadoEntidad apartadoEntidad = new ApartadoEntidad(Calendar.getInstance(), Calendar.getInstance(), estudianteEntidad, computadoraEntidad);
-        
-        ApartadoDTO apN = new ApartadoDTO(apartadoEntidad);
-        
-        apartadoN.guardarApartado(apN);
-
+//        ApartadoEntidad apartadoEntidad = new ApartadoEntidad(Calendar.getInstance(), Calendar.getInstance(), estudianteEntidad, computadoraEntidad);
+//        
+//        ApartadoDTO apN = new ApartadoDTO(apartadoEntidad);
+//        
+//        apartadoN.guardarApartado(apN);
+//        System.out.println(apartadoN.buscarTodosApartados().toString());
+//
         CarreraDTO carreraDTO = new CarreraDTO(caEntidad);
         
         carreraN.guardarCarrera(carreraDTO);
-
+//
         UnidadAcademicaDTO unidadAcademicaDTO = new UnidadAcademicaDTO(uaEntidad);
         
         unidadAcademicaN.guardarUnidadAcademica(unidadAcademicaDTO);
