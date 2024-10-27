@@ -28,8 +28,8 @@ public class FrmGestionarAlumno extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        centroDeComputo = new javax.swing.JLabel();
-        reporte = new javax.swing.JLabel();
+        lblCentroDeComputo = new javax.swing.JLabel();
+        lblGestionar = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         btnAtras = new javax.swing.JLabel();
@@ -41,17 +41,18 @@ public class FrmGestionarAlumno extends javax.swing.JFrame {
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        centroDeComputo.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        centroDeComputo.setForeground(new java.awt.Color(255, 255, 255));
-        centroDeComputo.setText("Alumno");
-        getContentPane().add(centroDeComputo, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 90, -1, -1));
+        lblCentroDeComputo.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        lblCentroDeComputo.setForeground(new java.awt.Color(255, 255, 255));
+        lblCentroDeComputo.setText("Alumno");
+        getContentPane().add(lblCentroDeComputo, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 90, -1, -1));
 
-        reporte.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        reporte.setForeground(new java.awt.Color(255, 255, 255));
-        reporte.setText("Gestionar");
-        getContentPane().add(reporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 40, -1, -1));
+        lblGestionar.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        lblGestionar.setForeground(new java.awt.Color(255, 255, 255));
+        lblGestionar.setText("Gestionar");
+        getContentPane().add(lblGestionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 40, -1, -1));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -69,6 +70,7 @@ public class FrmGestionarAlumno extends javax.swing.JFrame {
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, 810, -1));
 
         btnAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnAtras.png"))); // NOI18N
+        btnAtras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAtras.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnAtrasMouseClicked(evt);
@@ -77,18 +79,23 @@ public class FrmGestionarAlumno extends javax.swing.JFrame {
         getContentPane().add(btnAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 680, -1, -1));
 
         btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnAgregar.png"))); // NOI18N
+        btnAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 670, -1, -1));
 
         btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnEditar.png"))); // NOI18N
+        btnEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 670, -1, -1));
 
         btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnEliminar.png"))); // NOI18N
+        btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 670, -1, -1));
 
         btnFlechaDerecha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnFlechaD.png"))); // NOI18N
+        btnFlechaDerecha.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(btnFlechaDerecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 410, -1, -1));
 
         btnFlechaIzquierda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnFlechaI.png"))); // NOI18N
+        btnFlechaIzquierda.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(btnFlechaIzquierda, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, -1, -1));
 
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BackGroundGeneral.jpg"))); // NOI18N
@@ -146,10 +153,10 @@ public class FrmGestionarAlumno extends javax.swing.JFrame {
     private javax.swing.JLabel btnEliminar;
     private javax.swing.JLabel btnFlechaDerecha;
     private javax.swing.JLabel btnFlechaIzquierda;
-    private javax.swing.JLabel centroDeComputo;
     private javax.swing.JLabel fondo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JLabel reporte;
+    private javax.swing.JLabel lblCentroDeComputo;
+    private javax.swing.JLabel lblGestionar;
     // End of variables declaration//GEN-END:variables
 }
