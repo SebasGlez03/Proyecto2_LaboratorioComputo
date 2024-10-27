@@ -61,26 +61,21 @@ public class pruebasDAO {
         estudianteEntidad2.setCarrera(caEntidad);
         estudianteEntidad.setBloqueo(bloqueos);
         
-//        ApartadoEntidad rentaEntidad = new ApartadoEntidad(Calendar.getInstance(), estudianteEntidad, computadoraEntidad);
-//        rentaDAO.guardarRenta(rentaEntidad);
-//        
-//        rentaDAO.eliminarRenta(rentaEntidad);
-//        unidadAcademicaDAO.guardarUnidadAcademica(uaEntidad);
-//        bloqueoDAO.guardarBloqueo(bloqueoEntidad);
-//        estudianteDAO.guardarEstudiante(estudianteEntidad);
-//        computadoraDAO.guardarComputadora(computadoraEntidad);
-//        centroComputoDAO.guardarCentroComputo(centroComputoEntidad);
+
+
 //        carreraDAO.guardarCarrera(caEntidad);
-//        
+//        computadoraDAO.guardarComputadora(computadoraEntidad);
+        estudianteDAO.guardarEstudiante(estudianteEntidad);
+        
 //        
 //        System.out.println("Una = " + carreraDAO.buscarUnaCarrera(caEntidad.getIdCarrera()).toString());
 //        System.out.println("Todas = " + carreraDAO.buscarTodasCarrera().toString());
 //          System.out.println(bloqueoDAO.buscarUnBloqueo(bloqueoEntidad.getId()));
 //          System.out.println(bloqueoDAO.buscarTodosBloqueos());
-
-        System.out.println(centroComputoDAO.buscarCentrosPorUnidad(Long.parseLong("1")).toString());
-        System.out.println(computadoraDAO.buscarComputadorasPorCentro(Long.parseLong("1")).toString());
-        
+//
+//        System.out.println(centroComputoDAO.buscarCentrosPorUnidad(Long.parseLong("1")).toString());
+//        System.out.println(computadoraDAO.buscarComputadorasPorCentro(Long.parseLong("1")).toString());
+//        
     }
     
 }
