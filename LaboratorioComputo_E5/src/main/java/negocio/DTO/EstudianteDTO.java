@@ -86,7 +86,8 @@ public class EstudianteDTO {
         this.nombre = e.getNombre();
         this.apellidoPaterno = e.getApellidoPaterno();
         this.apellidoMaterno = e.getApellidoMaterno();
-
+//        CarreraDTO ca = new CarreraDTO(e.getCarrera());
+//        this.carrera = ca;
         this.contrasenia = e.getContrasenia();
         this.estatusInscripcion = e.getEstatusInscripcion();
 

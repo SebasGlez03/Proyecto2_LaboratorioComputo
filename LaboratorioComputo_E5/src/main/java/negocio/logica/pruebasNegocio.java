@@ -45,6 +45,7 @@ public class pruebasNegocio {
         UnidadAcademicaNegocio unidadAcademicaN = new UnidadAcademicaNegocio();
         CentroComputoNegocio centroComputoN = new CentroComputoNegocio();
         ComputadoraNegocio computadoraN = new ComputadoraNegocio();
+        EstudianteNegocio estudianteN = new EstudianteNegocio();
  
         List<String> sfwr = new ArrayList<>();
         sfwr.add("Photoshop");
@@ -59,7 +60,7 @@ public class pruebasNegocio {
         ComputadoraEntidad computadoraEntidad = new ComputadoraEntidad(false, centroComputoEntidad, "192.168.0.1", sfwr, 1);
         BloqueoEntidad bloqueoEntidad = new BloqueoEntidad("Ladrón", Calendar.getInstance(), Calendar.getInstance(), estudianteEntidad);
 
-
+        
 
         List<BloqueoEntidad> bloqueos = new ArrayList<>();
         bloqueos.add(bloqueoEntidad);
@@ -72,30 +73,43 @@ public class pruebasNegocio {
         estudiantes.add(estudianteEntidad2);
         CarreraEntidad caEntidad = new CarreraEntidad("Software", Date.from(Instant.now()), estudiantes);
         
-        ApartadoEntidad apartadoEntidad = new ApartadoEntidad(Calendar.getInstance(), Calendar.getInstance(), estudianteEntidad, computadoraEntidad);
-     
-        ApartadoDTO apNeg = new ApartadoDTO(apartadoEntidad);
-        List<ApartadoDTO> apN = new ArrayList<>();    
 
-        apN.add(apNeg);
         
-        caEntidad.setEstudiante(estudiantes);
         
-        apartadoN.guardarApartado(apNeg);
+        
+        
+//        ApartadoEntidad apartadoEntidad = new ApartadoEntidad(Calendar.getInstance(), Calendar.getInstance(), estudianteEntidad, computadoraEntidad);
+//     
+//        ApartadoDTO apNeg = new ApartadoDTO(apartadoEntidad);
+//        List<ApartadoDTO> apN = new ArrayList<>();    
+//
+//        apN.add(apNeg);
+//        
+//        caEntidad.setEstudiante(estudiantes);
+//        
+//
+//
+//        CarreraDTO carreraDTO = new CarreraDTO(caEntidad);
+//        
+//        carreraN.guardarCarrera(carreraDTO);
+//
+//        apartadoN.guardarApartado(apNeg);
+////        
+//        UnidadAcademicaDTO unidadAcademicaDTO = new UnidadAcademicaDTO(uaEntidad);
+//        
+//        unidadAcademicaN.guardarUnidadAcademica(unidadAcademicaDTO);
 
-        CarreraDTO carreraDTO = new CarreraDTO(caEntidad);
-        
-        carreraN.guardarCarrera(carreraDTO);
+//        CentroComputoDTO centroComputoDTO = new CentroComputoDTO(centroComputoEntidad);
+//        
+//        centroComputoN.guardarCentroComputo(centroComputoDTO);
+//        
+//        Long id = Long.decode("1");
 
-        UnidadAcademicaDTO unidadAcademicaDTO = new UnidadAcademicaDTO(uaEntidad);
-        
-        unidadAcademicaN.guardarUnidadAcademica(unidadAcademicaDTO);
+        Long id = Long.parseLong("1");
 
-        CentroComputoDTO centroComputoDTO = new CentroComputoDTO(centroComputoEntidad);
-        
-        centroComputoN.guardarCentroComputo(centroComputoDTO);
-        
-        Long id = Long.decode("1");
+        System.out.println(centroComputoN.buscarCentroComputo(id).toString());
+        System.out.println(computadoraN.buscarComputadorasPorCentro(id).toString());
+
         
 
         

@@ -120,4 +120,26 @@ public class ComputadoraNegocio {
             return null;
         }
     }
+    
+    /**
+     * Obtiene una lista de todos los PC de cómputo registrados en la CC.
+     * 
+     * @return una lista de objetos Computadoras de la unidad.
+     *         Si no hay Computadoras, retorna null.
+     */
+    public List<ComputadoraDTO> buscarComputadorasPorCentro(Long id) {
+        List<ComputadoraDTO> computadoras = new ArrayList<>();
+        List<ComputadoraEntidad> bE = new ArrayList<>();
+        bE = computadoraDAO.buscarComputadorasPorCentro(id);
+        
+        if (computadoras != null) {
+            for (ComputadoraEntidad y : bE) {
+                ComputadoraDTO x = new ComputadoraDTO(y);
+                computadoras.add(x);
+            }
+            return computadoras;
+        } else { 
+            return null;
+        }
+    }
 }
