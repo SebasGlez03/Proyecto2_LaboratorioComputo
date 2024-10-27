@@ -11,6 +11,7 @@ import negocio.DTO.CarreraDTO;
 import negocio.DTO.EstudianteDTO;
 import negocio.logica.CarreraNegocio;
 import negocio.logica.EstudianteNegocio;
+import utilerias.CaesarCipher;
 
 /**
  *
@@ -20,6 +21,7 @@ public class FrmAgregarAlumno extends javax.swing.JFrame {
 
     CarreraNegocio carreraNegocio = new CarreraNegocio();
     EstudianteNegocio estudianteNegocio = new EstudianteNegocio();
+    CaesarCipher encriptar = new CaesarCipher();
 
     /**
      * Creates new form FrmAgregarAlumno
@@ -197,6 +199,8 @@ public class FrmAgregarAlumno extends javax.swing.JFrame {
         String aMaterno = campoTextoApellidoMaterno.getText();
         String contrasenia = campoTextoContrasenia.getText();
         String estatusCarreraDefault = "Inscrito";
+        
+        String contraseniaEncriptada = encriptar.encrypt(contrasenia, 3);
 
         try {
             CarreraNegocio carreraNegocio = new CarreraNegocio();
@@ -204,7 +208,7 @@ public class FrmAgregarAlumno extends javax.swing.JFrame {
 //        obtenerCarreraDTOfromComboBox(carreraNegocio.buscarCarreras(), carrera);
             CarreraDTO carreraDTO = obtenerCarreraDTOfromComboBox(carreraNegocio.buscarCarreras(), carrera);
 
-            EstudianteDTO estudiante = new EstudianteDTO(nombre, aPaterno, aMaterno, contrasenia, estatusCarreraDefault, carreraDTO);
+            EstudianteDTO estudiante = new EstudianteDTO(nombre, aPaterno, aMaterno, contraseniaEncriptada, estatusCarreraDefault, carreraDTO);
 
             estudiante.setCarrera(carreraDTO);
 

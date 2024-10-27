@@ -195,4 +195,21 @@ public class ApartadoDAO implements IApartadoDAO{
             }
         }
     }
+    
+    public List<ApartadoEntidad> buscarApartadoPorEstudiante(Long idE, Long idC) {
+    
+
+        managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
+        entityManager = managerFactory.createEntityManager();
+        
+        TypedQuery<ApartadoEntidad> query = entityManager.createQuery(
+                "SELECT a FROM ApartadoEntidad a LEFT JOIN a.estudiante p LEFT JOIN a.computadora c WHERE p.idEstudiante = :idE AND c.idComputadora = :idC", ApartadoEntidad.class);
+        query.setParameter("idE", idE);
+        query.setParameter("idC", idC);
+        List<ApartadoEntidad> ccE = query.getResultList();
+
+        entityManager.close();
+        return ccE;
+        
+    }
 }

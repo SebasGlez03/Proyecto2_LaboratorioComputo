@@ -142,4 +142,24 @@ public class ComputadoraNegocio {
             return null;
         }
     }
+    /**
+     * Obtiene una lista de todos los PC por IP.
+     * 
+     * @return una lista de objetos 
+     */
+    public List<ComputadoraDTO> buscarComputadorasPorIP(String ip) {
+        List<ComputadoraDTO> computadoras = new ArrayList<>();
+        List<ComputadoraEntidad> bE = new ArrayList<>();
+        bE = computadoraDAO.buscarComputadorasPorIP(ip);
+        
+        if (computadoras != null) {
+            for (ComputadoraEntidad y : bE) {
+                ComputadoraDTO x = new ComputadoraDTO(y);
+                computadoras.add(x);
+            }
+            return computadoras;
+        } else { 
+            return null;
+        }
+    }
 }

@@ -5,9 +5,18 @@
 package presentacion;
 
 import java.awt.BorderLayout;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 import javax.swing.JOptionPane;
+import negocio.DTO.ApartadoDTO;
+import negocio.DTO.ComputadoraDTO;
 import negocio.DTO.EstudianteDTO;
+import negocio.logica.ApartadoNegocio;
+import negocio.logica.ComputadoraNegocio;
 import negocio.logica.EstudianteNegocio;
+import utilerias.CaesarCipher;
+import utilerias.LectorIp;
 
 /**
  *
@@ -19,13 +28,39 @@ public class FrmComputadora extends javax.swing.JFrame {
      * Creates new form FrmComputadora
      */
     
+    CaesarCipher encriptar = new CaesarCipher();
     EstudianteNegocio estudianteNegocio = new EstudianteNegocio();
+    ApartadoNegocio apartadoNegocio = new ApartadoNegocio();
+    ComputadoraNegocio computadoraNegocio = new ComputadoraNegocio();
+    ComputadoraDTO computadoraUsuario = new ComputadoraDTO();
+    LectorIp lector = new LectorIp();
     
     public FrmComputadora() {
         initComponents();
+        buscarComputadoraPorIP();
         
     }
 
+    public void buscarComputadoraPorIP(){
+    
+        String ip;
+        ip = lector.getLocalIPAddress();
+        System.out.println(ip);
+        if (computadoraNegocio.buscarComputadorasPorIP(ip).isEmpty()){
+
+           JOptionPane.showMessageDialog(this, "Esta computadora no es parte del sistema" ); 
+           this.dispose();
+            
+        }else
+        {
+            
+            this.computadoraUsuario = computadoraNegocio.buscarComputadorasPorIP(ip).getFirst();
+            txtNumComputadora.setText("#" + computadoraUsuario.getNumComputadora());
+
+        }
+        
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -50,8 +85,8 @@ public class FrmComputadora extends javax.swing.JFrame {
         txtNumComputadora.setFont(new java.awt.Font("Arial", 1, 128)); // NOI18N
         txtNumComputadora.setForeground(new java.awt.Color(153, 153, 153));
         txtNumComputadora.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txtNumComputadora.setText("52");
-        getContentPane().add(txtNumComputadora, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 40, 164, 155));
+        txtNumComputadora.setText("NO");
+        getContentPane().add(txtNumComputadora, new org.netbeans.lib.awtextra.AbsoluteConstraints(704, 40, 290, 155));
 
         txtContrasenia.setBackground(new java.awt.Color(114, 114, 114));
         txtContrasenia.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -92,12 +127,40 @@ public class FrmComputadora extends javax.swing.JFrame {
         eD.setContrasenia(txtContrasenia.getText());
         EstudianteDTO estudiante = estudianteNegocio.buscarEstudiante(id);
 
+            System.out.println("a");
+        
         if (estudiante != null)
         {
+            
+            System.out.println("a");
+            if(encriptar.decrypt(estudiante.getContrasenia(), 3).equals(eD.getContrasenia())){
+                List<ApartadoDTO> apartados = new ArrayList<>();
+                apartados = apartadoNegocio.buscarApartadosPorEstudiante(estudiante.getId(), computadoraUsuario.getId());
+                if(apartados.isEmpty()){
+                    
+                    JOptionPane.showMessageDialog(this, "Este usuario no tiene apartados" );
 
-            if(estudiante.getContrasenia().equals(eD.getContrasenia())){
-        
-            this.dispose();
+                } else {
+                
+                    Calendar currentTime = Calendar.getInstance();
+                    if (currentTime.after(apartados.get(0).getFechaFin())){
+                    
+                        JOptionPane.showMessageDialog(this, "Se ha acabado tu apartado" );
+                        
+                    }
+                    if (currentTime.before(apartados.get(0).getFechaInicio())){
+                    
+                         JOptionPane.showMessageDialog(this, "No ha iniciado tu apartado" );
+                        
+                    }
+                    
+                    else {
+                        this.dispose();
+                                }
+                    
+                    
+                }
+           
 
             
         } else{

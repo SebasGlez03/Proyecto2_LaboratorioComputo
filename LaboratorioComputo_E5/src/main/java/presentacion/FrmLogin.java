@@ -13,6 +13,7 @@ import negocio.logica.CentroComputoNegocio;
 import negocio.logica.EstudianteNegocio;
 import negocio.logica.UnidadAcademicaNegocio;
 import presentacion.AdminMenu.FrmAdminMenu;
+import utilerias.CaesarCipher;
 
 /**
  *
@@ -33,6 +34,7 @@ public class FrmLogin extends javax.swing.JFrame {
     CentroComputoNegocio centroComputoNegocio;
     Long CentroSeleccionado;
     Long idcC;
+    CaesarCipher encriptar = new CaesarCipher();
     
     public FrmLogin() {
         initComponents();
@@ -194,7 +196,7 @@ public class FrmLogin extends javax.swing.JFrame {
         if (estudiante != null)
         {
 
-            if(estudiante.getContrasenia().equals(eD.getContrasenia())){
+            if(encriptar.decrypt(estudiante.getContrasenia(), 3).equals(eD.getContrasenia())){
         
             Long idE = estudiante.getId();
             FrmSistemaApartado frm = new FrmSistemaApartado(idcC, idE);

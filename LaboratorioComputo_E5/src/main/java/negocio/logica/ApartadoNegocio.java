@@ -112,4 +112,26 @@ public class ApartadoNegocio {
         }
         else{ return null;}
     }
+    
+    /**
+     * Obtiene una lista de todos los apartados por estudiante.
+     * 
+     * @return una lista de objetos
+     */
+    public List<ApartadoDTO> buscarApartadosPorEstudiante(Long idE, Long idC) {
+        List<ApartadoDTO> apartados = new ArrayList<>();
+        List<ApartadoEntidad> bE = new ArrayList<>();
+        bE = apartadoDAO.buscarApartadoPorEstudiante(idE, idC);
+        
+        if (apartados != null) {
+            for (ApartadoEntidad y : bE) {
+                ApartadoDTO x = new ApartadoDTO(y);
+                apartados.add(x);
+            }
+            return apartados;
+        } else { 
+            return null;
+        }
+    }
+    
 }
