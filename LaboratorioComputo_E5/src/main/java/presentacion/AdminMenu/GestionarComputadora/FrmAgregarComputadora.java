@@ -30,14 +30,20 @@ public class FrmAgregarComputadora extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         btnReiniciar = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        campoTextoIP = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        campoTextoNumeroMaquina = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        comboBoxAdmin = new javax.swing.JComboBox<>();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Titulo.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        Titulo.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         Titulo.setForeground(new java.awt.Color(255, 255, 255));
-        Titulo.setText("Agregar Carrera");
+        Titulo.setText("Agregar Computadora");
         getContentPane().add(Titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, -1));
 
         btnCancelar.setText("Cancelar");
@@ -65,6 +71,26 @@ public class FrmAgregarComputadora extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 550, -1, -1));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("IP");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 90, -1, -1));
+        getContentPane().add(campoTextoIP, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, 270, 30));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Numero de maquina");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, -1, -1));
+        getContentPane().add(campoTextoNumeroMaquina, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 190, 270, 30));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Admin");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, -1, -1));
+
+        comboBoxAdmin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "No", "Si" }));
+        getContentPane().add(comboBoxAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 270, -1, -1));
 
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/backgroundChico.jpg"))); // NOI18N
         getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -125,6 +151,12 @@ public class FrmAgregarComputadora extends javax.swing.JFrame {
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnReiniciar;
+    private javax.swing.JTextField campoTextoIP;
+    private javax.swing.JTextField campoTextoNumeroMaquina;
+    private javax.swing.JComboBox<String> comboBoxAdmin;
     private javax.swing.JLabel fondo;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 }

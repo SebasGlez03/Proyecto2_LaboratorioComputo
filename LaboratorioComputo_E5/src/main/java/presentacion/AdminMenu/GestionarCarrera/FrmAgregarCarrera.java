@@ -30,6 +30,10 @@ public class FrmAgregarCarrera extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         btnReiniciar = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
+        nombreCarrera = new javax.swing.JLabel();
+        campoTextoNombreCarrera = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        campoTextoTiempo = new javax.swing.JTextField();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -65,6 +69,18 @@ public class FrmAgregarCarrera extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 550, -1, -1));
+
+        nombreCarrera.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        nombreCarrera.setForeground(new java.awt.Color(255, 255, 255));
+        nombreCarrera.setText("Nombre de la carrera");
+        getContentPane().add(nombreCarrera, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, -1, -1));
+        getContentPane().add(campoTextoNombreCarrera, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 140, 230, 30));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Tiempo en minutos");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, -1, -1));
+        getContentPane().add(campoTextoTiempo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 230, 30));
 
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/backgroundChico.jpg"))); // NOI18N
         getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -125,6 +141,10 @@ public class FrmAgregarCarrera extends javax.swing.JFrame {
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnReiniciar;
+    private javax.swing.JTextField campoTextoNombreCarrera;
+    private javax.swing.JTextField campoTextoTiempo;
     private javax.swing.JLabel fondo;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel nombreCarrera;
     // End of variables declaration//GEN-END:variables
 }
