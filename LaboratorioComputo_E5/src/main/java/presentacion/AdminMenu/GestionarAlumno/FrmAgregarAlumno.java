@@ -4,33 +4,65 @@
  */
 package presentacion.AdminMenu.GestionarAlumno;
 
+import java.util.HashSet;
 import java.util.List;
+import javax.swing.JOptionPane;
 import negocio.DTO.CarreraDTO;
 import negocio.DTO.EstudianteDTO;
 import negocio.logica.CarreraNegocio;
+import negocio.logica.EstudianteNegocio;
 
 /**
  *
  * @author nomar
  */
 public class FrmAgregarAlumno extends javax.swing.JFrame {
+    
+    CarreraNegocio carreraNegocio = new CarreraNegocio();
+    EstudianteNegocio estudianteNegocio = new EstudianteNegocio();
 
     /**
      * Creates new form FrmAgregarAlumno
      */
     public FrmAgregarAlumno() {
         initComponents();
-        CarreraNegocio carreraNegocio = new CarreraNegocio();
-
+        
         llenarBoxCarreras(carreraNegocio.buscarCarreras());
     }
 
+    /**
+     * Metodo que se encarga de llenar el comboBox con las carreras de la base
+     * de datos
+     *
+     * @param carrera Lista de carreras que hay en una unidad academica
+     */
     private void llenarBoxCarreras(List<CarreraDTO> carrera) {
         int i = 0;
         while (carrera.size() > i) {
             comboBoxCarrera.addItem(carrera.get(i).getNombre());
             i++;
         }
+    }
+
+    /**
+     * Metodo que obtiene una CarreraDTO en base a un index de un comboBox
+     *
+     * @param carrera Lista de carreras que hay en una unidad academica
+     * @param comboBoxIndex Index de el combo box a utilizar
+     * @return
+     */
+    private CarreraDTO obtenerCarreraDTOfromComboBox(List<CarreraDTO> carrera, int comboBoxIndex) {
+        int i = 0;
+        while (carrera.size() > i) {
+            if (carrera.get(i).getId() == comboBoxIndex) {
+                return carrera.get(i);
+            } else {
+                JOptionPane.showMessageDialog(this, "Ha ocurrido un error insesperado", "ERROR", JOptionPane.ERROR_MESSAGE);
+                i++;
+                return null;
+            }
+        }
+        return null;
     }
 
     /**
@@ -165,11 +197,32 @@ public class FrmAgregarAlumno extends javax.swing.JFrame {
         String aMaterno = campoTextoApellidoMaterno.getText();
         String contrasenia = campoTextoContrasenia.getText();
         String estatusCarreraDefault = "Inscrito";
+        
+        try {
+            CarreraNegocio carreraNegocio = new CarreraNegocio();
+            int carrera = comboBoxCarrera.getSelectedIndex() + 1;
+//        obtenerCarreraDTOfromComboBox(carreraNegocio.buscarCarreras(), carrera);
+            CarreraDTO carreraDTO = obtenerCarreraDTOfromComboBox(carreraNegocio.buscarCarreras(), carrera);
+            
+            EstudianteDTO estudiante = new EstudianteDTO(nombre, aPaterno,
+                    aMaterno, contrasenia, estatusCarreraDefault);
+            
+            estudiante.setCarrera(carreraDTO);
+            
+            estudianteNegocio.guardarEstudiante(estudiante);
+            JOptionPane.showMessageDialog(this, "El estudiante se ha agregado correctamente.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ha ocurrido un error inesperado: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
 
-        int carrera = comboBoxCarrera.getSelectedIndex();
-        //EstudianteDTO estudiante = new EstudianteDTO(nombre, aPaterno, aMaterno, contrasenia, aMaterno, carrera);
     }//GEN-LAST:event_btnAgregarActionPerformed
 
+    /**
+     * Boton que reinicia los campos de texto del frame
+     *
+     * @param evt presiona el boton "reiniciar"
+     */
     private void btnReiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarActionPerformed
         campoTextoNombre.setText("");
         campoTextoApellidoPaterno.setText("");

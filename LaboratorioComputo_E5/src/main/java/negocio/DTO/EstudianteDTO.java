@@ -96,7 +96,7 @@ public class EstudianteDTO {
 
     /**
      * Constructor que inicializa los valores de la clase a excepcion de las
-     * relaciones.
+     * relaciones con bloqueo y apartados.
      *
      * @param nombre Nombre del estudiante
      * @param apellidoPaterno Apellido paterno del estudiante
@@ -112,6 +112,24 @@ public class EstudianteDTO {
         this.contrasenia = contrasenia;
         this.estatusInscripcion = estatusInscripcion;
         this.carrera = carrera;
+    }
+
+    /**
+     * Constructor que inicializa los valores de la clase a excepcion de las
+     * relaciones
+     *
+     * @param nombre Nombre del estudiante
+     * @param apellidoPaterno Apellido paterno del estudiante
+     * @param apellidoMaterno Apellido materno del estudiante
+     * @param contrasenia Contrasenia del estudiante
+     * @param estatusInscripcion Estatus de inscripcion del estudiante
+     */
+    public EstudianteDTO(String nombre, String apellidoPaterno, String apellidoMaterno, String contrasenia, String estatusInscripcion) {
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.contrasenia = contrasenia;
+        this.estatusInscripcion = estatusInscripcion;
     }
 
     /**
