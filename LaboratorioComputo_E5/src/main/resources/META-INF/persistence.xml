@@ -8,12 +8,13 @@
     <class>persistencia.entidades.CentroComputoEntidad</class>
     <class>persistencia.entidades.CarreraEntidad</class>
     <class>persistencia.entidades.ComputadoraEntidad</class>
+    <class>persistencia.entidades.ApartadoEntidad</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://sql3.freesqldatabase.com:3306/sql3739745"/>
       <property name="javax.persistence.jdbc.user" value="sql3739745"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.password" value="jIjf5v8AfZ"/>
-      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+      <property name="javax.persistence.schema-generation.database.action" value="create"/>
     </properties>
   </persistence-unit>
 </persistence>

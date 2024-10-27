@@ -45,10 +45,6 @@ public class EstudianteEntidad implements Serializable {
     @Column(name = "apellidoPaterno", length = 50, nullable = false)
     private String apellidoPaterno;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "computadoraRentada", referencedColumnName = "idComputadora")
-    private ComputadoraEntidad computadora;
-
     @Column(name = "apellidoMaterno", length = 50, nullable = false)
     private String apellidoMaterno;
 
@@ -62,9 +58,9 @@ public class EstudianteEntidad implements Serializable {
     private List<BloqueoEntidad> bloqueo;
 
     @OneToMany(mappedBy = "estudiante")
-    private List<ApartadoEntidad> rentas;
+    private List<ApartadoEntidad> apartados;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "idCarrera", referencedColumnName = "nombre")
     private CarreraEntidad carrera;
 
@@ -105,11 +101,10 @@ public class EstudianteEntidad implements Serializable {
      * @param estatusInscripcion estatus de la inscripción del estudiante.
      * @param carrera relación entre el estudiante y una carrera.
      */
-    public EstudianteEntidad(Long id, String nombre, String apellidoPaterno, ComputadoraEntidad computadora, String apellidoMaterno, String contrasenia, String estatusInscripcion, CarreraEntidad carrera) {
+    public EstudianteEntidad(Long id, String nombre, String apellidoPaterno, String apellidoMaterno, String contrasenia, String estatusInscripcion, CarreraEntidad carrera) {
         this.idEstudiante = id;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
-        this.computadora = computadora;
         this.apellidoMaterno = apellidoMaterno;
         this.contrasenia = contrasenia;
         this.estatusInscripcion = estatusInscripcion;
@@ -226,25 +221,6 @@ public class EstudianteEntidad implements Serializable {
     }
 
     /**
-     * Método que obtiene la relación de la computadora y el estudiante.
-     *
-     * @return relación de la computadora con el estudiante.
-     */
-    public ComputadoraEntidad getComputadora() {
-        return computadora;
-    }
-
-    /**
-     * Método que establece la relación de la computadora y el estudiante.
-     *
-     * @param computadora relación de la computadora con el estudiante a
-     * establecer.
-     */
-    public void setComputadora(ComputadoraEntidad computadora) {
-        this.computadora = computadora;
-    }
-
-    /**
      * Obtiene la lista de bloqueos asociados a un estudiante.
      *
      * @return Una lista de bloqueos asociados al estudiante.
@@ -268,7 +244,7 @@ public class EstudianteEntidad implements Serializable {
      * @return Una lista de rentas asociadas al estudiante.
      */
     public List<ApartadoEntidad> getApartado() {
-        return rentas;
+        return apartados;
     }
 
     /**
@@ -277,7 +253,7 @@ public class EstudianteEntidad implements Serializable {
      * @param rentas La lista de rentas a establecer.
      */
     public void setApartado(List<ApartadoEntidad> rentas) {
-        this.rentas = rentas;
+        this.apartados = rentas;
     }
 
     /**

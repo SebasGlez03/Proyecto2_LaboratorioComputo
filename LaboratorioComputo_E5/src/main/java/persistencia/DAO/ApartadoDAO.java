@@ -15,7 +15,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import javax.swing.JOptionPane;
-import persistencia.Interfaces.IRentaDAO;
+import persistencia.Interfaces.IApartadoDAO;
 
 /**
  * La clase {@code ApartadoDAO} maneja las operaciones de persistencia relacionadas con la entidad {@code ApartadoEntidad}.
@@ -24,11 +24,12 @@ import persistencia.Interfaces.IRentaDAO;
  * 
  * @author santi
  */
-public class ApartadoDAO implements IRentaDAO{
+public class ApartadoDAO implements IApartadoDAO{
 
     EntityManager entityManager = null;
     EntityManagerFactory managerFactory = null;             
     EntityTransaction transaction = null;   
+    EstudianteDAO estudianteDAO = new EstudianteDAO();
 
     /**
      * Constructor por defecto para inicializar un objeto {@code RentaDAO}.
@@ -40,9 +41,9 @@ public class ApartadoDAO implements IRentaDAO{
     /**
      * Guarda una nueva renta en la base de datos.
      * 
-     * @param renta La entidad {@code ApartadoEntidad} que se desea persistir en la base de datos.
+     * @param apartado La entidad {@code ApartadoEntidad} que se desea persistir en la base de datos.
      */
-    public void guardarRenta(ApartadoEntidad renta) {
+    public void guardarApartado(ApartadoEntidad apartado) {
         try {
             // Construimos el EntityManager
             managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
@@ -51,7 +52,7 @@ public class ApartadoDAO implements IRentaDAO{
             transaction.begin();
 
             // Persistimos la entidad en la base de datos
-            entityManager.persist(renta);
+            entityManager.persist(apartado);
 
             // Todo salió bien, se confirma la transacción
             transaction.commit();
@@ -75,7 +76,7 @@ public class ApartadoDAO implements IRentaDAO{
      * 
      * @param renta La entidad {@code ApartadoEntidad} que se desea eliminar de la base de datos.
      */
-    public void eliminarRenta(ApartadoEntidad renta) {
+    public void eliminarApartado(ApartadoEntidad renta) {
         try {
             // Construimos el EntityManager
             managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
@@ -108,7 +109,7 @@ public class ApartadoDAO implements IRentaDAO{
      * 
      * @param renta La entidad {@code ApartadoEntidad} con los nuevos valores que se desean actualizar en la base de datos.
      */
-    public void modificarRenta(ApartadoEntidad renta) {
+    public void modificarApartado(ApartadoEntidad renta) {
         try {
             // Construimos el EntityManager
             managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
@@ -141,7 +142,7 @@ public class ApartadoDAO implements IRentaDAO{
      *  
      * @param Long id
      */
-    public ApartadoEntidad buscarUnaRenta(Long id) {
+    public ApartadoEntidad buscarUnApartado(Long id) {
 
         try{
             // Construimos el EntityManager
@@ -172,7 +173,7 @@ public class ApartadoDAO implements IRentaDAO{
      * 
      * 
      */
-    public List<ApartadoEntidad> buscarTodasRenta() {
+    public List<ApartadoEntidad> buscarTodosApartados() {
 
         try{
             // Construimos el EntityManager
@@ -193,5 +194,22 @@ public class ApartadoDAO implements IRentaDAO{
                 entityManager.close();
             }
         }
+    }
+    
+    public List<ApartadoEntidad> buscarApartadoPorEstudiante(Long idE, Long idC) {
+    
+
+        managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
+        entityManager = managerFactory.createEntityManager();
+        
+        TypedQuery<ApartadoEntidad> query = entityManager.createQuery(
+                "SELECT a FROM ApartadoEntidad a LEFT JOIN a.estudiante p LEFT JOIN a.computadora c WHERE p.idEstudiante = :idE AND c.idComputadora = :idC", ApartadoEntidad.class);
+        query.setParameter("idE", idE);
+        query.setParameter("idC", idC);
+        List<ApartadoEntidad> ccE = query.getResultList();
+
+        entityManager.close();
+        return ccE;
+        
     }
 }

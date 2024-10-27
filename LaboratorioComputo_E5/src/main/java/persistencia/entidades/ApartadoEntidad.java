@@ -6,6 +6,7 @@ package persistencia.entidades;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -39,11 +40,11 @@ public class ApartadoEntidad implements Serializable {
     @Column(name = "fechaFin", nullable = false)
     private Calendar fechaFin;
 
-    @ManyToOne()
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "idEstudiante", nullable = false)
     private EstudianteEntidad estudiante;
 
-    @ManyToOne()
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "idComputadora", nullable = false)
     private ComputadoraEntidad computadora;
 

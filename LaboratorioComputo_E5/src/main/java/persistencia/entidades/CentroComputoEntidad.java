@@ -58,7 +58,7 @@ public class CentroComputoEntidad implements Serializable {
     private Calendar horaFinServicio;
 
     /** Relación con la entidad {@code UnidadAcademicaEntidad}. */
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "idUnidadAcademica", nullable = false)
     private UnidadAcademicaEntidad unidadAcademica;
 

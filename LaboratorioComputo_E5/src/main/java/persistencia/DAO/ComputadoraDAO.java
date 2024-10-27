@@ -212,4 +212,44 @@ public class ComputadoraDAO implements IComputadoraDAO{
             }
         }
     }
+    
+    /**
+     *  Retorna una lista con todas las computadoras asociadas a un centroDeComputoespecífico.
+     * 
+     * @param cID
+     * @return
+     */
+    public List<ComputadoraEntidad> buscarComputadorasPorCentro(Long cID) {
+        
+        managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
+        entityManager = managerFactory.createEntityManager();
+        TypedQuery<ComputadoraEntidad> query = entityManager.createQuery(
+                "SELECT a FROM ComputadoraEntidad a JOIN a.centroComputoEntidad p  WHERE p.id = :cID", ComputadoraEntidad.class);
+        query.setParameter("cID", cID);
+        List<ComputadoraEntidad> cE = query.getResultList();
+        
+        entityManager.close();
+
+        return cE;
+    }
+    
+    /**
+     *  Retorna una lista con todas las computadoras asociadas a un IP.
+     * 
+     * @param ip
+     * @return
+     */
+    public List<ComputadoraEntidad> buscarComputadorasPorIP(String ip) {
+        
+        managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
+        entityManager = managerFactory.createEntityManager();
+        TypedQuery<ComputadoraEntidad> query = entityManager.createQuery(
+                "SELECT a FROM ComputadoraEntidad a WHERE a.ip = :cID", ComputadoraEntidad.class);
+        query.setParameter("cID", ip);
+        List<ComputadoraEntidad> cE = query.getResultList();
+        
+        entityManager.close();
+
+        return cE;
+    }
 }
