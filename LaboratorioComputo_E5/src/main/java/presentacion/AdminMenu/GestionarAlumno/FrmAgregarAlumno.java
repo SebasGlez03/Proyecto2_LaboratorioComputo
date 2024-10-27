@@ -30,16 +30,16 @@ public class FrmAgregarAlumno extends javax.swing.JFrame {
         lblNombre = new javax.swing.JLabel();
         lblApellidoPaterno = new javax.swing.JLabel();
         campoTextoNombre = new javax.swing.JTextField();
-        campoTextoApellidoP = new javax.swing.JTextField();
+        campoTextoApellidoPaterno = new javax.swing.JTextField();
         Titulo = new javax.swing.JLabel();
-        ApellidoMTxt = new javax.swing.JTextField();
+        campoTextoApellidoMaterno = new javax.swing.JTextField();
         lblCarrera = new javax.swing.JLabel();
         comboBoxCarrera = new javax.swing.JComboBox<>();
         lblContrasenia = new javax.swing.JLabel();
         btnReiniciar = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        campoTextoContraseña = new javax.swing.JPasswordField();
+        campoTextoContrasenia = new javax.swing.JPasswordField();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -68,24 +68,24 @@ public class FrmAgregarAlumno extends javax.swing.JFrame {
         });
         getContentPane().add(campoTextoNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 220, 30));
 
-        campoTextoApellidoP.addActionListener(new java.awt.event.ActionListener() {
+        campoTextoApellidoPaterno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoTextoApellidoPActionPerformed(evt);
+                campoTextoApellidoPaternoActionPerformed(evt);
             }
         });
-        getContentPane().add(campoTextoApellidoP, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 220, 30));
+        getContentPane().add(campoTextoApellidoPaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 220, 30));
 
         Titulo.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         Titulo.setForeground(new java.awt.Color(255, 255, 255));
         Titulo.setText("Agregar Alumno");
         getContentPane().add(Titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, -1, -1));
 
-        ApellidoMTxt.addActionListener(new java.awt.event.ActionListener() {
+        campoTextoApellidoMaterno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ApellidoMTxtActionPerformed(evt);
+                campoTextoApellidoMaternoActionPerformed(evt);
             }
         });
-        getContentPane().add(ApellidoMTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 280, 220, 30));
+        getContentPane().add(campoTextoApellidoMaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 280, 220, 30));
 
         lblCarrera.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblCarrera.setForeground(new java.awt.Color(255, 255, 255));
@@ -129,7 +129,7 @@ public class FrmAgregarAlumno extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 550, -1, -1));
-        getContentPane().add(campoTextoContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 360, 220, 30));
+        getContentPane().add(campoTextoContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 360, 220, 30));
 
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/backgroundChico.jpg"))); // NOI18N
         getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -144,7 +144,16 @@ public class FrmAgregarAlumno extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        // TODO add your handling code here:
+        String nombre = campoTextoNombre.getText();
+        String aPaterno = campoTextoApellidoPaterno.getText();
+        String aMaterno = campoTextoApellidoMaterno.getText();
+        String contrasenia = campoTextoContrasenia.getText();
+
+        /*
+        Obtener el codigo para rellenar el combobox
+         */
+        //int carrera = comboBoxCarrera.getSelectedIndex();
+        //EstudianteDTO estudiante = new EstudianteDTO(nombre, aPaterno, aMaterno, contrasenia, aMaterno, carrera);
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnReiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarActionPerformed
@@ -155,13 +164,13 @@ public class FrmAgregarAlumno extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_campoTextoNombreActionPerformed
 
-    private void campoTextoApellidoPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoTextoApellidoPActionPerformed
+    private void campoTextoApellidoPaternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoTextoApellidoPaternoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_campoTextoApellidoPActionPerformed
+    }//GEN-LAST:event_campoTextoApellidoPaternoActionPerformed
 
-    private void ApellidoMTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ApellidoMTxtActionPerformed
+    private void campoTextoApellidoMaternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoTextoApellidoMaternoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_ApellidoMTxtActionPerformed
+    }//GEN-LAST:event_campoTextoApellidoMaternoActionPerformed
 
     private void comboBoxCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxCarreraActionPerformed
         // TODO add your handling code here:
@@ -203,13 +212,13 @@ public class FrmAgregarAlumno extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField ApellidoMTxt;
     private javax.swing.JLabel Titulo;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnReiniciar;
-    private javax.swing.JTextField campoTextoApellidoP;
-    private javax.swing.JPasswordField campoTextoContraseña;
+    private javax.swing.JTextField campoTextoApellidoMaterno;
+    private javax.swing.JTextField campoTextoApellidoPaterno;
+    private javax.swing.JPasswordField campoTextoContrasenia;
     private javax.swing.JTextField campoTextoNombre;
     private javax.swing.JComboBox<String> comboBoxCarrera;
     private javax.swing.JLabel fondo;
