@@ -4,6 +4,11 @@
  */
 package presentacion.AdminMenu.GestionarAlumno;
 
+import java.util.List;
+import negocio.DTO.CarreraDTO;
+import negocio.logica.CarreraNegocio;
+import negocio.logica.UnidadAcademicaNegocio;
+
 /**
  *
  * @author nomar
@@ -15,6 +20,17 @@ public class FrmAgregarAlumno extends javax.swing.JFrame {
      */
     public FrmAgregarAlumno() {
         initComponents();
+        CarreraNegocio carreraNegocio = new CarreraNegocio();
+
+        llenarBoxCarreras(carreraNegocio.buscarCarreras());
+    }
+
+    private void llenarBoxCarreras(List<CarreraDTO> carrera) {
+        int i = 0;
+        while (carrera.size() > i) {
+            comboBoxCarrera.addItem(carrera.get(i).getNombre());
+            i++;
+        }
     }
 
     /**
@@ -97,7 +113,7 @@ public class FrmAgregarAlumno extends javax.swing.JFrame {
                 comboBoxCarreraActionPerformed(evt);
             }
         });
-        getContentPane().add(comboBoxCarrera, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 430, 72, 22));
+        getContentPane().add(comboBoxCarrera, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 430, 125, 30));
 
         lblContrasenia.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblContrasenia.setForeground(new java.awt.Color(255, 255, 255));
@@ -157,7 +173,10 @@ public class FrmAgregarAlumno extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnReiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarActionPerformed
-        // TODO add your handling code here:
+        campoTextoNombre.setText("");
+        campoTextoApellidoPaterno.setText("");
+        campoTextoApellidoMaterno.setText("");
+        campoTextoContrasenia.setText("");
     }//GEN-LAST:event_btnReiniciarActionPerformed
 
     private void campoTextoNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoTextoNombreActionPerformed
