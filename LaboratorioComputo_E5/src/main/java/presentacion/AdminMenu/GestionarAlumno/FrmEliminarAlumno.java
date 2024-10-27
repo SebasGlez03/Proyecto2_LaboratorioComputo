@@ -45,7 +45,7 @@ public class FrmEliminarAlumno extends javax.swing.JFrame {
                 fila[3] = row.getApellidoMaterno();
                 fila[4] = row.getContrasenia();
                 fila[5] = row.getEstatusInscripcion();
-                fila[6] = row.getCarrera();
+                fila[6] = row.getCarrera().getNombre();
                 
                 modeloTabla.addRow(fila);
             });
@@ -93,7 +93,7 @@ public class FrmEliminarAlumno extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "idEstudiante", "Nombre", "ApellidoPaterno", "ApellidoMaterno", "Contraseña", "EstatusInscripcion", "idCarrera", "Eliminar"
+                "idEstudiante", "Nombre", "ApellidoPaterno", "ApellidoMaterno", "Contraseña", "EstatusInscripcion", "Carrera", "Eliminar"
             }
         ) {
             boolean[] canEdit = new boolean [] {

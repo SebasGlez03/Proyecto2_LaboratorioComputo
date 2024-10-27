@@ -80,7 +80,7 @@
                 <Column editable="false" title="ApellidoMaterno" type="java.lang.Object"/>
                 <Column editable="false" title="Contrase&#xf1;a" type="java.lang.Object"/>
                 <Column editable="false" title="EstatusInscripcion" type="java.lang.Object"/>
-                <Column editable="true" title="idCarrera" type="java.lang.Object"/>
+                <Column editable="true" title="Carrera" type="java.lang.Object"/>
                 <Column editable="false" title="Eliminar" type="java.lang.Object"/>
               </Table>
             </Property>
