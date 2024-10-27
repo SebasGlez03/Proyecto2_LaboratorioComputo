@@ -63,9 +63,9 @@ public class pruebasDAO {
         
 
 
-//        carreraDAO.guardarCarrera(caEntidad);
+        carreraDAO.guardarCarrera(caEntidad);
 //        computadoraDAO.guardarComputadora(computadoraEntidad);
-        estudianteDAO.guardarEstudiante(estudianteEntidad);
+//        estudianteDAO.guardarEstudiante(estudianteEntidad);
         
 //        
 //        System.out.println("Una = " + carreraDAO.buscarUnaCarrera(caEntidad.getIdCarrera()).toString());
