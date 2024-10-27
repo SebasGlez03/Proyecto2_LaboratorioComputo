@@ -17,7 +17,7 @@ import negocio.logica.EstudianteNegocio;
  * @author nomar
  */
 public class FrmAgregarAlumno extends javax.swing.JFrame {
-    
+
     CarreraNegocio carreraNegocio = new CarreraNegocio();
     EstudianteNegocio estudianteNegocio = new EstudianteNegocio();
 
@@ -26,7 +26,7 @@ public class FrmAgregarAlumno extends javax.swing.JFrame {
      */
     public FrmAgregarAlumno() {
         initComponents();
-        
+
         llenarBoxCarreras(carreraNegocio.buscarCarreras());
     }
 
@@ -197,21 +197,20 @@ public class FrmAgregarAlumno extends javax.swing.JFrame {
         String aMaterno = campoTextoApellidoMaterno.getText();
         String contrasenia = campoTextoContrasenia.getText();
         String estatusCarreraDefault = "Inscrito";
-        
+
         try {
             CarreraNegocio carreraNegocio = new CarreraNegocio();
             int carrera = comboBoxCarrera.getSelectedIndex() + 1;
 //        obtenerCarreraDTOfromComboBox(carreraNegocio.buscarCarreras(), carrera);
             CarreraDTO carreraDTO = obtenerCarreraDTOfromComboBox(carreraNegocio.buscarCarreras(), carrera);
-            
-            EstudianteDTO estudiante = new EstudianteDTO(nombre, aPaterno,
-                    aMaterno, contrasenia, estatusCarreraDefault);
-            
+
+            EstudianteDTO estudiante = new EstudianteDTO(nombre, aPaterno, aMaterno, contrasenia, estatusCarreraDefault, carreraDTO);
+
             estudiante.setCarrera(carreraDTO);
-            
+
             estudianteNegocio.guardarEstudiante(estudiante);
             JOptionPane.showMessageDialog(this, "El estudiante se ha agregado correctamente.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Ha ocurrido un error inesperado: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }

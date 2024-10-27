@@ -6,17 +6,17 @@ package presentacion;
 
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-import negocio.logica.ComputadoraNegocio;
-import com.github.lgooddatepicker.components.DateTimePicker;
-import java.awt.FlowLayout;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.util.Calendar;
-import javax.swing.JOptionPane;
-import negocio.DTO.ApartadoDTO;
-import negocio.logica.ApartadoNegocio;
-import negocio.logica.CentroComputoNegocio;
-import negocio.logica.EstudianteNegocio;
+//import negocio.logica.ComputadoraNegocio;
+//import com.github.lgooddatepicker.components.DateTimePicker;
+//import java.awt.FlowLayout;
+//import java.time.LocalDateTime;
+//import java.time.ZoneOffset;
+//import java.util.Calendar;
+//import javax.swing.JOptionPane;
+//import negocio.DTO.ApartadoDTO;
+//import negocio.logica.ApartadoNegocio;
+//import negocio.logica.CentroComputoNegocio;
+//import negocio.logica.EstudianteNegocio;
 
 
 /**
@@ -25,14 +25,14 @@ import negocio.logica.EstudianteNegocio;
  */
 public class FrmDetallesApartado extends javax.swing.JFrame {
 
-    Long idCComputo;
-    Long idComputadora;
-    Long idEstudiante;
-    ComputadoraNegocio computadoraNegocio = new ComputadoraNegocio();
-    EstudianteNegocio estudianteNegocio  = new EstudianteNegocio();
-    ApartadoNegocio apartadoNegocio = new ApartadoNegocio();
-    DateTimePicker dateTimePicker = new DateTimePicker();
-    CentroComputoNegocio centroComputoNegocio = new CentroComputoNegocio();
+//    Long idCComputo;
+//    Long idComputadora;
+//    Long idEstudiante;
+//    ComputadoraNegocio computadoraNegocio = new ComputadoraNegocio();
+//    EstudianteNegocio estudianteNegocio  = new EstudianteNegocio();
+//    ApartadoNegocio apartadoNegocio = new ApartadoNegocio();
+//    DateTimePicker dateTimePicker = new DateTimePicker();
+//    CentroComputoNegocio centroComputoNegocio = new CentroComputoNegocio();
     
     /**
      * Creates new form FrmGestionarAlumno
@@ -40,16 +40,16 @@ public class FrmDetallesApartado extends javax.swing.JFrame {
     public FrmDetallesApartado(Long idComputadora, Long idEstudiante, Long idCComputo) {
         
         initComponents();
-        this.idComputadora = idComputadora;
-        this.idEstudiante = idEstudiante;
-        this.idCComputo = idCComputo;
-        
-        llenarTablaSoftware(computadoraNegocio.buscarComputadora(idComputadora).getSoftware());
-        
-        lblNumComputadora.setText("Computadora #" + computadoraNegocio.buscarComputadora(idComputadora).getNumComputadora());
-        
-        fldDateTime.setLayout(new FlowLayout()); 
-        fldDateTime.add(dateTimePicker);
+//        this.idComputadora = idComputadora;
+//        this.idEstudiante = idEstudiante;
+//        this.idCComputo = idCComputo;
+//        
+//        llenarTablaSoftware(computadoraNegocio.buscarComputadora(idComputadora).getSoftware());
+//        
+//        lblNumComputadora.setText("Computadora #" + computadoraNegocio.buscarComputadora(idComputadora).getNumComputadora());
+//        
+//        fldDateTime.setLayout(new FlowLayout()); 
+//        fldDateTime.add(dateTimePicker);
 
 
     }
@@ -177,8 +177,8 @@ public class FrmDetallesApartado extends javax.swing.JFrame {
 
     private void btnAtrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtrasMouseClicked
         
-        new FrmSistemaApartado(idCComputo, idEstudiante).setVisible(true);
-        this.dispose();
+//        new FrmSistemaApartado(idCComputo, idEstudiante).setVisible(true);
+//        this.dispose();
         
     }//GEN-LAST:event_btnAtrasMouseClicked
 
@@ -188,39 +188,39 @@ public class FrmDetallesApartado extends javax.swing.JFrame {
 
     private void btnSeleccionarFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarFechaActionPerformed
 
-        LocalDateTime dateTime = dateTimePicker.getDateTimePermissive();
-        if (dateTime != null){
-        
-        
-        Calendar horaFin = centroComputoNegocio.buscarCentroComputo(idCComputo).getHoraFinServicio();
-        Calendar horaInicio = centroComputoNegocio.buscarCentroComputo(idCComputo).getHoraInicioServicio();
-        
-        if (dateTime.getHour() > horaFin.getTime().getHours() || dateTime.getHour() < horaInicio.getTime().getHours())
-        {
-            JOptionPane.showMessageDialog(this, "El centro de cómputo está cerrado a esa hora" );
-        }
-        else
-        {
-            Calendar fechaInicio = Calendar.getInstance();
-            fechaInicio.setTimeInMillis(dateTime.toEpochSecond(ZoneOffset.UTC));
-            Calendar fechaFinApartado = fechaInicio;
-            fechaFinApartado.add(Calendar.HOUR, estudianteNegocio.buscarEstudiante(idEstudiante).getCarrera().getTiempoDiario().getHours());
-            fechaFinApartado.add(Calendar.MINUTE, estudianteNegocio.buscarEstudiante(idEstudiante).getCarrera().getTiempoDiario().getMinutes());
-            
-            ApartadoDTO aDTO = new ApartadoDTO();
-            aDTO.setFechaInicio(fechaInicio);
-            aDTO.setFechaFin(fechaFinApartado);
-            aDTO.setEstudiante(estudianteNegocio.buscarEstudiante(idEstudiante));
-            aDTO.setComputadora(computadoraNegocio.buscarComputadora(idComputadora));
-            apartadoNegocio.guardarApartado(aDTO);
-            
-        }
-        
-        System.out.println(dateTime.toString());
-        }
-        else {
-            JOptionPane.showMessageDialog(this, "Selecciona una fecha/hora primero" );
-        }
+//        LocalDateTime dateTime = dateTimePicker.getDateTimePermissive();
+//        if (dateTime != null){
+//        
+//        
+//        Calendar horaFin = centroComputoNegocio.buscarCentroComputo(idCComputo).getHoraFinServicio();
+//        Calendar horaInicio = centroComputoNegocio.buscarCentroComputo(idCComputo).getHoraInicioServicio();
+//        
+//        if (dateTime.getHour() > horaFin.getTime().getHours() || dateTime.getHour() < horaInicio.getTime().getHours())
+//        {
+//            JOptionPane.showMessageDialog(this, "El centro de cómputo está cerrado a esa hora" );
+//        }
+//        else
+//        {
+//            Calendar fechaInicio = Calendar.getInstance();
+//            fechaInicio.setTimeInMillis(dateTime.toEpochSecond(ZoneOffset.UTC));
+//            Calendar fechaFinApartado = fechaInicio;
+//            fechaFinApartado.add(Calendar.HOUR, estudianteNegocio.buscarEstudiante(idEstudiante).getCarrera().getTiempoDiario().getHours());
+//            fechaFinApartado.add(Calendar.MINUTE, estudianteNegocio.buscarEstudiante(idEstudiante).getCarrera().getTiempoDiario().getMinutes());
+//            
+//            ApartadoDTO aDTO = new ApartadoDTO();
+//            aDTO.setFechaInicio(fechaInicio);
+//            aDTO.setFechaFin(fechaFinApartado);
+//            aDTO.setEstudiante(estudianteNegocio.buscarEstudiante(idEstudiante));
+//            aDTO.setComputadora(computadoraNegocio.buscarComputadora(idComputadora));
+//            apartadoNegocio.guardarApartado(aDTO);
+//            
+//        }
+//        
+//        System.out.println(dateTime.toString());
+//        }
+//        else {
+//            JOptionPane.showMessageDialog(this, "Selecciona una fecha/hora primero" );
+//        }
         
     }//GEN-LAST:event_btnSeleccionarFechaActionPerformed
 

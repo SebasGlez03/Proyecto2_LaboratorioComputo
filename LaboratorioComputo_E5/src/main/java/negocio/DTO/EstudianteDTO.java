@@ -48,9 +48,10 @@ public class EstudianteDTO {
      */
     String estatusInscripcion;
 
-    /** Carrera del estudiante */
-    CarreraEntidad carrera;
-
+    /**
+     * Carrera del estudiante
+     */
+    CarreraDTO carrera;
 
     /**
      * Lista de bloqueos asociados al estudiante
@@ -82,7 +83,7 @@ public class EstudianteDTO {
      * @param apartados Lista de apartados realizados por el estudiante
      * @param carrera Carrera del estudiante
      */
-    public EstudianteDTO(Long id, String nombre, String apellidoPaterno, CarreraEntidad carrera, String apellidoMaterno, String contrasenia, String estatusInscripcion, List<BloqueoDTO> bloqueos, List<ApartadoDTO> apartados) {
+    public EstudianteDTO(Long id, String nombre, String apellidoPaterno, CarreraDTO carrera, String apellidoMaterno, String contrasenia, String estatusInscripcion, List<BloqueoDTO> bloqueos, List<ApartadoDTO> apartados) {
         this.id = id;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
@@ -95,15 +96,15 @@ public class EstudianteDTO {
     }
 
     /**
-     * Constructor que inicializa los valores de la clase a excepcion de las
-     * relaciones con bloqueo y apartados.
+     * Constructor que inicializa los atributos de la clase a excepcion de la
+     * relacion con los bloqueos y los apartados
      *
      * @param nombre Nombre del estudiante
      * @param apellidoPaterno Apellido paterno del estudiante
      * @param apellidoMaterno Apellido materno del estudiante
      * @param contrasenia Contrasenia del estudiante
      * @param estatusInscripcion Estatus de inscripcion del estudiante
-     * @param carrera Carrera que cursa el estudiante
+     * @param carrera Carrera del estudiante
      */
     public EstudianteDTO(String nombre, String apellidoPaterno, String apellidoMaterno, String contrasenia, String estatusInscripcion, CarreraDTO carrera) {
         this.nombre = nombre;
@@ -112,24 +113,6 @@ public class EstudianteDTO {
         this.contrasenia = contrasenia;
         this.estatusInscripcion = estatusInscripcion;
         this.carrera = carrera;
-    }
-
-    /**
-     * Constructor que inicializa los valores de la clase a excepcion de las
-     * relaciones
-     *
-     * @param nombre Nombre del estudiante
-     * @param apellidoPaterno Apellido paterno del estudiante
-     * @param apellidoMaterno Apellido materno del estudiante
-     * @param contrasenia Contrasenia del estudiante
-     * @param estatusInscripcion Estatus de inscripcion del estudiante
-     */
-    public EstudianteDTO(String nombre, String apellidoPaterno, String apellidoMaterno, String contrasenia, String estatusInscripcion) {
-        this.nombre = nombre;
-        this.apellidoPaterno = apellidoPaterno;
-        this.apellidoMaterno = apellidoMaterno;
-        this.contrasenia = contrasenia;
-        this.estatusInscripcion = estatusInscripcion;
     }
 
     /**
@@ -142,7 +125,9 @@ public class EstudianteDTO {
         this.nombre = e.getNombre();
         this.apellidoPaterno = e.getApellidoPaterno();
         this.apellidoMaterno = e.getApellidoMaterno();
-        this.carrera = e.getCarrera();
+        CarreraDTO c = new CarreraDTO();
+        c.setId(e.getCarrera().getIdCarrera());
+        this.carrera = c;
         this.contrasenia = e.getContrasenia();
         this.estatusInscripcion = e.getEstatusInscripcion();
 
@@ -318,7 +303,7 @@ public class EstudianteDTO {
      *
      * @return carrera Carrera del estudiante
      */
-    public CarreraEntidad getCarrera() {
+    public CarreraDTO getCarrera() {
         return carrera;
     }
 
@@ -327,7 +312,7 @@ public class EstudianteDTO {
      *
      * @param carrera Carrera del estudiante
      */
-    public void setCarrera(CarreraEntidad carrera) {
+    public void setCarrera(CarreraDTO carrera) {
         this.carrera = carrera;
     }
 
@@ -338,6 +323,7 @@ public class EstudianteDTO {
      */
     @Override
     public String toString() {
-        return "EstudianteDTO{" + "id=" + id + ", nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno + ", contrasenia=" + contrasenia + ", estatusInscripcion=" + estatusInscripcion + ", bloqueos=" + bloqueos + ", apartados=" + apartados + '}';
+        return "EstudianteDTO{" + "id=" + id + ", nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno + ", contrasenia=" + contrasenia + ", estatusInscripcion=" + estatusInscripcion + ", carrera=" + carrera + ", bloqueos=" + bloqueos + ", apartados=" + apartados + '}';
     }
+
 }

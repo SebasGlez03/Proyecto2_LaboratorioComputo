@@ -19,11 +19,11 @@ import persistencia.entidades.EstudianteEntidad;
 /**
  * Clase EstudianteNegocio
  * <p>
- * Esta clase gestiona la lógica de negocio para la entidad Estudiante, permitiendo
- * realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) y gestionar la
- * conversión entre objetos DTO y entidades de persistencia.
+ * Esta clase gestiona la lógica de negocio para la entidad Estudiante,
+ * permitiendo realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) y
+ * gestionar la conversión entre objetos DTO y entidades de persistencia.
  * </p>
- * 
+ *
  * @autor santi
  */
 public class EstudianteNegocio {
@@ -44,9 +44,10 @@ public class EstudianteNegocio {
 
     /**
      * Convierte un objeto EstudianteDTO a una entidad EstudianteEntidad.
-     * 
+     *
      * @param dto el objeto EstudianteDTO que se desea convertir.
-     * @return la entidad EstudianteEntidad correspondiente al DTO proporcionado.
+     * @return la entidad EstudianteEntidad correspondiente al DTO
+     * proporcionado.
      */
     public EstudianteEntidad convertir(EstudianteDTO dto) {
         BloqueoNegocio bN = new BloqueoNegocio();
@@ -61,9 +62,10 @@ public class EstudianteNegocio {
         entidad.setApellidoPaterno(dto.getApellidoPaterno());
         entidad.setEstatusInscripcion(dto.getEstatusInscripcion());
         entidad.setContrasenia(dto.getContrasenia());
-        
-        if (dto.getCarrera() != null){
-        entidad.setCarrera(dto.getCarrera());
+
+        if (dto.getCarrera() != null) {
+
+            entidad.setCarrera(cN.convertir(dto.getCarrera()));
         }
 
         // Convierte la lista de ApartadoDTO a ApartadoEntidad si existen
@@ -95,7 +97,7 @@ public class EstudianteNegocio {
 
     /**
      * Guarda un estudiante en la base de datos.
-     * 
+     *
      * @param e el objeto EstudianteDTO que se desea guardar.
      */
     public void guardarEstudiante(EstudianteDTO e) {
@@ -104,8 +106,9 @@ public class EstudianteNegocio {
 
     /**
      * Modifica un estudiante existente en la base de datos.
-     * 
-     * @param e el objeto EstudianteDTO con los datos actualizados del estudiante.
+     *
+     * @param e el objeto EstudianteDTO con los datos actualizados del
+     * estudiante.
      */
     public void modificarEstudiante(EstudianteDTO e) {
         estudianteDAO.modificarEstudiante(convertir(e));
@@ -113,7 +116,7 @@ public class EstudianteNegocio {
 
     /**
      * Elimina un estudiante de la base de datos.
-     * 
+     *
      * @param e el objeto EstudianteDTO que se desea eliminar.
      */
     public void eliminarEstudiante(EstudianteDTO e) {
@@ -122,30 +125,29 @@ public class EstudianteNegocio {
 
     /**
      * Busca un estudiante específico por su identificador.
-     * 
+     *
      * @param id el identificador único del estudiante a buscar.
      * @return un objeto EstudianteDTO con los datos del estudiante encontrado.
      */
     public EstudianteDTO buscarEstudiante(Long id) {
-        
+
         EstudianteDTO estudiante = new EstudianteDTO();
-        
-        if (estudianteDAO.buscarUnEstudiante(id) != null){
-        estudiante = new EstudianteDTO(estudianteDAO.buscarUnEstudiante(id));
-        return estudiante;
-        }
-        else{
-        
+
+        if (estudianteDAO.buscarUnEstudiante(id) != null) {
+            estudiante = new EstudianteDTO(estudianteDAO.buscarUnEstudiante(id));
+            return estudiante;
+        } else {
+
             return null;
-            
+
         }
     }
 
     /**
      * Obtiene una lista de todos los estudiantes registrados.
-     * 
-     * @return una lista de objetos EstudianteDTO que representa todos los estudiantes.
-     *         Si no hay estudiantes, retorna null.
+     *
+     * @return una lista de objetos EstudianteDTO que representa todos los
+     * estudiantes. Si no hay estudiantes, retorna null.
      */
     public List<EstudianteDTO> buscarEstudiante() {
         List<EstudianteDTO> estudiantes = new ArrayList<>();
