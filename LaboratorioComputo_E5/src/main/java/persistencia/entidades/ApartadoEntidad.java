@@ -40,11 +40,11 @@ public class ApartadoEntidad implements Serializable {
     @Column(name = "fechaFin", nullable = false)
     private Calendar fechaFin;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "idEstudiante", nullable = false)
     private EstudianteEntidad estudiante;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "idComputadora", nullable = false)
     private ComputadoraEntidad computadora;
 

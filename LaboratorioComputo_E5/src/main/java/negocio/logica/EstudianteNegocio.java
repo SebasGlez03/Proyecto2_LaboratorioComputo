@@ -63,7 +63,7 @@ public class EstudianteNegocio {
         entidad.setContrasenia(dto.getContrasenia());
         
         if (dto.getCarrera() != null){
-        entidad.setCarrera(cN.convertir(dto.getCarrera()));
+        entidad.setCarrera(dto.getCarrera());
         }
 
         // Convierte la lista de ApartadoDTO a ApartadoEntidad si existen
@@ -88,13 +88,6 @@ public class EstudianteNegocio {
             entidad.setBloqueo(bloqueos);
         } else {
             entidad.setBloqueo(null);
-        }
-
-        // Convierte la carrera a CarreraEntidad si existe
-        if (dto.getCarrera() != null) {
-            entidad.setCarrera(caN.convertir(dto.getCarrera()));
-        } else {
-            entidad.setCarrera(null);
         }
 
         return entidad;

@@ -56,7 +56,7 @@ public class ComputadoraEntidad implements Serializable {
      * computadora. Está mapeado a la columna "idCentroComputo" en la base de
      * datos.
      */
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "idCentroComputo", nullable = false)
     private CentroComputoEntidad centroComputoEntidad;
 

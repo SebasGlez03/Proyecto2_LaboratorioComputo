@@ -66,7 +66,7 @@ public class BloqueoEntidad implements Serializable {
      * estudiante al que se le aplica el bloqueo. Es una relación de muchos a
      * uno y es obligatoria.
      */
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "estudiante")
     private EstudianteEntidad estudiante;
 

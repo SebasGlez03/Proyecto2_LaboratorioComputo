@@ -60,7 +60,7 @@ public class EstudianteEntidad implements Serializable {
     @OneToMany(mappedBy = "estudiante")
     private List<ApartadoEntidad> apartados;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "idCarrera", referencedColumnName = "nombre")
     private CarreraEntidad carrera;
 

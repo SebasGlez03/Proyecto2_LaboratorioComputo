@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import persistencia.entidades.ApartadoEntidad;
 import persistencia.entidades.BloqueoEntidad;
+import persistencia.entidades.CarreraEntidad;
 import persistencia.entidades.EstudianteEntidad;
 /**
  * Clase DTO (Data Transfer Object) que representa un estudiante.
@@ -36,7 +37,7 @@ public class EstudianteDTO {
     String estatusInscripcion;
 
     /** Carrera del estudiante */
-    CarreraDTO carrera;
+    CarreraEntidad carrera;
 
     /** Lista de bloqueos asociados al estudiante */
     List<BloqueoDTO> bloqueos;
@@ -64,7 +65,7 @@ public class EstudianteDTO {
      * @param apartados Lista de apartados realizados por el estudiante
      * @param carrera Carrera del estudiante
      */
-    public EstudianteDTO(Long id, String nombre, String apellidoPaterno, CarreraDTO carrera, String apellidoMaterno, String contrasenia, String estatusInscripcion, List<BloqueoDTO> bloqueos, List<ApartadoDTO> apartados) {
+    public EstudianteDTO(Long id, String nombre, String apellidoPaterno, CarreraEntidad carrera, String apellidoMaterno, String contrasenia, String estatusInscripcion, List<BloqueoDTO> bloqueos, List<ApartadoDTO> apartados) {
         this.id = id;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
@@ -86,8 +87,7 @@ public class EstudianteDTO {
         this.nombre = e.getNombre();
         this.apellidoPaterno = e.getApellidoPaterno();
         this.apellidoMaterno = e.getApellidoMaterno();
-//        CarreraDTO ca = new CarreraDTO(e.getCarrera());
-//        this.carrera = ca;
+        this.carrera = e.getCarrera();
         this.contrasenia = e.getContrasenia();
         this.estatusInscripcion = e.getEstatusInscripcion();
 
@@ -265,7 +265,7 @@ public class EstudianteDTO {
      * 
      * @return carrera Carrera del estudiante
      */
-    public CarreraDTO getCarrera() {
+    public CarreraEntidad getCarrera() {
         return carrera;
     }
 
@@ -274,7 +274,7 @@ public class EstudianteDTO {
      * 
      * @param carrera Carrera del estudiante
      */
-    public void setCarrera(CarreraDTO carrera) {
+    public void setCarrera(CarreraEntidad carrera) {
         this.carrera = carrera;
     }
 

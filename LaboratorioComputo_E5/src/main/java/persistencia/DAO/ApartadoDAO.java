@@ -29,6 +29,7 @@ public class ApartadoDAO implements IApartadoDAO{
     EntityManager entityManager = null;
     EntityManagerFactory managerFactory = null;             
     EntityTransaction transaction = null;   
+    EstudianteDAO estudianteDAO = new EstudianteDAO();
 
     /**
      * Constructor por defecto para inicializar un objeto {@code RentaDAO}.
@@ -40,9 +41,9 @@ public class ApartadoDAO implements IApartadoDAO{
     /**
      * Guarda una nueva renta en la base de datos.
      * 
-     * @param renta La entidad {@code ApartadoEntidad} que se desea persistir en la base de datos.
+     * @param apartado La entidad {@code ApartadoEntidad} que se desea persistir en la base de datos.
      */
-    public void guardarApartado(ApartadoEntidad renta) {
+    public void guardarApartado(ApartadoEntidad apartado) {
         try {
             // Construimos el EntityManager
             managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
@@ -51,7 +52,7 @@ public class ApartadoDAO implements IApartadoDAO{
             transaction.begin();
 
             // Persistimos la entidad en la base de datos
-            entityManager.persist(renta);
+            entityManager.persist(apartado);
 
             // Todo salió bien, se confirma la transacción
             transaction.commit();

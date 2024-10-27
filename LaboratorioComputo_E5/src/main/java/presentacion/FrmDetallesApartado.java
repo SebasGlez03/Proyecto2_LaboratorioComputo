@@ -10,7 +10,13 @@ import negocio.logica.ComputadoraNegocio;
 import com.github.lgooddatepicker.components.DateTimePicker;
 import java.awt.FlowLayout;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.util.Calendar;
 import javax.swing.JOptionPane;
+import negocio.DTO.ApartadoDTO;
+import negocio.logica.ApartadoNegocio;
+import negocio.logica.CentroComputoNegocio;
+import negocio.logica.EstudianteNegocio;
 
 
 /**
@@ -23,7 +29,10 @@ public class FrmDetallesApartado extends javax.swing.JFrame {
     Long idComputadora;
     Long idEstudiante;
     ComputadoraNegocio computadoraNegocio = new ComputadoraNegocio();
+    EstudianteNegocio estudianteNegocio  = new EstudianteNegocio();
+    ApartadoNegocio apartadoNegocio = new ApartadoNegocio();
     DateTimePicker dateTimePicker = new DateTimePicker();
+    CentroComputoNegocio centroComputoNegocio = new CentroComputoNegocio();
     
     /**
      * Creates new form FrmGestionarAlumno
@@ -36,7 +45,9 @@ public class FrmDetallesApartado extends javax.swing.JFrame {
         this.idCComputo = idCComputo;
         
         llenarTablaSoftware(computadoraNegocio.buscarComputadora(idComputadora).getSoftware());
-
+        
+        lblNumComputadora.setText("Computadora #" + computadoraNegocio.buscarComputadora(idComputadora).getNumComputadora());
+        
         fldDateTime.setLayout(new FlowLayout()); 
         fldDateTime.add(dateTimePicker);
 
@@ -145,7 +156,7 @@ public class FrmDetallesApartado extends javax.swing.JFrame {
         lblNumComputadora1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         lblNumComputadora1.setForeground(new java.awt.Color(255, 255, 255));
         lblNumComputadora1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblNumComputadora1.setText("Selecciones la fecha de apartado");
+        lblNumComputadora1.setText("Seleccione la fecha de apartado");
         getContentPane().add(lblNumComputadora1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 1000, -1));
         getContentPane().add(fldDateTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 1000, 60));
 
@@ -179,6 +190,31 @@ public class FrmDetallesApartado extends javax.swing.JFrame {
 
         LocalDateTime dateTime = dateTimePicker.getDateTimePermissive();
         if (dateTime != null){
+        
+        
+        Calendar horaFin = centroComputoNegocio.buscarCentroComputo(idCComputo).getHoraFinServicio();
+        Calendar horaInicio = centroComputoNegocio.buscarCentroComputo(idCComputo).getHoraInicioServicio();
+        
+        if (dateTime.getHour() > horaFin.getTime().getHours() || dateTime.getHour() < horaInicio.getTime().getHours())
+        {
+            JOptionPane.showMessageDialog(this, "El centro de cómputo está cerrado a esa hora" );
+        }
+        else
+        {
+            Calendar fechaInicio = Calendar.getInstance();
+            fechaInicio.setTimeInMillis(dateTime.toEpochSecond(ZoneOffset.UTC));
+            Calendar fechaFinApartado = fechaInicio;
+            fechaFinApartado.add(Calendar.HOUR, estudianteNegocio.buscarEstudiante(idEstudiante).getCarrera().getTiempoDiario().getHours());
+            fechaFinApartado.add(Calendar.MINUTE, estudianteNegocio.buscarEstudiante(idEstudiante).getCarrera().getTiempoDiario().getMinutes());
+            
+            ApartadoDTO aDTO = new ApartadoDTO();
+            aDTO.setFechaInicio(fechaInicio);
+            aDTO.setFechaFin(fechaFinApartado);
+            aDTO.setEstudiante(estudianteNegocio.buscarEstudiante(idEstudiante));
+            aDTO.setComputadora(computadoraNegocio.buscarComputadora(idComputadora));
+            apartadoNegocio.guardarApartado(aDTO);
+            
+        }
         
         System.out.println(dateTime.toString());
         }

@@ -23,7 +23,11 @@ public class FrmLogin extends javax.swing.JFrame {
     /**
      * Creates new form FrmLogin
      */
-    
+
+    @Override
+    public void setExtendedState(int state) {
+        super.setExtendedState(FrmLogin.MAXIMIZED_BOTH); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
     EstudianteNegocio estudianteNegocio;
     UnidadAcademicaNegocio unidadAcademicaNegocio;
     CentroComputoNegocio centroComputoNegocio;
