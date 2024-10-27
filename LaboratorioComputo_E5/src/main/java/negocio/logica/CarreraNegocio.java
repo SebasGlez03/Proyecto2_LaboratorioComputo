@@ -53,11 +53,12 @@ public class CarreraNegocio {
         entidad.setTiempoDiario(dto.getTiempoDiario());
 
         List<EstudianteEntidad> estudiantes = new ArrayList<>();
+        if (dto.getEstudiantes() != null){
         for (EstudianteDTO y : dto.getEstudiantes()) {
             EstudianteEntidad x = eN.convertir(y);
             estudiantes.add(x);
         }
-        
+        }
         entidad.setEstudiante(estudiantes);
         
         return entidad;
