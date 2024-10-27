@@ -9,39 +9,57 @@ import java.util.List;
 import persistencia.entidades.ApartadoEntidad;
 import persistencia.entidades.BloqueoEntidad;
 import persistencia.entidades.EstudianteEntidad;
+
 /**
- * Clase DTO (Data Transfer Object) que representa un estudiante.
- * Contiene los datos básicos del estudiante, incluyendo su computadora asignada,
- * carrera, contraseñas, estado de inscripción, y listas de bloqueos y apartados.
+ * Clase DTO (Data Transfer Object) que representa un estudiante. Contiene los
+ * datos básicos del estudiante, incluyendo su computadora asignada, carrera,
+ * contraseñas, estado de inscripción, y listas de bloqueos y apartados.
  */
 public class EstudianteDTO {
 
-    /** Identificador único del estudiante */
+    /**
+     * Identificador único del estudiante
+     */
     Long id;
 
-    /** Nombre del estudiante */
+    /**
+     * Nombre del estudiante
+     */
     String nombre;
 
-    /** Apellido paterno del estudiante */
+    /**
+     * Apellido paterno del estudiante
+     */
     String apellidoPaterno;
 
-    /** Apellido materno del estudiante */
+    /**
+     * Apellido materno del estudiante
+     */
     String apellidoMaterno;
 
-
-    /** Contraseña del estudiante */
+    /**
+     * Contraseña del estudiante
+     */
     String contrasenia;
 
-    /** Estado de inscripción del estudiante */
+    /**
+     * Estado de inscripción del estudiante
+     */
     String estatusInscripcion;
 
-    /** Carrera del estudiante */
+    /**
+     * Carrera del estudiante
+     */
     CarreraDTO carrera;
 
-    /** Lista de bloqueos asociados al estudiante */
+    /**
+     * Lista de bloqueos asociados al estudiante
+     */
     List<BloqueoDTO> bloqueos;
 
-    /** Lista de apartados realizados por el estudiante */
+    /**
+     * Lista de apartados realizados por el estudiante
+     */
     List<ApartadoDTO> apartados;
 
     /**
@@ -52,7 +70,7 @@ public class EstudianteDTO {
 
     /**
      * Constructor completo.
-     * 
+     *
      * @param id Identificador único del estudiante
      * @param nombre Nombre del estudiante
      * @param apellidoPaterno Apellido paterno del estudiante
@@ -77,8 +95,28 @@ public class EstudianteDTO {
     }
 
     /**
+     * Constructor que inicializa los valores de la clase a excepcion de las
+     * relaciones.
+     *
+     * @param nombre Nombre del estudiante
+     * @param apellidoPaterno Apellido paterno del estudiante
+     * @param apellidoMaterno Apellido materno del estudiante
+     * @param contrasenia Contrasenia del estudiante
+     * @param estatusInscripcion Estatus de inscripcion del estudiante
+     * @param carrera Carrera que cursa el estudiante
+     */
+    public EstudianteDTO(String nombre, String apellidoPaterno, String apellidoMaterno, String contrasenia, String estatusInscripcion, CarreraDTO carrera) {
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.contrasenia = contrasenia;
+        this.estatusInscripcion = estatusInscripcion;
+        this.carrera = carrera;
+    }
+
+    /**
      * Constructor que convierte una entidad EstudianteEntidad en un DTO.
-     * 
+     *
      * @param e Entidad de tipo EstudianteEntidad
      */
     public EstudianteDTO(EstudianteEntidad e) {
@@ -116,7 +154,7 @@ public class EstudianteDTO {
 
     /**
      * Obtiene el identificador único del estudiante.
-     * 
+     *
      * @return id Identificador del estudiante
      */
     public Long getId() {
@@ -125,7 +163,7 @@ public class EstudianteDTO {
 
     /**
      * Establece el identificador único del estudiante.
-     * 
+     *
      * @param id Identificador del estudiante
      */
     public void setId(Long id) {
@@ -134,7 +172,7 @@ public class EstudianteDTO {
 
     /**
      * Obtiene el nombre del estudiante.
-     * 
+     *
      * @return nombre Nombre del estudiante
      */
     public String getNombre() {
@@ -143,7 +181,7 @@ public class EstudianteDTO {
 
     /**
      * Establece el nombre del estudiante.
-     * 
+     *
      * @param nombre Nombre del estudiante
      */
     public void setNombre(String nombre) {
@@ -152,7 +190,7 @@ public class EstudianteDTO {
 
     /**
      * Obtiene el apellido paterno del estudiante.
-     * 
+     *
      * @return apellidoPaterno Apellido paterno del estudiante
      */
     public String getApellidoPaterno() {
@@ -161,7 +199,7 @@ public class EstudianteDTO {
 
     /**
      * Establece el apellido paterno del estudiante.
-     * 
+     *
      * @param apellidoPaterno Apellido paterno del estudiante
      */
     public void setApellidoPaterno(String apellidoPaterno) {
@@ -170,7 +208,7 @@ public class EstudianteDTO {
 
     /**
      * Obtiene el apellido materno del estudiante.
-     * 
+     *
      * @return apellidoMaterno Apellido materno del estudiante
      */
     public String getApellidoMaterno() {
@@ -179,18 +217,16 @@ public class EstudianteDTO {
 
     /**
      * Establece el apellido materno del estudiante.
-     * 
+     *
      * @param apellidoMaterno Apellido materno del estudiante
      */
     public void setApellidoMaterno(String apellidoMaterno) {
         this.apellidoMaterno = apellidoMaterno;
     }
 
-
-
     /**
      * Obtiene la contraseña del estudiante.
-     * 
+     *
      * @return contrasenia Contraseña del estudiante
      */
     public String getContrasenia() {
@@ -199,7 +235,7 @@ public class EstudianteDTO {
 
     /**
      * Establece la contraseña del estudiante.
-     * 
+     *
      * @param contrasenia Contraseña del estudiante
      */
     public void setContrasenia(String contrasenia) {
@@ -208,7 +244,7 @@ public class EstudianteDTO {
 
     /**
      * Obtiene el estado de inscripción del estudiante.
-     * 
+     *
      * @return estatusInscripcion Estado de inscripción del estudiante
      */
     public String getEstatusInscripcion() {
@@ -217,7 +253,7 @@ public class EstudianteDTO {
 
     /**
      * Establece el estado de inscripción del estudiante.
-     * 
+     *
      * @param estatusInscripcion Estado de inscripción del estudiante
      */
     public void setEstatusInscripcion(String estatusInscripcion) {
@@ -226,7 +262,7 @@ public class EstudianteDTO {
 
     /**
      * Obtiene la lista de bloqueos asociados al estudiante.
-     * 
+     *
      * @return bloqueos Lista de bloqueos
      */
     public List<BloqueoDTO> getBloqueos() {
@@ -235,7 +271,7 @@ public class EstudianteDTO {
 
     /**
      * Establece la lista de bloqueos asociados al estudiante.
-     * 
+     *
      * @param bloqueos Lista de bloqueos
      */
     public void setBloqueos(List<BloqueoDTO> bloqueos) {
@@ -244,7 +280,7 @@ public class EstudianteDTO {
 
     /**
      * Obtiene la lista de apartados realizados por el estudiante.
-     * 
+     *
      * @return apartados Lista de apartados
      */
     public List<ApartadoDTO> getApartados() {
@@ -253,7 +289,7 @@ public class EstudianteDTO {
 
     /**
      * Establece la lista de apartados realizados por el estudiante.
-     * 
+     *
      * @param apartados Lista de apartados
      */
     public void setApartados(List<ApartadoDTO> apartados) {
@@ -262,7 +298,7 @@ public class EstudianteDTO {
 
     /**
      * Obtiene la carrera del estudiante.
-     * 
+     *
      * @return carrera Carrera del estudiante
      */
     public CarreraDTO getCarrera() {
@@ -271,7 +307,7 @@ public class EstudianteDTO {
 
     /**
      * Establece la carrera del estudiante.
-     * 
+     *
      * @param carrera Carrera del estudiante
      */
     public void setCarrera(CarreraDTO carrera) {
@@ -280,11 +316,11 @@ public class EstudianteDTO {
 
     /**
      * Método toString para representar el objeto en formato de texto.
-     * 
+     *
      * @return Cadena de texto con los valores de los atributos del estudiante
      */
     @Override
     public String toString() {
-        return "EstudianteDTO{" + "id=" + id + ", nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno  + ", contrasenia=" + contrasenia + ", estatusInscripcion=" + estatusInscripcion + ", bloqueos=" + bloqueos + ", apartados=" + apartados + '}';
+        return "EstudianteDTO{" + "id=" + id + ", nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno + ", contrasenia=" + contrasenia + ", estatusInscripcion=" + estatusInscripcion + ", bloqueos=" + bloqueos + ", apartados=" + apartados + '}';
     }
 }

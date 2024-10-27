@@ -6,8 +6,8 @@ package presentacion.AdminMenu.GestionarAlumno;
 
 import java.util.List;
 import negocio.DTO.CarreraDTO;
+import negocio.DTO.EstudianteDTO;
 import negocio.logica.CarreraNegocio;
-import negocio.logica.UnidadAcademicaNegocio;
 
 /**
  *
@@ -164,11 +164,9 @@ public class FrmAgregarAlumno extends javax.swing.JFrame {
         String aPaterno = campoTextoApellidoPaterno.getText();
         String aMaterno = campoTextoApellidoMaterno.getText();
         String contrasenia = campoTextoContrasenia.getText();
+        String estatusCarreraDefault = "Inscrito";
 
-        /*
-        Obtener el codigo para rellenar el combobox
-         */
-        //int carrera = comboBoxCarrera.getSelectedIndex();
+        int carrera = comboBoxCarrera.getSelectedIndex();
         //EstudianteDTO estudiante = new EstudianteDTO(nombre, aPaterno, aMaterno, contrasenia, aMaterno, carrera);
     }//GEN-LAST:event_btnAgregarActionPerformed
 
