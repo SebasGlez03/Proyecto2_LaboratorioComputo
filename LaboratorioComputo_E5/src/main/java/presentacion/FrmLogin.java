@@ -185,18 +185,28 @@ public class FrmLogin extends javax.swing.JFrame {
         if (txtId.getText().matches(".*\\D+.*") || txtId.getText().isEmpty())
         {JOptionPane.showMessageDialog(this, "Un ID no puede contener letras, caracteres especiales o estar vacío" );}
         else{
+            
         Long id = Long.decode(txtId.getText());
         eD.setId(Long.decode(txtId.getText()));
         eD.setContrasenia(txtContrasenia.getText());
         EstudianteDTO estudiante = estudianteNegocio.buscarEstudiante(id);
+
         if (estudiante != null)
         {
 
+            if(estudiante.getContrasenia().equals(eD.getContrasenia())){
+        
             Long idE = estudiante.getId();
             FrmSistemaApartado frm = new FrmSistemaApartado(idcC, idE);
             frm.setVisible(true);
             this.dispose();
+
             
+        } else{
+
+            JOptionPane.showMessageDialog(this, "Contraseña incorrecta" );          
+                
+            }
         }
         else{
         

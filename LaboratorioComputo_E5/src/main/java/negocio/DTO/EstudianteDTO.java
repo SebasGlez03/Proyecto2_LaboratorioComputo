@@ -37,7 +37,7 @@ public class EstudianteDTO {
     String estatusInscripcion;
 
     /** Carrera del estudiante */
-    CarreraEntidad carrera;
+    CarreraDTO carrera;
 
     /** Lista de bloqueos asociados al estudiante */
     List<BloqueoDTO> bloqueos;
@@ -65,7 +65,7 @@ public class EstudianteDTO {
      * @param apartados Lista de apartados realizados por el estudiante
      * @param carrera Carrera del estudiante
      */
-    public EstudianteDTO(Long id, String nombre, String apellidoPaterno, CarreraEntidad carrera, String apellidoMaterno, String contrasenia, String estatusInscripcion, List<BloqueoDTO> bloqueos, List<ApartadoDTO> apartados) {
+    public EstudianteDTO(Long id, String nombre, String apellidoPaterno, CarreraDTO carrera, String apellidoMaterno, String contrasenia, String estatusInscripcion, List<BloqueoDTO> bloqueos, List<ApartadoDTO> apartados) {
         this.id = id;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
@@ -87,7 +87,10 @@ public class EstudianteDTO {
         this.nombre = e.getNombre();
         this.apellidoPaterno = e.getApellidoPaterno();
         this.apellidoMaterno = e.getApellidoMaterno();
-        this.carrera = e.getCarrera();
+        CarreraDTO c = new CarreraDTO();
+        c.setId(e.getCarrera().getIdCarrera()) ;
+        c.setTiempoDiario(e.getCarrera().getTiempoDiario());
+        this.carrera = c;
         this.contrasenia = e.getContrasenia();
         this.estatusInscripcion = e.getEstatusInscripcion();
 
@@ -265,7 +268,7 @@ public class EstudianteDTO {
      * 
      * @return carrera Carrera del estudiante
      */
-    public CarreraEntidad getCarrera() {
+    public CarreraDTO getCarrera() {
         return carrera;
     }
 
@@ -274,7 +277,7 @@ public class EstudianteDTO {
      * 
      * @param carrera Carrera del estudiante
      */
-    public void setCarrera(CarreraEntidad carrera) {
+    public void setCarrera(CarreraDTO carrera) {
         this.carrera = carrera;
     }
 

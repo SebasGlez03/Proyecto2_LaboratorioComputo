@@ -63,7 +63,8 @@ public class EstudianteNegocio {
         entidad.setContrasenia(dto.getContrasenia());
         
         if (dto.getCarrera() != null){
-        entidad.setCarrera(dto.getCarrera());
+            
+        entidad.setCarrera(cN.convertir(dto.getCarrera()));
         }
 
         // Convierte la lista de ApartadoDTO a ApartadoEntidad si existen
