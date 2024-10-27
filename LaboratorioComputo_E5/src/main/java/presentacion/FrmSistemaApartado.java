@@ -66,7 +66,8 @@ public class FrmSistemaApartado extends JFrame {
                         
                         System.out.println(computadoraNegocio.buscarComputadora(Long.valueOf(boton.getText())));
                         Long idC = computadoraNegocio.buscarComputadora(Long.parseLong(boton.getText())).getId();
-                        new FrmDetallesApartado(idcC, idE, idC).setVisible(true);
+                        new FrmDetallesApartado(idC, idE, idcC).setVisible(true);
+                        cerrar();
                         
                     }
                 
@@ -109,7 +110,12 @@ public class FrmSistemaApartado extends JFrame {
         return new int[] { filas, columnas };
     }
     
-
+    public void cerrar(){
+    
+        this.dispose();
+        
+    }
+    
 }
 
 
