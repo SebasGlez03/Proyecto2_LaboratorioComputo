@@ -4,6 +4,11 @@
  */
 package presentacion;
 
+import java.awt.BorderLayout;
+import javax.swing.JOptionPane;
+import negocio.DTO.EstudianteDTO;
+import negocio.logica.EstudianteNegocio;
+
 /**
  *
  * @author PC
@@ -13,8 +18,12 @@ public class FrmComputadora extends javax.swing.JFrame {
     /**
      * Creates new form FrmComputadora
      */
+    
+    EstudianteNegocio estudianteNegocio = new EstudianteNegocio();
+    
     public FrmComputadora() {
         initComponents();
+        
     }
 
     /**
@@ -30,7 +39,7 @@ public class FrmComputadora extends javax.swing.JFrame {
         txtContrasenia = new javax.swing.JTextField();
         txtId = new javax.swing.JTextField();
         btnDesbloquear = new javax.swing.JLabel();
-        background_img = new javax.swing.JLabel();
+        lblImagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -56,14 +65,54 @@ public class FrmComputadora extends javax.swing.JFrame {
 
         btnDesbloquear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnDesbloquear.png"))); // NOI18N
         btnDesbloquear.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDesbloquear.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDesbloquearMouseClicked(evt);
+            }
+        });
         getContentPane().add(btnDesbloquear, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 690, 157, 41));
 
-        background_img.setIcon(new javax.swing.ImageIcon(getClass().getResource("/background_Computadora.png"))); // NOI18N
-        getContentPane().add(background_img, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 750));
+        lblImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/background_Computadora.png"))); // NOI18N
+        getContentPane().add(lblImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 750));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnDesbloquearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDesbloquearMouseClicked
+        System.out.println("boton aceptar click!");
+        
+        EstudianteDTO eD = new EstudianteDTO();
+        if (txtId.getText().matches(".*\\D+.*") || txtId.getText().isEmpty())
+        {JOptionPane.showMessageDialog(this, "Un ID no puede contener letras, caracteres especiales o estar vacío" );}
+        else{
+            
+        Long id = Long.decode(txtId.getText());
+        eD.setId(Long.decode(txtId.getText()));
+        eD.setContrasenia(txtContrasenia.getText());
+        EstudianteDTO estudiante = estudianteNegocio.buscarEstudiante(id);
+
+        if (estudiante != null)
+        {
+
+            if(estudiante.getContrasenia().equals(eD.getContrasenia())){
+        
+            this.dispose();
+
+            
+        } else{
+
+            JOptionPane.showMessageDialog(this, "Contraseña incorrecta" );          
+                
+            }
+        }
+        else{
+        
+            JOptionPane.showMessageDialog(this, "No existe un estudiante con ese ID o contraseña" );
+            
+        }
+        }
+    }//GEN-LAST:event_btnDesbloquearMouseClicked
 
     /**
      * @param args the command line arguments
@@ -101,8 +150,8 @@ public class FrmComputadora extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel background_img;
     private javax.swing.JLabel btnDesbloquear;
+    private javax.swing.JLabel lblImagen;
     private javax.swing.JTextField txtContrasenia;
     private javax.swing.JTextField txtId;
     private javax.swing.JLabel txtNumComputadora;

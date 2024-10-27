@@ -10,8 +10,11 @@ import negocio.logica.ComputadoraNegocio;
 import com.github.lgooddatepicker.components.DateTimePicker;
 import java.awt.FlowLayout;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.Calendar;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import negocio.DTO.ApartadoDTO;
 import negocio.logica.ApartadoNegocio;
@@ -88,7 +91,6 @@ public class FrmDetallesApartado extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblSoftware = new javax.swing.JTable();
         btnAtras = new javax.swing.JLabel();
-        btnOk = new javax.swing.JLabel();
         lblApartado = new javax.swing.JLabel();
         lblNumComputadora1 = new javax.swing.JLabel();
         fldDateTime = new javax.swing.JPanel();
@@ -137,16 +139,6 @@ public class FrmDetallesApartado extends javax.swing.JFrame {
         });
         getContentPane().add(btnAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 680, -1, -1));
 
-        btnOk.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnOk.png"))); // NOI18N
-        btnOk.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnOk.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnOkMouseClicked(evt);
-            }
-        });
-        getContentPane().add(btnOk, new org.netbeans.lib.awtextra.AbsoluteConstraints(-3, 590, 1000, 63));
-
         lblApartado.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         lblApartado.setForeground(new java.awt.Color(255, 255, 255));
         lblApartado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -182,10 +174,6 @@ public class FrmDetallesApartado extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnAtrasMouseClicked
 
-    private void btnOkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOkMouseClicked
-        dispose();
-    }//GEN-LAST:event_btnOkMouseClicked
-
     private void btnSeleccionarFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarFechaActionPerformed
 
         LocalDateTime dateTime = dateTimePicker.getDateTimePermissive();
@@ -201,22 +189,36 @@ public class FrmDetallesApartado extends javax.swing.JFrame {
         }
         else
         {
-            Calendar fechaInicio = Calendar.getInstance();
-            fechaInicio.setTimeInMillis(dateTime.toEpochSecond(ZoneOffset.UTC));
-            Calendar fechaFinApartado = fechaInicio;
+            
+            ZoneId zoneId = ZoneId.systemDefault();
+            ZonedDateTime zonedDateTime = dateTime.atZone(zoneId);
+            Date date = Date.from(zonedDateTime.toInstant());
+            
+            
+            Calendar fechaInicioApartado = Calendar.getInstance();
+            fechaInicioApartado.setTime(date);
+            Calendar fechaFinApartado = Calendar.getInstance();
+            fechaFinApartado.setTime(date);
+
             fechaFinApartado.add(Calendar.HOUR, estudianteNegocio.buscarEstudiante(idEstudiante).getCarrera().getTiempoDiario().getHours());
             fechaFinApartado.add(Calendar.MINUTE, estudianteNegocio.buscarEstudiante(idEstudiante).getCarrera().getTiempoDiario().getMinutes());
             
+
+            
             ApartadoDTO aDTO = new ApartadoDTO();
-            aDTO.setFechaInicio(fechaInicio);
+            aDTO.setFechaInicio(fechaInicioApartado);
             aDTO.setFechaFin(fechaFinApartado);
             aDTO.setEstudiante(estudianteNegocio.buscarEstudiante(idEstudiante));
             aDTO.setComputadora(computadoraNegocio.buscarComputadora(idComputadora));
             apartadoNegocio.guardarApartado(aDTO);
             
+            FrmPopUp frm = new FrmPopUp();
+            frm.setVisible(true);
+            this.dispose();
+            
         }
         
-        System.out.println(dateTime.toString());
+      
         }
         else {
             JOptionPane.showMessageDialog(this, "Selecciona una fecha/hora primero" );
@@ -226,7 +228,6 @@ public class FrmDetallesApartado extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnAtras;
-    private javax.swing.JLabel btnOk;
     private javax.swing.JButton btnSeleccionarFecha;
     private javax.swing.JPanel fldDateTime;
     private javax.swing.JLabel fondo;

@@ -62,9 +62,7 @@ public class FrmSistemaApartado extends JFrame {
                 boton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        System.out.println("Botón presionado: " + boton.getText());
-                        
-                        System.out.println(computadoraNegocio.buscarComputadora(Long.valueOf(boton.getText())));
+
                         Long idC = computadoraNegocio.buscarComputadora(Long.parseLong(boton.getText())).getId();
                         new FrmDetallesApartado(idC, idE, idcC).setVisible(true);
                         cerrar();
