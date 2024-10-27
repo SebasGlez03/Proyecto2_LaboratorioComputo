@@ -148,7 +148,7 @@ public class EstudianteNegocio {
      * @return una lista de objetos EstudianteDTO que representa todos los estudiantes.
      *         Si no hay estudiantes, retorna null.
      */
-    public List<EstudianteDTO> buscarEstudiante() {
+    public List<EstudianteDTO> buscarTodosLosEstudiantes() {
         List<EstudianteDTO> estudiantes = new ArrayList<>();
         List<EstudianteEntidad> bE = estudianteDAO.buscarTodosEstudiante();
 
@@ -162,4 +162,6 @@ public class EstudianteNegocio {
             return null;
         }
     }
+   
+      
 }

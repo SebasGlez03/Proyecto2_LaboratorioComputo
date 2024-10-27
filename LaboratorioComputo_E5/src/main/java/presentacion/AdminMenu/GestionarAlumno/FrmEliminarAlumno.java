@@ -4,17 +4,52 @@
  */
 package presentacion.AdminMenu.GestionarAlumno;
 
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import negocio.DTO.EstudianteDTO;
+import negocio.logica.CarreraNegocio;
+import negocio.logica.EstudianteNegocio;
+
 /**
  *
  * @author nomar
  */
 public class FrmEliminarAlumno extends javax.swing.JFrame {
+    
+    CarreraNegocio carreraNegocio = new CarreraNegocio();
+    EstudianteNegocio estudianteNegocio = new EstudianteNegocio();
 
     /**
      * Creates new form FrmEliminarAlumno
      */
     public FrmEliminarAlumno() {
         initComponents();
+        llenarTablaEstudiantes(estudianteNegocio.buscarTodosLosEstudiantes());
+    }
+    
+    public void llenarTablaEstudiantes(List<EstudianteDTO> listaEstudiantes) {
+        DefaultTableModel modeloTabla = (DefaultTableModel) this.tblEstudiantes.getModel();
+        
+        if (modeloTabla.getRowCount() > 0) {
+            for (int i = modeloTabla.getRowCount() - 1; i > -1; i--) {
+                modeloTabla.removeRow(i);
+            }
+        }
+        
+        if (listaEstudiantes != null) {
+            listaEstudiantes.forEach(row -> {
+                Object[] fila = new Object[7];
+                fila[0] = row.getId();
+                fila[1] = row.getNombre();
+                fila[2] = row.getApellidoPaterno();
+                fila[3] = row.getApellidoMaterno();
+                fila[4] = row.getContrasenia();
+                fila[5] = row.getEstatusInscripcion();
+                fila[6] = row.getCarrera();
+                
+                modeloTabla.addRow(fila);
+            });
+        }
     }
 
     /**
@@ -26,43 +61,16 @@ public class FrmEliminarAlumno extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnAgregar = new javax.swing.JButton();
-        btnReiniciar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        comboBoxCarrera = new javax.swing.JComboBox<>();
-        lblCarrera = new javax.swing.JLabel();
-        campoContraseñaContraseña = new javax.swing.JPasswordField();
-        lblContrasenia = new javax.swing.JLabel();
-        ApellidoMTxt = new javax.swing.JTextField();
-        lblApellidoMaterno = new javax.swing.JLabel();
-        campoTextoApellidoP = new javax.swing.JTextField();
-        lblApellidoPaterno = new javax.swing.JLabel();
-        campoTextoNombre = new javax.swing.JTextField();
-        lblNombre = new javax.swing.JLabel();
         Titulo = new javax.swing.JLabel();
-        fondo = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblEstudiantes = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(50, 48, 49));
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        btnAgregar.setBackground(new java.awt.Color(255, 0, 0));
-        btnAgregar.setForeground(new java.awt.Color(0, 0, 0));
-        btnAgregar.setText("Eliminar");
-        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 550, -1, -1));
-
-        btnReiniciar.setText("Reiniciar");
-        btnReiniciar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReiniciarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnReiniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 550, -1, -1));
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -70,102 +78,52 @@ public class FrmEliminarAlumno extends javax.swing.JFrame {
                 btnCancelarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 550, -1, -1));
-
-        comboBoxCarrera.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxCarreraActionPerformed(evt);
-            }
-        });
-        getContentPane().add(comboBoxCarrera, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 430, -1, -1));
-
-        lblCarrera.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblCarrera.setForeground(new java.awt.Color(255, 255, 255));
-        lblCarrera.setText("Carrera");
-        getContentPane().add(lblCarrera, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 400, -1, -1));
-        getContentPane().add(campoContraseñaContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 360, 220, 30));
-
-        lblContrasenia.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblContrasenia.setForeground(new java.awt.Color(255, 255, 255));
-        lblContrasenia.setText("Contraseña");
-        getContentPane().add(lblContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 330, -1, -1));
-
-        ApellidoMTxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ApellidoMTxtActionPerformed(evt);
-            }
-        });
-        getContentPane().add(ApellidoMTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 280, 220, 30));
-
-        lblApellidoMaterno.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblApellidoMaterno.setForeground(new java.awt.Color(255, 255, 255));
-        lblApellidoMaterno.setText("Apellido Materno");
-        getContentPane().add(lblApellidoMaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 250, -1, -1));
-
-        campoTextoApellidoP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoTextoApellidoPActionPerformed(evt);
-            }
-        });
-        getContentPane().add(campoTextoApellidoP, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 220, 30));
-
-        lblApellidoPaterno.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblApellidoPaterno.setForeground(new java.awt.Color(255, 255, 255));
-        lblApellidoPaterno.setText("Apellido Paterno");
-        getContentPane().add(lblApellidoPaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, -1, -1));
-
-        campoTextoNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoTextoNombreActionPerformed(evt);
-            }
-        });
-        getContentPane().add(campoTextoNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 220, 30));
-
-        lblNombre.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblNombre.setForeground(new java.awt.Color(255, 255, 255));
-        lblNombre.setText("Nombre");
-        getContentPane().add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, -1, -1));
+        getContentPane().add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 700, -1, -1));
 
         Titulo.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         Titulo.setForeground(new java.awt.Color(255, 255, 255));
-        Titulo.setText("Agregar Alumno");
-        getContentPane().add(Titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, -1, -1));
+        Titulo.setText("Eliminar Alumno");
+        getContentPane().add(Titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, -1, -1));
 
-        fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/backgroundChico.jpg"))); // NOI18N
-        getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        tblEstudiantes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "idEstudiante", "Nombre", "ApellidoPaterno", "ApellidoMaterno", "Contraseña", "EstatusInscripcion", "idCarrera", "Eliminar"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tblEstudiantes);
+        if (tblEstudiantes.getColumnModel().getColumnCount() > 0) {
+            tblEstudiantes.getColumnModel().getColumn(5).setResizable(false);
+            tblEstudiantes.getColumnModel().getColumn(7).setResizable(false);
+        }
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 920, 500));
+
+        jPanel1.setBackground(new java.awt.Color(50, 48, 49));
+        jPanel1.setForeground(new java.awt.Color(50, 48, 49));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 750));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAgregarActionPerformed
-
-    private void btnReiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnReiniciarActionPerformed
-
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
-
-    private void comboBoxCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxCarreraActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboBoxCarreraActionPerformed
-
-    private void ApellidoMTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ApellidoMTxtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ApellidoMTxtActionPerformed
-
-    private void campoTextoApellidoPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoTextoApellidoPActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoTextoApellidoPActionPerformed
-
-    private void campoTextoNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoTextoNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoTextoNombreActionPerformed
 
     /**
      * @param args the command line arguments
@@ -203,20 +161,10 @@ public class FrmEliminarAlumno extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField ApellidoMTxt;
     private javax.swing.JLabel Titulo;
-    private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnReiniciar;
-    private javax.swing.JPasswordField campoContraseñaContraseña;
-    private javax.swing.JTextField campoTextoApellidoP;
-    private javax.swing.JTextField campoTextoNombre;
-    private javax.swing.JComboBox<String> comboBoxCarrera;
-    private javax.swing.JLabel fondo;
-    private javax.swing.JLabel lblApellidoMaterno;
-    private javax.swing.JLabel lblApellidoPaterno;
-    private javax.swing.JLabel lblCarrera;
-    private javax.swing.JLabel lblContrasenia;
-    private javax.swing.JLabel lblNombre;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblEstudiantes;
     // End of variables declaration//GEN-END:variables
 }
