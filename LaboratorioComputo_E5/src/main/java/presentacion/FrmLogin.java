@@ -191,6 +191,7 @@ public class FrmLogin extends javax.swing.JFrame {
             Long idE = estudiante.getId();
             FrmSistemaApartado frm = new FrmSistemaApartado(idcC, idE);
             frm.setVisible(true);
+            this.dispose();
             
         }
         else{

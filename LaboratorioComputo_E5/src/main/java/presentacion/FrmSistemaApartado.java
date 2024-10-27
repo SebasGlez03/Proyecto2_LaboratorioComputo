@@ -21,10 +21,16 @@ import negocio.logica.ComputadoraNegocio;
 public class FrmSistemaApartado extends JFrame {
     
     ComputadoraNegocio computadoraNegocio;
+    Long idE;
+    Long idcC;
+    
 
     public FrmSistemaApartado(Long idcC, Long idE) {
         // Configuración básica del JFrame
                 
+        this.idE = idE;
+        this.idcC = idcC;
+        
         setTitle("Selecciona una computadora");
         setSize(1000, 400);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -58,7 +64,10 @@ public class FrmSistemaApartado extends JFrame {
                     public void actionPerformed(ActionEvent e) {
                         System.out.println("Botón presionado: " + boton.getText());
                         
-                        System.out.println(computadoraNegocio.buscarComputadora(Long.parseLong(boton.getText())));
+                        System.out.println(computadoraNegocio.buscarComputadora(Long.valueOf(boton.getText())));
+                        Long idC = computadoraNegocio.buscarComputadora(Long.parseLong(boton.getText())).getId();
+                        new FrmDetallesApartado(idcC, idE, idC).setVisible(true);
+                        
                     }
                 
                 }
@@ -99,6 +108,7 @@ public class FrmSistemaApartado extends JFrame {
 
         return new int[] { filas, columnas };
     }
+    
 
 }
 
