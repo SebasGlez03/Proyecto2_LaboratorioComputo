@@ -4,6 +4,10 @@
  */
 package presentacion.AdminMenu;
 
+import javax.swing.JOptionPane;
+import negocio.DTO.UnidadAcademicaDTO;
+import negocio.logica.UnidadAcademicaNegocio;
+
 /**
  *
  * @author nomar
@@ -70,7 +74,7 @@ public class FrmInsertarUnidad extends javax.swing.JFrame {
                 btnAgregarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 670, 140, 60));
+        getContentPane().add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 570, 140, 60));
 
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BackGroundGeneral.jpg"))); // NOI18N
         getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -87,44 +91,27 @@ public class FrmInsertarUnidad extends javax.swing.JFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
-        String ip = fldUnidad.getText();
-
+        String nombre = fldUnidad.getText();
+        
+        if (nombre.matches(".*\\d.*") || nombre.isEmpty())
+        {JOptionPane.showMessageDialog(this, "Un nombre de unidad no puede contener numeros, caracteres especiales o estar vacío" );}
+        else{
+        
+        UnidadAcademicaDTO unidad = new UnidadAcademicaDTO();
+        unidad.setNombre(nombre);
+        
+        UnidadAcademicaNegocio unidadNegocio = new UnidadAcademicaNegocio();
+        
+        unidadNegocio.guardarUnidadAcademica(unidad);
+        
+        JOptionPane.showMessageDialog(this, "Unidad agregada con exito!" );
+        
+        FrmAdminMenu frm = new FrmAdminMenu();
+        frm.setVisible(true);
+        this.dispose();
+        }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmInsertarUnidad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmInsertarUnidad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmInsertarUnidad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmInsertarUnidad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrmInsertarUnidad().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
