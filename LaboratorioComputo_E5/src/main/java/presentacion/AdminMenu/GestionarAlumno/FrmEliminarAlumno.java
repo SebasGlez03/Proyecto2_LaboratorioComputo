@@ -4,18 +4,25 @@
  */
 package presentacion.AdminMenu.GestionarAlumno;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+import negocio.DTO.CarreraDTO;
 import negocio.DTO.EstudianteDTO;
 import negocio.logica.CarreraNegocio;
 import negocio.logica.EstudianteNegocio;
+import utilerias.JButtonCellEditor;
+import utilerias.JButtonRenderer;
 
 /**
  *
  * @author nomar
  */
 public class FrmEliminarAlumno extends javax.swing.JFrame {
-    
+
     CarreraNegocio carreraNegocio = new CarreraNegocio();
     EstudianteNegocio estudianteNegocio = new EstudianteNegocio();
 
@@ -24,18 +31,20 @@ public class FrmEliminarAlumno extends javax.swing.JFrame {
      */
     public FrmEliminarAlumno() {
         initComponents();
+        cargarConfiguracionInicialTablaCartelera();
         llenarTablaEstudiantes(estudianteNegocio.buscarTodosLosEstudiantes());
+
     }
-    
+
     public void llenarTablaEstudiantes(List<EstudianteDTO> listaEstudiantes) {
         DefaultTableModel modeloTabla = (DefaultTableModel) this.tblEstudiantes.getModel();
-        
+
         if (modeloTabla.getRowCount() > 0) {
             for (int i = modeloTabla.getRowCount() - 1; i > -1; i--) {
                 modeloTabla.removeRow(i);
             }
         }
-        
+
         if (listaEstudiantes != null) {
             listaEstudiantes.forEach(row -> {
                 Object[] fila = new Object[7];
@@ -46,10 +55,71 @@ public class FrmEliminarAlumno extends javax.swing.JFrame {
                 fila[4] = row.getContrasenia();
                 fila[5] = row.getEstatusInscripcion();
                 fila[6] = row.getCarrera().getNombre();
-                
+
                 modeloTabla.addRow(fila);
             });
         }
+    }
+
+    public CarreraDTO obtenerCarreraDTOdeString(String nombreCarrera) {
+
+        for (CarreraDTO carrera : carreraNegocio.buscarCarreras()) {
+            if (carrera.getNombre().equals(nombreCarrera)) {
+                return carrera;
+            }
+        }
+        return null;
+    }
+
+    private void cargarConfiguracionInicialTablaCartelera() {
+
+        ActionListener onEliminarClickListener = new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Obtén la fila seleccionada
+                int filaSeleccionada = tblEstudiantes.getSelectedRow();
+
+                if (filaSeleccionada != -1) { // Verifica que haya una fila seleccionada
+                    // Usa el modelo para obtener los datos del estudiante en esa fila
+                    DefaultTableModel modeloTabla = (DefaultTableModel) tblEstudiantes.getModel();
+
+                    Long idEstudiante = (Long) modeloTabla.getValueAt(filaSeleccionada, 0); // Suponiendo que el ID esté en la columna 0
+                    String nombreEstudiante = (String) modeloTabla.getValueAt(filaSeleccionada, 1);
+                    String apellidoPaterno = (String) modeloTabla.getValueAt(filaSeleccionada, 2);
+                    String apellidoMaterno = (String) modeloTabla.getValueAt(filaSeleccionada, 3);
+                    String contrasenia = (String) modeloTabla.getValueAt(filaSeleccionada, 4);
+                    String estatusInscripcion = (String) modeloTabla.getValueAt(filaSeleccionada, 5);
+                    String carrera = (String) modeloTabla.getValueAt(filaSeleccionada, 6);
+
+                    // Crea un EstudianteDTO usando los datos obtenidos de la fila
+                    EstudianteDTO estudiante = new EstudianteDTO();
+                    CarreraDTO carreraDTO = new CarreraDTO();
+                    estudiante.setId(idEstudiante);
+                    estudiante.setNombre(nombreEstudiante);
+                    estudiante.setApellidoPaterno(apellidoPaterno);
+                    estudiante.setApellidoMaterno(apellidoMaterno);
+                    estudiante.setContrasenia(contrasenia);
+                    estudiante.setEstatusInscripcion(estatusInscripcion);
+                    estudiante.setCarrera(obtenerCarreraDTOdeString(carrera));
+
+                    // Aquí puedes implementar la lógica de eliminación o cualquier otra acción
+//                    System.out.println("Estudiante a eliminar: " + estudiante.toString());
+                    try {
+                        estudianteNegocio.eliminarEstudiante(estudiante);
+                        JOptionPane.showMessageDialog(null, "El alumno se ha eliminado correctamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                        dispose();
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, "Ha ocurrido un error inesperado al eliminar el alumno: " + ex, "ERROR", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                }
+            }
+        };
+
+        TableColumnModel modeloColumnas = this.tblEstudiantes.getColumnModel();
+        modeloColumnas.getColumn(7).setCellRenderer(new JButtonRenderer("Eliminar"));
+        modeloColumnas.getColumn(7).setCellEditor(new JButtonCellEditor("Eliminar", onEliminarClickListener));
     }
 
     /**
@@ -97,7 +167,7 @@ public class FrmEliminarAlumno extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, true, false
+                false, false, false, false, false, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -107,7 +177,6 @@ public class FrmEliminarAlumno extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblEstudiantes);
         if (tblEstudiantes.getColumnModel().getColumnCount() > 0) {
             tblEstudiantes.getColumnModel().getColumn(5).setResizable(false);
-            tblEstudiantes.getColumnModel().getColumn(7).setResizable(false);
         }
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 920, 500));
