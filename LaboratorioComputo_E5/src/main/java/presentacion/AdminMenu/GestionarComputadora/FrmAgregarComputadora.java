@@ -206,7 +206,10 @@ public class FrmAgregarComputadora extends javax.swing.JFrame {
         int numMaquina = Integer.parseInt(campoTextoNumeroMaquina.getText());
         Boolean esAdmin = checkAdmin.isSelected();
         
+        if(esAdmin){
 
+        }else {
+        
         try {
             ComputadoraNegocio computadoraNegocio = new ComputadoraNegocio();
 
@@ -224,6 +227,9 @@ public class FrmAgregarComputadora extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Ha ocurrido un error inesperado: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
+            
+        }
+        
 
     }//GEN-LAST:event_btnAgregarActionPerformed
 

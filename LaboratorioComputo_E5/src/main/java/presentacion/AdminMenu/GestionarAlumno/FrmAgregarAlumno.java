@@ -46,28 +46,6 @@ public class FrmAgregarAlumno extends javax.swing.JFrame {
         }
     }
 
-    /**
-     * Metodo que obtiene una CarreraDTO en base a un index de un comboBox
-     *
-     * @param carrera Lista de carreras que hay en una unidad academica
-     * @param comboBoxIndex Index de el combo box a utilizar
-     * @return
-     */
-    private CarreraDTO obtenerCarreraDTOfromComboBox(List<CarreraDTO> carrera, int comboBoxIndex) {
-        int i = 0;
-        try {
-            while (carrera.size() > i) {
-                if (carrera.get(i).getId() == comboBoxIndex) {
-                    return carrera.get(i);
-                } else {
-                    i++;
-                }
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Ha ocurrido un error insesperado: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
-        return null;
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -198,9 +176,9 @@ public class FrmAgregarAlumno extends javax.swing.JFrame {
 
         try {
             CarreraNegocio carreraNegocio = new CarreraNegocio();
-            int carrera = comboBoxCarrera.getSelectedIndex() + 1;
+            int carrera = comboBoxCarrera.getSelectedIndex();
 //        obtenerCarreraDTOfromComboBox(carreraNegocio.buscarCarreras(), carrera);
-            CarreraDTO carreraDTO = obtenerCarreraDTOfromComboBox(carreraNegocio.buscarCarreras(), carrera);
+            CarreraDTO carreraDTO = carreraNegocio.buscarCarreras().get(carrera);
 
             EstudianteDTO estudiante = new EstudianteDTO(nombre, aPaterno, aMaterno, contraseniaEncriptada, estatusCarreraDefault, carreraDTO);
 
