@@ -300,6 +300,11 @@ public class FrmGestionarAlumno extends javax.swing.JFrame {
 
         btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnAgregar.png"))); // NOI18N
         btnAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAgregarMouseClicked(evt);
+            }
+        });
         getContentPane().add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 670, -1, -1));
 
         btnFlechaDerecha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnFlechaD.png"))); // NOI18N
@@ -322,6 +327,11 @@ public class FrmGestionarAlumno extends javax.swing.JFrame {
         new FrmAdminMenu().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAtrasMouseClicked
+
+    private void btnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMouseClicked
+        FrmAgregarAlumno frm = new FrmAgregarAlumno();
+        frm.setVisible(true);
+    }//GEN-LAST:event_btnAgregarMouseClicked
 
     /**
      * @param args the command line arguments
