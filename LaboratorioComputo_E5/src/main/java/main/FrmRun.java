@@ -17,7 +17,7 @@ public class FrmRun extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         
-        BuscarComputadoraIp buscar = new BuscarComputadoraIp();
+        buscarComputadoraIp buscar = new buscarComputadoraIp();
         buscar.buscarComputadoraPorIP();
         dispose();
     }

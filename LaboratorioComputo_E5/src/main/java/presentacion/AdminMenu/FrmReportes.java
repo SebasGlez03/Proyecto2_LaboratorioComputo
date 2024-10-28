@@ -6,7 +6,7 @@ package presentacion.AdminMenu;
 
 import presentacion.Reportes.FrmReporteCarrera;
 import presentacion.Reportes.FrmReporteBloqueos;
-import presentacion.Reportes.FrmReporteCentroDeComputo;
+import presentacion.Reportes.FrmReporteCentroComputo;
 
 /**
  *
@@ -97,7 +97,7 @@ public class FrmReportes extends javax.swing.JFrame {
 
     private void btnCentroDeComputoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCentroDeComputoMouseClicked
         // TODO add your handling code here:
-        new FrmReporteCentroDeComputo().setVisible(true);
+        new FrmReporteCentroComputo().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCentroDeComputoMouseClicked
 
