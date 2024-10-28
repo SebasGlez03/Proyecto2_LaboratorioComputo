@@ -15,10 +15,10 @@ import negocio.logica.ComputadoraNegocio;
 import utilerias.LectorIp;
 import java.util.OptionalInt;
 
-
 /**
+ * a
  *
- * @author nomar
+ * @hidden
  */
 public class FrmEditarComputadora extends javax.swing.JFrame {
 
@@ -28,18 +28,19 @@ public class FrmEditarComputadora extends javax.swing.JFrame {
     CentroComputoDTO centro = new CentroComputoDTO();
     ComputadoraNegocio computadoraNegocio = new ComputadoraNegocio();
     ComputadoraDTO computadora = new ComputadoraDTO();
-    
-    
+
     /**
      * Creates new form FrmAgregarComputadora
      */
     int softwareCounter = 0;
     List<String> software = new ArrayList<>();
     int numMaquina;
-    
+
     /**
-     * Constructor que inicializa los parametros computadora de tipo ComputadoraDTO
-     * @param computadora 
+     * Constructor que inicializa los parametros computadora de tipo
+     * ComputadoraDTO
+     *
+     * @param computadora
      */
     public FrmEditarComputadora(ComputadoraDTO computadora) {
         initComponents();
@@ -48,21 +49,22 @@ public class FrmEditarComputadora extends javax.swing.JFrame {
         llenarBoxCentros(centros);
         campoTextoNumeroMaquina.setText(computadora.getNumComputadora() + "");
         campoTextoNumeroMaquina.disable();
-        
+
         campoTextoIP.setText(computadora.getIp());
         checkAdmin.setSelected(computadora.isEsAdmin());
         listModel.setSize(software.size());
         softwareCounter = software.size();
         listModel.addAll(software);
-        
-                
+
     }
+
     /**
-    * Agrega los nombres de los centros de cómputo presentes en la lista proporcionada al combo box `boxCentroComputo`.
-    * 
-    * @param CentroComputo Lista de objetos `CentroComputoDTO` que contiene la información
-    *                      de los centros de cómputo disponibles en el sistema.
-    */
+     * Agrega los nombres de los centros de cómputo presentes en la lista
+     * proporcionada al combo box `boxCentroComputo`.
+     *
+     * @param CentroComputo Lista de objetos `CentroComputoDTO` que contiene la
+     * información de los centros de cómputo disponibles en el sistema.
+     */
     private void llenarBoxCentros(List<CentroComputoDTO> CentroComputo) {
         int i = 0;
         while (CentroComputo.size() > i) {
@@ -216,59 +218,57 @@ public class FrmEditarComputadora extends javax.swing.JFrame {
         String ip = campoTextoIP.getText();
         int numMaquina = Integer.parseInt(campoTextoNumeroMaquina.getText());
         Boolean esAdmin = checkAdmin.isSelected();
-        
-        if(esAdmin){
 
-        try {
-            ComputadoraNegocio computadoraNegocio = new ComputadoraNegocio();
-            
-            computadora.setIp(ip);
-            computadora.setEsAdmin(esAdmin);
-            computadora.setSoftware(software);
-            computadora.setCentroComputo(centro);
+        if (esAdmin) {
 
-            computadoraNegocio.modificarComputadora(computadora);
-            JOptionPane.showMessageDialog(this, "La computadora se ha modificado correctamente.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            try {
+                ComputadoraNegocio computadoraNegocio = new ComputadoraNegocio();
 
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Ha ocurrido un error inesperado: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
-        } 
-            
-        }else {
-        
-        try {
-            ComputadoraNegocio computadoraNegocio = new ComputadoraNegocio();
+                computadora.setIp(ip);
+                computadora.setEsAdmin(esAdmin);
+                computadora.setSoftware(software);
+                computadora.setCentroComputo(centro);
 
-            
-            computadora.setIp(ip);
-            computadora.setEsAdmin(esAdmin);
-            computadora.setSoftware(software);
-            computadora.setNumComputadora(numMaquina);
-            computadora.setCentroComputo(centro);
+                computadoraNegocio.modificarComputadora(computadora);
+                JOptionPane.showMessageDialog(this, "La computadora se ha modificado correctamente.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 
-            computadoraNegocio.guardarComputadora(computadora);
-            JOptionPane.showMessageDialog(this, "La computadora se ha modificado correctamente.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Ha ocurrido un error inesperado: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
 
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Ha ocurrido un error inesperado: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
-            
+        } else {
+
+            try {
+                ComputadoraNegocio computadoraNegocio = new ComputadoraNegocio();
+
+                computadora.setIp(ip);
+                computadora.setEsAdmin(esAdmin);
+                computadora.setSoftware(software);
+                computadora.setNumComputadora(numMaquina);
+                computadora.setCentroComputo(centro);
+
+                computadoraNegocio.guardarComputadora(computadora);
+                JOptionPane.showMessageDialog(this, "La computadora se ha modificado correctamente.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Ha ocurrido un error inesperado: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void checkAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkAdminActionPerformed
         // TODO add your handling code here:
-        if (checkAdmin.isSelected()){
-        campoTextoNumeroMaquina.setVisible(false);
-        lblNumMaquina.setVisible(false);
+        if (checkAdmin.isSelected()) {
+            campoTextoNumeroMaquina.setVisible(false);
+            lblNumMaquina.setVisible(false);
+        } else {
+
+            campoTextoNumeroMaquina.setVisible(true);
+            lblNumMaquina.setVisible(true);
+
         }
-        else{
-        
-        campoTextoNumeroMaquina.setVisible(true);
-        lblNumMaquina.setVisible(true);
-            
-        }
-        
+
     }//GEN-LAST:event_checkAdminActionPerformed
 
     private void checkAdmin1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkAdmin1ActionPerformed
@@ -278,7 +278,7 @@ public class FrmEditarComputadora extends javax.swing.JFrame {
     private void btnSoftwareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSoftwareActionPerformed
         // TODO add your handling code here:
         listSoftware.setModel(listModel);
-        listModel.add(softwareCounter,fldSoftware.getText());
+        listModel.add(softwareCounter, fldSoftware.getText());
         listModel.setSize(softwareCounter);
         this.software.add(fldSoftware.getText());
         fldSoftware.setText("");
@@ -294,10 +294,9 @@ public class FrmEditarComputadora extends javax.swing.JFrame {
 
     private void boxCentroComputoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxCentroComputoActionPerformed
         // TODO add your handling code here:
-        this.centro = centros.get(boxCentroComputo.getSelectedIndex() );
-       
-    }//GEN-LAST:event_boxCentroComputoActionPerformed
+        this.centro = centros.get(boxCentroComputo.getSelectedIndex());
 
+    }//GEN-LAST:event_boxCentroComputoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

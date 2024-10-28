@@ -12,9 +12,8 @@ import persistencia.entidades.CarreraEntidad;
 import persistencia.entidades.EstudianteEntidad;
 
 /**
- * Clase DTO (Data Transfer Object) que representa un estudiante. Contiene los
- * datos básicos del estudiante, incluyendo su computadora asignada, carrera,
- * contraseñas, estado de inscripción, y listas de bloqueos y apartados.
+ * a
+ * @hidden
  */
 public class EstudianteDTO {
 

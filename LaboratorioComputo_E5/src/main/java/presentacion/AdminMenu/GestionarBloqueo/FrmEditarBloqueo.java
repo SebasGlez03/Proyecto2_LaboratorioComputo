@@ -19,8 +19,8 @@ import negocio.logica.BloqueoNegocio;
 import negocio.logica.EstudianteNegocio;
 
 /**
- *
- * @author nomar
+ * a
+ * @hidden
  */
 public class FrmEditarBloqueo extends javax.swing.JFrame {
 

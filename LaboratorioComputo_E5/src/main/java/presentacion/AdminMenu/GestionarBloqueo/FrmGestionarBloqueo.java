@@ -19,10 +19,9 @@ import negocio.logica.EstudianteNegocio;
 import presentacion.AdminMenu.FrmAdminMenu;
 import utilerias.JButtonCellEditor;
 import utilerias.JButtonRenderer;
-
 /**
- *
- * @author nomar
+ * a
+ * @hidden
  */
 public class FrmGestionarBloqueo extends javax.swing.JFrame {
     

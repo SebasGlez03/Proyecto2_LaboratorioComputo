@@ -15,17 +15,8 @@ import java.time.Instant;
 import java.util.Date;
 
 /**
- * La clase {@code Pruebas} se encarga de realizar pruebas de persistencia en la
- * base de datos utilizando JPA (Java Persistence API).
- *
- * Esta clase es el punto de entrada del programa y realiza las siguientes
- * operaciones: 1. Crea una fábrica de administradores de entidades (Entity
- * Manager). 2. Inicia una transacción para manipular datos en la base de datos.
- * 3. Crea y persiste instancias de unidades académicas, carreras, laboratorios
- * y estudiantes en la base de datos. 4. Cierra la transacción y los recursos
- * utilizados al final del proceso.
- *
- * @author PC
+ * a
+ * @hidden
  */
 public class Pruebas {
 

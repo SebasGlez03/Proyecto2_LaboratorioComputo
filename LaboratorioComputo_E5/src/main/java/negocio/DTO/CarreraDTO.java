@@ -11,13 +11,8 @@ import persistencia.entidades.CarreraEntidad;
 import persistencia.entidades.EstudianteEntidad;
 
 /**
- * CarreraDTO representa el DTO (Data Transfer Object) para las carreras en un sistema académico.
- * Esta clase contiene información sobre la carrera, como su nombre, tiempo asignado diariamente
- * y la lista de estudiantes inscritos.
- * 
- * Un DTO es utilizado para transferir datos entre capas sin exponer las entidades directamente.
- * 
- * @author santi
+ * a
+ * @hidden
  */
 public class CarreraDTO {
 

@@ -14,8 +14,11 @@ import negocio.logica.EstudianteNegocio;
 import utilerias.CaesarCipher;
 
 /**
- *
- * @author nomar
+ * Esta clase representa el formulario para agregar un nuevo estudiante
+ * al sistema. Permite la entrada de datos del estudiante y su
+ * asociación con una carrera disponible.
+ * 
+ * @hidden
  */
 public class FrmAgregarAlumno extends javax.swing.JFrame {
 

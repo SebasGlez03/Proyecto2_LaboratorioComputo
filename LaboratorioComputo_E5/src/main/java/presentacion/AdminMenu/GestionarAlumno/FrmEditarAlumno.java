@@ -14,8 +14,8 @@ import org.eclipse.persistence.internal.jpa.parsing.jpql.antlr.JPQLParser;
 import utilerias.CaesarCipher;
 
 /**
- *
- * @author nomar
+ * a
+ * @hidden
  */
 public class FrmEditarAlumno extends javax.swing.JFrame {
 

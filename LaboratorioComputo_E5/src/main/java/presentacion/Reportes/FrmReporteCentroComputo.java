@@ -18,8 +18,8 @@ import negocio.logica.ComputadoraNegocio;
 import presentacion.AdminMenu.FrmReportes;
 
 /**
- *
- * @author nomar
+ * a
+ * @hidden
  */
 public class FrmReporteCentroComputo extends javax.swing.JFrame {
 

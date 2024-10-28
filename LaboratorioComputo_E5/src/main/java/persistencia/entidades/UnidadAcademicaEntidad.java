@@ -15,16 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
- * La clase {@code UnidadAcademicaEntidad} representa una unidad académica en la
- * base de datos de ITSON. Esta entidad almacena información sobre las unidades
- * académicas y sus respectivos centros de cómputo.
- *
- * <p>
- * Esta clase implementa la interfaz {@code Serializable} para permitir la
- * serialización de sus instancias.
- * </p>
- *
- * @author sebasglez
+ * a
+ * @hidden
  */
 @Entity
 @Table(name = "tblUnidadAcademica")

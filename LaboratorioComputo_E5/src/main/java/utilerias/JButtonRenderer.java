@@ -5,6 +5,11 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
+/**
+ * a
+ *
+ * @hidden
+ */
 public class JButtonRenderer implements TableCellRenderer {
 
     private final JButton button;

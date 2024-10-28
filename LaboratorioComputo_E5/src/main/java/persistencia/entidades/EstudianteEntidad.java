@@ -19,14 +19,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
- * La clase {@code EstudianteEntidad} representa un estudiante en la base de
- * datos.
- * <p>
- * Esta entidad contiene información básica del estudiante, así como relaciones
- * con otras entidades como la unidad académica, bloqueos, y carrera.
- * </p>
- *
- * @author sebasglez
+ * a
+ * @hidden
  */
 @Entity
 @Table(name = "tblEstudiante")

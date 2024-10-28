@@ -9,6 +9,11 @@ import javax.swing.JTable;
 import javax.swing.event.CellEditorListener;
 import javax.swing.table.TableCellEditor;
 
+/**
+ * a
+ *
+ * @hidden
+ */
 public class JButtonCellEditor implements TableCellEditor {
 
     private final JButton button;
@@ -18,13 +23,13 @@ public class JButtonCellEditor implements TableCellEditor {
     public JButtonCellEditor(String text, ActionListener actionListener) {
         this.button = new JButton(text);
         this.actionListener = actionListener;
-        this.button.addActionListener((ActionEvent evt)->{
+        this.button.addActionListener((ActionEvent evt) -> {
             this.actionListener.actionPerformed(
-                new ActionEvent(this.button, ActionEvent.ACTION_PERFORMED, this.row+"")
+                    new ActionEvent(this.button, ActionEvent.ACTION_PERFORMED, this.row + "")
             );
         });
     }
-    
+
     @Override
     public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
         this.row = row;
@@ -52,11 +57,14 @@ public class JButtonCellEditor implements TableCellEditor {
     }
 
     @Override
-    public void cancelCellEditing() {}
+    public void cancelCellEditing() {
+    }
 
     @Override
-    public void addCellEditorListener(CellEditorListener l) {}
+    public void addCellEditorListener(CellEditorListener l) {
+    }
 
     @Override
-    public void removeCellEditorListener(CellEditorListener l) {}
+    public void removeCellEditorListener(CellEditorListener l) {
+    }
 }

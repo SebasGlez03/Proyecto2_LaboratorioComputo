@@ -5,9 +5,8 @@
 package main;
 
 /**
- * Clase que corre el programa entero
- *
- * @author santi
+ * a
+ * @hidden
  */
 public class FrmRun extends javax.swing.JFrame {
 

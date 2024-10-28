@@ -29,8 +29,8 @@ import persistencia.entidades.BloqueoEntidad;
 import presentacion.AdminMenu.FrmReportes;
 
 /**
- *
- * @author nomar
+ * a
+ * @hidden
  */
 public class FrmReporteBloqueos extends javax.swing.JFrame {
 

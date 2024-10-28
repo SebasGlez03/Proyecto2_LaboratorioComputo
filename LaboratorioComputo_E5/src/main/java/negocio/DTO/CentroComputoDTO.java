@@ -8,13 +8,8 @@ import java.util.Calendar;
 import persistencia.entidades.CentroComputoEntidad;
 
 /**
- *
- * @author santi
- */
-/**
- * Clase DTO (Data Transfer Object) para representar un Centro de Cómputo.
- * Esta clase contiene los datos básicos de un centro de cómputo, tales como
- * su nombre, contraseña maestra, horas de servicio y la unidad académica asociada.
+ * a
+ * @hidden
  */
 public class CentroComputoDTO {
 

@@ -10,13 +10,8 @@ import persistencia.entidades.ComputadoraEntidad;
 import persistencia.entidades.EstudianteEntidad;
 
 /**
- * Representa el DTO (Data Transfer Object) para los apartados de una computadora en un centro de cómputo.
- * Esta clase contiene la información del apartado, como la fecha de inicio, fecha de fin,
- * el estudiante que realizó el apartado y la computadora asignada.
- * 
- * Un DTO es utilizado para transferir datos entre capas sin exponer las entidades directamente.
- * 
- * @author santi
+ * a
+ * @hidden
  */
 public class ApartadoDTO {
 

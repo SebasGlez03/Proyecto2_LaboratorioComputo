@@ -10,10 +10,8 @@ import persistencia.entidades.ApartadoEntidad;
 import persistencia.entidades.CentroComputoEntidad;
 import persistencia.entidades.ComputadoraEntidad;
 /**
- * Clase DTO (Data Transfer Object) para representar una Computadora.
- * Esta clase contiene los datos básicos de una computadora, como su estado de administrador,
- * el centro de cómputo al que pertenece, el estudiante asignado, su dirección IP,
- * y la lista de apartados reservados.
+ * a
+ * @hidden
  */
 public class ComputadoraDTO {
 

@@ -24,17 +24,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
- * Representa una computadora dentro del sistema de gestión de laboratorios. La
- * entidad está mapeada a la tabla "tblComputadora" en la base de datos.
- *
- * Cada computadora está asociada a un centro de cómputo y almacena información
- * como la dirección IP, su estatus de inscripción, los programas instalados y
- * el número de máquina.
- *
- * Esta clase implementa {@link Serializable} para permitir la serialización y
- * la correcta persistencia de los objetos en la base de datos.
- *
- * @author santi
+ * a
+ * @hidden
  */
 @Entity
 @Table(name = "tblComputadora")

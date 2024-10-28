@@ -19,16 +19,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * Clase que representa la entidad Apartado en el sistema de persistencia. Esta
- * clase define los atributos y relaciones de un apartado que puede ser rentado
- * por un estudiante en un centro de cómputo.
- * <p>
- * Cada instancia de esta clase contiene información sobre las fechas de inicio
- * y fin de la renta, el estudiante asociado, la computadora utilizada y el
- * tiempo activo del apartado.
- * </p>
- *
- * @author PC
+ * a
+ * @hidden
  */
 @Entity
 @Table(name = "tblApartado")

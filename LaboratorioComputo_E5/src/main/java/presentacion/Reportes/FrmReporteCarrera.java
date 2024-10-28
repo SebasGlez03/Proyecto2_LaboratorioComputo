@@ -29,8 +29,8 @@ import javax.persistence.TypedQuery;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author nomar
+ * a
+ * @hidden
  */
 public class FrmReporteCarrera extends javax.swing.JFrame {
 

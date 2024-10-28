@@ -8,15 +8,8 @@ import java.util.Calendar;
 import persistencia.entidades.BloqueoEntidad;
 
 /**
- * BloqueoDTO representa el DTO (Data Transfer Object) para los bloqueos
- * aplicados a los estudiantes en un sistema. Esta clase contiene información
- * sobre el bloqueo, como el motivo, las fechas relacionadas y el estudiante
- * afectado.
- *
- * Un DTO es utilizado para transferir datos entre capas sin exponer las
- * entidades directamente.
- *
- * @author santi
+ * a
+ * @hidden
  */
 public class BloqueoDTO {
 

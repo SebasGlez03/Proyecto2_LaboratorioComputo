@@ -22,13 +22,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * La clase {@code CarreraEntidad} representa una carrera universitaria en la
- * base de datos. Cada carrera tiene un nombre, un tiempo diario y una lista de
- * estudiantes asociados.
- *
- * Esta clase está mapeada a la tabla {@code tblCarrera} en la base de datos.
- *
- * @author santi
+ * a
+ * @hidden
  */
 @Entity
 @Table(name = "tblCarrera")

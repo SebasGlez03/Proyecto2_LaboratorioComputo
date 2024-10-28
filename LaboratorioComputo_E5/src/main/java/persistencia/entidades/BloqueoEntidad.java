@@ -19,12 +19,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * La clase {@code BloqueoEntidad} representa un bloqueo hacia un alumno en la
- * base de datos. Este bloqueo está asociado a un motivo y a una fecha
- * específica, y está relacionado con un estudiante a través de una relación de
- * muchos a uno con la entidad {@code EstudianteEntidad}.
- *
- * @author santi
+ * a
+ * @hidden
  */
 @Entity
 @Table(name = "tblBloqueo")

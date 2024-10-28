@@ -13,10 +13,9 @@ import presentacion.FrmLogin;
 import utilerias.LectorIp;
 
 /**
+ * a
  *
- * Clase `buscarComputadoraIp` que verifica si una computadora con una IP específica está registrada en el sistema,
- * y abre el formulario correspondiente según el perfil del usuario
- * (admin o usuario regular).
+ * @hidden
  */
 public class buscarComputadoraIp {
 
@@ -26,26 +25,26 @@ public class buscarComputadoraIp {
     LectorIp lector = new LectorIp(); // Utilidad para obtener la IP local
 
     /**
-     * Método para buscar una computadora en el sistema usando su dirección IP local.
-     * Si la computadora existe en el sistema, verifica si el usuario es admin o no
-     * y abre el formulario correspondiente.
+     * Método para buscar una computadora en el sistema usando su dirección IP
+     * local. Si la computadora existe en el sistema, verifica si el usuario es
+     * admin o no y abre el formulario correspondiente.
      */
-    public void buscarComputadoraPorIP(){
-    
+    public void buscarComputadoraPorIP() {
+
         // Obtener la dirección IP de la computadora local
         String ip;
         ip = lector.getLocalIPAddress();
         System.out.println(ip); // Imprimir la IP para depuración
 
         // Verificar si la computadora con esa IP está registrada en el sistema
-        if (computadoraNegocio.buscarComputadorasPorIP(ip).isEmpty()){
+        if (computadoraNegocio.buscarComputadorasPorIP(ip).isEmpty()) {
 
-           // Mostrar mensaje si la computadora no está registrada
-           JOptionPane.showMessageDialog(new JFrame(), "Esta computadora no es parte del sistema" ); 
-           
+            // Mostrar mensaje si la computadora no está registrada
+            JOptionPane.showMessageDialog(new JFrame(), "Esta computadora no es parte del sistema");
+
         } else {
             // Obtener la primera computadora encontrada con la IP
-            this.computadoraUsuario = computadoraNegocio.buscarComputadorasPorIP(ip).getFirst();  
+            this.computadoraUsuario = computadoraNegocio.buscarComputadorasPorIP(ip).getFirst();
 
             // Verificar si el usuario es admin y abrir el formulario adecuado
             if (computadoraUsuario.isEsAdmin()) {

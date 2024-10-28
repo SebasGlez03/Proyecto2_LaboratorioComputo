@@ -9,13 +9,18 @@ import negocio.DTO.UnidadAcademicaDTO;
 import negocio.logica.UnidadAcademicaNegocio;
 
 /**
+ * FrmInsertarUnidad es una clase que representa la ventana para insertar una
+ * nueva unidad académica. Esta clase extiende javax.swing.JFrame y contiene
+ * componentes de la interfaz de usuario para ingresar el nombre de la unidad y
+ * gestionarla a través de la lógica de negocio.
  *
  * @author nomar
  */
 public class FrmInsertarUnidad extends javax.swing.JFrame {
 
     /**
-     * Creates new form FrmInsertarUnidad
+     * Crea una nueva instancia de FrmInsertarUnidad. Inicializa los componentes
+     * de la interfaz de usuario.
      */
     public FrmInsertarUnidad() {
         initComponents();
@@ -84,33 +89,44 @@ public class FrmInsertarUnidad extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+  /**
+     * Evento que se activa al hacer clic en el botón "Atrás". Cierra la ventana
+     * actual y muestra el menú del administrador.
+     *
+     * @param evt el evento de clic del mouse
+     */
     private void btnAtrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtrasMouseClicked
         // TODO add your handling code here:
         new FrmAdminMenu().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAtrasMouseClicked
-
+    /**
+     * Evento que se activa al hacer clic en el botón "Agregar". Verifica la
+     * validez del nombre de la unidad ingresado y, si es válido, lo guarda
+     * utilizando la lógica de negocio.
+     *
+     * @param evt el evento de acción del botón
+     */
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
         String nombre = fldUnidad.getText();
-        
-        if (nombre.matches(".*\\d.*") || nombre.isEmpty())
-        {JOptionPane.showMessageDialog(this, "Un nombre de unidad no puede contener numeros, caracteres especiales o estar vacío" );}
-        else{
-        
-        UnidadAcademicaDTO unidad = new UnidadAcademicaDTO();
-        unidad.setNombre(nombre);
-        
-        UnidadAcademicaNegocio unidadNegocio = new UnidadAcademicaNegocio();
-        
-        unidadNegocio.guardarUnidadAcademica(unidad);
-        
-        JOptionPane.showMessageDialog(this, "Unidad agregada con exito!" );
-        
-        FrmAdminMenu frm = new FrmAdminMenu();
-        frm.setVisible(true);
-        this.dispose();
+
+        if (nombre.matches(".*\\d.*") || nombre.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Un nombre de unidad no puede contener numeros, caracteres especiales o estar vacío");
+        } else {
+
+            UnidadAcademicaDTO unidad = new UnidadAcademicaDTO();
+            unidad.setNombre(nombre);
+
+            UnidadAcademicaNegocio unidadNegocio = new UnidadAcademicaNegocio();
+
+            unidadNegocio.guardarUnidadAcademica(unidad);
+
+            JOptionPane.showMessageDialog(this, "Unidad agregada con exito!");
+
+            FrmAdminMenu frm = new FrmAdminMenu();
+            frm.setVisible(true);
+            this.dispose();
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
