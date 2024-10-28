@@ -224,6 +224,11 @@ public class FrmAgregarBloqueo extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnReiniciarActionPerformed
 
+    /**
+     * Boton cancelar que cancela el agregar un bloqueo y cierra el frame
+     *
+     * @param evt poresionar el boton cancelar
+     */
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
         this.dispose();

@@ -31,6 +31,11 @@ public class FrmEditarAlumno extends javax.swing.JFrame {
     public FrmEditarAlumno() {
     }
 
+    /**
+     * Constructor que inicializa con un estudiante al que se va a editar
+     *
+     * @param estudiante EstudianteDTO a editar
+     */
     public FrmEditarAlumno(EstudianteDTO estudiante) {
         initComponents();
         this.estudiante = estudiante;
@@ -39,6 +44,9 @@ public class FrmEditarAlumno extends javax.swing.JFrame {
         llenarBoxCarreras(carreraNegocio.buscarCarreras());
     }
 
+    /**
+     * Metodo que muestra la informacion actual de el estudiante
+     */
     public void mostrarInformacionActualEstudiante() {
         campoTextoNombre.setText(estudiante.getNombre());
         campoTextoApellidoPaterno.setText(estudiante.getApellidoPaterno());

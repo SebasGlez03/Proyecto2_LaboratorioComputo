@@ -48,7 +48,7 @@ public class FrmGestionarAlumno extends javax.swing.JFrame {
         UnidadAcademicaNegocio unidadAcademicaNegocio = new UnidadAcademicaNegocio();
         CentroComputoNegocio centroComputoNegocio = new CentroComputoNegocio();
     }
-    
+
     /**
      * Metodo que llena la tabla de estudiantes con la informacion de la base de
      * datos
@@ -56,18 +56,16 @@ public class FrmGestionarAlumno extends javax.swing.JFrame {
      * @param listaEstudiantes lista de estudiantes proveniente de la base de
      * datos.
      */
-
     private List<EstudianteDTO> obtenerPagina(int indiceInicio, int indiceFin) {
-        List<EstudianteDTO> todas= estudianteNegocio.buscarTodosLosEstudiantes();
+        List<EstudianteDTO> todas = estudianteNegocio.buscarTodosLosEstudiantes();
         List<EstudianteDTO> todasLasPaginas = new ArrayList<>();
         indiceFin = Math.min(indiceFin, todas.size());
         for (int i = indiceInicio; i < indiceFin; i++) {
             todasLasPaginas.add(todas.get(i));
         }
         return todasLasPaginas;
-    }    
-    
-    
+    }
+
     /**
      * Metodo que llena la tabla de estudiantes con la informacion de la base de
      * datos
@@ -362,36 +360,53 @@ public class FrmGestionarAlumno extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Boton que regresa al frame anterior
+     *
+     * @param evt presionar el boton atras
+     */
     private void btnAtrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtrasMouseClicked
         // TODO add your handling code here:
         new FrmAdminMenu().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAtrasMouseClicked
 
+    /**
+     * Boton que manda al frame para agregar un estudiante
+     *
+     * @param evt presionar el boton agregar
+     */
     private void btnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMouseClicked
         FrmAgregarAlumno frm = new FrmAgregarAlumno();
         frm.setVisible(true);
     }//GEN-LAST:event_btnAgregarMouseClicked
 
+    /**
+     * Boton que mueve la paginacion hacia la izquierda
+     *
+     * @param evt presionar el boton flecha izquierda
+     */
     private void btnFlechaIzquierdaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFlechaIzquierdaMouseClicked
         // TODO add your handling code here:
-        if (pagina -3 < 0)
-        {
+        if (pagina - 3 < 0) {
             JOptionPane.showMessageDialog(this, "No hay más páginas atrás");
+        } else {
+            pagina -= 3;
+            limite -= 3;
+            llenarTablaEstudiantes(obtenerPagina(pagina, limite));
         }
-        else
-        {
-        pagina -= 3;
-        limite -= 3;   
-        llenarTablaEstudiantes(obtenerPagina(pagina, limite));
-        } 
 
 
     }//GEN-LAST:event_btnFlechaIzquierdaMouseClicked
 
+    /**
+     * Boton que mueve la paginacion hacia la derecha
+     *
+     * @param evt presionar el boton flecha derecha
+     */
     private void btnFlechaDerechaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFlechaDerechaMouseClicked
         pagina += 3;
-        limite += 3;   
+        limite += 3;
         llenarTablaEstudiantes(obtenerPagina(pagina, limite));
     }//GEN-LAST:event_btnFlechaDerechaMouseClicked
 

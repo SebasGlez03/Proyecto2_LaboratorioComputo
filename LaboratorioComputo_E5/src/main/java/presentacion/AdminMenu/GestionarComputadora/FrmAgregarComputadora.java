@@ -15,7 +15,6 @@ import negocio.logica.ComputadoraNegocio;
 import utilerias.LectorIp;
 import java.util.OptionalInt;
 
-
 /**
  *
  * @author nomar
@@ -27,28 +26,33 @@ public class FrmAgregarComputadora extends javax.swing.JFrame {
     List<CentroComputoDTO> centros = new ArrayList<>();
     CentroComputoDTO centro = new CentroComputoDTO();
     ComputadoraNegocio computadoraNegocio = new ComputadoraNegocio();
-    
-    
+
     /**
      * Creates new form FrmAgregarComputadora
      */
     int softwareCounter = 0;
     List<String> software = new ArrayList<>();
     int numMaquina;
+<<<<<<< Updated upstream
     
     /**
      * Constructor que inicializa los componentes
+=======
+
+    /**
+     * Constructor que inicializa los atributos
+>>>>>>> Stashed changes
      */
     public FrmAgregarComputadora() {
         initComponents();
-                
+
         centros = centroComputoNegocio.buscarCentrosComputos();
         llenarBoxCentros(centros);
         obtenerNumMaquinaMayor(computadoraNegocio.buscarComputadora());
         campoTextoNumeroMaquina.disable();
-        
-                
+
     }
+<<<<<<< Updated upstream
     /**
     * Calcula el número de máquina más alto en la lista de computadoras proporcionada
     * y actualiza el campo de texto correspondiente con el siguiente número disponible.
@@ -80,6 +84,32 @@ public class FrmAgregarComputadora extends javax.swing.JFrame {
     * @param CentroComputo Lista de objetos `CentroComputoDTO` que contiene los datos de los
     *                      centros de cómputo disponibles.
     */
+=======
+
+    /**
+     * Metodo que obtiene el numero de maquina mayor
+     *
+     * @param computadoras Lista de computadoras con informacion de la base de
+     * datos
+     */
+    public void obtenerNumMaquinaMayor(List<ComputadoraDTO> computadoras) {
+
+        OptionalInt maxValor = computadoras.stream()
+                .mapToInt(ComputadoraDTO::getNumComputadora)
+                .max();
+
+        this.numMaquina = maxValor.getAsInt() + 1;
+        campoTextoNumeroMaquina.setText(Integer.toString(maxValor.getAsInt() + 1));
+
+    }
+
+    /**
+     * Metodo que llena con computadoras el contenido del comboBox
+     *
+     * @param CentroComputo Lista de centros de computos para llenar el combo
+     * box
+     */
+>>>>>>> Stashed changes
     private void llenarBoxCentros(List<CentroComputoDTO> CentroComputo) {
         int i = 0;
         while (CentroComputo.size() > i) {
@@ -232,6 +262,12 @@ public class FrmAgregarComputadora extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Boton cancelar que cancela el agregar una computadora a la vez que cierra
+     * el frame
+     *
+     * @param evt presionar el boton cancelar
+     */
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
         this.dispose();
@@ -241,77 +277,92 @@ public class FrmAgregarComputadora extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnReiniciarActionPerformed
 
+    /**
+     * Boton agregar que se encarga de tener la logica para agregar una nueva
+     * computadora
+     *
+     * @param evt presionar el boton agregar
+     */
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
         String ip = campoTextoIP.getText();
         int numMaquina = Integer.parseInt(campoTextoNumeroMaquina.getText());
         Boolean esAdmin = checkAdmin.isSelected();
-        
-        if(esAdmin){
 
-        try {
-            ComputadoraNegocio computadoraNegocio = new ComputadoraNegocio();
+        if (esAdmin) {
 
-            ComputadoraDTO computadora = new ComputadoraDTO();
-            
-            computadora.setIp(ip);
-            computadora.setEsAdmin(esAdmin);
-            computadora.setSoftware(software);
-            computadora.setCentroComputo(centro);
+            try {
+                ComputadoraNegocio computadoraNegocio = new ComputadoraNegocio();
 
-            computadoraNegocio.guardarComputadora(computadora);
-            JOptionPane.showMessageDialog(this, "La computadora se ha agregado correctamente.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                ComputadoraDTO computadora = new ComputadoraDTO();
 
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Ha ocurrido un error inesperado: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
-        } 
-            
-        }else {
-        
-        try {
-            ComputadoraNegocio computadoraNegocio = new ComputadoraNegocio();
+                computadora.setIp(ip);
+                computadora.setEsAdmin(esAdmin);
+                computadora.setSoftware(software);
+                computadora.setCentroComputo(centro);
 
-            ComputadoraDTO computadora = new ComputadoraDTO();
-            
-            computadora.setIp(ip);
-            computadora.setEsAdmin(esAdmin);
-            computadora.setSoftware(software);
-            computadora.setNumComputadora(numMaquina);
-            computadora.setCentroComputo(centro);
+                computadoraNegocio.guardarComputadora(computadora);
+                JOptionPane.showMessageDialog(this, "La computadora se ha agregado correctamente.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 
-            computadoraNegocio.guardarComputadora(computadora);
-            JOptionPane.showMessageDialog(this, "La computadora se ha agregado correctamente.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Ha ocurrido un error inesperado: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
 
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Ha ocurrido un error inesperado: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
-            
+        } else {
+
+            try {
+                ComputadoraNegocio computadoraNegocio = new ComputadoraNegocio();
+
+                ComputadoraDTO computadora = new ComputadoraDTO();
+
+                computadora.setIp(ip);
+                computadora.setEsAdmin(esAdmin);
+                computadora.setSoftware(software);
+                computadora.setNumComputadora(numMaquina);
+                computadora.setCentroComputo(centro);
+
+                computadoraNegocio.guardarComputadora(computadora);
+                JOptionPane.showMessageDialog(this, "La computadora se ha agregado correctamente.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Ha ocurrido un error inesperado: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
+    /**
+     * Boton que al presionarlo oculta la informacion al no ser necesaria
+     *
+     * @param evt presionar el boton agregar IP
+     */
     private void checkAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkAdminActionPerformed
         // TODO add your handling code here:
-        if (checkAdmin.isSelected()){
-        campoTextoNumeroMaquina.setVisible(false);
-        lblNumMaquina.setVisible(false);
+        if (checkAdmin.isSelected()) {
+            campoTextoNumeroMaquina.setVisible(false);
+            lblNumMaquina.setVisible(false);
+        } else {
+
+            campoTextoNumeroMaquina.setVisible(true);
+            lblNumMaquina.setVisible(true);
+
         }
-        else{
-        
-        campoTextoNumeroMaquina.setVisible(true);
-        lblNumMaquina.setVisible(true);
-            
-        }
-        
+
     }//GEN-LAST:event_checkAdminActionPerformed
 
     private void checkAdmin1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkAdmin1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_checkAdmin1ActionPerformed
 
+    /**
+     * Boton que al presionarlo almacena el software en una lista
+     *
+     * @param evt presionar el boton agregarSoftware
+     */
     private void btnSoftwareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSoftwareActionPerformed
         // TODO add your handling code here:
         listSoftware.setModel(listModel);
-        listModel.add(softwareCounter,fldSoftware.getText());
+        listModel.add(softwareCounter, fldSoftware.getText());
         listModel.setSize(20);
         this.software.add(fldSoftware.getText());
         fldSoftware.setText("");
@@ -319,6 +370,12 @@ public class FrmAgregarComputadora extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnSoftwareActionPerformed
 
+    /**
+     * Boton que al presionarlo agrega automaticamente la ip de la computadora
+     * en uso
+     *
+     * @param evt presionar boton agregarIP
+     */
     private void btnAgregarIPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarIPActionPerformed
         // TODO add your handling code here:
         LectorIp lector = new LectorIp();
@@ -327,8 +384,8 @@ public class FrmAgregarComputadora extends javax.swing.JFrame {
 
     private void boxCentroComputoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxCentroComputoActionPerformed
         // TODO add your handling code here:
-        this.centro = centros.get(boxCentroComputo.getSelectedIndex() );
-       
+        this.centro = centros.get(boxCentroComputo.getSelectedIndex());
+
     }//GEN-LAST:event_boxCentroComputoActionPerformed
 
    

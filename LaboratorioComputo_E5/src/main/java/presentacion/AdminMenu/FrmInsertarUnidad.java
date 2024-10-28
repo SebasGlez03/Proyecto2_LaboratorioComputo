@@ -85,32 +85,42 @@ public class FrmInsertarUnidad extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Boton que regresa al frame anterior
+     *
+     * @param evt presionar boton atras
+     */
     private void btnAtrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtrasMouseClicked
         // TODO add your handling code here:
         new FrmAdminMenu().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAtrasMouseClicked
 
+    /**
+     * Boton que agrega una nueva unidad academica con los datos escritos
+     *
+     * @param evt presionar el boton agregar
+     */
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
         String nombre = fldUnidad.getText();
-        
-        if (nombre.matches(".*\\d.*") || nombre.isEmpty())
-        {JOptionPane.showMessageDialog(this, "Un nombre de unidad no puede contener numeros, caracteres especiales o estar vacío" );}
-        else{
-        
-        UnidadAcademicaDTO unidad = new UnidadAcademicaDTO();
-        unidad.setNombre(nombre);
-        
-        UnidadAcademicaNegocio unidadNegocio = new UnidadAcademicaNegocio();
-        
-        unidadNegocio.guardarUnidadAcademica(unidad);
-        
-        JOptionPane.showMessageDialog(this, "Unidad agregada con exito!" );
-        
-        FrmAdminMenu frm = new FrmAdminMenu();
-        frm.setVisible(true);
-        this.dispose();
+
+        if (nombre.matches(".*\\d.*") || nombre.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Un nombre de unidad no puede contener numeros, caracteres especiales o estar vacío");
+        } else {
+
+            UnidadAcademicaDTO unidad = new UnidadAcademicaDTO();
+            unidad.setNombre(nombre);
+
+            UnidadAcademicaNegocio unidadNegocio = new UnidadAcademicaNegocio();
+
+            unidadNegocio.guardarUnidadAcademica(unidad);
+
+            JOptionPane.showMessageDialog(this, "Unidad agregada con exito!");
+
+            FrmAdminMenu frm = new FrmAdminMenu();
+            frm.setVisible(true);
+            this.dispose();
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
 

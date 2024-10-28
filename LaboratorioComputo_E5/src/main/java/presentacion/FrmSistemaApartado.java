@@ -8,7 +8,6 @@ package presentacion;
  *
  * @author santi
  */
-
 import java.util.List;
 import javax.swing.*;
 import java.awt.*;
@@ -19,73 +18,77 @@ import negocio.DTO.ComputadoraDTO;
 import negocio.logica.ComputadoraNegocio;
 
 public class FrmSistemaApartado extends JFrame {
-    
+
     ComputadoraNegocio computadoraNegocio;
     Long idE;
     Long idcC;
-    
 
+    /**
+     * Frame que muestra la lista de computadoras para realizar un apartado
+     *
+     * @param idcC Id de centro de computo
+     * @param idE Id de estudiante que realiza el apartado
+     */
     public FrmSistemaApartado(Long idcC, Long idE) {
         // Configuración básica del JFrame
-                
+
         this.idE = idE;
         this.idcC = idcC;
-        
+
         setTitle("Selecciona una computadora");
         setSize(1000, 400);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        
+
         //Inicializamos negocio
         ComputadoraNegocio computadoraNegocio = new ComputadoraNegocio();
         this.computadoraNegocio = computadoraNegocio;
-        
+
         List<ComputadoraDTO> computadoras = new ArrayList<>();
-        
+
         computadoras = computadoraNegocio.buscarComputadorasPorCentro(idcC);
-        
+
         int[] filasColumnas = new int[1];
         filasColumnas = calcularFilasColumnas(computadoras.size());
         int filas = filasColumnas[0];
         int columnas = filasColumnas[1];
         // Crear un JPanel con GridLayout
         JPanel panel = new JPanel(new GridLayout(filas, columnas));
-        
+
         // Crear e insertar botones en cada celda
         int numComputadora = 1;
         String nombreComputadora;
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
-                nombreComputadora =  String.valueOf(numComputadora);
-                if(numComputadora <= computadoras.size()){
-                JButton boton = new JButton(nombreComputadora);
-                
-                boton.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
+                nombreComputadora = String.valueOf(numComputadora);
+                if (numComputadora <= computadoras.size()) {
+                    JButton boton = new JButton(nombreComputadora);
 
-                        Long idC = computadoraNegocio.buscarComputadora(Long.parseLong(boton.getText())).getId();
-                        new FrmDetallesApartado(idC, idE, idcC).setVisible(true);
-                        cerrar();
-                        
+                    boton.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+
+                            Long idC = computadoraNegocio.buscarComputadora(Long.parseLong(boton.getText())).getId();
+                            new FrmDetallesApartado(idC, idE, idcC).setVisible(true);
+                            cerrar();
+
+                        }
+
                     }
-                
-                }
-                );
-                
-                numComputadora++;
-                panel.add(boton);
+                    );
+
+                    numComputadora++;
+                    panel.add(boton);
                 }
             }
         }
-        
-        
+
         // Añadir el panel al JFrame
         add(panel);
     }
-    
+
     /**
-     * Calcula el número de filas y columnas que se asemejan a un cuadrado,
-     * para que el producto de filas y columnas sea igual a la cantidad de entradas.
+     * Calcula el número de filas y columnas que se asemejan a un cuadrado, para
+     * que el producto de filas y columnas sea igual a la cantidad de entradas.
      *
      * @param cantidadEntradas La cantidad total de entradas.
      * @return Un arreglo con el número de filas y columnas.
@@ -105,15 +108,16 @@ public class FrmSistemaApartado extends JFrame {
             filas++; // Incrementar filas
         }
 
-        return new int[] { filas, columnas };
+        return new int[]{filas, columnas};
     }
-    
-    public void cerrar(){
-    
+
+    /**
+     * Metodo que cierra el frame
+     */
+    public void cerrar() {
+
         this.dispose();
-        
+
     }
-    
+
 }
-
-

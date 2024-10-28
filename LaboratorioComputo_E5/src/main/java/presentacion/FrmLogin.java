@@ -24,10 +24,9 @@ public class FrmLogin extends javax.swing.JFrame {
     /**
      * Creates new form FrmLogin
      */
-
     @Override
     public void setExtendedState(int state) {
-        super.setExtendedState(FrmLogin.MAXIMIZED_BOTH); 
+        super.setExtendedState(FrmLogin.MAXIMIZED_BOTH);
     }
     EstudianteNegocio estudianteNegocio;
     UnidadAcademicaNegocio unidadAcademicaNegocio;
@@ -35,24 +34,31 @@ public class FrmLogin extends javax.swing.JFrame {
     Long CentroSeleccionado;
     Long idcC;
     CaesarCipher encriptar = new CaesarCipher();
-    
+
+    /**
+     * Constructor que inicializa los valores de los atributos de la clase
+     */
     public FrmLogin() {
         initComponents();
-        
-        
+
         EstudianteNegocio estudianteNegocio = new EstudianteNegocio();
         UnidadAcademicaNegocio unidadAcademicaNegocio = new UnidadAcademicaNegocio();
         CentroComputoNegocio centroComputoNegocio = new CentroComputoNegocio();
-        
+
         this.centroComputoNegocio = centroComputoNegocio;
         this.estudianteNegocio = estudianteNegocio;
         this.unidadAcademicaNegocio = unidadAcademicaNegocio;
-        
+
         llenarBoxUnidades(unidadAcademicaNegocio.buscarUnidadAcademica());
 
-        
     }
 
+    /**
+     * Metodo que llena el combo box con informacion de las unidades academicas
+     *
+     * @param UnidadAcademica Lista de unidades academicas con la que se llenara
+     * el combo box
+     */
     private void llenarBoxUnidades(List<UnidadAcademicaDTO> UnidadAcademica) {
         int i = 0;
         while (UnidadAcademica.size() > i) {
@@ -60,7 +66,13 @@ public class FrmLogin extends javax.swing.JFrame {
             i++;
         }
     }
-    
+
+    /**
+     * Metodo que llena el combo box con informacion de los centros de computo
+     *
+     * @param CentroComputo Lista de centros de computo con los que se llenara
+     * el combo box
+     */
     private void llenarBoxCentros(List<CentroComputoDTO> CentroComputo) {
         int i = 0;
         while (CentroComputo.size() > i) {
@@ -68,6 +80,7 @@ public class FrmLogin extends javax.swing.JFrame {
             i++;
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -176,66 +189,89 @@ public class FrmLogin extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnCloseMouseClicked
 
+    /**
+     * Boton para cancelar el login
+     *
+     * @param evt presionar el boton cancelar
+     */
     private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
         System.out.println("boton cancelar click!");
+        dispose();
     }//GEN-LAST:event_btnCancelarMouseClicked
 
+    /**
+     * Boton aceptar que valida el inicio de sesion
+     *
+     * @param evt presionar el boton aceptar
+     */
     private void btnAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAceptarMouseClicked
         System.out.println("boton aceptar click!");
-        
+
         EstudianteDTO eD = new EstudianteDTO();
-        if (txtId.getText().matches(".*\\D+.*") || txtId.getText().isEmpty())
-        {JOptionPane.showMessageDialog(this, "Un ID no puede contener letras, caracteres especiales o estar vacío" );}
-        else{
-            
-        Long id = Long.decode(txtId.getText());
-        eD.setId(Long.decode(txtId.getText()));
-        eD.setContrasenia(txtContrasenia.getText());
-        EstudianteDTO estudiante = estudianteNegocio.buscarEstudiante(id);
+        if (txtId.getText().matches(".*\\D+.*") || txtId.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Un ID no puede contener letras, caracteres especiales o estar vacío");
+        } else {
 
-        if (estudiante != null)
-        {
+            Long id = Long.decode(txtId.getText());
+            eD.setId(Long.decode(txtId.getText()));
+            eD.setContrasenia(txtContrasenia.getText());
+            EstudianteDTO estudiante = estudianteNegocio.buscarEstudiante(id);
 
-            if(encriptar.decrypt(estudiante.getContrasenia(), 3).equals(eD.getContrasenia())){
-        
-            Long idE = estudiante.getId();
-            FrmSistemaApartado frm = new FrmSistemaApartado(idcC, idE);
-            frm.setVisible(true);
-            this.dispose();
+            if (estudiante != null) {
 
-            
-        } else{
+                if (encriptar.decrypt(estudiante.getContrasenia(), 3).equals(eD.getContrasenia())) {
 
-            JOptionPane.showMessageDialog(this, "Contraseña incorrecta" );          
-                
+                    Long idE = estudiante.getId();
+                    FrmSistemaApartado frm = new FrmSistemaApartado(idcC, idE);
+                    frm.setVisible(true);
+                    this.dispose();
+
+                } else {
+
+                    JOptionPane.showMessageDialog(this, "Contraseña incorrecta");
+
+                }
+            } else {
+
+                JOptionPane.showMessageDialog(this, "No existe un estudiante con ese ID o contraseña");
+
             }
         }
-        else{
-        
-            JOptionPane.showMessageDialog(this, "No existe un estudiante con ese ID o contraseña" );
-            
-        }
-        }
-               
+
     }//GEN-LAST:event_btnAceptarMouseClicked
 
+    /**
+     * Boton que abre el frame de el administrador
+     *
+     * @param evt presionar el boton admin
+     */
     private void btnAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdminMouseClicked
         new FrmAdminMenu().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAdminMouseClicked
 
+    /**
+     * comboBox centro de computo que contiene los centros de computo
+     *
+     * @param evt abrir el combo box
+     */
     private void boxCentroComputoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxCentroComputoActionPerformed
         // TODO add your handling code here:
-        this.idcC = (long) boxCentroComputo.getSelectedIndex() +1 ;
+        this.idcC = (long) boxCentroComputo.getSelectedIndex() + 1;
         System.out.println(idcC);
 
     }//GEN-LAST:event_boxCentroComputoActionPerformed
 
+    /**
+     * ComboBox unidades academicas que contiene las unidades academicas
+     *
+     * @param evt abrir el comboBox
+     */
     private void boxUnidadesAcademicasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxUnidadesAcademicasActionPerformed
-       
+
         Long unidadSeleccionada = (long) boxCentroComputo.getSelectedIndex() + 2;
         llenarBoxCentros(centroComputoNegocio.buscarCentrosComputosPorUnidad(unidadSeleccionada));
-        
+
     }//GEN-LAST:event_boxUnidadesAcademicasActionPerformed
 
     public static void main(String args[]) {

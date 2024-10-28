@@ -48,6 +48,9 @@ public class FrmEditarBloqueo extends javax.swing.JFrame {
         fldFechaLiberacion.add(dateTimePicker2);
     }
 
+    /**
+     * Constructor por omision
+     */
     public FrmEditarBloqueo() {
     }
 
@@ -209,13 +212,12 @@ public class FrmEditarBloqueo extends javax.swing.JFrame {
             }
 
             EstudianteDTO estudiante = estudianteNegocio.buscarTodosLosEstudiantes().get(comboBoxEstudiante.getSelectedIndex());
-            
+
             // Agregar los cambios al bloqueo
             bloqueo.setMotivo(motivo);
             bloqueo.setFechaBloqueo(fechaBloqueo);
             bloqueo.setFechaLiberacion(fechaLiberacion);
             bloqueo.setEstudiante(estudiante);
-
 
             // Llamar al método de negocio para editar el bloqueo
             bloqueoNegocio.modificarBloqueo(bloqueo);
@@ -237,6 +239,11 @@ public class FrmEditarBloqueo extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnReiniciarActionPerformed
 
+    /**
+     * Boton que cancela la edicion y cierra el frame
+     *
+     * @param evt presionar el boton cancelar
+     */
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
         this.dispose();
