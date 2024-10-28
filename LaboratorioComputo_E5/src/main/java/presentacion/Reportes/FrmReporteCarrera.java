@@ -21,6 +21,12 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -76,7 +82,17 @@ public class FrmReporteCarrera extends javax.swing.JFrame {
         return fechaConvertidaCalendar;
     }
 
-    public void generarReporteCarrera(Timestamp inicio, Timestamp fin, List<CarreraDTO> listaCarreras) {
+    /**
+     * Metodo que genera el reporte que muestra los minutos que un estudiante
+     * usa la computadora en un cierto periodo y segun la carrera
+     *
+     * @param inicio Fecha de inicio de los reportes
+     * @param fin Fecha de fin de los reportes
+     * @param listaCarreras Lista de carreras por las que se filtraran los
+     * reportes
+     * @return Lista de objetos del reporte
+     */
+    public void generarReporteCarrera(Calendar inicio, Calendar fin, List<CarreraDTO> listaCarreras) {
 
         String dest = "reporteCarrera.pdf";
 
@@ -85,10 +101,48 @@ public class FrmReporteCarrera extends javax.swing.JFrame {
             PdfDocument pdfDoc = new PdfDocument(writer);
             Document document = new Document(pdfDoc);
 
-            document.add(new Paragraph("Reporte de ventas de las sucursales del siguiente periodo desde: " + inicio.toString() + " hasta: " + fin.toString()));
-            
-        } catch (FileNotFoundException e) {
+            document.add(new Paragraph("Reporte de uso de computadoras desde: " + inicio.toString() + " hasta: " + fin.toString()));
 
+            // Crear la consulta JPQL
+            EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
+            EntityManager entityManager = entityManagerFactory.createEntityManager();
+            TypedQuery<Object[]> query = entityManager.createQuery(
+                    "SELECT e.carrera.nombre "
+                    + "FROM ApartadoEntidad a "
+                    + "JOIN a.estudiante e "
+                    + "WHERE a.fechaInicio BETWEEN :inicio AND :fin "
+                    + "AND e.carrera IN (:listaCarreras) "
+                    + "GROUP BY e.carrera.nombre", Object[].class
+            );
+            query.setParameter("inicio", inicio);
+            query.setParameter("fin", fin);
+            query.setParameter("listaCarreras", listaCarreras);
+
+            // Ejecutar la consulta
+            List<Object[]> resultados = query.getResultList();
+
+            // Crear tabla para el PDF
+            float[] columnWidths = {200, 200};
+            Table table = new Table(columnWidths);
+            table.addCell("Carrera");
+            table.addCell("Minutos Usados");
+
+            // Agregar los resultados a la tabla
+            for (Object[] resultado : resultados) {
+                table.addCell((String) resultado[0]); // Carrera
+                table.addCell(String.valueOf(resultado[1])); // Minutos usados
+            }
+
+            document.add(table);
+            document.close();
+
+            System.out.println("¡Reporte generado con éxito!");
+            JOptionPane.showMessageDialog(null, "Reporte de carrera generado con éxito!");
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace(); // Manejo de otros posibles errores
         }
 
     }
@@ -124,6 +178,11 @@ public class FrmReporteCarrera extends javax.swing.JFrame {
 
         btnGenerarReporte.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         btnGenerarReporte.setText("Generar Reporte");
+        btnGenerarReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerarReporteActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnGenerarReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 460, 240, 100));
 
         btnLimpiar.setText("Limpiar");
@@ -210,6 +269,13 @@ public class FrmReporteCarrera extends javax.swing.JFrame {
 
         txtAreaNotificador.setText("Se vacio le lista de carreras a filtrar!\n");
     }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void btnGenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarReporteActionPerformed
+        LocalDateTime fechaInicio = dateTimePicker.getDateTimePermissive();
+        LocalDateTime fechaFin = dateTimePicker2.getDateTimePermissive();
+
+        generarReporteCarrera(convertirDateTimePickerACalendar(fechaInicio), convertirDateTimePickerACalendar(fechaFin), listaCarrerasAFiltrar);
+    }//GEN-LAST:event_btnGenerarReporteActionPerformed
 
     /**
      * @param args the command line arguments
