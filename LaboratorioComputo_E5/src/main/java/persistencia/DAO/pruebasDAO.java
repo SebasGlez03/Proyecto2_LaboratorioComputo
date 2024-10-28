@@ -54,7 +54,8 @@ public class pruebasDAO {
 //
 //        estudiantes.add(estudianteEntidad);
 //        estudiantes.add(estudianteEntidad2);
-//        CarreraEntidad caEntidad = new CarreraEntidad("Software", Date.from(Instant.now()), estudiantes);
+//        CarreraEntidad caEntidad = new CarreraEntidad();
+//        caEntidad.setIdCarrera(Long.parseLong("1"));
 //
 //        List<BloqueoEntidad> bloqueos = new ArrayList<>();
 //        bloqueos.add(bloqueoEntidad);
@@ -64,29 +65,29 @@ public class pruebasDAO {
 //        estudianteEntidad.setBloqueo(bloqueos);
 //
 //        ApartadoEntidad apartadoEntidad = new ApartadoEntidad(Calendar.getInstance(), Calendar.getInstance(), estudianteEntidad, computadoraEntidad);
-//        apartadoDAO.guardarApartado(apartadoEntidad);
+////        apartadoDAO.guardarApartado(apartadoEntidad);
 //
 ////        apartadoDAO.eliminarApartado(apartadoEntidad);
-//        unidadAcademicaDAO.guardarUnidadAcademica(uaEntidad);
-//        bloqueoDAO.guardarBloqueo(bloqueoEntidad);
+////        unidadAcademicaDAO.guardarUnidadAcademica(uaEntidad);
+////        bloqueoDAO.guardarBloqueo(bloqueoEntidad);
 //        estudianteDAO.guardarEstudiante(estudianteEntidad);
 //        computadoraDAO.guardarComputadora(computadoraEntidad);
-//        centroComputoDAO.guardarCentroComputo(centroComputoEntidad);
-//        carreraDAO.guardarCarrera(caEntidad);
+////        centroComputoDAO.guardarCentroComputo(centroComputoEntidad);
+////        carreraDAO.guardarCarrera(caEntidad);
 //
 //        System.out.println("Una = " + carreraDAO.buscarUnaCarrera(caEntidad.getIdCarrera()).toString());
 //        System.out.println("Todas = " + carreraDAO.buscarTodasCarrera().toString());
 //        System.out.println(bloqueoDAO.buscarUnBloqueo(bloqueoEntidad.getId()));
-////          System.out.println(bloqueoDAO.buscarTodosBloqueos());
+//          System.out.println(bloqueoDAO.buscarTodosBloqueos());
 //
-////        System.out.println(centroComputoDAO.buscarCentrosPorUnidad(Long.parseLong("1")).toString());
+//        System.out.println(centroComputoDAO.buscarCentrosPorUnidad(Long.parseLong("1")).toString());
 //        System.out.println(computadoraDAO.buscarComputadorasPorCentro(Long.parseLong("1")).toString());
 
-        List<String> carreras = new ArrayList<>();
-        carreras.add("Software");
-        List<String> centro = new ArrayList<>();
-        carreras.add("Cisco");
-        
+//        List<String> carreras = new ArrayList<>();
+//        carreras.add("Software");
+//        List<String> centro = new ArrayList<>();
+//        carreras.add("Cisco");
+//        
         // Crear la primera instancia de Calendar
         Calendar calendar1 = Calendar.getInstance();
         calendar1.set(1924, Calendar.OCTOBER, 28); // Establecer una fecha específica (por ejemplo, 28 de octubre de 1924)
@@ -103,16 +104,21 @@ public class pruebasDAO {
             String centronombre = (String) row[0];
             int numMaquina = (int) row[1];
             Long cantidadAlumnos = (Long) row[2];
-            int minutosActivos = (int) row[3];
+            Long minutosActivos = (Long) row[3];
 
             
+        long differenceInMillis = calendar2.getTimeInMillis() - calendar1.getTimeInMillis();
+        long differenceInMinutes = differenceInMillis / (1000 * 60); // Convert milliseconds to minutes
 
+        differenceInMinutes = differenceInMinutes-minutosActivos;
             System.out.println(centronombre);
             System.out.println(numMaquina);
             System.out.println(cantidadAlumnos);
+            System.out.println(minutosActivos);
+            System.out.println(differenceInMinutes);
 
         }
         
     }
-
+    
 }

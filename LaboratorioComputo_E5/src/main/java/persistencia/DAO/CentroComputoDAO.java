@@ -329,7 +329,7 @@ public class CentroComputoDAO implements ICentroComputoDAO{
     managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
     entityManager = managerFactory.createEntityManager();
 
-    String jpql = "SELECT  cc.nombre, comp.numMaquina, COUNT(e), SUM(u.minutosActivos)" +
+    String jpql = "SELECT  cc.nombre, comp.numMaquina, COUNT(e), SUM(u.minutosActivo)" +
                   "FROM ComputadoraEntidad comp " +
                   "JOIN comp.centroComputoEntidad cc " +
                   "JOIN comp.apartado u " +

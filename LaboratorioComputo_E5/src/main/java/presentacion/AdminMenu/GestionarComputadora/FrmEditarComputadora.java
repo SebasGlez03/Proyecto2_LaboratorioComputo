@@ -51,9 +51,8 @@ public class FrmEditarComputadora extends javax.swing.JFrame {
         
         campoTextoIP.setText(computadora.getIp());
         checkAdmin.setSelected(computadora.isEsAdmin());
-        listModel.setSize(software.size());
-        softwareCounter = software.size();
-        listModel.addAll(software);
+
+
         
                 
     }

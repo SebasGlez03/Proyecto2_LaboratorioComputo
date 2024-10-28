@@ -40,7 +40,7 @@ public class ApartadoEntidad implements Serializable {
     @Column(name = "fechaFin", nullable = false)
     private Calendar fechaFin;
     
-    @Column(name = "MinutosActivo", nullable = false)
+    @Column(name = "minutosActivo", nullable = false)
     private int minutosActivo;
 
     @ManyToOne(cascade = CascadeType.MERGE)

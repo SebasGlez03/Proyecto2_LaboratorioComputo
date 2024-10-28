@@ -143,10 +143,12 @@ public class EstudianteDTO {
         this.apellidoPaterno = e.getApellidoPaterno();
         this.apellidoMaterno = e.getApellidoMaterno();
         CarreraDTO c = new CarreraDTO();
+        if (e.getCarrera() != null){
         c.setId(e.getCarrera().getIdCarrera()) ;
+        
         c.setTiempoDiario(e.getCarrera().getTiempoDiario());
         c.setNombre(e.getCarrera().getNombre());
-
+}
         this.carrera = c;
         this.contrasenia = e.getContrasenia();
         this.estatusInscripcion = e.getEstatusInscripcion();
