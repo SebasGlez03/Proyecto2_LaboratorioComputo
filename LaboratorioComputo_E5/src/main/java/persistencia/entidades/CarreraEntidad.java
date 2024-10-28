@@ -64,11 +64,8 @@ public class CarreraEntidad implements Serializable {
      * Lista de estudiantes asociados a la carrera. Esta es una relación de uno
      * a muchos con la entidad {@code EstudianteEntidad}.
      */
-<<<<<<< Updated upstream
+
     @OneToMany()
-=======
-    @OneToMany(cascade = CascadeType.PERSIST)
->>>>>>> Stashed changes
     @JoinColumn(name = "idEstudiante")
     private List<EstudianteEntidad> estudiante;
 
