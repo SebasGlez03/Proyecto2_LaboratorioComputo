@@ -58,13 +58,20 @@ public class FrmAgregarComputadora extends javax.swing.JFrame {
     */
     public void obtenerNumMaquinaMayor(List<ComputadoraDTO> computadoras){
     
+            if(computadoras!= null){
             OptionalInt maxValor = computadoras.stream()
             .mapToInt(ComputadoraDTO::getNumComputadora)  
             .max();     
         
             this.numMaquina = maxValor.getAsInt() + 1;
             campoTextoNumeroMaquina.setText(Integer.toString(maxValor.getAsInt() + 1));
+            }
+            else {
             
+            this.numMaquina = 0;
+            campoTextoNumeroMaquina.setText("0");
+                
+            }
     }
     /**
     * Rellena el combo box `boxCentroComputo` con los nombres de los centros de cómputo 
