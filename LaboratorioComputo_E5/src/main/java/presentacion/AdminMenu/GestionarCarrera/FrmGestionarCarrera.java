@@ -4,7 +4,17 @@
  */
 package presentacion.AdminMenu.GestionarCarrera;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+import negocio.DTO.CarreraDTO;
+import negocio.logica.CarreraNegocio;
 import presentacion.AdminMenu.FrmAdminMenu;
+import utilerias.JButtonCellEditor;
+import utilerias.JButtonRenderer;
 
 /**
  *
@@ -19,6 +29,32 @@ public class FrmGestionarCarrera extends javax.swing.JFrame {
         initComponents();
     }
 
+    public void llenarTablaCarrera(List<CarreraDTO> listaCarrera) {
+        DefaultTableModel modeloTabla = (DefaultTableModel) this.tblCarrera.getModel();
+
+        if (modeloTabla.getRowCount() > 0) {
+            for (int i = modeloTabla.getRowCount() - 1; i > -1; i--) {
+                modeloTabla.removeRow(i);
+            }
+        }
+
+        if (listaCarrera != null) {
+            listaCarrera.forEach(row -> {
+                Object[] fila = new Object[7];
+                fila[0] = row.getId();
+                fila[1] = row.getNombre();
+                fila[2] = row.getTiempoDiario();
+
+                modeloTabla.addRow(fila);
+            });
+        }
+    }
+    
+
+
+
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -32,11 +68,9 @@ public class FrmGestionarCarrera extends javax.swing.JFrame {
         reporte = new javax.swing.JLabel();
         btnAtras = new javax.swing.JLabel();
         btnAgregar = new javax.swing.JLabel();
-        btnEditar = new javax.swing.JLabel();
-        btnEliminar = new javax.swing.JLabel();
         btnFlechaDerecha = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblCarrera = new javax.swing.JTable();
         btnFlechaIzquierda = new javax.swing.JLabel();
         fondo = new javax.swing.JLabel();
 
@@ -62,18 +96,17 @@ public class FrmGestionarCarrera extends javax.swing.JFrame {
         getContentPane().add(btnAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 680, -1, -1));
 
         btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnAgregar.png"))); // NOI18N
-        getContentPane().add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 670, -1, -1));
-
-        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnEditar.png"))); // NOI18N
-        getContentPane().add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 670, -1, -1));
-
-        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnEliminar.png"))); // NOI18N
-        getContentPane().add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 670, -1, -1));
+        btnAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAgregarMouseClicked(evt);
+            }
+        });
+        getContentPane().add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 670, -1, -1));
 
         btnFlechaDerecha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnFlechaD.png"))); // NOI18N
         getContentPane().add(btnFlechaDerecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 410, -1, -1));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblCarrera.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -81,10 +114,10 @@ public class FrmGestionarCarrera extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Nombre de la Carrera", "Tiempo de uso Diario", "Editar", "Eliminar"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblCarrera);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, 810, -1));
 
@@ -98,11 +131,19 @@ public class FrmGestionarCarrera extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    
     private void btnAtrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtrasMouseClicked
         // TODO add your handling code here:
         new FrmAdminMenu().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAtrasMouseClicked
+
+    private void btnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMouseClicked
+        // TODO add your handling code here:
+        FrmAgregarCarrera frm = new FrmAgregarCarrera();
+        frm.setVisible(true);
+    }//GEN-LAST:event_btnAgregarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -142,14 +183,12 @@ public class FrmGestionarCarrera extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnAgregar;
     private javax.swing.JLabel btnAtras;
-    private javax.swing.JLabel btnEditar;
-    private javax.swing.JLabel btnEliminar;
     private javax.swing.JLabel btnFlechaDerecha;
     private javax.swing.JLabel btnFlechaIzquierda;
     private javax.swing.JLabel centroDeComputo;
     private javax.swing.JLabel fondo;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel reporte;
+    private javax.swing.JTable tblCarrera;
     // End of variables declaration//GEN-END:variables
 }
