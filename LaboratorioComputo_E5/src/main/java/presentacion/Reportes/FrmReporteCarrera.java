@@ -16,7 +16,11 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.io.FileNotFoundException;
+import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
 
 /**
  *
@@ -73,11 +77,20 @@ public class FrmReporteCarrera extends javax.swing.JFrame {
     }
 
     public void generarReporteCarrera(Timestamp inicio, Timestamp fin, List<CarreraDTO> listaCarreras) {
-        
+
         String dest = "reporteCarrera.pdf";
-        
-//        PdfWriter writer = new PdfWriter();
-        
+
+        try {
+            PdfWriter writer = new PdfWriter(dest);
+            PdfDocument pdfDoc = new PdfDocument(writer);
+            Document document = new Document(pdfDoc);
+
+            document.add(new Paragraph("Reporte de ventas de las sucursales del siguiente periodo desde: " + inicio.toString() + " hasta: " + fin.toString()));
+            
+        } catch (FileNotFoundException e) {
+
+        }
+
     }
 
     /**
