@@ -9,10 +9,10 @@ import java.awt.event.ActionListener;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import negocio.DTO.BloqueoDTO;
-import negocio.DTO.CarreraDTO;
 import negocio.DTO.EstudianteDTO;
 import negocio.logica.BloqueoNegocio;
 import negocio.logica.EstudianteNegocio;
@@ -25,7 +25,7 @@ import utilerias.JButtonRenderer;
  * @author nomar
  */
 public class FrmGestionarBloqueo extends javax.swing.JFrame {
-
+    
     BloqueoNegocio bloqueoNegocio = new BloqueoNegocio();
     EstudianteNegocio estudianteNegocio = new EstudianteNegocio();
 
@@ -34,8 +34,9 @@ public class FrmGestionarBloqueo extends javax.swing.JFrame {
      */
     public FrmGestionarBloqueo() {
         initComponents();
-
+        
         botonEliminarEnTabla();
+        botonEditarEnTabla();
         llenarTablaBloqueos(bloqueoNegocio.buscarBloqueos());
     }
 
@@ -46,13 +47,13 @@ public class FrmGestionarBloqueo extends javax.swing.JFrame {
      */
     public void llenarTablaBloqueos(List<BloqueoDTO> listaBloqueos) {
         DefaultTableModel modeloTabla = (DefaultTableModel) this.tblBloqueos.getModel();
-
+        
         if (modeloTabla.getRowCount() > 0) {
             for (int i = modeloTabla.getRowCount() - 1; i > -1; i--) {
                 modeloTabla.removeRow(i);
             }
         }
-
+        
         if (listaBloqueos != null) {
             listaBloqueos.forEach(row -> {
                 Object[] fila = new Object[7];
@@ -61,7 +62,7 @@ public class FrmGestionarBloqueo extends javax.swing.JFrame {
                 fila[2] = row.getFechaLiberacion().getTime();
                 fila[3] = row.getMotivo();
                 fila[4] = row.getEstudiante().getId();
-
+                
                 modeloTabla.addRow(fila);
             });
         }
@@ -75,7 +76,7 @@ public class FrmGestionarBloqueo extends javax.swing.JFrame {
      * @return EstudianteDTO proveniente de el idEstudiante
      */
     public EstudianteDTO obtenerEstudianteDTOdeString(Long idEstudiante) {
-
+        
         for (EstudianteDTO estudiante : estudianteNegocio.buscarTodosLosEstudiantes()) {
             if (estudiante.getId() == idEstudiante) {
                 return estudiante;
@@ -86,21 +87,21 @@ public class FrmGestionarBloqueo extends javax.swing.JFrame {
 
     /**
      * Metodo que agrega el boton en la tabla, que a su vez contiene la logica
-     * para eliminar el esutidante deseado
+     * para eliminar el bloqueo deseado
      */
     private void botonEliminarEnTabla() {
-
+        
         ActionListener onEliminarClickListener = new ActionListener() {
-
+            
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Obtén la fila seleccionada
                 int filaSeleccionada = tblBloqueos.getSelectedRow();
-
+                
                 if (filaSeleccionada != -1) { // Verifica que haya una fila seleccionada
                     // Usa el modelo para obtener los datos del estudiante en esa fila
                     DefaultTableModel modeloTabla = (DefaultTableModel) tblBloqueos.getModel();
-
+                    
                     Long idBloqueo = (Long) modeloTabla.getValueAt(filaSeleccionada, 0); // Suponiendo que el ID esté en la columna 0
                     Date fechaBloqueoDate = (Date) modeloTabla.getValueAt(filaSeleccionada, 1);
                     Calendar fechaBloqueo = Calendar.getInstance(); // Se parsea el Date a Calendar
@@ -120,14 +121,81 @@ public class FrmGestionarBloqueo extends javax.swing.JFrame {
                     bloqueo.setEstudiante(obtenerEstudianteDTOdeString(estudiante));
 
                     // Aquí puedes implementar la lógica de eliminación o cualquier otra acción
-                    System.out.println("bloqueo a eliminar: " + bloqueo.toString());
+//                    System.out.println("bloqueo a eliminar: " + bloqueo.toString());
+                    int respuesta = JOptionPane.showConfirmDialog(
+                            null,
+                            "¿Está seguro de que desea eliminar este bloqueo?",
+                            "Confirmar eliminación",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.QUESTION_MESSAGE
+                    );
+                    
+                    if (respuesta == JOptionPane.YES_OPTION) {
+                        try {
+                            bloqueoNegocio.eliminarBloqueo(bloqueo);
+                            JOptionPane.showMessageDialog(null, "El bloqueo se ha eliminado correctamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                            dispose();
+                            FrmGestionarBloqueo frm = new FrmGestionarBloqueo();
+                            frm.setVisible(true);
+                        } catch (Exception ex) {
+                            JOptionPane.showMessageDialog(null, "Ha ocurrido un error inesperado al eliminar el bloqueo: " + ex, "ERROR", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
                 }
             }
         };
-
+        
         TableColumnModel modeloColumnas = this.tblBloqueos.getColumnModel();
         modeloColumnas.getColumn(6).setCellRenderer(new JButtonRenderer("Eliminar"));
         modeloColumnas.getColumn(6).setCellEditor(new JButtonCellEditor("Eliminar", onEliminarClickListener));
+    }
+
+    /**
+     * Metodo que agrega el boton en la tabla, que a su vez contiene la logica
+     * para editar el bloqueo deseado.
+     */
+    private void botonEditarEnTabla() {
+        
+        ActionListener onEliminarClickListener = new ActionListener() {
+            
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Obtén la fila seleccionada
+                int filaSeleccionada = tblBloqueos.getSelectedRow();
+                
+                if (filaSeleccionada != -1) { // Verifica que haya una fila seleccionada
+                    // Usa el modelo para obtener los datos del estudiante en esa fila
+                    DefaultTableModel modeloTabla = (DefaultTableModel) tblBloqueos.getModel();
+                    
+                    Long idBloqueo = (Long) modeloTabla.getValueAt(filaSeleccionada, 0); // Suponiendo que el ID esté en la columna 0
+                    Date fechaBloqueoDate = (Date) modeloTabla.getValueAt(filaSeleccionada, 1);
+                    Calendar fechaBloqueo = Calendar.getInstance(); // Se parsea el Date a Calendar
+                    fechaBloqueo.setTime(fechaBloqueoDate); // Se establece el valor del Date al Calendar
+                    Date fechaLiberacionDate = (Date) modeloTabla.getValueAt(filaSeleccionada, 2);
+                    Calendar fechaLiberacion = Calendar.getInstance(); // Se parsea el Date a Calendar
+                    fechaLiberacion.setTime(fechaLiberacionDate); // Se establece el valor del Date al Calendar
+                    String motivoBloqueo = (String) modeloTabla.getValueAt(filaSeleccionada, 3);
+                    Long estudiante = (Long) modeloTabla.getValueAt(filaSeleccionada, 4);
+
+                    // Crea un EstudianteDTO usando los datos obtenidos de la fila
+                    BloqueoDTO bloqueo = new BloqueoDTO();
+                    bloqueo.setId(idBloqueo);
+                    bloqueo.setFechaBloqueo(fechaBloqueo);
+                    bloqueo.setFechaLiberacion(fechaLiberacion);
+                    bloqueo.setMotivo(motivoBloqueo);
+                    bloqueo.setEstudiante(obtenerEstudianteDTOdeString(estudiante));
+
+                    // Aquí puedes implementar la lógica de eliminación o cualquier otra acción
+                    System.out.println("bloqueo a editar: " + bloqueo.toString());
+                    FrmEditarBloqueo frmEB = new FrmEditarBloqueo(bloqueo);
+                    frmEB.setVisible(true);
+                }
+            }
+        };
+        
+        TableColumnModel modeloColumnas = this.tblBloqueos.getColumnModel();
+        modeloColumnas.getColumn(5).setCellRenderer(new JButtonRenderer("Editar"));
+        modeloColumnas.getColumn(5).setCellEditor(new JButtonCellEditor("Editar", onEliminarClickListener));
     }
 
     /**
@@ -174,6 +242,11 @@ public class FrmGestionarBloqueo extends javax.swing.JFrame {
 
         btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnAgregar.png"))); // NOI18N
         btnAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAgregarMouseClicked(evt);
+            }
+        });
         getContentPane().add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 670, -1, -1));
 
         btnFlechaDerecha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnFlechaD.png"))); // NOI18N
@@ -227,6 +300,11 @@ public class FrmGestionarBloqueo extends javax.swing.JFrame {
         new FrmAdminMenu().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAtrasMouseClicked
+
+    private void btnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMouseClicked
+        FrmAgregarBloqueo frm = new FrmAgregarBloqueo();
+        frm.setVisible(true);
+    }//GEN-LAST:event_btnAgregarMouseClicked
 
     /**
      * @param args the command line arguments

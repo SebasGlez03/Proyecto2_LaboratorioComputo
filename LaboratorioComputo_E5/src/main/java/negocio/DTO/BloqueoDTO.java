@@ -8,12 +8,14 @@ import java.util.Calendar;
 import persistencia.entidades.BloqueoEntidad;
 
 /**
- * BloqueoDTO representa el DTO (Data Transfer Object) para los bloqueos aplicados a los estudiantes
- * en un sistema. Esta clase contiene información sobre el bloqueo, como el motivo, las fechas
- * relacionadas y el estudiante afectado.
- * 
- * Un DTO es utilizado para transferir datos entre capas sin exponer las entidades directamente.
- * 
+ * BloqueoDTO representa el DTO (Data Transfer Object) para los bloqueos
+ * aplicados a los estudiantes en un sistema. Esta clase contiene información
+ * sobre el bloqueo, como el motivo, las fechas relacionadas y el estudiante
+ * afectado.
+ *
+ * Un DTO es utilizado para transferir datos entre capas sin exponer las
+ * entidades directamente.
+ *
  * @author santi
  */
 public class BloqueoDTO {
@@ -44,14 +46,16 @@ public class BloqueoDTO {
     EstudianteDTO estudiante;
 
     /**
-     * Constructor vacío para inicializar un objeto BloqueoDTO sin datos predefinidos.
+     * Constructor vacío para inicializar un objeto BloqueoDTO sin datos
+     * predefinidos.
      */
     public BloqueoDTO() {
     }
 
     /**
-     * Constructor que inicializa un objeto BloqueoDTO con los valores proporcionados.
-     * 
+     * Constructor que inicializa un objeto BloqueoDTO con los valores
+     * proporcionados.
+     *
      * @param id El identificador único del bloqueo.
      * @param motivo El motivo del bloqueo.
      * @param fechaBloqueo La fecha en la que se aplicó el bloqueo.
@@ -67,8 +71,25 @@ public class BloqueoDTO {
     }
 
     /**
-     * Constructor que convierte una entidad de BloqueoEntidad en un objeto BloqueoDTO.
-     * 
+     * Constructor que inicializa un objeto BloqueoDTO con los valores
+     * proporcionados
+     *
+     * @param motivo El motivo del bloqueo.
+     * @param fechaBloqueo La fecha en la que se aplico el bloqueo.
+     * @param fechaLiberacion La fecha en la que se libero el bloqueo.
+     * @param estudiante El DTO del estudiante afectado
+     */
+    public BloqueoDTO(String motivo, Calendar fechaBloqueo, Calendar fechaLiberacion, EstudianteDTO estudiante) {
+        this.motivo = motivo;
+        this.fechaBloqueo = fechaBloqueo;
+        this.fechaLiberacion = fechaLiberacion;
+        this.estudiante = estudiante;
+    }
+
+    /**
+     * Constructor que convierte una entidad de BloqueoEntidad en un objeto
+     * BloqueoDTO.
+     *
      * @param b La entidad BloqueoEntidad que contiene los datos del bloqueo.
      */
     public BloqueoDTO(BloqueoEntidad b) {
@@ -81,10 +102,9 @@ public class BloqueoDTO {
     }
 
     // Getters y setters
-
     /**
      * Obtiene el identificador único del bloqueo.
-     * 
+     *
      * @return El identificador del bloqueo.
      */
     public Long getId() {
@@ -93,7 +113,7 @@ public class BloqueoDTO {
 
     /**
      * Establece el identificador único del bloqueo.
-     * 
+     *
      * @param id El identificador del bloqueo.
      */
     public void setId(Long id) {
@@ -102,7 +122,7 @@ public class BloqueoDTO {
 
     /**
      * Obtiene el motivo del bloqueo.
-     * 
+     *
      * @return El motivo del bloqueo.
      */
     public String getMotivo() {
@@ -111,7 +131,7 @@ public class BloqueoDTO {
 
     /**
      * Establece el motivo del bloqueo.
-     * 
+     *
      * @param motivo El nuevo motivo del bloqueo.
      */
     public void setMotivo(String motivo) {
@@ -120,7 +140,7 @@ public class BloqueoDTO {
 
     /**
      * Obtiene la fecha en la que se aplicó el bloqueo.
-     * 
+     *
      * @return La fecha de aplicación del bloqueo.
      */
     public Calendar getFechaBloqueo() {
@@ -129,7 +149,7 @@ public class BloqueoDTO {
 
     /**
      * Establece la fecha en la que se aplicó el bloqueo.
-     * 
+     *
      * @param fechaBloqueo La nueva fecha de aplicación del bloqueo.
      */
     public void setFechaBloqueo(Calendar fechaBloqueo) {
@@ -138,7 +158,7 @@ public class BloqueoDTO {
 
     /**
      * Obtiene la fecha de liberación del bloqueo.
-     * 
+     *
      * @return La fecha de liberación del bloqueo.
      */
     public Calendar getFechaLiberacion() {
@@ -147,7 +167,7 @@ public class BloqueoDTO {
 
     /**
      * Establece la fecha de liberación del bloqueo.
-     * 
+     *
      * @param fechaLiberacion La nueva fecha de liberación del bloqueo.
      */
     public void setFechaLiberacion(Calendar fechaLiberacion) {
@@ -156,7 +176,7 @@ public class BloqueoDTO {
 
     /**
      * Obtiene el DTO del estudiante afectado por el bloqueo.
-     * 
+     *
      * @return El DTO del estudiante.
      */
     public EstudianteDTO getEstudiante() {
@@ -165,7 +185,7 @@ public class BloqueoDTO {
 
     /**
      * Establece el DTO del estudiante afectado por el bloqueo.
-     * 
+     *
      * @param estudiante El nuevo DTO del estudiante.
      */
     public void setEstudiante(EstudianteDTO estudiante) {
@@ -174,7 +194,7 @@ public class BloqueoDTO {
 
     /**
      * Retorna una representación en cadena de caracteres del objeto BloqueoDTO.
-     * 
+     *
      * @return Una cadena de caracteres que contiene los datos del bloqueo.
      */
     @Override
