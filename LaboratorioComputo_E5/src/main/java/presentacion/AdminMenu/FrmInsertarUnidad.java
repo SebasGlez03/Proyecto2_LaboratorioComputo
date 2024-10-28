@@ -31,6 +31,7 @@ public class FrmInsertarUnidad extends javax.swing.JFrame {
         btnAtras = new javax.swing.JLabel();
         fldUnidad = new javax.swing.JTextField();
         centroDeComputo1 = new javax.swing.JLabel();
+        btnAgregar = new javax.swing.JButton();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -61,6 +62,16 @@ public class FrmInsertarUnidad extends javax.swing.JFrame {
         centroDeComputo1.setText("Unidad");
         getContentPane().add(centroDeComputo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 230, 1000, -1));
 
+        btnAgregar.setBackground(new java.awt.Color(0, 204, 0));
+        btnAgregar.setForeground(new java.awt.Color(0, 0, 0));
+        btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 670, 140, 60));
+
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BackGroundGeneral.jpg"))); // NOI18N
         getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -73,6 +84,12 @@ public class FrmInsertarUnidad extends javax.swing.JFrame {
         new FrmAdminMenu().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAtrasMouseClicked
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        // TODO add your handling code here:
+        String ip = fldUnidad.getText();
+
+    }//GEN-LAST:event_btnAgregarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -110,6 +127,7 @@ public class FrmInsertarUnidad extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregar;
     private javax.swing.JLabel btnAtras;
     private javax.swing.JLabel centroDeComputo;
     private javax.swing.JLabel centroDeComputo1;
