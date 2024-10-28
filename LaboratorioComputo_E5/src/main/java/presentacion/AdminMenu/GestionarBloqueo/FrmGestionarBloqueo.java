@@ -6,7 +6,6 @@ package presentacion.AdminMenu.GestionarBloqueo;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -26,18 +25,16 @@ import utilerias.JButtonRenderer;
  * @author nomar
  */
 public class FrmGestionarBloqueo extends javax.swing.JFrame {
-
+    
     BloqueoNegocio bloqueoNegocio = new BloqueoNegocio();
     EstudianteNegocio estudianteNegocio = new EstudianteNegocio();
-    int pagina = 0;
-    int limite = 3;
 
     /**
      * Creates new form FrmGestionarBloqueo
      */
     public FrmGestionarBloqueo() {
         initComponents();
-
+        
         botonEliminarEnTabla();
         botonEditarEnTabla();
         llenarTablaBloqueos(bloqueoNegocio.buscarBloqueos());
@@ -50,13 +47,13 @@ public class FrmGestionarBloqueo extends javax.swing.JFrame {
      */
     public void llenarTablaBloqueos(List<BloqueoDTO> listaBloqueos) {
         DefaultTableModel modeloTabla = (DefaultTableModel) this.tblBloqueos.getModel();
-
+        
         if (modeloTabla.getRowCount() > 0) {
             for (int i = modeloTabla.getRowCount() - 1; i > -1; i--) {
                 modeloTabla.removeRow(i);
             }
         }
-
+        
         if (listaBloqueos != null) {
             listaBloqueos.forEach(row -> {
                 Object[] fila = new Object[7];
@@ -65,7 +62,7 @@ public class FrmGestionarBloqueo extends javax.swing.JFrame {
                 fila[2] = row.getFechaLiberacion().getTime();
                 fila[3] = row.getMotivo();
                 fila[4] = row.getEstudiante().getId();
-
+                
                 modeloTabla.addRow(fila);
             });
         }
@@ -79,7 +76,7 @@ public class FrmGestionarBloqueo extends javax.swing.JFrame {
      * @return EstudianteDTO proveniente de el idEstudiante
      */
     public EstudianteDTO obtenerEstudianteDTOdeString(Long idEstudiante) {
-
+        
         for (EstudianteDTO estudiante : estudianteNegocio.buscarTodosLosEstudiantes()) {
             if (estudiante.getId() == idEstudiante) {
                 return estudiante;
@@ -89,39 +86,22 @@ public class FrmGestionarBloqueo extends javax.swing.JFrame {
     }
 
     /**
-     * Metodo que llena la tabla de bloqueos con la informacion de la base de
-     * datos
-     *
-     * @param listaEstudiantes lista de bloqueos proveniente de la base de
-     * datos.
-     */
-    private List<BloqueoDTO> obtenerPagina(int indiceInicio, int indiceFin) {
-        List<BloqueoDTO> todas = bloqueoNegocio.buscarBloqueos();
-        List<BloqueoDTO> todasLasPaginas = new ArrayList<>();
-        indiceFin = Math.min(indiceFin, todas.size());
-        for (int i = indiceInicio; i < indiceFin; i++) {
-            todasLasPaginas.add(todas.get(i));
-        }
-        return todasLasPaginas;
-    }
-
-    /**
      * Metodo que agrega el boton en la tabla, que a su vez contiene la logica
      * para eliminar el bloqueo deseado
      */
     private void botonEliminarEnTabla() {
-
+        
         ActionListener onEliminarClickListener = new ActionListener() {
-
+            
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Obtén la fila seleccionada
                 int filaSeleccionada = tblBloqueos.getSelectedRow();
-
+                
                 if (filaSeleccionada != -1) { // Verifica que haya una fila seleccionada
                     // Usa el modelo para obtener los datos del estudiante en esa fila
                     DefaultTableModel modeloTabla = (DefaultTableModel) tblBloqueos.getModel();
-
+                    
                     Long idBloqueo = (Long) modeloTabla.getValueAt(filaSeleccionada, 0); // Suponiendo que el ID esté en la columna 0
                     Date fechaBloqueoDate = (Date) modeloTabla.getValueAt(filaSeleccionada, 1);
                     Calendar fechaBloqueo = Calendar.getInstance(); // Se parsea el Date a Calendar
@@ -149,7 +129,7 @@ public class FrmGestionarBloqueo extends javax.swing.JFrame {
                             JOptionPane.YES_NO_OPTION,
                             JOptionPane.QUESTION_MESSAGE
                     );
-
+                    
                     if (respuesta == JOptionPane.YES_OPTION) {
                         try {
                             bloqueoNegocio.eliminarBloqueo(bloqueo);
@@ -164,7 +144,7 @@ public class FrmGestionarBloqueo extends javax.swing.JFrame {
                 }
             }
         };
-
+        
         TableColumnModel modeloColumnas = this.tblBloqueos.getColumnModel();
         modeloColumnas.getColumn(6).setCellRenderer(new JButtonRenderer("Eliminar"));
         modeloColumnas.getColumn(6).setCellEditor(new JButtonCellEditor("Eliminar", onEliminarClickListener));
@@ -175,18 +155,18 @@ public class FrmGestionarBloqueo extends javax.swing.JFrame {
      * para editar el bloqueo deseado.
      */
     private void botonEditarEnTabla() {
-
+        
         ActionListener onEliminarClickListener = new ActionListener() {
-
+            
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Obtén la fila seleccionada
                 int filaSeleccionada = tblBloqueos.getSelectedRow();
-
+                
                 if (filaSeleccionada != -1) { // Verifica que haya una fila seleccionada
                     // Usa el modelo para obtener los datos del estudiante en esa fila
                     DefaultTableModel modeloTabla = (DefaultTableModel) tblBloqueos.getModel();
-
+                    
                     Long idBloqueo = (Long) modeloTabla.getValueAt(filaSeleccionada, 0); // Suponiendo que el ID esté en la columna 0
                     Date fechaBloqueoDate = (Date) modeloTabla.getValueAt(filaSeleccionada, 1);
                     Calendar fechaBloqueo = Calendar.getInstance(); // Se parsea el Date a Calendar
@@ -212,7 +192,7 @@ public class FrmGestionarBloqueo extends javax.swing.JFrame {
                 }
             }
         };
-
+        
         TableColumnModel modeloColumnas = this.tblBloqueos.getColumnModel();
         modeloColumnas.getColumn(5).setCellRenderer(new JButtonRenderer("Editar"));
         modeloColumnas.getColumn(5).setCellEditor(new JButtonCellEditor("Editar", onEliminarClickListener));
@@ -271,11 +251,6 @@ public class FrmGestionarBloqueo extends javax.swing.JFrame {
 
         btnFlechaDerecha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnFlechaD.png"))); // NOI18N
         btnFlechaDerecha.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnFlechaDerecha.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnFlechaDerechaMouseClicked(evt);
-            }
-        });
         getContentPane().add(btnFlechaDerecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 670, -1, -1));
 
         tblBloqueos.setModel(new javax.swing.table.DefaultTableModel(
@@ -311,11 +286,6 @@ public class FrmGestionarBloqueo extends javax.swing.JFrame {
 
         btnFlechaIzquierda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnFlechaI.png"))); // NOI18N
         btnFlechaIzquierda.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnFlechaIzquierda.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnFlechaIzquierdaMouseClicked(evt);
-            }
-        });
         getContentPane().add(btnFlechaIzquierda, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 670, -1, -1));
 
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BackGroundGeneral.jpg"))); // NOI18N
@@ -324,92 +294,19 @@ public class FrmGestionarBloqueo extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-/**
-     * Boton que regresa a un frame anterior
-     *
-     * @param evt presioanr el boton anterior
-     */
+
     private void btnAtrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtrasMouseClicked
         // TODO add your handling code here:
         new FrmAdminMenu().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAtrasMouseClicked
 
-    /**
-     * Boton que manda a un nuevo frame para agregar un nuevo bloqueo
-     *
-     * @param evt presionar el boton agregar
-     */
     private void btnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMouseClicked
         FrmAgregarBloqueo frm = new FrmAgregarBloqueo();
         frm.setVisible(true);
     }//GEN-LAST:event_btnAgregarMouseClicked
 
-<<<<<<< Updated upstream
  
-=======
-    /**
-     * Boton flecha izquierda que mueve la paginacion hacia la izquierda
-     *
-     * @param evt presionar el boton flecha izquierda
-     */
-    private void btnFlechaIzquierdaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFlechaIzquierdaMouseClicked
-        // TODO add your handling code here:
-        if (pagina - 3 < 0) {
-            JOptionPane.showMessageDialog(this, "No hay más páginas atrás");
-        } else {
-            pagina -= 3;
-            limite -= 3;
-            llenarTablaBloqueos(obtenerPagina(pagina, limite));
-        }
-    }//GEN-LAST:event_btnFlechaIzquierdaMouseClicked
-
-    /**
-     * Boton flecha derecha que mueve la paginacion hacia la derecha
-     *
-     * @param evt presionar el btoon flecha derecha
-     */
-    private void btnFlechaDerechaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFlechaDerechaMouseClicked
-        pagina += 3;
-        limite += 3;
-        llenarTablaBloqueos(obtenerPagina(pagina, limite));
-    }//GEN-LAST:event_btnFlechaDerechaMouseClicked
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmGestionarBloqueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmGestionarBloqueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmGestionarBloqueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmGestionarBloqueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrmGestionarBloqueo().setVisible(true);
-            }
-        });
-    }
->>>>>>> Stashed changes
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnAgregar;

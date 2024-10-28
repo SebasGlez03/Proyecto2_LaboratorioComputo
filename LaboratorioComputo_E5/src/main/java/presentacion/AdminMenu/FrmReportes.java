@@ -83,44 +83,24 @@ public class FrmReportes extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * Boton que muestra el frame de los reportes de los bloqueos
-     *
-     * @param evt presionar el boton bloqueos
-     */
     private void btnBloqueosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBloqueosMouseClicked
         // TODO add your handling code here:
         new FrmReporteBloqueos().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnBloqueosMouseClicked
 
-    /**
-     * Boton que muestra el frame de los reportes de las carreras
-     *
-     * @param evt presionar el boton carreras
-     */
     private void btnCarreraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCarreraMouseClicked
         // TODO add your handling code here:
         new FrmReporteCarrera().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCarreraMouseClicked
 
-    /**
-     * Boton que muestra el frame de los reportes de los centros de computo
-     *
-     * @param evt presionar el boton centros de computo
-     */
     private void btnCentroDeComputoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCentroDeComputoMouseClicked
         // TODO add your handling code here:
         new FrmReporteCentroComputo().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCentroDeComputoMouseClicked
 
-    /**
-     * Boton que regresa al frame anterior
-     *
-     * @param evt presionar boton atras
-     */
     private void btnAtrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtrasMouseClicked
         // TODO add your handling code here:
         new FrmAdminMenu().setVisible(true);

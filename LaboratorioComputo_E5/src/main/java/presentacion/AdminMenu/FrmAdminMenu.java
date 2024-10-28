@@ -115,77 +115,42 @@ public class FrmAdminMenu extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * Boton que abre el frame para mostrar los reportes
-     *
-     * @param evt Presionar boton reportes
-     */
     private void btnReporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReporteMouseClicked
         // TODO add your handling code here:
         new FrmReportes().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnReporteMouseClicked
 
-    /**
-     * Boton que inserta unidades academicas
-     *
-     * @param evt presionar boton insertar unidades
-     */
     private void btnInsetarUnidadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInsetarUnidadesMouseClicked
         // TODO add your handling code here:
         new FrmInsertarUnidad().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnInsetarUnidadesMouseClicked
 
-    /**
-     * Boton que abre el frame para gestionar carreras
-     *
-     * @param evt presionar el boton gestionar carreras
-     */
     private void btnGestionarCarreraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGestionarCarreraMouseClicked
         // TODO add your handling code here:
         new FrmGestionarCarrera().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnGestionarCarreraMouseClicked
 
-    /**
-     * Boton que abre el frame para gestionar alumnos
-     *
-     * @param evt presionar el boton gestionar alumnos
-     */
     private void btnGestionarAlumnosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGestionarAlumnosMouseClicked
         // TODO add your handling code here:
         new FrmGestionarAlumno().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnGestionarAlumnosMouseClicked
 
-    /**
-     * Boton que abre el frame para gestionar bloqueos
-     *
-     * @param evt presionar el boton gestionar bloqueos
-     */
     private void btnGestionarBloqueosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGestionarBloqueosMouseClicked
         // TODO add your handling code here:
         new FrmGestionarBloqueo().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnGestionarBloqueosMouseClicked
 
-    /**
-     * Boton que abre el frame para gestionar computadoras
-     *
-     * @param evt presionar el boton gestionar computadoras
-     */
     private void btnGestionarComputadoraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGestionarComputadoraMouseClicked
         // TODO add your handling code here:
         new FrmGestionarComputadora().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnGestionarComputadoraMouseClicked
 
-    /**
-     * Boton que regresa al frame anterior
-     *
-     * @param evt presionar boton atras
-     */
     private void btnAtrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtrasMouseClicked
         // TODO add your handling code here:
         new FrmLogin().setVisible(true);
