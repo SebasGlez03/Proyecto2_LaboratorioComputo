@@ -5,13 +5,21 @@
 package presentacion;
 
 /**
+ * Esta clase representa una ventana emergente (Pop-up) que extiende de JFrame.
+ * Se utiliza para mostrar un mensaje o información en pantalla con un botón
+ * para cerrarla.
+ * <p>
+ * La clase incluye componentes gráficos como una imagen de fondo y un botón que
+ * permite regresar a la pantalla de inicio de sesión al ser presionado.
+ * </p>
  *
  * @author sebastian
  */
 public class FrmPopUp extends javax.swing.JFrame {
 
     /**
-     * Creates new form FrmPopUp
+     * Crea una nueva instancia de FrmPopUp. Llama al método initComponents para
+     * inicializar los componentes gráficos.
      */
     public FrmPopUp() {
         initComponents();
@@ -50,8 +58,17 @@ public class FrmPopUp extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Evento que se ejecuta cuando el usuario hace clic en el botón OK.
+     * <p>
+     * Este evento cierra la ventana actual y abre una nueva instancia de
+     * FrmLogin.
+     * </p>
+     *
+     * @param evt el evento de clic del ratón
+     */
     private void btnOkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOkMouseClicked
-        
+
         FrmLogin frm = new FrmLogin();
         frm.setVisible(true);
         this.dispose();

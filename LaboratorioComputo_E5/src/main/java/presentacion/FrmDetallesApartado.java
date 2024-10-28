@@ -21,8 +21,14 @@ import negocio.logica.ApartadoNegocio;
 import negocio.logica.CentroComputoNegocio;
 import negocio.logica.EstudianteNegocio;
 
-
 /**
+ * La clase {@code FrmDetallesApartado} representa la interfaz gráfica para la
+ * gestión de detalles de apartados.
+ * <p>
+ * Esta clase extiende {@link javax.swing.JFrame} y proporciona funcionalidades
+ * para interactuar con los apartados del sistema, incluyendo la selección de
+ * fechas y la visualización de software.
+ * </p>
  *
  * @author nomar
  */
@@ -32,31 +38,43 @@ public class FrmDetallesApartado extends javax.swing.JFrame {
     Long idComputadora;
     Long idEstudiante;
     ComputadoraNegocio computadoraNegocio = new ComputadoraNegocio();
-    EstudianteNegocio estudianteNegocio  = new EstudianteNegocio();
+    EstudianteNegocio estudianteNegocio = new EstudianteNegocio();
     ApartadoNegocio apartadoNegocio = new ApartadoNegocio();
     DateTimePicker dateTimePicker = new DateTimePicker();
     CentroComputoNegocio centroComputoNegocio = new CentroComputoNegocio();
-    
+
     /**
-     * Creates new form FrmGestionarAlumno
+     * La clase {@code FrmDetallesApartado} representa la interfaz gráfica para
+     * la gestión de detalles de apartados.
+     * <p>
+     * Esta clase extiende {@link javax.swing.JFrame} y proporciona
+     * funcionalidades para interactuar con los apartados del sistema,
+     * incluyendo la selección de fechas y la visualización de software.
+     * </p>
+     *
+     * @author nomar
      */
     public FrmDetallesApartado(Long idComputadora, Long idEstudiante, Long idCComputo) {
-        
+
         initComponents();
         this.idComputadora = idComputadora;
         this.idEstudiante = idEstudiante;
         this.idCComputo = idCComputo;
-        
-        llenarTablaSoftware(computadoraNegocio.buscarComputadora(idComputadora).getSoftware());
-        
-        lblNumComputadora.setText("Computadora #" + computadoraNegocio.buscarComputadora(idComputadora).getNumComputadora());
-        
-        fldDateTime.setLayout(new FlowLayout()); 
-        fldDateTime.add(dateTimePicker);
 
+        llenarTablaSoftware(computadoraNegocio.buscarComputadora(idComputadora).getSoftware());
+
+        lblNumComputadora.setText("Computadora #" + computadoraNegocio.buscarComputadora(idComputadora).getNumComputadora());
+
+        fldDateTime.setLayout(new FlowLayout());
+        fldDateTime.add(dateTimePicker);
 
     }
 
+    /**
+     * Llena la tabla de software con los datos proporcionados.
+     *
+     * @param software La lista de software a mostrar en la tabla.
+     */
     private void llenarTablaSoftware(List<String> sofwtare) {
         DefaultTableModel modeloTabla = (DefaultTableModel) this.tblSoftware.getModel();
 
@@ -74,8 +92,7 @@ public class FrmDetallesApartado extends javax.swing.JFrame {
                 modeloTabla.addRow(fila);
             });
         }
-    }    
-    
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -169,70 +186,72 @@ public class FrmDetallesApartado extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Evento que se ejecuta al hacer clic en el botón 'Atrás', el cual cierra
+     * la ventana actual y abre la ventana de sistema de apartados.
+     */
     private void btnAtrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtrasMouseClicked
-        
+
         new FrmSistemaApartado(idCComputo, idEstudiante).setVisible(true);
         this.dispose();
-        
+
     }//GEN-LAST:event_btnAtrasMouseClicked
 
+    /**
+     * Evento que se ejecuta al hacer clic en el botón 'Seleccionar fecha',
+     * permitiendo al usuario elegir una fecha y hora para el apartado. Verifica
+     * que la hora seleccionada esté dentro del horario de servicio del centro
+     * de cómputo.
+     */
     private void btnSeleccionarFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarFechaActionPerformed
 
         LocalDateTime dateTime = dateTimePicker.getDateTimePermissive();
-        if (dateTime != null){
-        
-        
-        Calendar horaFin = centroComputoNegocio.buscarCentroComputo(idCComputo).getHoraFinServicio();
-        Calendar horaInicio = centroComputoNegocio.buscarCentroComputo(idCComputo).getHoraInicioServicio();
-        
-        if (dateTime.getHour() > horaFin.getTime().getHours() || dateTime.getHour() < horaInicio.getTime().getHours())
-        {
-            JOptionPane.showMessageDialog(this, "El centro de cómputo está cerrado a esa hora" );
-        }
-        else
-        {
-            
-            ZoneId zoneId = ZoneId.systemDefault();
-            ZonedDateTime zonedDateTime = dateTime.atZone(zoneId);
-            Date date = Date.from(zonedDateTime.toInstant());
-            
-            
-            Calendar fechaInicioApartado = Calendar.getInstance();
-            fechaInicioApartado.setTime(date);
-            Calendar fechaFinApartado = Calendar.getInstance();
-            fechaFinApartado.setTime(date);
+        if (dateTime != null) {
 
-            fechaFinApartado.add(Calendar.HOUR, estudianteNegocio.buscarEstudiante(idEstudiante).getCarrera().getTiempoDiario().getHours());
-            fechaFinApartado.add(Calendar.MINUTE, estudianteNegocio.buscarEstudiante(idEstudiante).getCarrera().getTiempoDiario().getMinutes());
-            
-            long milisegundosInicio = fechaInicioApartado.getTimeInMillis();
-            long milisegundosFin = fechaFinApartado.getTimeInMillis();
+            Calendar horaFin = centroComputoNegocio.buscarCentroComputo(idCComputo).getHoraFinServicio();
+            Calendar horaInicio = centroComputoNegocio.buscarCentroComputo(idCComputo).getHoraInicioServicio();
 
-            // Calcula la diferencia en minutos
-            long diferenciaMilisegundos = (milisegundosFin - milisegundosInicio)/ (60 * 1000);
-            
-            
-            int valorInt = (int) diferenciaMilisegundos;
-            ApartadoDTO aDTO = new ApartadoDTO();
-            aDTO.setFechaInicio(fechaInicioApartado);
-            aDTO.setFechaFin(fechaFinApartado);
-            aDTO.setEstudiante(estudianteNegocio.buscarEstudiante(idEstudiante));
-            aDTO.setComputadora(computadoraNegocio.buscarComputadora(idComputadora));
-            aDTO.setMinutosActivo(valorInt);
-            apartadoNegocio.guardarApartado(aDTO);
-            
-            FrmPopUp frm = new FrmPopUp();
-            frm.setVisible(true);
-            this.dispose();
-            
+            if (dateTime.getHour() > horaFin.getTime().getHours() || dateTime.getHour() < horaInicio.getTime().getHours()) {
+                JOptionPane.showMessageDialog(this, "El centro de cómputo está cerrado a esa hora");
+            } else {
+
+                ZoneId zoneId = ZoneId.systemDefault();
+                ZonedDateTime zonedDateTime = dateTime.atZone(zoneId);
+                Date date = Date.from(zonedDateTime.toInstant());
+
+                Calendar fechaInicioApartado = Calendar.getInstance();
+                fechaInicioApartado.setTime(date);
+                Calendar fechaFinApartado = Calendar.getInstance();
+                fechaFinApartado.setTime(date);
+
+                fechaFinApartado.add(Calendar.HOUR, estudianteNegocio.buscarEstudiante(idEstudiante).getCarrera().getTiempoDiario().getHours());
+                fechaFinApartado.add(Calendar.MINUTE, estudianteNegocio.buscarEstudiante(idEstudiante).getCarrera().getTiempoDiario().getMinutes());
+
+                long milisegundosInicio = fechaInicioApartado.getTimeInMillis();
+                long milisegundosFin = fechaFinApartado.getTimeInMillis();
+
+                // Calcula la diferencia en minutos
+                long diferenciaMilisegundos = (milisegundosFin - milisegundosInicio) / (60 * 1000);
+
+                int valorInt = (int) diferenciaMilisegundos;
+                ApartadoDTO aDTO = new ApartadoDTO();
+                aDTO.setFechaInicio(fechaInicioApartado);
+                aDTO.setFechaFin(fechaFinApartado);
+                aDTO.setEstudiante(estudianteNegocio.buscarEstudiante(idEstudiante));
+                aDTO.setComputadora(computadoraNegocio.buscarComputadora(idComputadora));
+                aDTO.setMinutosActivo(valorInt);
+                apartadoNegocio.guardarApartado(aDTO);
+
+                FrmPopUp frm = new FrmPopUp();
+                frm.setVisible(true);
+                this.dispose();
+
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecciona una fecha/hora primero");
         }
-        
-      
-        }
-        else {
-            JOptionPane.showMessageDialog(this, "Selecciona una fecha/hora primero" );
-        }
-        
+
     }//GEN-LAST:event_btnSeleccionarFechaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

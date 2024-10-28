@@ -5,18 +5,19 @@
 package main;
 
 /**
+ * Clase que corre el programa entero
  *
  * @author santi
  */
 public class FrmRun extends javax.swing.JFrame {
 
     /**
-     * Creates new form FrmRun
+     * Metodo que corre el metodo main
      */
     public FrmRun() {
         initComponents();
         setLocationRelativeTo(null);
-        
+
         buscarComputadoraIp buscar = new buscarComputadoraIp();
         buscar.buscarComputadoraPorIP();
         dispose();
@@ -78,7 +79,7 @@ public class FrmRun extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new FrmRun().setVisible(false);
-                
+
             }
         });
     }

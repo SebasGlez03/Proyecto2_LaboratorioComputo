@@ -19,6 +19,13 @@ import utilerias.CaesarCipher;
 import utilerias.LectorIp;
 
 /**
+ * La clase {@code FrmComputadora} representa la interfaz gráfica para la
+ * gestión de computadoras.
+ * <p>
+ * Esta clase extiende {@link javax.swing.JFrame} y proporciona funcionalidades
+ * para interactuar con las computadoras del sistema, incluyendo la verificación
+ * de IP y el desbloqueo.
+ * </p>
  *
  * @author PC
  */
@@ -27,43 +34,49 @@ public class FrmComputadora extends javax.swing.JFrame {
     /**
      * Creates new form FrmComputadora
      */
-    
     CaesarCipher encriptar = new CaesarCipher();
     EstudianteNegocio estudianteNegocio = new EstudianteNegocio();
     ApartadoNegocio apartadoNegocio = new ApartadoNegocio();
     ComputadoraNegocio computadoraNegocio = new ComputadoraNegocio();
     ComputadoraDTO computadoraUsuario = new ComputadoraDTO();
     LectorIp lector = new LectorIp();
-    
+
+    /**
+     * Crea una nueva instancia de {@code FrmComputadora}.
+     *
+     * @param computadoraUsuario El objeto {@link ComputadoraDTO} que representa
+     * la computadora del usuario.
+     */
     public FrmComputadora(ComputadoraDTO computadoraUsuario) {
         initComponents();
         this.computadoraUsuario = computadoraUsuario;
         txtNumComputadora.setText("#" + computadoraUsuario.getNumComputadora());
         buscarComputadoraPorIP();
-        
-        
+
     }
 
-    public void buscarComputadoraPorIP(){
-    
+    /**
+     * Busca la computadora por su dirección IP y actualiza la información en la interfaz.
+     */
+    public void buscarComputadoraPorIP() {
+
         String ip;
         ip = lector.getLocalIPAddress();
         System.out.println(ip);
-        if (computadoraNegocio.buscarComputadorasPorIP(ip).isEmpty()){
+        if (computadoraNegocio.buscarComputadorasPorIP(ip).isEmpty()) {
 
-           JOptionPane.showMessageDialog(this, "Esta computadora no es parte del sistema" ); 
-           this.dispose();
-            
-        }else
-        {
-            
+            JOptionPane.showMessageDialog(this, "Esta computadora no es parte del sistema");
+            this.dispose();
+
+        } else {
+
             this.computadoraUsuario = computadoraNegocio.buscarComputadorasPorIP(ip).getFirst();
             txtNumComputadora.setText("#" + computadoraUsuario.getNumComputadora());
 
         }
-        
+
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -117,66 +130,64 @@ public class FrmComputadora extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Evento que se ejecuta al hacer clic en el botón de desbloqueo.
+     * 
+     * @param evt El evento de clic del ratón.
+     */
     private void btnDesbloquearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDesbloquearMouseClicked
         System.out.println("boton aceptar click!");
-        
+
         EstudianteDTO eD = new EstudianteDTO();
-        if (txtId.getText().matches(".*\\D+.*") || txtId.getText().isEmpty())
-        {JOptionPane.showMessageDialog(this, "Un ID no puede contener letras, caracteres especiales o estar vacío" );}
-        else{
-            
-        Long id = Long.decode(txtId.getText());
-        eD.setId(Long.decode(txtId.getText()));
-        eD.setContrasenia(txtContrasenia.getText());
-        EstudianteDTO estudiante = estudianteNegocio.buscarEstudiante(id);
+        if (txtId.getText().matches(".*\\D+.*") || txtId.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Un ID no puede contener letras, caracteres especiales o estar vacío");
+        } else {
+
+            Long id = Long.decode(txtId.getText());
+            eD.setId(Long.decode(txtId.getText()));
+            eD.setContrasenia(txtContrasenia.getText());
+            EstudianteDTO estudiante = estudianteNegocio.buscarEstudiante(id);
 
             System.out.println("a");
-        
-        if (estudiante != null)
-        {
-            
-            System.out.println("a");
-            if(encriptar.decrypt(estudiante.getContrasenia(), 3).equals(eD.getContrasenia())){
-                List<ApartadoDTO> apartados = new ArrayList<>();
-                apartados = apartadoNegocio.buscarApartadosPorEstudiante(estudiante.getId(), computadoraUsuario.getId());
-                if(apartados.isEmpty()){
-                    
-                    JOptionPane.showMessageDialog(this, "Este usuario no tiene apartados" );
+
+            if (estudiante != null) {
+
+                System.out.println("a");
+                if (encriptar.decrypt(estudiante.getContrasenia(), 3).equals(eD.getContrasenia())) {
+                    List<ApartadoDTO> apartados = new ArrayList<>();
+                    apartados = apartadoNegocio.buscarApartadosPorEstudiante(estudiante.getId(), computadoraUsuario.getId());
+                    if (apartados.isEmpty()) {
+
+                        JOptionPane.showMessageDialog(this, "Este usuario no tiene apartados");
+
+                    } else {
+
+                        Calendar currentTime = Calendar.getInstance();
+                        if (currentTime.after(apartados.get(0).getFechaFin())) {
+
+                            JOptionPane.showMessageDialog(this, "Se ha acabado tu apartado");
+
+                        }
+                        if (currentTime.before(apartados.get(0).getFechaInicio())) {
+
+                            JOptionPane.showMessageDialog(this, "No ha iniciado tu apartado");
+
+                        } else {
+                            this.dispose();
+                        }
+
+                    }
 
                 } else {
-                
-                    Calendar currentTime = Calendar.getInstance();
-                    if (currentTime.after(apartados.get(0).getFechaFin())){
-                    
-                        JOptionPane.showMessageDialog(this, "Se ha acabado tu apartado" );
-                        
-                    }
-                    if (currentTime.before(apartados.get(0).getFechaInicio())){
-                    
-                         JOptionPane.showMessageDialog(this, "No ha iniciado tu apartado" );
-                        
-                    }
-                    
-                    else {
-                        this.dispose();
-                                }
-                    
-                    
+
+                    JOptionPane.showMessageDialog(this, "Contraseña incorrecta");
+
                 }
-           
+            } else {
 
-            
-        } else{
+                JOptionPane.showMessageDialog(this, "No existe un estudiante con ese ID o contraseña");
 
-            JOptionPane.showMessageDialog(this, "Contraseña incorrecta" );          
-                
             }
-        }
-        else{
-        
-            JOptionPane.showMessageDialog(this, "No existe un estudiante con ese ID o contraseña" );
-            
-        }
         }
     }//GEN-LAST:event_btnDesbloquearMouseClicked
 

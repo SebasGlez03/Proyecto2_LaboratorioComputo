@@ -19,6 +19,14 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
+ * Clase que representa la entidad Apartado en el sistema de persistencia. Esta
+ * clase define los atributos y relaciones de un apartado que puede ser rentado
+ * por un estudiante en un centro de cómputo.
+ * <p>
+ * Cada instancia de esta clase contiene información sobre las fechas de inicio
+ * y fin de la renta, el estudiante asociado, la computadora utilizada y el
+ * tiempo activo del apartado.
+ * </p>
  *
  * @author PC
  */
@@ -27,43 +35,62 @@ import javax.persistence.TemporalType;
 public class ApartadoEntidad implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    /**
+     * Identificador único de la renta
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idApartado")
     private Long id;
 
+    /**
+     * Fecha y hora de inicio de la renta
+     */
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "fechaInicio", nullable = false)
     private Calendar fechaInicio;
 
+    /**
+     * Fecha y hora de finalización de la renta
+     */
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "fechaFin", nullable = false)
     private Calendar fechaFin;
-    
+
+    /**
+     * Minutos activos que duró la renta
+     */
     @Column(name = "MinutosActivo", nullable = false)
     private int minutosActivo;
 
+    /**
+     * Estudiante asociado con la renta
+     */
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "idEstudiante", nullable = false)
     private EstudianteEntidad estudiante;
 
+    /**
+     * Computadora asociada con la renta
+     */
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "idComputadora", nullable = false)
     private ComputadoraEntidad computadora;
 
     /**
-     * Constructor por omision
+     * Constructor por omisión.
      */
     public ApartadoEntidad() {
     }
 
     /**
-     * Constructor que establece los valores de los atributos de la clase.
+     * Constructor que inicializa los atributos de la clase.
      *
-     * @param fechaInicio Fecha hora de inicio de la renta
-     * @param fechaFin Fecha hora de fin de la renta
-     * @param estudiante Estudiante asociado con la renta
-     * @param computadora Computadora asociada con la renta
+     * @param fechaInicio Fecha y hora de inicio de la renta.
+     * @param fechaFin Fecha y hora de fin de la renta.
+     * @param estudiante Estudiante asociado a la renta.
+     * @param computadora Computadora asociada a la renta.
      */
     public ApartadoEntidad(Calendar fechaInicio, Calendar fechaFin, EstudianteEntidad estudiante, ComputadoraEntidad computadora) {
         this.fechaInicio = fechaInicio;
@@ -73,125 +100,120 @@ public class ApartadoEntidad implements Serializable {
     }
 
     /**
-     * Metodo que obtiene el ID de la renta
+     * Obtiene el identificador único de la renta.
      *
-     * @return Id de la renta
+     * @return ID de la renta.
      */
     public Long getId() {
         return id;
     }
 
     /**
-     * Metodo que establece el ID de la renta
+     * Establece el identificador único de la renta.
      *
-     * @param id ID de la renta a establecer
+     * @param id ID de la renta a establecer.
      */
     public void setId(Long id) {
         this.id = id;
     }
 
     /**
-     * Metodo que obtiene la fecha hora de inicio de la renta
+     * Obtiene la fecha y hora de inicio de la renta.
      *
-     * @return fecha hora de inicio de la renta
+     * @return Fecha y hora de inicio de la renta.
      */
     public Calendar getFechaInicio() {
         return fechaInicio;
     }
 
     /**
-     * Metodo que establece la fecha hora de inicio de la renta
+     * Establece la fecha y hora de inicio de la renta.
      *
-     * @param fechaInicio fecha hora de inicio de la renta a establcer
+     * @param fechaInicio Fecha y hora de inicio a establecer.
      */
     public void setFechaInicio(Calendar fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
     /**
-     * Metodo que obtiene la fecha hora fin de la renta
+     * Obtiene la fecha y hora de finalización de la renta.
      *
-     * @return fecha hora de fin de la renta
+     * @return Fecha y hora de fin de la renta.
      */
     public Calendar getFechaFin() {
         return fechaFin;
     }
 
     /**
-     * Metodo que establece la fecha hora fin de la renta
+     * Establece la fecha y hora de finalización de la renta.
      *
-     * @param fechaFin fecha hora de fin de la renta a establecer
+     * @param fechaFin Fecha y hora de fin a establecer.
      */
     public void setFechaFin(Calendar fechaFin) {
         this.fechaFin = fechaFin;
     }
 
     /**
-     * Metodo que obtiene la lista de estudiantes asociados a la renta
+     * Obtiene el estudiante asociado a la renta.
      *
-     * @return La lista de estuidnates
+     * @return Estudiante asociado a la renta.
      */
     public EstudianteEntidad getEstudiante() {
         return estudiante;
     }
 
     /**
-     * Metodo que establece la lista de estudiantes asociados a la renta
+     * Establece el estudiante asociado a la renta.
      *
-     * @param estudiante La lista de estudiantes
+     * @param estudiante Estudiante a asociar con la renta.
      */
     public void setEstudiante(EstudianteEntidad estudiante) {
         this.estudiante = estudiante;
     }
 
     /**
-     * Metodo que obtiene la lista de computadoras asociadas a la renta
+     * Obtiene la computadora asociada a la renta.
      *
-     * @return La lista de computadoras
+     * @return Computadora asociada a la renta.
      */
     public ComputadoraEntidad getComputadora() {
         return computadora;
     }
 
     /**
-     * Metodo que establece la lista de computadoras asociadas a la renta
+     * Establece la computadora asociada a la renta.
      *
-     * @param computadora La lista de computadoras
+     * @param computadora Computadora a asociar con la renta.
      */
     public void setComputadora(ComputadoraEntidad computadora) {
         this.computadora = computadora;
     }
 
-    
     /**
-     * Metodo que obtiene la lista de computadoras asociadas a la renta
+     * Obtiene los minutos activos que duró la renta.
      *
-     * @return La lista de computadoras
+     * @return Minutos activos de la renta.
      */
     public int getMinutosActivo() {
         return minutosActivo;
     }
 
-        /**
-     * Metodo que establece la lista de computadoras asociadas a la renta
+    /**
+     * Establece los minutos activos que duró la renta.
      *
-     * @param computadora La lista de computadoras
+     * @param minutosActivo Minutos activos a establecer.
      */
     public void setMinutosActivo(int minutosActivo) {
         this.minutosActivo = minutosActivo;
     }
 
-    
-    
     /**
-     * Metodo que devuelve el valor de los atributos de la clase de forma de
-     * string
+     * Representación en cadena de los atributos de la clase.
      *
-     * @return Los atributos de la clase de forma de string
+     * @return Cadena con los atributos de la clase.
      */
     @Override
     public String toString() {
         return "RentaEntidad{" + "id=" + id + ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", estudiante=" + estudiante + ", computadora=" + computadora + '}';
     }
-
 }

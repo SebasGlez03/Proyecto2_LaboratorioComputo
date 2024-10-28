@@ -21,16 +21,22 @@ import java.util.List;
 import persistencia.entidades.ApartadoEntidad;
 
 /**
+ * Clase de pruebas para la capa de acceso a datos (DAO). Realiza diversas
+ * operaciones de prueba en entidades y tablas de la base de datos.
  *
- * @author santi
+ * @version 1.0
+ * @since 2024-10-28
  */
 public class pruebasDAO {
 
     /**
-     * @param args the command line arguments
+     * Método principal para ejecutar las pruebas de operaciones CRUD en las
+     * entidades.
+     *
+     * @param args Argumentos de línea de comandos
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        // Instancias de DAOs para manejar operaciones en cada entidad
         ApartadoDAO apartadoDAO = new ApartadoDAO();
         UnidadAcademicaDAO unidadAcademicaDAO = new UnidadAcademicaDAO();
         BloqueoDAO bloqueoDAO = new BloqueoDAO();
@@ -39,80 +45,75 @@ public class pruebasDAO {
         CentroComputoDAO centroComputoDAO = new CentroComputoDAO();
         CarreraDAO carreraDAO = new CarreraDAO();
 
+        // Lista de software instalada en las computadoras
         List<String> sfwr = new ArrayList<>();
         sfwr.add("Photoshop");
         sfwr.add("Illustrator");
         sfwr.add("Netbeans");
         List<EstudianteEntidad> estudiantes = new ArrayList<>();
 
-//        UnidadAcademicaEntidad uaEntidad = new UnidadAcademicaEntidad("Nainari");
-//        EstudianteEntidad estudianteEntidad = new EstudianteEntidad("Pedro", "Ramirez", "Lopez", "123est321", "Inscrito");
-//        EstudianteEntidad estudianteEntidad2 = new EstudianteEntidad("Juan", "Ramirez", "Lopez", "123est321", "Inscrito");
-//        CentroComputoEntidad centroComputoEntidad = new CentroComputoEntidad("Cisco", "10cntro01comp1209", new GregorianCalendar(0, 0, 0, 14, 30, 0), new GregorianCalendar(0, 0, 0, 19, 30, 0), uaEntidad);
-//        ComputadoraEntidad computadoraEntidad = new ComputadoraEntidad(false, centroComputoEntidad, "192.168.0.1", sfwr, 1);
-//        BloqueoEntidad bloqueoEntidad = new BloqueoEntidad("Ladrón", Calendar.getInstance(), Calendar.getInstance(), estudianteEntidad);
-//
-//        estudiantes.add(estudianteEntidad);
-//        estudiantes.add(estudianteEntidad2);
-//        CarreraEntidad caEntidad = new CarreraEntidad("Software", Date.from(Instant.now()), estudiantes);
-//
-//        List<BloqueoEntidad> bloqueos = new ArrayList<>();
-//        bloqueos.add(bloqueoEntidad);
-//
-//        estudianteEntidad.setCarrera(caEntidad);
-//        estudianteEntidad2.setCarrera(caEntidad);
-//        estudianteEntidad.setBloqueo(bloqueos);
-//
-//        ApartadoEntidad apartadoEntidad = new ApartadoEntidad(Calendar.getInstance(), Calendar.getInstance(), estudianteEntidad, computadoraEntidad);
-//        apartadoDAO.guardarApartado(apartadoEntidad);
-//
-////        apartadoDAO.eliminarApartado(apartadoEntidad);
-//        unidadAcademicaDAO.guardarUnidadAcademica(uaEntidad);
-//        bloqueoDAO.guardarBloqueo(bloqueoEntidad);
-//        estudianteDAO.guardarEstudiante(estudianteEntidad);
-//        computadoraDAO.guardarComputadora(computadoraEntidad);
-//        centroComputoDAO.guardarCentroComputo(centroComputoEntidad);
-//        carreraDAO.guardarCarrera(caEntidad);
-//
+        // Descomentar para inicializar objetos de entidades
+        /*
+        UnidadAcademicaEntidad uaEntidad = new UnidadAcademicaEntidad("Nainari");
+        EstudianteEntidad estudianteEntidad = new EstudianteEntidad("Pedro", "Ramirez", "Lopez", "123est321", "Inscrito");
+        EstudianteEntidad estudianteEntidad2 = new EstudianteEntidad("Juan", "Ramirez", "Lopez", "123est321", "Inscrito");
+        CentroComputoEntidad centroComputoEntidad = new CentroComputoEntidad("Cisco", "10cntro01comp1209", new GregorianCalendar(0, 0, 0, 14, 30, 0), new GregorianCalendar(0, 0, 0, 19, 30, 0), uaEntidad);
+        ComputadoraEntidad computadoraEntidad = new ComputadoraEntidad(false, centroComputoEntidad, "192.168.0.1", sfwr, 1);
+        BloqueoEntidad bloqueoEntidad = new BloqueoEntidad("Ladrón", Calendar.getInstance(), Calendar.getInstance(), estudianteEntidad);
+
+        estudiantes.add(estudianteEntidad);
+        estudiantes.add(estudianteEntidad2);
+        CarreraEntidad caEntidad = new CarreraEntidad("Software", Date.from(Instant.now()), estudiantes);
+
+        List<BloqueoEntidad> bloqueos = new ArrayList<>();
+        bloqueos.add(bloqueoEntidad);
+
+        estudianteEntidad.setCarrera(caEntidad);
+        estudianteEntidad2.setCarrera(caEntidad);
+        estudianteEntidad.setBloqueo(bloqueos);
+
+        ApartadoEntidad apartadoEntidad = new ApartadoEntidad(Calendar.getInstance(), Calendar.getInstance(), estudianteEntidad, computadoraEntidad);
+        apartadoDAO.guardarApartado(apartadoEntidad);
+
+        // Guardado de entidades en la base de datos
+        unidadAcademicaDAO.guardarUnidadAcademica(uaEntidad);
+        bloqueoDAO.guardarBloqueo(bloqueoEntidad);
+        estudianteDAO.guardarEstudiante(estudianteEntidad);
+        computadoraDAO.guardarComputadora(computadoraEntidad);
+        centroComputoDAO.guardarCentroComputo(centroComputoEntidad);
+        carreraDAO.guardarCarrera(caEntidad);
+         */
+        // Pruebas de búsqueda de entidades
 //        System.out.println("Una = " + carreraDAO.buscarUnaCarrera(caEntidad.getIdCarrera()).toString());
 //        System.out.println("Todas = " + carreraDAO.buscarTodasCarrera().toString());
 //        System.out.println(bloqueoDAO.buscarUnBloqueo(bloqueoEntidad.getId()));
-////          System.out.println(bloqueoDAO.buscarTodosBloqueos());
-//
-////        System.out.println(centroComputoDAO.buscarCentrosPorUnidad(Long.parseLong("1")).toString());
-//        System.out.println(computadoraDAO.buscarComputadorasPorCentro(Long.parseLong("1")).toString());
 
+        // Listas de filtros para centros y carreras
         List<String> carreras = new ArrayList<>();
         carreras.add("Software");
         List<String> centro = new ArrayList<>();
-        carreras.add("Cisco");
-        
-        // Crear la primera instancia de Calendar
-        Calendar calendar1 = Calendar.getInstance();
-        calendar1.set(1924, Calendar.OCTOBER, 28); // Establecer una fecha específica (por ejemplo, 28 de octubre de 1924)
+        centro.add("Cisco");
 
-        // Crear la segunda instancia de Calendar con 100 años de diferencia
-        Calendar calendar2 = (Calendar) calendar1.clone(); // Clonar la primera instancia
-        calendar2.add(Calendar.YEAR, 150); // Sumar 100 años a la segunda instancia
-        
-//        centroComputoDAO.obtenerReporteCentroComputo(centro, carreras, calendar1, calendar2);
-        List<Object[]> reporte = new ArrayList<>();
-        reporte = centroComputoDAO.obtenerReporteCentroComputoSinFiltro(calendar1, calendar2);
-        List<Object[]> reporteConMinutosUso = new ArrayList<>();
+        // Inicialización de fechas para el reporte
+        Calendar calendar1 = Calendar.getInstance();
+        calendar1.set(1924, Calendar.OCTOBER, 28); // Fecha de inicio del reporte
+        Calendar calendar2 = (Calendar) calendar1.clone();
+        calendar2.add(Calendar.YEAR, 150); // Fecha de fin del reporte (150 años después)
+
+        // Generación del reporte sin filtros específicos de centros y carreras
+        List<Object[]> reporte = centroComputoDAO.obtenerReporteCentroComputoSinFiltro(calendar1, calendar2);
+
+        // Procesamiento y salida del reporte
         for (Object[] row : reporte) {
             String centronombre = (String) row[0];
             int numMaquina = (int) row[1];
             Long cantidadAlumnos = (Long) row[2];
             int minutosActivos = (int) row[3];
 
-            
-
             System.out.println(centronombre);
             System.out.println(numMaquina);
             System.out.println(cantidadAlumnos);
-
+            System.out.println(minutosActivos);
         }
-        
     }
-
 }
