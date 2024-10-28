@@ -69,14 +69,16 @@ public class FrmEditarAlumnoPopUp extends javax.swing.JFrame {
      */
     private CarreraDTO obtenerCarreraDTOfromComboBox(List<CarreraDTO> carrera, int comboBoxIndex) {
         int i = 0;
-        while (carrera.size() > i) {
-            if (carrera.get(i).getId() == comboBoxIndex) {
-                return carrera.get(i);
-            } else {
-                JOptionPane.showMessageDialog(this, "Ha ocurrido un error insesperado", "ERROR", JOptionPane.ERROR_MESSAGE);
-                i++;
-                return null;
+        try {
+            while (carrera.size() > i) {
+                if (carrera.get(i).getId() == comboBoxIndex) {
+                    return carrera.get(i);
+                } else {
+                    i++;
+                }
             }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ha ocurrido un error insesperado: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
         return null;
     }
