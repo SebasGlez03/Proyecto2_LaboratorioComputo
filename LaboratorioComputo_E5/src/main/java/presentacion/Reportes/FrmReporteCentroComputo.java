@@ -5,21 +5,33 @@
 package presentacion.Reportes;
 
 import com.github.lgooddatepicker.components.DateTimePicker;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
 import java.awt.FlowLayout;
+import java.io.FileNotFoundException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultListModel;
-import main.buscarComputadoraIp;
+import javax.swing.JOptionPane;
 import negocio.DTO.CarreraDTO;
 import negocio.DTO.CentroComputoDTO;
 import negocio.logica.CarreraNegocio;
 import negocio.logica.CentroComputoNegocio;
-import negocio.logica.ComputadoraNegocio;
 import presentacion.AdminMenu.FrmReportes;
 
 /**
- * a
- * @hidden
+ *
+ * @author nomar
  */
 public class FrmReporteCentroComputo extends javax.swing.JFrame {
 
@@ -29,7 +41,7 @@ public class FrmReporteCentroComputo extends javax.swing.JFrame {
     DefaultListModel<String> listModel = new DefaultListModel<>();
     DefaultListModel<String> listModel2 = new DefaultListModel<>();
     CentroComputoNegocio centroComputoNegocio = new CentroComputoNegocio();
-    
+
     List<CarreraDTO> carrerasDTO = new ArrayList<>();
     List<CentroComputoDTO> centrosDTO = new ArrayList<>();
 
@@ -38,6 +50,7 @@ public class FrmReporteCentroComputo extends javax.swing.JFrame {
     List<String> carreras = new ArrayList<>();
     List<String> centros = new ArrayList<>();
     int numMaquina;
+
     /**
      * Creates new form FrmReporteCarrera
      */
@@ -53,7 +66,7 @@ public class FrmReporteCentroComputo extends javax.swing.JFrame {
         this.centrosDTO = centroComputoNegocio.buscarCentrosComputos();
         llenarBoxCentros(centrosDTO);
         System.out.println(carrerasDTO.toString());
-        
+
     }
 
     /**
@@ -83,9 +96,130 @@ public class FrmReporteCentroComputo extends javax.swing.JFrame {
             i++;
         }
     }
-    
-    public void generarReporteCarrera(){
-        
+
+    public Calendar convertLocalDateTimeToCalendar(LocalDateTime localDateTime) {
+        if (localDateTime == null) {
+            return null;
+        }
+        // Convertir LocalDateTime a ZonedDateTime
+        ZonedDateTime zonedDateTime = localDateTime.atZone(ZoneId.systemDefault());
+        // Convertir ZonedDateTime a Date
+        Date date = Date.from(zonedDateTime.toInstant());
+        // Crear una instancia de Calendar y establecer la fecha
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar;
+    }
+
+    public void generarReporteCentroComputoSinFiltro() {
+
+        // Obtener las fechas desde los DateTimePickers
+        LocalDateTime inicioLocal = dateTimePicker.getDateTimePermissive();
+        LocalDateTime finLocal = dateTimePicker2.getDateTimePermissive();
+
+        // Convertir LocalDateTime a Calendar
+        Calendar inicio = convertLocalDateTimeToCalendar(inicioLocal);
+        Calendar fin = convertLocalDateTimeToCalendar(finLocal);
+
+        if (inicio == null || fin == null) {
+            JOptionPane.showMessageDialog(FrmReporteCentroComputo.this, "Seleccione fechas", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (inicio.after(fin)) {
+            JOptionPane.showMessageDialog(FrmReporteCentroComputo.this, "La fecha de inicio no puede ser después de la fecha fin.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        generarReporteCentroComputo(centroComputoNegocio.obtenerReporteCentroComputoSinFiltro(inicio, fin), inicio, fin);
+
+    }
+
+    public void generarReporteCentroComputoFiltrado() {
+
+        // Obtener las fechas desde los DateTimePickers
+        LocalDateTime inicioLocal = dateTimePicker.getDateTimePermissive();
+        LocalDateTime finLocal = dateTimePicker2.getDateTimePermissive();
+
+        // Convertir LocalDateTime a Calendar
+        Calendar inicio = convertLocalDateTimeToCalendar(inicioLocal);
+        Calendar fin = convertLocalDateTimeToCalendar(finLocal);
+
+        if (inicio == null || fin == null) {
+            JOptionPane.showMessageDialog(FrmReporteCentroComputo.this, "Seleccione fechas", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (inicio.after(fin)) {
+            JOptionPane.showMessageDialog(FrmReporteCentroComputo.this, "La fecha de inicio no puede ser después de la fecha fin.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        generarReporteCentroComputo(centroComputoNegocio.obtenerReporteCentroComputo(centros, carreras, inicio, fin), inicio, fin);
+
+    }
+
+    public void generarReporteCentroComputo(List<Object[]> lista, Calendar inicio, Calendar fin) {
+        String dest = "reporteCentroComputo.pdf";
+
+        // Convertir Calendar a Timestamp
+        Timestamp inicioTimestamp = new Timestamp(inicio.getTimeInMillis());
+        Timestamp finTimestamp = new Timestamp(fin.getTimeInMillis());
+
+        try {
+            // Crear el documento PDF
+            PdfWriter writer = new PdfWriter(dest);
+            PdfDocument pdfDoc = new PdfDocument(writer);
+            Document document = new Document(pdfDoc);
+
+            // Agregar título al reporte
+            document.add(new Paragraph("Reporte de Centro Computo")
+                    .setBold()
+                    .setFontSize(20));
+            document.add(new Paragraph("Desde: " + inicioTimestamp.toString() + " Hasta: " + finTimestamp.toString()));
+            document.add(new Paragraph("\n")); // Añadir un espacio
+
+            // Crear la tabla con las columnas
+            Table table = new Table(5);
+            table.addHeaderCell("Centro de Cómputo");
+            table.addHeaderCell("Número de computadora");
+            table.addHeaderCell("Cantidad de usuarios");
+            table.addHeaderCell("Minutos utilizados");
+            table.addHeaderCell("Minutos inactivos");
+
+            // Crear un formato para la fecha
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+
+            // Agregar datos a la tabla
+            for (Object[] row : lista) {
+                String nombreCentro = (String) row[0];
+                int numComputarda = (int) row[1];
+                Long cantUsuarios = (Long) row[2];
+                Long minutos = (Long) row[3];
+                Long differenceInMillis = inicio.getTimeInMillis() - fin.getTimeInMillis();
+                Long differenceInMinutes = differenceInMillis / (1000 * 60); // Convert milliseconds to minutes
+
+                differenceInMinutes = differenceInMinutes - minutos;
+                table.addCell(nombreCentro);
+                table.addCell("#" + numComputarda);
+                table.addCell(cantUsuarios.toString());
+                table.addCell(minutos.toString());
+                table.addCell(differenceInMinutes.toString());
+            }
+
+            // Agregar la tabla al documento
+            document.add(table);
+
+            // Cerrar el documento
+            document.close();
+
+            // Mensaje de éxito
+            JOptionPane.showMessageDialog(this, "Reporte de Bloqueos generado con éxito: " + dest, "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(this, "Error al generar el reporte: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -233,26 +367,32 @@ public class FrmReporteCentroComputo extends javax.swing.JFrame {
         listModel.add(carreraCounter, carreraNegcio.buscarCarrera(carrerasDTO.get(fila).getId()).getNombre());
         listModel.setSize(20);
         this.carreras.add(carreraNegcio.buscarCarrera(carrerasDTO.get(fila).getId()).getNombre());
- 
+
         carreraCounter++;
 
     }//GEN-LAST:event_btnAgregarCarreraActionPerformed
 
-    
-    
+
     private void btnAgregarCentroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCentroActionPerformed
         listCentros.setModel(listModel2);
         int fila = (int) comboBoxCentro.getSelectedIndex();
-        
+
         listModel2.add(centroCounter, centrosDTO.get(fila).getNombre());
         listModel2.setSize(20);
-        this.carreras.add(centrosDTO.get(fila).getNombre());
- 
+        this.centros.add(centrosDTO.get(fila).getNombre());
+
         centroCounter++;
     }//GEN-LAST:event_btnAgregarCentroActionPerformed
 
     private void btnGenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarReporteActionPerformed
         // TODO add your handling code here:
+        if (carreras != null && centros != null) {
+
+            generarReporteCentroComputoFiltrado();
+
+        } else {
+            generarReporteCentroComputoSinFiltro();
+        }
     }//GEN-LAST:event_btnGenerarReporteActionPerformed
 
     /**
