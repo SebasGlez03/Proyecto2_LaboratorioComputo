@@ -27,7 +27,7 @@ public class FrmLogin extends javax.swing.JFrame {
 
     @Override
     public void setExtendedState(int state) {
-        super.setExtendedState(FrmLogin.MAXIMIZED_BOTH); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+        super.setExtendedState(FrmLogin.MAXIMIZED_BOTH); 
     }
     EstudianteNegocio estudianteNegocio;
     UnidadAcademicaNegocio unidadAcademicaNegocio;
@@ -238,9 +238,6 @@ public class FrmLogin extends javax.swing.JFrame {
         
     }//GEN-LAST:event_boxUnidadesAcademicasActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -264,6 +261,7 @@ public class FrmLogin extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(FrmLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -273,6 +271,7 @@ public class FrmLogin extends javax.swing.JFrame {
         });
     }
 
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel background_img;
     private javax.swing.JComboBox<String> boxCentroComputo;

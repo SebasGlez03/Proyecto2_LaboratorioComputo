@@ -43,6 +43,7 @@ public class ApartadoNegocio {
         EstudianteNegocio eN = new EstudianteNegocio();
         ApartadoEntidad entidad = new ApartadoEntidad();
         
+        entidad.setMinutosActivo(dto.getMinutosActivo());
         entidad.setId(dto.getId());
         entidad.setFechaInicio(dto.getFechaInicio());
         entidad.setFechaFin(dto.getFechaFin());

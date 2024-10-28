@@ -28,6 +28,10 @@ public class ApartadoDTO {
     /**
      * Fecha de inicio del apartado.
      */
+    int minutosActivo;
+    /**
+     * Fecha de inicio del apartado.
+     */
     Calendar fechaInicio;
 
     /**
@@ -81,6 +85,7 @@ public class ApartadoDTO {
         this.estudiante = estudiante;
         ComputadoraDTO computadora = new ComputadoraDTO(aE.getComputadora());
         this.computadora = computadora;
+        this.minutosActivo = aE.getMinutosActivo();
     }
 
     // Getters y setters
@@ -173,6 +178,24 @@ public class ApartadoDTO {
      */
     public void setComputadora(ComputadoraDTO computadora) {
         this.computadora = computadora;
+    }
+    
+    /**
+     * Obtiene el DTO de la computadora asignada al apartado.
+     * 
+     * @return El DTO de la computadora.
+     */
+    public int getMinutosActivo() {
+        return minutosActivo;
+    }
+    /**
+     * 
+     * Establece el DTO de la computadora asignada al apartado.
+     * 
+     * @param computadora El nuevo DTO de la computadora.
+     */
+    public void setMinutosActivo(int minutosActivo) {
+        this.minutosActivo = minutosActivo;
     }
 
     /**

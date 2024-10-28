@@ -274,13 +274,5 @@ public class EstudianteEntidad implements Serializable {
         this.carrera = carrera;
     }
 
-    /**
-     * Método que retorna una representación en cadena de la entidad estudiante.
-     *
-     * @return representación en cadena del estudiante.
-     */
-    @Override
-    public String toString() {
-        return "EstudianteEntidad{" + "id=" + idEstudiante + ", nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno + ", contrasenia=" + contrasenia + ", estatusInscripcion=" + estatusInscripcion + ", carrera=" + carrera + '}';
-    }
+
 }

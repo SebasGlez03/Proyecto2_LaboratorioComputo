@@ -6,14 +6,19 @@ package presentacion.AdminMenu.GestionarAlumno;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import negocio.DTO.CarreraDTO;
+import negocio.DTO.CentroComputoDTO;
 import negocio.DTO.EstudianteDTO;
+import negocio.DTO.UnidadAcademicaDTO;
 import negocio.logica.CarreraNegocio;
+import negocio.logica.CentroComputoNegocio;
 import negocio.logica.EstudianteNegocio;
+import negocio.logica.UnidadAcademicaNegocio;
 import presentacion.AdminMenu.FrmAdminMenu;
 import utilerias.JButtonCellEditor;
 import utilerias.JButtonRenderer;
@@ -26,7 +31,9 @@ public class FrmGestionarAlumno extends javax.swing.JFrame {
 
     CarreraNegocio carreraNegocio = new CarreraNegocio();
     EstudianteNegocio estudianteNegocio = new EstudianteNegocio();
-
+    int pagina = 0;
+    int limite = 3;
+   
     /**
      * Creates new form FrmGestionarAlumno
      */
@@ -35,9 +42,32 @@ public class FrmGestionarAlumno extends javax.swing.JFrame {
 
         botonEditarEnTabla();
         botonEliminarEnTabla();
-        llenarTablaEstudiantes(estudianteNegocio.buscarTodosLosEstudiantes());
+        llenarTablaEstudiantes(obtenerPagina(pagina, limite));
+        
+        EstudianteNegocio estudianteNegocio = new EstudianteNegocio();
+        UnidadAcademicaNegocio unidadAcademicaNegocio = new UnidadAcademicaNegocio();
+        CentroComputoNegocio centroComputoNegocio = new CentroComputoNegocio();
     }
+    
+    /**
+     * Metodo que llena la tabla de estudiantes con la informacion de la base de
+     * datos
+     *
+     * @param listaEstudiantes lista de estudiantes proveniente de la base de
+     * datos.
+     */
 
+    private List<EstudianteDTO> obtenerPagina(int indiceInicio, int indiceFin) {
+        List<EstudianteDTO> todas= estudianteNegocio.buscarTodosLosEstudiantes();
+        List<EstudianteDTO> todasLasPaginas = new ArrayList<>();
+        indiceFin = Math.min(indiceFin, todas.size());
+        for (int i = indiceInicio; i < indiceFin; i++) {
+            todasLasPaginas.add(todas.get(i));
+        }
+        return todasLasPaginas;
+    }    
+    
+    
     /**
      * Metodo que llena la tabla de estudiantes con la informacion de la base de
      * datos
@@ -309,10 +339,20 @@ public class FrmGestionarAlumno extends javax.swing.JFrame {
 
         btnFlechaDerecha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnFlechaD.png"))); // NOI18N
         btnFlechaDerecha.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnFlechaDerecha.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnFlechaDerechaMouseClicked(evt);
+            }
+        });
         getContentPane().add(btnFlechaDerecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 670, -1, -1));
 
         btnFlechaIzquierda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnFlechaI.png"))); // NOI18N
         btnFlechaIzquierda.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnFlechaIzquierda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnFlechaIzquierdaMouseClicked(evt);
+            }
+        });
         getContentPane().add(btnFlechaIzquierda, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 670, -1, -1));
 
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BackGroundGeneral.jpg"))); // NOI18N
@@ -333,40 +373,32 @@ public class FrmGestionarAlumno extends javax.swing.JFrame {
         frm.setVisible(true);
     }//GEN-LAST:event_btnAgregarMouseClicked
 
+    private void btnFlechaIzquierdaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFlechaIzquierdaMouseClicked
+        // TODO add your handling code here:
+        if (pagina -3 < 0)
+        {
+            JOptionPane.showMessageDialog(this, "No hay más páginas atrás");
+        }
+        else
+        {
+        pagina -= 3;
+        limite -= 3;   
+        llenarTablaEstudiantes(obtenerPagina(pagina, limite));
+        } 
+
+
+    }//GEN-LAST:event_btnFlechaIzquierdaMouseClicked
+
+    private void btnFlechaDerechaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFlechaDerechaMouseClicked
+        pagina += 3;
+        limite += 3;   
+        llenarTablaEstudiantes(obtenerPagina(pagina, limite));
+    }//GEN-LAST:event_btnFlechaDerechaMouseClicked
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmGestionarAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmGestionarAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmGestionarAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmGestionarAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrmGestionarAlumno().setVisible(true);
-            }
-        });
-    }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnAgregar;

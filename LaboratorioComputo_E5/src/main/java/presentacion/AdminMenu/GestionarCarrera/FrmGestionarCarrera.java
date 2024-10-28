@@ -4,7 +4,20 @@
  */
 package presentacion.AdminMenu.GestionarCarrera;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+import negocio.DTO.CarreraDTO;
+import negocio.logica.CarreraNegocio;
 import presentacion.AdminMenu.FrmAdminMenu;
+
+import utilerias.JButtonCellEditor;
+import utilerias.JButtonRenderer;
 
 /**
  *
@@ -12,13 +25,164 @@ import presentacion.AdminMenu.FrmAdminMenu;
  */
 public class FrmGestionarCarrera extends javax.swing.JFrame {
 
+    CarreraNegocio carreraNegocio = new CarreraNegocio();
+    int pagina = 0;
+    int limite = 3;
+    
     /**
      * Creates new form FrmGestionarCarrera
      */
     public FrmGestionarCarrera() {
         initComponents();
+        
+        botonEditarEnTabla();
+        botonEliminarEnTabla();
+        llenarTablaCarrera(carreraNegocio.buscarCarreras());
     }
 
+    public void llenarTablaCarrera(List<CarreraDTO> listaCarrera) {
+        DefaultTableModel modeloTabla = (DefaultTableModel) this.tblCarrera.getModel();
+
+        if (modeloTabla.getRowCount() > 0) {
+            for (int i = modeloTabla.getRowCount() - 1; i > -1; i--) {
+                modeloTabla.removeRow(i);
+            }
+        }
+
+        if (listaCarrera != null) {
+            listaCarrera.forEach(row -> {
+                Object[] fila = new Object[7];
+                fila[0] = row.getId();
+                fila[1] = row.getNombre();
+                fila[2] = row.getTiempoDiario();
+
+                modeloTabla.addRow(fila);
+            });
+        }
+    }
+    
+    private List<CarreraDTO> obtenerPagina(int indiceInicio, int indiceFin) {
+        List<CarreraDTO> todas= carreraNegocio.buscarCarreras();
+        List<CarreraDTO> todasLasPaginas = new ArrayList<>();
+        indiceFin = Math.min(indiceFin, todas.size());
+        for (int i = indiceInicio; i < indiceFin; i++) {
+            todasLasPaginas.add(todas.get(i));
+        }
+        return todasLasPaginas;
+    }
+    
+private void botonEliminarEnTabla() {
+
+        ActionListener onEliminarClickListener = new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Obtén la fila seleccionada
+                int filaSeleccionada = tblCarrera.getSelectedRow();
+
+                if (filaSeleccionada != -1) { // Verifica que haya una fila seleccionada
+                    // Usa el modelo para obtener los datos de la carrera en esa fila
+                    DefaultTableModel modeloTabla = (DefaultTableModel) tblCarrera.getModel();
+
+                    Long idCarrera = (Long) modeloTabla.getValueAt(filaSeleccionada, 0); // Suponiendo que el ID esté en la columna 0
+                    String nombreCarrera = (String) modeloTabla.getValueAt(filaSeleccionada, 1);
+                    Date tiempoDiario = (Date) modeloTabla.getValueAt(filaSeleccionada, 2);
+                    
+
+                    // Crea un carreraDTO usando los datos obtenidos de la fila
+                    
+                    CarreraDTO carrera = new CarreraDTO();
+                    carrera.setId(idCarrera);
+                    carrera.setNombre(nombreCarrera);
+                    carrera.setTiempoDiario(tiempoDiario);
+        
+                    // Aquí puedes implementar la lógica de eliminación o cualquier otra acción
+//                    System.out.println("Carrera a eliminar: " + carrera.toString());
+                    int respuesta = JOptionPane.showConfirmDialog(
+                            null,
+                            "¿Está seguro de que desea eliminar esta Carrera?",
+                            "Confirmar eliminación",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.QUESTION_MESSAGE
+                    );
+
+                    if (respuesta == JOptionPane.YES_OPTION) {
+                        try {
+                            carreraNegocio.eliminarCarrera(carrera);
+                            JOptionPane.showMessageDialog(null, "La Carrera se ha eliminado correctamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                            dispose();
+                            FrmGestionarCarrera frm = new FrmGestionarCarrera();
+                            frm.setVisible(true);
+                        } catch (Exception ex) {
+                            JOptionPane.showMessageDialog(null, "Ha ocurrido un error inesperado al eliminar la carrera: " + ex, "ERROR", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+
+                }
+            }
+        };
+
+        TableColumnModel modeloColumnas = this.tblCarrera.getColumnModel();
+        modeloColumnas.getColumn(4).setCellRenderer(new JButtonRenderer("Eliminar"));
+        modeloColumnas.getColumn(4).setCellEditor(new JButtonCellEditor("Eliminar", onEliminarClickListener));
+    }
+
+    private void botonEditarEnTabla() {
+
+        ActionListener onEliminarClickListener = new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Obtén la fila seleccionada
+                int filaSeleccionada = tblCarrera.getSelectedRow();
+
+                if (filaSeleccionada != -1) { // Verifica que haya una fila seleccionada
+                    // Usa el modelo para obtener los datos del estudiante en esa fila
+                    DefaultTableModel modeloTabla = (DefaultTableModel) tblCarrera.getModel();
+
+                    Long idCarrera = (Long) modeloTabla.getValueAt(filaSeleccionada, 0); // Suponiendo que el ID esté en la columna 0
+                    String nombreCarrera = (String) modeloTabla.getValueAt(filaSeleccionada, 1);
+                    Date tiempoDiario = (Date) modeloTabla.getValueAt(filaSeleccionada, 2);
+
+                    // Crea un carreraDTO usando los datos obtenidos de la fila
+                    
+                    CarreraDTO carrera = new CarreraDTO();
+                    carrera.setId(idCarrera);
+                    carrera.setNombre(nombreCarrera);
+                    carrera.setTiempoDiario(tiempoDiario);
+
+                    // Aquí puedes implementar la lógica de eliminación o cualquier otra acción
+                    System.out.println("Estudiante a eliminar: " + carrera.toString());
+                    FrmEditarCarrera frmEC = new FrmEditarCarrera(carrera);
+                    frmEC.setVisible(true);
+//                    int respuesta = JOptionPane.showConfirmDialog(
+//                            null,
+//                            "¿Está seguro de que desea editar este alumno?",
+//                            "Confirmar eliminación",
+//                            JOptionPane.YES_NO_OPTION,
+//                            JOptionPane.QUESTION_MESSAGE
+//                    );
+//                    
+//                    if (respuesta == JOptionPane.YES_OPTION) {
+//                        try {
+//                            estudianteNegocio.modificarEstudiante(estudiante);
+//                            JOptionPane.showMessageDialog(null, "El alumno se ha eliminado correctamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+//                            dispose();
+//                            FrmGestionarAlumno frm = new FrmGestionarAlumno();
+//                            frm.setVisible(true);
+//                        } catch (Exception ex) {
+//                            JOptionPane.showMessageDialog(null, "Ha ocurrido un error inesperado al eliminar el alumno: " + ex, "ERROR", JOptionPane.ERROR_MESSAGE);
+//                        }
+//                    }
+
+                }
+            }
+        };
+
+        TableColumnModel modeloColumnas = this.tblCarrera.getColumnModel();
+        modeloColumnas.getColumn(3).setCellRenderer(new JButtonRenderer("Editar"));
+        modeloColumnas.getColumn(3).setCellEditor(new JButtonCellEditor("Editar", onEliminarClickListener));
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -32,11 +196,9 @@ public class FrmGestionarCarrera extends javax.swing.JFrame {
         reporte = new javax.swing.JLabel();
         btnAtras = new javax.swing.JLabel();
         btnAgregar = new javax.swing.JLabel();
-        btnEditar = new javax.swing.JLabel();
-        btnEliminar = new javax.swing.JLabel();
         btnFlechaDerecha = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblCarrera = new javax.swing.JTable();
         btnFlechaIzquierda = new javax.swing.JLabel();
         fondo = new javax.swing.JLabel();
 
@@ -62,34 +224,43 @@ public class FrmGestionarCarrera extends javax.swing.JFrame {
         getContentPane().add(btnAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 680, -1, -1));
 
         btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnAgregar.png"))); // NOI18N
-        getContentPane().add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 670, -1, -1));
-
-        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnEditar.png"))); // NOI18N
-        getContentPane().add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 670, -1, -1));
-
-        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnEliminar.png"))); // NOI18N
-        getContentPane().add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 670, -1, -1));
+        btnAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAgregarMouseClicked(evt);
+            }
+        });
+        getContentPane().add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 670, -1, -1));
 
         btnFlechaDerecha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnFlechaD.png"))); // NOI18N
-        getContentPane().add(btnFlechaDerecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 410, -1, -1));
+        btnFlechaDerecha.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnFlechaDerechaMouseClicked(evt);
+            }
+        });
+        getContentPane().add(btnFlechaDerecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 670, -1, -1));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblCarrera.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "idCarrera", "Nombre de la Carrera", "Tiempo de uso Diario", "Editar", "Eliminar"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblCarrera);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, 810, -1));
 
         btnFlechaIzquierda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnFlechaI.png"))); // NOI18N
-        getContentPane().add(btnFlechaIzquierda, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, -1, -1));
+        btnFlechaIzquierda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnFlechaIzquierdaMouseClicked(evt);
+            }
+        });
+        getContentPane().add(btnFlechaIzquierda, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 670, -1, -1));
 
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BackGroundGeneral.jpg"))); // NOI18N
         getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -98,16 +269,43 @@ public class FrmGestionarCarrera extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    
     private void btnAtrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtrasMouseClicked
         // TODO add your handling code here:
         new FrmAdminMenu().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAtrasMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
+    private void btnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMouseClicked
+        // TODO add your handling code here:
+        FrmAgregarCarrera frm = new FrmAgregarCarrera();
+        frm.setVisible(true);
+    }//GEN-LAST:event_btnAgregarMouseClicked
+
+    private void btnFlechaDerechaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFlechaDerechaMouseClicked
+        // TODO add your handling code here:
+        pagina += 3;
+        limite += 3;   
+        llenarTablaCarrera(obtenerPagina(pagina, limite));
+    }//GEN-LAST:event_btnFlechaDerechaMouseClicked
+
+    private void btnFlechaIzquierdaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFlechaIzquierdaMouseClicked
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+        if (pagina -3 < 0)
+        {
+            JOptionPane.showMessageDialog(this, "No hay más páginas atrás");
+        }
+        else
+        {
+        pagina -= 3;
+        limite -= 3;   
+        llenarTablaCarrera(obtenerPagina(pagina, limite));
+        } 
+    }//GEN-LAST:event_btnFlechaIzquierdaMouseClicked
+
+   public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -130,6 +328,7 @@ public class FrmGestionarCarrera extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(FrmGestionarCarrera.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -138,18 +337,17 @@ public class FrmGestionarCarrera extends javax.swing.JFrame {
             }
         });
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnAgregar;
     private javax.swing.JLabel btnAtras;
-    private javax.swing.JLabel btnEditar;
-    private javax.swing.JLabel btnEliminar;
     private javax.swing.JLabel btnFlechaDerecha;
     private javax.swing.JLabel btnFlechaIzquierda;
     private javax.swing.JLabel centroDeComputo;
     private javax.swing.JLabel fondo;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel reporte;
+    private javax.swing.JTable tblCarrera;
     // End of variables declaration//GEN-END:variables
 }

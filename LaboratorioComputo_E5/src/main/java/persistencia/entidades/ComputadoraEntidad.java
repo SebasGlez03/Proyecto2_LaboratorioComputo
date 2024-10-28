@@ -80,7 +80,7 @@ public class ComputadoraEntidad implements Serializable {
      * la computadora en el laboratorio. No puede ser nulo y tiene un máximo de
      * 50 caracteres.
      */
-    @Column(name = "numMaquina", length = 50, nullable = false)
+    @Column(name = "numMaquina", length = 50)
     private int numMaquina;
 
     @OneToMany(mappedBy = "computadora")
