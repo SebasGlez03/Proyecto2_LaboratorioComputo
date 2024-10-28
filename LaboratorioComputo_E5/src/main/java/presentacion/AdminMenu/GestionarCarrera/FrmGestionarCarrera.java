@@ -6,6 +6,7 @@ package presentacion.AdminMenu.GestionarCarrera;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -25,6 +26,8 @@ import utilerias.JButtonRenderer;
 public class FrmGestionarCarrera extends javax.swing.JFrame {
 
     CarreraNegocio carreraNegocio = new CarreraNegocio();
+    int pagina = 0;
+    int limite = 3;
     
     /**
      * Creates new form FrmGestionarCarrera
@@ -56,6 +59,16 @@ public class FrmGestionarCarrera extends javax.swing.JFrame {
                 modeloTabla.addRow(fila);
             });
         }
+    }
+    
+    private List<CarreraDTO> obtenerPagina(int indiceInicio, int indiceFin) {
+        List<CarreraDTO> todas= carreraNegocio.buscarCarreras();
+        List<CarreraDTO> todasLasPaginas = new ArrayList<>();
+        indiceFin = Math.min(indiceFin, todas.size());
+        for (int i = indiceInicio; i < indiceFin; i++) {
+            todasLasPaginas.add(todas.get(i));
+        }
+        return todasLasPaginas;
     }
     
 private void botonEliminarEnTabla() {
@@ -219,7 +232,12 @@ private void botonEliminarEnTabla() {
         getContentPane().add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 670, -1, -1));
 
         btnFlechaDerecha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnFlechaD.png"))); // NOI18N
-        getContentPane().add(btnFlechaDerecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 410, -1, -1));
+        btnFlechaDerecha.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnFlechaDerechaMouseClicked(evt);
+            }
+        });
+        getContentPane().add(btnFlechaDerecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 670, -1, -1));
 
         tblCarrera.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -237,7 +255,12 @@ private void botonEliminarEnTabla() {
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, 810, -1));
 
         btnFlechaIzquierda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnFlechaI.png"))); // NOI18N
-        getContentPane().add(btnFlechaIzquierda, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, -1, -1));
+        btnFlechaIzquierda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnFlechaIzquierdaMouseClicked(evt);
+            }
+        });
+        getContentPane().add(btnFlechaIzquierda, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 670, -1, -1));
 
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BackGroundGeneral.jpg"))); // NOI18N
         getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -260,7 +283,60 @@ private void botonEliminarEnTabla() {
         frm.setVisible(true);
     }//GEN-LAST:event_btnAgregarMouseClicked
 
-   
+    private void btnFlechaDerechaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFlechaDerechaMouseClicked
+        // TODO add your handling code here:
+        pagina += 3;
+        limite += 3;   
+        llenarTablaCarrera(obtenerPagina(pagina, limite));
+    }//GEN-LAST:event_btnFlechaDerechaMouseClicked
+
+    private void btnFlechaIzquierdaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFlechaIzquierdaMouseClicked
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+        if (pagina -3 < 0)
+        {
+            JOptionPane.showMessageDialog(this, "No hay más páginas atrás");
+        }
+        else
+        {
+        pagina -= 3;
+        limite -= 3;   
+        llenarTablaCarrera(obtenerPagina(pagina, limite));
+        } 
+    }//GEN-LAST:event_btnFlechaIzquierdaMouseClicked
+
+   public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(FrmGestionarCarrera.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(FrmGestionarCarrera.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(FrmGestionarCarrera.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(FrmGestionarCarrera.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new FrmGestionarCarrera().setVisible(true);
+            }
+        });
+    }
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
