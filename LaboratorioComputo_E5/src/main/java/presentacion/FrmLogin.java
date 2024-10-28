@@ -238,6 +238,8 @@ public class FrmLogin extends javax.swing.JFrame {
         
     }//GEN-LAST:event_boxUnidadesAcademicasActionPerformed
 
+
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel background_img;
     private javax.swing.JComboBox<String> boxCentroComputo;
