@@ -33,7 +33,7 @@ public class FrmAgregarComputadora extends javax.swing.JFrame {
     int softwareCounter = 0;
     List<String> software = new ArrayList<>();
     int numMaquina;
-<<<<<<< Updated upstream
+
     
     /**
      * Constructor que inicializa los componentes
@@ -52,7 +52,7 @@ public class FrmAgregarComputadora extends javax.swing.JFrame {
         campoTextoNumeroMaquina.disable();
 
     }
-<<<<<<< Updated upstream
+
     /**
     * Calcula el número de máquina más alto en la lista de computadoras proporcionada
     * y actualiza el campo de texto correspondiente con el siguiente número disponible.
@@ -77,31 +77,7 @@ public class FrmAgregarComputadora extends javax.swing.JFrame {
                 
             }
     }
-    /**
-    * Rellena el combo box `boxCentroComputo` con los nombres de los centros de cómputo 
-    * presentes en la lista proporcionada.
-    * 
-    * @param CentroComputo Lista de objetos `CentroComputoDTO` que contiene los datos de los
-    *                      centros de cómputo disponibles.
-    */
-=======
 
-    /**
-     * Metodo que obtiene el numero de maquina mayor
-     *
-     * @param computadoras Lista de computadoras con informacion de la base de
-     * datos
-     */
-    public void obtenerNumMaquinaMayor(List<ComputadoraDTO> computadoras) {
-
-        OptionalInt maxValor = computadoras.stream()
-                .mapToInt(ComputadoraDTO::getNumComputadora)
-                .max();
-
-        this.numMaquina = maxValor.getAsInt() + 1;
-        campoTextoNumeroMaquina.setText(Integer.toString(maxValor.getAsInt() + 1));
-
-    }
 
     /**
      * Metodo que llena con computadoras el contenido del comboBox
@@ -109,7 +85,7 @@ public class FrmAgregarComputadora extends javax.swing.JFrame {
      * @param CentroComputo Lista de centros de computos para llenar el combo
      * box
      */
->>>>>>> Stashed changes
+
     private void llenarBoxCentros(List<CentroComputoDTO> CentroComputo) {
         int i = 0;
         while (CentroComputo.size() > i) {
@@ -388,7 +364,21 @@ public class FrmAgregarComputadora extends javax.swing.JFrame {
 
     }//GEN-LAST:event_boxCentroComputoActionPerformed
 
-   
+       /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new FrmAgregarComputadora().setVisible(false);
+                
+            }
+        });
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Titulo;
