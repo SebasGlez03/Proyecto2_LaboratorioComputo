@@ -14,7 +14,7 @@ import utilerias.LectorIp;
 
 /**
  *
- * @author santi
+ * @author santiago
  */
 public class BuscarComputadoraIp {
 
