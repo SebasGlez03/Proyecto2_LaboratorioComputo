@@ -4,6 +4,10 @@
  */
 package presentacion.AdminMenu;
 
+import javax.swing.JOptionPane;
+import negocio.DTO.UnidadAcademicaDTO;
+import negocio.logica.UnidadAcademicaNegocio;
+
 /**
  *
  * @author nomar
@@ -29,15 +33,19 @@ public class FrmInsertarUnidad extends javax.swing.JFrame {
         centroDeComputo = new javax.swing.JLabel();
         reporte = new javax.swing.JLabel();
         btnAtras = new javax.swing.JLabel();
+        fldUnidad = new javax.swing.JTextField();
+        centroDeComputo1 = new javax.swing.JLabel();
+        btnAgregar = new javax.swing.JButton();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         centroDeComputo.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         centroDeComputo.setForeground(new java.awt.Color(255, 255, 255));
         centroDeComputo.setText("Unidad");
-        getContentPane().add(centroDeComputo, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 90, -1, -1));
+        getContentPane().add(centroDeComputo, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 90, -1, -1));
 
         reporte.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         reporte.setForeground(new java.awt.Color(255, 255, 255));
@@ -45,12 +53,30 @@ public class FrmInsertarUnidad extends javax.swing.JFrame {
         getContentPane().add(reporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 40, -1, -1));
 
         btnAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnAtras.png"))); // NOI18N
+        btnAtras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAtras.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnAtrasMouseClicked(evt);
             }
         });
         getContentPane().add(btnAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 680, -1, -1));
+        getContentPane().add(fldUnidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 310, 270, 50));
+
+        centroDeComputo1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        centroDeComputo1.setForeground(new java.awt.Color(255, 255, 255));
+        centroDeComputo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        centroDeComputo1.setText("Unidad");
+        getContentPane().add(centroDeComputo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 230, 1000, -1));
+
+        btnAgregar.setBackground(new java.awt.Color(0, 204, 0));
+        btnAgregar.setForeground(new java.awt.Color(0, 0, 0));
+        btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 570, 140, 60));
 
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BackGroundGeneral.jpg"))); // NOI18N
         getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -65,44 +91,36 @@ public class FrmInsertarUnidad extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnAtrasMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmInsertarUnidad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmInsertarUnidad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmInsertarUnidad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmInsertarUnidad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        // TODO add your handling code here:
+        String nombre = fldUnidad.getText();
+        
+        if (nombre.matches(".*\\d.*") || nombre.isEmpty())
+        {JOptionPane.showMessageDialog(this, "Un nombre de unidad no puede contener numeros, caracteres especiales o estar vacío" );}
+        else{
+        
+        UnidadAcademicaDTO unidad = new UnidadAcademicaDTO();
+        unidad.setNombre(nombre);
+        
+        UnidadAcademicaNegocio unidadNegocio = new UnidadAcademicaNegocio();
+        
+        unidadNegocio.guardarUnidadAcademica(unidad);
+        
+        JOptionPane.showMessageDialog(this, "Unidad agregada con exito!" );
+        
+        FrmAdminMenu frm = new FrmAdminMenu();
+        frm.setVisible(true);
+        this.dispose();
         }
-        //</editor-fold>
+    }//GEN-LAST:event_btnAgregarActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrmInsertarUnidad().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregar;
     private javax.swing.JLabel btnAtras;
     private javax.swing.JLabel centroDeComputo;
+    private javax.swing.JLabel centroDeComputo1;
+    private javax.swing.JTextField fldUnidad;
     private javax.swing.JLabel fondo;
     private javax.swing.JLabel reporte;
     // End of variables declaration//GEN-END:variables

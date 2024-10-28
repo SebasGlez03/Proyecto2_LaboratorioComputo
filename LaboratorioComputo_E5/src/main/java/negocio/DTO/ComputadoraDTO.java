@@ -213,9 +213,12 @@ public class ComputadoraDTO {
      * 
      * @param numComputadora numComputadora en la computadora
      */
-    public void setApartados(int numComputadora) {
+    public void setNumComputadora(int numComputadora) {
         this.numComputadora = numComputadora;
     }
+
+
+    
 
     /**
      * Método toString para representar el objeto en formato de texto

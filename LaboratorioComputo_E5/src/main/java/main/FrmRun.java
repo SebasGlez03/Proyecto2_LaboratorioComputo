@@ -2,19 +2,24 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package presentacion.AdminMenu.GestionarBloqueo;
+package main;
 
 /**
  *
- * @author nomar
+ * @author santi
  */
-public class FrmEliminarBloqueo extends javax.swing.JFrame {
+public class FrmRun extends javax.swing.JFrame {
 
     /**
-     * Creates new form FrmEliminarBloqueo
+     * Creates new form FrmRun
      */
-    public FrmEliminarBloqueo() {
+    public FrmRun() {
         initComponents();
+        setLocationRelativeTo(null);
+        
+        BuscarComputadoraIp buscar = new BuscarComputadoraIp();
+        buscar.buscarComputadoraPorIP();
+        dispose();
     }
 
     /**
@@ -59,20 +64,21 @@ public class FrmEliminarBloqueo extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmEliminarBloqueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmRun.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmEliminarBloqueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmRun.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmEliminarBloqueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmRun.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmEliminarBloqueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmRun.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmEliminarBloqueo().setVisible(true);
+                new FrmRun().setVisible(false);
+                
             }
         });
     }

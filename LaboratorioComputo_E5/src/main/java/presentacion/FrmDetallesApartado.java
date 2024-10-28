@@ -98,6 +98,7 @@ public class FrmDetallesApartado extends javax.swing.JFrame {
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblDetalles.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
@@ -132,6 +133,7 @@ public class FrmDetallesApartado extends javax.swing.JFrame {
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 310, 100));
 
         btnAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnAtras.png"))); // NOI18N
+        btnAtras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAtras.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnAtrasMouseClicked(evt);
