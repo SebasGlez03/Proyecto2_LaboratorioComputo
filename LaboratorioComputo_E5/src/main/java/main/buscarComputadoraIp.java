@@ -16,7 +16,7 @@ import utilerias.LectorIp;
  *
  * @author santiago
  */
-public class BuscarComputadoraIp {
+public class buscarComputadoraIp {
 
     
         ComputadoraNegocio computadoraNegocio = new ComputadoraNegocio();
