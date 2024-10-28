@@ -20,13 +20,14 @@ import java.util.OptionalInt;
  *
  * @author nomar
  */
-public class FrmAgregarComputadora extends javax.swing.JFrame {
+public class FrmEditarComputadora extends javax.swing.JFrame {
 
     DefaultListModel<String> listModel = new DefaultListModel<>();
     CentroComputoNegocio centroComputoNegocio = new CentroComputoNegocio();
     List<CentroComputoDTO> centros = new ArrayList<>();
     CentroComputoDTO centro = new CentroComputoDTO();
     ComputadoraNegocio computadoraNegocio = new ComputadoraNegocio();
+    ComputadoraDTO computadora = new ComputadoraDTO();
     
     
     /**
@@ -36,26 +37,21 @@ public class FrmAgregarComputadora extends javax.swing.JFrame {
     List<String> software = new ArrayList<>();
     int numMaquina;
     
-    public FrmAgregarComputadora() {
+    public FrmEditarComputadora(ComputadoraDTO computadora) {
         initComponents();
-                
+        this.computadora = computadora;
         centros = centroComputoNegocio.buscarCentrosComputos();
         llenarBoxCentros(centros);
-        obtenerNumMaquinaMayor(computadoraNegocio.buscarComputadora());
+        campoTextoNumeroMaquina.setText(computadora.getNumComputadora() + "");
         campoTextoNumeroMaquina.disable();
         
-                
-    }
-    
-    public void obtenerNumMaquinaMayor(List<ComputadoraDTO> computadoras){
-    
-            OptionalInt maxValor = computadoras.stream()
-            .mapToInt(ComputadoraDTO::getNumComputadora)  
-            .max();     
+        campoTextoIP.setText(computadora.getIp());
+        checkAdmin.setSelected(computadora.isEsAdmin());
+        listModel.setSize(software.size());
+        softwareCounter = software.size();
+        listModel.addAll(software);
         
-            this.numMaquina = maxValor.getAsInt() + 1;
-            campoTextoNumeroMaquina.setText(Integer.toString(maxValor.getAsInt() + 1));
-            
+                
     }
     
     private void llenarBoxCentros(List<CentroComputoDTO> CentroComputo) {
@@ -78,7 +74,6 @@ public class FrmAgregarComputadora extends javax.swing.JFrame {
         checkAdmin1 = new javax.swing.JCheckBox();
         Titulo = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JButton();
-        btnReiniciar = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         campoTextoIP = new javax.swing.JTextField();
@@ -108,7 +103,7 @@ public class FrmAgregarComputadora extends javax.swing.JFrame {
 
         Titulo.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         Titulo.setForeground(new java.awt.Color(255, 255, 255));
-        Titulo.setText("Agregar Computadora");
+        Titulo.setText("Editar Computadora");
         getContentPane().add(Titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, -1));
 
         btnCancelar.setText("Cancelar");
@@ -118,14 +113,6 @@ public class FrmAgregarComputadora extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 550, -1, -1));
-
-        btnReiniciar.setText("Reiniciar");
-        btnReiniciar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReiniciarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnReiniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 550, -1, -1));
 
         btnAgregar.setBackground(new java.awt.Color(0, 204, 0));
         btnAgregar.setForeground(new java.awt.Color(0, 0, 0));
@@ -215,10 +202,6 @@ public class FrmAgregarComputadora extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void btnReiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnReiniciarActionPerformed
-
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
         String ip = campoTextoIP.getText();
@@ -229,16 +212,14 @@ public class FrmAgregarComputadora extends javax.swing.JFrame {
 
         try {
             ComputadoraNegocio computadoraNegocio = new ComputadoraNegocio();
-
-            ComputadoraDTO computadora = new ComputadoraDTO();
             
             computadora.setIp(ip);
             computadora.setEsAdmin(esAdmin);
             computadora.setSoftware(software);
             computadora.setCentroComputo(centro);
 
-            computadoraNegocio.guardarComputadora(computadora);
-            JOptionPane.showMessageDialog(this, "La computadora se ha agregado correctamente.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            computadoraNegocio.modificarComputadora(computadora);
+            JOptionPane.showMessageDialog(this, "La computadora se ha modificado correctamente.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Ha ocurrido un error inesperado: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -249,7 +230,6 @@ public class FrmAgregarComputadora extends javax.swing.JFrame {
         try {
             ComputadoraNegocio computadoraNegocio = new ComputadoraNegocio();
 
-            ComputadoraDTO computadora = new ComputadoraDTO();
             
             computadora.setIp(ip);
             computadora.setEsAdmin(esAdmin);
@@ -258,7 +238,7 @@ public class FrmAgregarComputadora extends javax.swing.JFrame {
             computadora.setCentroComputo(centro);
 
             computadoraNegocio.guardarComputadora(computadora);
-            JOptionPane.showMessageDialog(this, "La computadora se ha agregado correctamente.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "La computadora se ha modificado correctamente.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Ha ocurrido un error inesperado: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -290,7 +270,7 @@ public class FrmAgregarComputadora extends javax.swing.JFrame {
         // TODO add your handling code here:
         listSoftware.setModel(listModel);
         listModel.add(softwareCounter,fldSoftware.getText());
-        listModel.setSize(20);
+        listModel.setSize(softwareCounter);
         this.software.add(fldSoftware.getText());
         fldSoftware.setText("");
         softwareCounter++;
@@ -309,40 +289,7 @@ public class FrmAgregarComputadora extends javax.swing.JFrame {
        
     }//GEN-LAST:event_boxCentroComputoActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmAgregarComputadora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmAgregarComputadora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmAgregarComputadora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmAgregarComputadora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrmAgregarComputadora().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Titulo;
@@ -350,7 +297,6 @@ public class FrmAgregarComputadora extends javax.swing.JFrame {
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnAgregarIP;
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnReiniciar;
     private javax.swing.JButton btnSoftware;
     private javax.swing.JTextField campoTextoIP;
     private javax.swing.JTextField campoTextoNumeroMaquina;

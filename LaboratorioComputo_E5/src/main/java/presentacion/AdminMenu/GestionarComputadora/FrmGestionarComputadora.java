@@ -13,8 +13,12 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import negocio.DTO.CarreraDTO;
+import negocio.DTO.CentroComputoDTO;
+import negocio.DTO.ComputadoraDTO;
 import negocio.DTO.EstudianteDTO;
 import negocio.logica.CarreraNegocio;
+import negocio.logica.CentroComputoNegocio;
+import negocio.logica.ComputadoraNegocio;
 import negocio.logica.EstudianteNegocio;
 import presentacion.AdminMenu.FrmAdminMenu;
 import utilerias.JButtonCellEditor;
@@ -26,8 +30,8 @@ import utilerias.JButtonRenderer;
  */
 public class FrmGestionarComputadora extends javax.swing.JFrame {
 
-    CarreraNegocio carreraNegocio = new CarreraNegocio();
-    EstudianteNegocio estudianteNegocio = new EstudianteNegocio();
+    CentroComputoNegocio centroComputoNegocio = new CentroComputoNegocio();
+    ComputadoraNegocio computadoraNegocio = new ComputadoraNegocio();
     int pagina = 0;
     int limite = 3;
 
@@ -50,9 +54,9 @@ public class FrmGestionarComputadora extends javax.swing.JFrame {
      * datos.
      */
 
-    private List<EstudianteDTO> obtenerPagina(int indiceInicio, int indiceFin) {
-        List<EstudianteDTO> todas= estudianteNegocio.buscarTodosLosEstudiantes();
-        List<EstudianteDTO> todasLasPaginas = new ArrayList<>();
+    private List<ComputadoraDTO> obtenerPagina(int indiceInicio, int indiceFin) {
+        List<ComputadoraDTO> todas= computadoraNegocio.buscarComputadora();
+        List<ComputadoraDTO> todasLasPaginas = new ArrayList<>();
         indiceFin = Math.min(indiceFin, todas.size());
         for (int i = indiceInicio; i < indiceFin; i++) {
             todasLasPaginas.add(todas.get(i));
@@ -68,8 +72,8 @@ public class FrmGestionarComputadora extends javax.swing.JFrame {
      * @param listaEstudiantes lista de estudiantes proveniente de la base de
      * datos.
      */
-    public void llenarTablaEstudiantes(List<EstudianteDTO> listaEstudiantes) {
-        DefaultTableModel modeloTabla = (DefaultTableModel) this.tblEstudiantes.getModel();
+    public void llenarTablaEstudiantes(List<ComputadoraDTO> listaEstudiantes) {
+        DefaultTableModel modeloTabla = (DefaultTableModel) this.tblComputadoras.getModel();
 
         if (modeloTabla.getRowCount() > 0) {
             for (int i = modeloTabla.getRowCount() - 1; i > -1; i--) {
@@ -81,34 +85,16 @@ public class FrmGestionarComputadora extends javax.swing.JFrame {
             listaEstudiantes.forEach(row -> {
                 Object[] fila = new Object[7];
                 fila[0] = row.getId();
-                fila[1] = row.getNombre();
-                fila[2] = row.getApellidoPaterno();
-                fila[3] = row.getApellidoMaterno();
-                fila[4] = row.getContrasenia();
-                fila[5] = row.getEstatusInscripcion();
-                fila[6] = row.getCarrera().getNombre();
+                fila[1] = row.isEsAdmin();
+                fila[2] = row.getIp();
+                fila[3] = row.getNumComputadora();
+                fila[4] = row.getCentroComputo().getNombre();
 
                 modeloTabla.addRow(fila);
             });
         }
     }
 
-    /**
-     * Metodo que transforma el nombre de la carrera del estudiante a una
-     * CarreraDTO
-     *
-     * @param nombreCarrera nombre de la carrera del esutidante
-     * @return CarreraDTO proveniente del nombre de la carrera del estudiante
-     */
-    public CarreraDTO obtenerCarreraDTOdeString(String nombreCarrera) {
-
-        for (CarreraDTO carrera : carreraNegocio.buscarCarreras()) {
-            if (carrera.getNombre().equals(nombreCarrera)) {
-                return carrera;
-            }
-        }
-        return null;
-    }
 
     /**
      * Metodo que agrega el boton en la tabla, que a su vez contiene la logica
@@ -121,30 +107,28 @@ public class FrmGestionarComputadora extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Obtén la fila seleccionada
-                int filaSeleccionada = tblEstudiantes.getSelectedRow();
+                int filaSeleccionada = tblComputadoras.getSelectedRow();
 
                 if (filaSeleccionada != -1) { // Verifica que haya una fila seleccionada
                     // Usa el modelo para obtener los datos del estudiante en esa fila
-                    DefaultTableModel modeloTabla = (DefaultTableModel) tblEstudiantes.getModel();
+                    DefaultTableModel modeloTabla = (DefaultTableModel) tblComputadoras.getModel();
 
                     Long idEstudiante = (Long) modeloTabla.getValueAt(filaSeleccionada, 0); // Suponiendo que el ID esté en la columna 0
-                    String nombreEstudiante = (String) modeloTabla.getValueAt(filaSeleccionada, 1);
-                    String apellidoPaterno = (String) modeloTabla.getValueAt(filaSeleccionada, 2);
-                    String apellidoMaterno = (String) modeloTabla.getValueAt(filaSeleccionada, 3);
-                    String contrasenia = (String) modeloTabla.getValueAt(filaSeleccionada, 4);
-                    String estatusInscripcion = (String) modeloTabla.getValueAt(filaSeleccionada, 5);
-                    String carrera = (String) modeloTabla.getValueAt(filaSeleccionada, 6);
+                    Boolean esAdmin = (Boolean) modeloTabla.getValueAt(filaSeleccionada, 1);
+                    String ip = (String) modeloTabla.getValueAt(filaSeleccionada, 2);
+                    int numComputadora = (int) modeloTabla.getValueAt(filaSeleccionada, 3);
+                    String fila = (String) modeloTabla.getValueAt(filaSeleccionada, 4);
 
                     // Crea un EstudianteDTO usando los datos obtenidos de la fila
-                    EstudianteDTO estudiante = new EstudianteDTO();
-                    CarreraDTO carreraDTO = new CarreraDTO();
-                    estudiante.setId(idEstudiante);
-                    estudiante.setNombre(nombreEstudiante);
-                    estudiante.setApellidoPaterno(apellidoPaterno);
-                    estudiante.setApellidoMaterno(apellidoMaterno);
-                    estudiante.setContrasenia(contrasenia);
-                    estudiante.setEstatusInscripcion(estatusInscripcion);
-                    estudiante.setCarrera(obtenerCarreraDTOdeString(carrera));
+                    ComputadoraDTO computadora = new ComputadoraDTO();
+                    CentroComputoDTO centroComputoDTO = new CentroComputoDTO();
+                    centroComputoDTO = centroComputoNegocio.buscarCentroComputo(obtenerCentroComputoDTOdeString(fila).getId());
+                    
+                    computadora.setId(idEstudiante);
+                    computadora.setEsAdmin(esAdmin);
+                    computadora.setIp(ip);
+                    computadora.setNumComputadora(numComputadora);
+                    computadora.setCentroComputo(centroComputoDTO);
 
                     // Aquí puedes implementar la lógica de eliminación o cualquier otra acción
 //                    System.out.println("Estudiante a eliminar: " + estudiante.toString());
@@ -158,7 +142,7 @@ public class FrmGestionarComputadora extends javax.swing.JFrame {
 
                     if (respuesta == JOptionPane.YES_OPTION) {
                         try {
-                            estudianteNegocio.eliminarEstudiante(estudiante);
+                            computadoraNegocio.eliminarComputadora(computadora);
                             JOptionPane.showMessageDialog(null, "El alumno se ha eliminado correctamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
                             dispose();
                             FrmGestionarComputadora frm = new FrmGestionarComputadora();
@@ -172,11 +156,28 @@ public class FrmGestionarComputadora extends javax.swing.JFrame {
             }
         };
 
-        TableColumnModel modeloColumnas = this.tblEstudiantes.getColumnModel();
-        modeloColumnas.getColumn(8).setCellRenderer(new JButtonRenderer("Eliminar"));
-        modeloColumnas.getColumn(8).setCellEditor(new JButtonCellEditor("Eliminar", onEliminarClickListener));
+        TableColumnModel modeloColumnas = this.tblComputadoras.getColumnModel();
+        modeloColumnas.getColumn(6).setCellRenderer(new JButtonRenderer("Eliminar"));
+        modeloColumnas.getColumn(6).setCellEditor(new JButtonCellEditor("Eliminar", onEliminarClickListener));
     }
 
+    /**
+     * Metodo que transforma el nombre de la carrera del estudiante a una
+     * CarreraDTO
+     *
+     * @param nombreCentroComputo nombre de la carrera del esutidante
+     * @return CarreraDTO proveniente del nombre de la carrera del estudiante
+     */
+    public CentroComputoDTO obtenerCentroComputoDTOdeString(String nombreCentroComputo) {
+
+        for (CentroComputoDTO centroComputoD : centroComputoNegocio.buscarCentrosComputos()) {
+            if (centroComputoD.getNombre().equals(nombreCentroComputo)) {
+                return centroComputoD;
+            }
+        }
+        return null;
+    }
+    
     /**
      * Metodo que agrega el boton en la tabla, que a su vez contiene la logica
      * para eliminar el esutidante deseado
@@ -188,34 +189,34 @@ public class FrmGestionarComputadora extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Obtén la fila seleccionada
-                int filaSeleccionada = tblEstudiantes.getSelectedRow();
+                int filaSeleccionada = tblComputadoras.getSelectedRow();
 
                 if (filaSeleccionada != -1) { // Verifica que haya una fila seleccionada
                     // Usa el modelo para obtener los datos del estudiante en esa fila
-                    DefaultTableModel modeloTabla = (DefaultTableModel) tblEstudiantes.getModel();
+                    DefaultTableModel modeloTabla = (DefaultTableModel) tblComputadoras.getModel();
 
-                    Long idEstudiante = (Long) modeloTabla.getValueAt(filaSeleccionada, 0); // Suponiendo que el ID esté en la columna 0
-                    String nombreEstudiante = (String) modeloTabla.getValueAt(filaSeleccionada, 1);
-                    String apellidoPaterno = (String) modeloTabla.getValueAt(filaSeleccionada, 2);
-                    String apellidoMaterno = (String) modeloTabla.getValueAt(filaSeleccionada, 3);
-                    String contrasenia = (String) modeloTabla.getValueAt(filaSeleccionada, 4);
-                    String estatusInscripcion = (String) modeloTabla.getValueAt(filaSeleccionada, 5);
-                    String carrera = (String) modeloTabla.getValueAt(filaSeleccionada, 6);
+
+                    Long idComputadora = (Long) modeloTabla.getValueAt(filaSeleccionada, 0); // Suponiendo que el ID esté en la columna 0
+                    Boolean esAdmin = (Boolean) modeloTabla.getValueAt(filaSeleccionada, 1);
+                    String ip = (String) modeloTabla.getValueAt(filaSeleccionada, 2);
+                    int numComputadora = (int) modeloTabla.getValueAt(filaSeleccionada, 3);
+                    String fila = (String) modeloTabla.getValueAt(filaSeleccionada, 4);
 
                     // Crea un EstudianteDTO usando los datos obtenidos de la fila
-                    EstudianteDTO estudiante = new EstudianteDTO();
-                    CarreraDTO carreraDTO = new CarreraDTO();
-                    estudiante.setId(idEstudiante);
-                    estudiante.setNombre(nombreEstudiante);
-                    estudiante.setApellidoPaterno(apellidoPaterno);
-                    estudiante.setApellidoMaterno(apellidoMaterno);
-                    estudiante.setContrasenia(contrasenia);
-                    estudiante.setEstatusInscripcion(estatusInscripcion);
-                    estudiante.setCarrera(obtenerCarreraDTOdeString(carrera));
+                    ComputadoraDTO computadora = new ComputadoraDTO();
+                    CentroComputoDTO centroComputoDTO = new CentroComputoDTO();
+                    centroComputoDTO = centroComputoNegocio.buscarCentroComputo(obtenerCentroComputoDTOdeString(fila).getId());
+                    
+                    
+                    computadora.setId(idComputadora);
+                    computadora.setEsAdmin(esAdmin);
+                    computadora.setIp(ip);
+                    computadora.setNumComputadora(numComputadora);
+                    computadora.setCentroComputo(centroComputoDTO);
 
                     // Aquí puedes implementar la lógica de eliminación o cualquier otra acción
-                    System.out.println("Estudiante a eliminar: " + estudiante.toString());
-                    FrmEditarAlumno frmEAPU = new FrmEditarAlumno(estudiante);
+                    System.out.println("Computadora a editar: " + computadora.toString());
+                    FrmEditarComputadora frmEAPU = new FrmEditarComputadora(computadora);
                     frmEAPU.setVisible(true);
 //                    int respuesta = JOptionPane.showConfirmDialog(
 //                            null,
@@ -241,9 +242,9 @@ public class FrmGestionarComputadora extends javax.swing.JFrame {
             }
         };
 
-        TableColumnModel modeloColumnas = this.tblEstudiantes.getColumnModel();
-        modeloColumnas.getColumn(7).setCellRenderer(new JButtonRenderer("Editar"));
-        modeloColumnas.getColumn(7).setCellEditor(new JButtonCellEditor("Editar", onEliminarClickListener));
+        TableColumnModel modeloColumnas = this.tblComputadoras.getColumnModel();
+        modeloColumnas.getColumn(5).setCellRenderer(new JButtonRenderer("Editar"));
+        modeloColumnas.getColumn(5).setCellEditor(new JButtonCellEditor("Editar", onEliminarClickListener));
     }
 
     /**
@@ -258,7 +259,7 @@ public class FrmGestionarComputadora extends javax.swing.JFrame {
         lblCentroDeComputo = new javax.swing.JLabel();
         lblGestionar = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblEstudiantes = new javax.swing.JTable();
+        tblComputadoras = new javax.swing.JTable();
         btnAtras = new javax.swing.JLabel();
         btnAgregar = new javax.swing.JLabel();
         btnFlechaDerecha = new javax.swing.JLabel();
@@ -271,43 +272,45 @@ public class FrmGestionarComputadora extends javax.swing.JFrame {
 
         lblCentroDeComputo.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         lblCentroDeComputo.setForeground(new java.awt.Color(255, 255, 255));
-        lblCentroDeComputo.setText("Alumno");
-        getContentPane().add(lblCentroDeComputo, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 90, -1, -1));
+        lblCentroDeComputo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCentroDeComputo.setText("Computadoras");
+        getContentPane().add(lblCentroDeComputo, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 90, 1000, -1));
 
         lblGestionar.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         lblGestionar.setForeground(new java.awt.Color(255, 255, 255));
+        lblGestionar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblGestionar.setText("Gestionar");
-        getContentPane().add(lblGestionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 40, -1, -1));
+        getContentPane().add(lblGestionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(-3, 40, 1000, -1));
 
-        tblEstudiantes.setModel(new javax.swing.table.DefaultTableModel(
+        tblComputadoras.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "idEstudiante", "Nombre", "ApellidoPaterno", "ApellidoMaterno", "Contraseña", "EstatusInscripcion", "Carrera", "Editar", "Eliminar"
+                "idComputadora", "Admin", "Ip", "numMaquina", "Centro Cómputo", "Editar", "Eliminar"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, true, true
+                false, false, false, false, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tblEstudiantes);
-        if (tblEstudiantes.getColumnModel().getColumnCount() > 0) {
-            tblEstudiantes.getColumnModel().getColumn(0).setResizable(false);
-            tblEstudiantes.getColumnModel().getColumn(0).setPreferredWidth(10);
-            tblEstudiantes.getColumnModel().getColumn(1).setResizable(false);
-            tblEstudiantes.getColumnModel().getColumn(2).setResizable(false);
-            tblEstudiantes.getColumnModel().getColumn(3).setResizable(false);
-            tblEstudiantes.getColumnModel().getColumn(4).setResizable(false);
-            tblEstudiantes.getColumnModel().getColumn(5).setResizable(false);
-            tblEstudiantes.getColumnModel().getColumn(6).setResizable(false);
+        jScrollPane1.setViewportView(tblComputadoras);
+        if (tblComputadoras.getColumnModel().getColumnCount() > 0) {
+            tblComputadoras.getColumnModel().getColumn(0).setResizable(false);
+            tblComputadoras.getColumnModel().getColumn(0).setPreferredWidth(10);
+            tblComputadoras.getColumnModel().getColumn(1).setResizable(false);
+            tblComputadoras.getColumnModel().getColumn(2).setResizable(false);
+            tblComputadoras.getColumnModel().getColumn(3).setResizable(false);
+            tblComputadoras.getColumnModel().getColumn(4).setResizable(false);
+            tblComputadoras.getColumnModel().getColumn(5).setResizable(false);
+            tblComputadoras.getColumnModel().getColumn(6).setResizable(false);
         }
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 960, -1));
@@ -433,6 +436,6 @@ public class FrmGestionarComputadora extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCentroDeComputo;
     private javax.swing.JLabel lblGestionar;
-    private javax.swing.JTable tblEstudiantes;
+    private javax.swing.JTable tblComputadoras;
     // End of variables declaration//GEN-END:variables
 }
