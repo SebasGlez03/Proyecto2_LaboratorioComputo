@@ -192,7 +192,7 @@ public class FrmGestionarAlumno extends javax.swing.JFrame {
 
                     // Aquí puedes implementar la lógica de eliminación o cualquier otra acción
                     System.out.println("Estudiante a eliminar: " + estudiante.toString());
-                    FrmEditarAlumnoPopUp frmEAPU = new FrmEditarAlumnoPopUp(estudiante);
+                    FrmEditarAlumno frmEAPU = new FrmEditarAlumno(estudiante);
                     frmEAPU.setVisible(true);
 //                    int respuesta = JOptionPane.showConfirmDialog(
 //                            null,
