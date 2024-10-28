@@ -102,8 +102,9 @@ public class FrmReporteCentroComputo extends javax.swing.JFrame {
 
         carrera.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         carrera.setForeground(new java.awt.Color(255, 255, 255));
-        carrera.setText("Carreras");
-        getContentPane().add(carrera, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 90, -1, -1));
+        carrera.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        carrera.setText("Centro Cómputo");
+        getContentPane().add(carrera, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 1000, -1));
 
         btnAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnAtras.png"))); // NOI18N
         btnAtras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
