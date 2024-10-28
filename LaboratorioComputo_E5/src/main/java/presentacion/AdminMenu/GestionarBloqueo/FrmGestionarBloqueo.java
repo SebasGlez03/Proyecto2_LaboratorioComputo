@@ -4,6 +4,10 @@
  */
 package presentacion.AdminMenu.GestionarBloqueo;
 
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import negocio.DTO.BloqueoDTO;
+import negocio.logica.BloqueoNegocio;
 import presentacion.AdminMenu.FrmAdminMenu;
 
 /**
@@ -12,11 +16,43 @@ import presentacion.AdminMenu.FrmAdminMenu;
  */
 public class FrmGestionarBloqueo extends javax.swing.JFrame {
 
+    BloqueoNegocio bloqueoNegocio = new BloqueoNegocio();
+
     /**
      * Creates new form FrmGestionarBloqueo
      */
     public FrmGestionarBloqueo() {
         initComponents();
+
+        llenarTablaBloqueos(bloqueoNegocio.buscarBloqueos());
+    }
+
+    /**
+     * Metodo que llena la tabla con la lista de bloqueos de la base de datos
+     *
+     * @param listaBloqueos lista de bloqueos proveniente de la base de datos
+     */
+    public void llenarTablaBloqueos(List<BloqueoDTO> listaBloqueos) {
+        DefaultTableModel modeloTabla = (DefaultTableModel) this.tblBloqueos.getModel();
+
+        if (modeloTabla.getRowCount() > 0) {
+            for (int i = modeloTabla.getRowCount() - 1; i > -1; i--) {
+                modeloTabla.removeRow(i);
+            }
+        }
+
+        if (listaBloqueos != null) {
+            listaBloqueos.forEach(row -> {
+                Object[] fila = new Object[7];
+                fila[0] = row.getId();
+                fila[1] = row.getFechaBloqueo().getTime();
+                fila[2] = row.getFechaLiberacion().getTime();
+                fila[3] = row.getMotivo();
+                fila[4] = row.getEstudiante().getId();
+
+                modeloTabla.addRow(fila);
+            });
+        }
     }
 
     /**
@@ -32,11 +68,9 @@ public class FrmGestionarBloqueo extends javax.swing.JFrame {
         reporte = new javax.swing.JLabel();
         btnAtras = new javax.swing.JLabel();
         btnAgregar = new javax.swing.JLabel();
-        btnEditar = new javax.swing.JLabel();
-        btnEliminar = new javax.swing.JLabel();
         btnFlechaDerecha = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblBloqueos = new javax.swing.JTable();
         btnFlechaIzquierda = new javax.swing.JLabel();
         fondo = new javax.swing.JLabel();
 
@@ -65,38 +99,46 @@ public class FrmGestionarBloqueo extends javax.swing.JFrame {
 
         btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnAgregar.png"))); // NOI18N
         btnAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 670, -1, -1));
-
-        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnEditar.png"))); // NOI18N
-        btnEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 670, -1, -1));
-
-        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnEliminar.png"))); // NOI18N
-        btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 670, -1, -1));
+        getContentPane().add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 670, -1, -1));
 
         btnFlechaDerecha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnFlechaD.png"))); // NOI18N
         btnFlechaDerecha.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(btnFlechaDerecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 410, -1, -1));
+        getContentPane().add(btnFlechaDerecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 670, -1, -1));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblBloqueos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "idBloqueo", "FechaBloqueo", "FechaLiberacion", "MotivoBloqueo", "Estudiante", "Editar", "Eliminar"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, false, false, true, false, true, true
+            };
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, 810, -1));
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tblBloqueos);
+        if (tblBloqueos.getColumnModel().getColumnCount() > 0) {
+            tblBloqueos.getColumnModel().getColumn(0).setResizable(false);
+            tblBloqueos.getColumnModel().getColumn(0).setPreferredWidth(15);
+            tblBloqueos.getColumnModel().getColumn(1).setResizable(false);
+            tblBloqueos.getColumnModel().getColumn(2).setResizable(false);
+            tblBloqueos.getColumnModel().getColumn(3).setResizable(false);
+            tblBloqueos.getColumnModel().getColumn(4).setResizable(false);
+        }
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, 940, -1));
 
         btnFlechaIzquierda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnFlechaI.png"))); // NOI18N
         btnFlechaIzquierda.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(btnFlechaIzquierda, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, -1, -1));
+        getContentPane().add(btnFlechaIzquierda, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 670, -1, -1));
 
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BackGroundGeneral.jpg"))); // NOI18N
         getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -149,14 +191,12 @@ public class FrmGestionarBloqueo extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnAgregar;
     private javax.swing.JLabel btnAtras;
-    private javax.swing.JLabel btnEditar;
-    private javax.swing.JLabel btnEliminar;
     private javax.swing.JLabel btnFlechaDerecha;
     private javax.swing.JLabel btnFlechaIzquierda;
     private javax.swing.JLabel centroDeComputo;
     private javax.swing.JLabel fondo;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel reporte;
+    private javax.swing.JTable tblBloqueos;
     // End of variables declaration//GEN-END:variables
 }
