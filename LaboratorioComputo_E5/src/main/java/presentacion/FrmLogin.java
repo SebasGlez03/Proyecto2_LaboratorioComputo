@@ -275,9 +275,8 @@ public class FrmLogin extends javax.swing.JFrame {
      */
     private void boxUnidadesAcademicasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxUnidadesAcademicasActionPerformed
        
-        boxCentroComputo.removeAllItems();
-        int unidadSeleccionada = boxUnidadesAcademicas.getSelectedIndex();
-        llenarBoxCentros(centroComputoNegocio.buscarCentrosComputosPorUnidad(unidadAcademicaNegocio.buscarUnidadAcademica().get(unidadSeleccionada).getId()));
+        Long unidadSeleccionada = (long) boxCentroComputo.getSelectedIndex() + 2;
+        llenarBoxCentros(centroComputoNegocio.buscarCentrosComputosPorUnidad(unidadSeleccionada));
         
 
     }//GEN-LAST:event_boxUnidadesAcademicasActionPerformed

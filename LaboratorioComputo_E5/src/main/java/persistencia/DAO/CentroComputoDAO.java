@@ -295,17 +295,16 @@ public class CentroComputoDAO implements ICentroComputoDAO {
     public List<Object[]> obtenerReporteCentroComputo(List<String> nombresCarreras, List<String> nombresCentrosComputo, Calendar fechaInicio, Calendar fechaFin) {
 
 
-String jpql = "SELECT cc.nombre, comp.numMaquina, COUNT(e), SUM(u.minutosActivo) " +
-               "FROM ComputadoraEntidad comp " +
-               "JOIN comp.centroComputoEntidad cc " +
-               "JOIN comp.apartado u " +
-               "JOIN u.estudiante e " +
-               "JOIN e.carrera c " + 
-               "WHERE u.fechaInicio BETWEEN :fechaInicio AND :fechaFin " +
-               "AND c.nombre IN :nombresCarreras " +
-               "AND cc.nombre IN :nombresCentrosComputo " +
-               "GROUP BY cc.nombre, comp.numMaquina";
-
+    String jpql = "SELECT  comp.numMaquina, COUNT(e) " +
+                  "FROM ComputadoraEntidad comp " +
+                  "JOIN comp.centroComputoEntidad cc " +
+                  "JOIN comp.apartado u " +
+                  "JOIN u.estudiante e " +
+                  "JOIN e.carrera c " + 
+                  "WHERE cc.nombre IN :nombresCentrosComputo " +
+                  "AND c.nombre IN :nombresCarreras " +
+                  "AND u.fechaInicio BETWEEN :fechaInicio AND :fechaFin " +
+                  "GROUP BY comp.numMaquina";
 
         String jpql = "SELECT  comp.numMaquina, COUNT(e) "
                 + "FROM ComputadoraEntidad comp "
@@ -320,8 +319,24 @@ String jpql = "SELECT cc.nombre, comp.numMaquina, COUNT(e), SUM(u.minutosActivo)
 
     List<Object[]> reporte = query.getResultList();
     entityManager.close();
+    
+    // Calcular minutos de uso
+    List<Object[]> reporteConMinutosUso = new ArrayList<>();
+    for (Object[] row : reporte) {
+        String nombreCentro = (String) row[0];
+        String numMaquina = (String) row[1];
+        Long cantidadAlumnos = (Long) row[2];
+        Calendar fechaInicioUso = (Calendar) row[3];
+        Calendar fechaFinUso = (Calendar) row[4];
 
-    return reporte;
+        // Calcular la diferencia en minutos
+        long minutosUso = (fechaFinUso.getTimeInMillis() - fechaInicioUso.getTimeInMillis()) / (60 * 1000);
+
+        // Agregar al nuevo reporte
+        reporteConMinutosUso.add(new Object[] { nombreCentro, numMaquina, cantidadAlumnos, minutosUso });
+    }
+    
+    return reporteConMinutosUso;
 }
 
     public List<Object[]> obtenerReporteCentroComputoSinFiltro(Calendar fechaInicio, Calendar fechaFin) {

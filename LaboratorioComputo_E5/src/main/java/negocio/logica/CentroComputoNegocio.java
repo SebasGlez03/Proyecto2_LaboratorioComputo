@@ -5,7 +5,6 @@
 package negocio.logica;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import negocio.DTO.ApartadoDTO;
 import negocio.DTO.BloqueoDTO;
@@ -145,38 +144,5 @@ public class CentroComputoNegocio {
         } else { 
             return null;
         }
-    }
-    
-    
-        /**
-     * Obtiene una lista de todos los centros de cómputo registrados en la unidad.
-     * 
-     * @param fechaInicio
-     * @param fechaFin
-     * @return una lista de objetos CentroComputoDTO que representa todos los centros de cómputo de la unidad.
-     *         Si no hay centros de cómputo, retorna null.
-     */
-    public List<Object[]> obtenerReporteCentroComputoSinFiltro(Calendar fechaInicio, Calendar fechaFin) {
-    
-        List<Object[]> list = new ArrayList<>();
-        list = centroComputoDAO.obtenerReporteCentroComputoSinFiltro(fechaInicio, fechaFin);
-        return list;
-        
-    }
-    
-        /**
-     * Obtiene una lista de todos los centros de cómputo registrados en la unidad.
-     * 
-     * @param fechaInicio
-     * @param fechaFin
-     * @return una lista de objetos CentroComputoDTO que representa todos los centros de cómputo de la unidad.
-     *         Si no hay centros de cómputo, retorna null.
-     */
-    public List<Object[]> obtenerReporteCentroComputo(List<String> centros, List<String> carreras,Calendar fechaInicio, Calendar fechaFin) {
-    
-        List<Object[]> list = new ArrayList<>();
-        list = centroComputoDAO.obtenerReporteCentroComputo(carreras,centros , fechaInicio, fechaFin);
-        return list;
-        
     }
 }
