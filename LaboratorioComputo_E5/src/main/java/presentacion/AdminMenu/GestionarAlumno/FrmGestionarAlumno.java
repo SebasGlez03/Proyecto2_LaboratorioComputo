@@ -4,7 +4,19 @@
  */
 package presentacion.AdminMenu.GestionarAlumno;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+import negocio.DTO.CarreraDTO;
+import negocio.DTO.EstudianteDTO;
+import negocio.logica.CarreraNegocio;
+import negocio.logica.EstudianteNegocio;
 import presentacion.AdminMenu.FrmAdminMenu;
+import utilerias.JButtonCellEditor;
+import utilerias.JButtonRenderer;
 
 /**
  *
@@ -12,11 +24,203 @@ import presentacion.AdminMenu.FrmAdminMenu;
  */
 public class FrmGestionarAlumno extends javax.swing.JFrame {
 
+    CarreraNegocio carreraNegocio = new CarreraNegocio();
+    EstudianteNegocio estudianteNegocio = new EstudianteNegocio();
+
     /**
      * Creates new form FrmGestionarAlumno
      */
     public FrmGestionarAlumno() {
         initComponents();
+
+        botonEditarEnTabla();
+        botonEliminarEnTabla();
+        llenarTablaEstudiantes(estudianteNegocio.buscarTodosLosEstudiantes());
+    }
+
+    /**
+     * Metodo que llena la tabla de estudiantes con la informacion de la base de
+     * datos
+     *
+     * @param listaEstudiantes lista de estudiantes proveniente de la base de
+     * datos.
+     */
+    public void llenarTablaEstudiantes(List<EstudianteDTO> listaEstudiantes) {
+        DefaultTableModel modeloTabla = (DefaultTableModel) this.tblEstudiantes.getModel();
+
+        if (modeloTabla.getRowCount() > 0) {
+            for (int i = modeloTabla.getRowCount() - 1; i > -1; i--) {
+                modeloTabla.removeRow(i);
+            }
+        }
+
+        if (listaEstudiantes != null) {
+            listaEstudiantes.forEach(row -> {
+                Object[] fila = new Object[7];
+                fila[0] = row.getId();
+                fila[1] = row.getNombre();
+                fila[2] = row.getApellidoPaterno();
+                fila[3] = row.getApellidoMaterno();
+                fila[4] = row.getContrasenia();
+                fila[5] = row.getEstatusInscripcion();
+                fila[6] = row.getCarrera().getNombre();
+
+                modeloTabla.addRow(fila);
+            });
+        }
+    }
+
+    /**
+     * Metodo que transforma el nombre de la carrera del estudiante a una
+     * CarreraDTO
+     *
+     * @param nombreCarrera nombre de la carrera del esutidante
+     * @return CarreraDTO proveniente del nombre de la carrera del estudiante
+     */
+    public CarreraDTO obtenerCarreraDTOdeString(String nombreCarrera) {
+
+        for (CarreraDTO carrera : carreraNegocio.buscarCarreras()) {
+            if (carrera.getNombre().equals(nombreCarrera)) {
+                return carrera;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Metodo que agrega el boton en la tabla, que a su vez contiene la logica
+     * para eliminar el esutidante deseado
+     */
+    private void botonEliminarEnTabla() {
+
+        ActionListener onEliminarClickListener = new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Obtén la fila seleccionada
+                int filaSeleccionada = tblEstudiantes.getSelectedRow();
+
+                if (filaSeleccionada != -1) { // Verifica que haya una fila seleccionada
+                    // Usa el modelo para obtener los datos del estudiante en esa fila
+                    DefaultTableModel modeloTabla = (DefaultTableModel) tblEstudiantes.getModel();
+
+                    Long idEstudiante = (Long) modeloTabla.getValueAt(filaSeleccionada, 0); // Suponiendo que el ID esté en la columna 0
+                    String nombreEstudiante = (String) modeloTabla.getValueAt(filaSeleccionada, 1);
+                    String apellidoPaterno = (String) modeloTabla.getValueAt(filaSeleccionada, 2);
+                    String apellidoMaterno = (String) modeloTabla.getValueAt(filaSeleccionada, 3);
+                    String contrasenia = (String) modeloTabla.getValueAt(filaSeleccionada, 4);
+                    String estatusInscripcion = (String) modeloTabla.getValueAt(filaSeleccionada, 5);
+                    String carrera = (String) modeloTabla.getValueAt(filaSeleccionada, 6);
+
+                    // Crea un EstudianteDTO usando los datos obtenidos de la fila
+                    EstudianteDTO estudiante = new EstudianteDTO();
+                    CarreraDTO carreraDTO = new CarreraDTO();
+                    estudiante.setId(idEstudiante);
+                    estudiante.setNombre(nombreEstudiante);
+                    estudiante.setApellidoPaterno(apellidoPaterno);
+                    estudiante.setApellidoMaterno(apellidoMaterno);
+                    estudiante.setContrasenia(contrasenia);
+                    estudiante.setEstatusInscripcion(estatusInscripcion);
+                    estudiante.setCarrera(obtenerCarreraDTOdeString(carrera));
+
+                    // Aquí puedes implementar la lógica de eliminación o cualquier otra acción
+//                    System.out.println("Estudiante a eliminar: " + estudiante.toString());
+                    int respuesta = JOptionPane.showConfirmDialog(
+                            null,
+                            "¿Está seguro de que desea eliminar este alumno?",
+                            "Confirmar eliminación",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.QUESTION_MESSAGE
+                    );
+
+                    if (respuesta == JOptionPane.YES_OPTION) {
+                        try {
+                            estudianteNegocio.eliminarEstudiante(estudiante);
+                            JOptionPane.showMessageDialog(null, "El alumno se ha eliminado correctamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                            dispose();
+                            FrmGestionarAlumno frm = new FrmGestionarAlumno();
+                            frm.setVisible(true);
+                        } catch (Exception ex) {
+                            JOptionPane.showMessageDialog(null, "Ha ocurrido un error inesperado al eliminar el alumno: " + ex, "ERROR", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+
+                }
+            }
+        };
+
+        TableColumnModel modeloColumnas = this.tblEstudiantes.getColumnModel();
+        modeloColumnas.getColumn(8).setCellRenderer(new JButtonRenderer("Eliminar"));
+        modeloColumnas.getColumn(8).setCellEditor(new JButtonCellEditor("Eliminar", onEliminarClickListener));
+    }
+
+    /**
+     * Metodo que agrega el boton en la tabla, que a su vez contiene la logica
+     * para eliminar el esutidante deseado
+     */
+    private void botonEditarEnTabla() {
+
+        ActionListener onEliminarClickListener = new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Obtén la fila seleccionada
+                int filaSeleccionada = tblEstudiantes.getSelectedRow();
+
+                if (filaSeleccionada != -1) { // Verifica que haya una fila seleccionada
+                    // Usa el modelo para obtener los datos del estudiante en esa fila
+                    DefaultTableModel modeloTabla = (DefaultTableModel) tblEstudiantes.getModel();
+
+                    Long idEstudiante = (Long) modeloTabla.getValueAt(filaSeleccionada, 0); // Suponiendo que el ID esté en la columna 0
+                    String nombreEstudiante = (String) modeloTabla.getValueAt(filaSeleccionada, 1);
+                    String apellidoPaterno = (String) modeloTabla.getValueAt(filaSeleccionada, 2);
+                    String apellidoMaterno = (String) modeloTabla.getValueAt(filaSeleccionada, 3);
+                    String contrasenia = (String) modeloTabla.getValueAt(filaSeleccionada, 4);
+                    String estatusInscripcion = (String) modeloTabla.getValueAt(filaSeleccionada, 5);
+                    String carrera = (String) modeloTabla.getValueAt(filaSeleccionada, 6);
+
+                    // Crea un EstudianteDTO usando los datos obtenidos de la fila
+                    EstudianteDTO estudiante = new EstudianteDTO();
+                    CarreraDTO carreraDTO = new CarreraDTO();
+                    estudiante.setId(idEstudiante);
+                    estudiante.setNombre(nombreEstudiante);
+                    estudiante.setApellidoPaterno(apellidoPaterno);
+                    estudiante.setApellidoMaterno(apellidoMaterno);
+                    estudiante.setContrasenia(contrasenia);
+                    estudiante.setEstatusInscripcion(estatusInscripcion);
+                    estudiante.setCarrera(obtenerCarreraDTOdeString(carrera));
+
+                    // Aquí puedes implementar la lógica de eliminación o cualquier otra acción
+                    System.out.println("Estudiante a eliminar: " + estudiante.toString());
+                    FrmEditarAlumnoPopUp frmEAPU = new FrmEditarAlumnoPopUp(estudiante);
+                    frmEAPU.setVisible(true);
+//                    int respuesta = JOptionPane.showConfirmDialog(
+//                            null,
+//                            "¿Está seguro de que desea editar este alumno?",
+//                            "Confirmar eliminación",
+//                            JOptionPane.YES_NO_OPTION,
+//                            JOptionPane.QUESTION_MESSAGE
+//                    );
+//                    
+//                    if (respuesta == JOptionPane.YES_OPTION) {
+//                        try {
+//                            estudianteNegocio.modificarEstudiante(estudiante);
+//                            JOptionPane.showMessageDialog(null, "El alumno se ha eliminado correctamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+//                            dispose();
+//                            FrmGestionarAlumno frm = new FrmGestionarAlumno();
+//                            frm.setVisible(true);
+//                        } catch (Exception ex) {
+//                            JOptionPane.showMessageDialog(null, "Ha ocurrido un error inesperado al eliminar el alumno: " + ex, "ERROR", JOptionPane.ERROR_MESSAGE);
+//                        }
+//                    }
+
+                }
+            }
+        };
+
+        TableColumnModel modeloColumnas = this.tblEstudiantes.getColumnModel();
+        modeloColumnas.getColumn(7).setCellRenderer(new JButtonRenderer("Editar"));
+        modeloColumnas.getColumn(7).setCellEditor(new JButtonCellEditor("Editar", onEliminarClickListener));
     }
 
     /**
@@ -31,11 +235,9 @@ public class FrmGestionarAlumno extends javax.swing.JFrame {
         lblCentroDeComputo = new javax.swing.JLabel();
         lblGestionar = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblEstudiantes = new javax.swing.JTable();
         btnAtras = new javax.swing.JLabel();
         btnAgregar = new javax.swing.JLabel();
-        btnEditar = new javax.swing.JLabel();
-        btnEliminar = new javax.swing.JLabel();
         btnFlechaDerecha = new javax.swing.JLabel();
         btnFlechaIzquierda = new javax.swing.JLabel();
         fondo = new javax.swing.JLabel();
@@ -54,20 +256,38 @@ public class FrmGestionarAlumno extends javax.swing.JFrame {
         lblGestionar.setText("Gestionar");
         getContentPane().add(lblGestionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 40, -1, -1));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblEstudiantes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "idEstudiante", "Nombre", "ApellidoPaterno", "ApellidoMaterno", "Contraseña", "EstatusInscripcion", "Carrera", "Editar", "Eliminar"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, true, true
+            };
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, 810, -1));
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tblEstudiantes);
+        if (tblEstudiantes.getColumnModel().getColumnCount() > 0) {
+            tblEstudiantes.getColumnModel().getColumn(0).setResizable(false);
+            tblEstudiantes.getColumnModel().getColumn(0).setPreferredWidth(10);
+            tblEstudiantes.getColumnModel().getColumn(1).setResizable(false);
+            tblEstudiantes.getColumnModel().getColumn(2).setResizable(false);
+            tblEstudiantes.getColumnModel().getColumn(3).setResizable(false);
+            tblEstudiantes.getColumnModel().getColumn(4).setResizable(false);
+            tblEstudiantes.getColumnModel().getColumn(5).setResizable(false);
+            tblEstudiantes.getColumnModel().getColumn(6).setResizable(false);
+        }
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 960, -1));
 
         btnAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnAtras.png"))); // NOI18N
         btnAtras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -80,23 +300,20 @@ public class FrmGestionarAlumno extends javax.swing.JFrame {
 
         btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnAgregar.png"))); // NOI18N
         btnAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 670, -1, -1));
-
-        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnEditar.png"))); // NOI18N
-        btnEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 670, -1, -1));
-
-        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnEliminar.png"))); // NOI18N
-        btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 670, -1, -1));
+        btnAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAgregarMouseClicked(evt);
+            }
+        });
+        getContentPane().add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 670, -1, -1));
 
         btnFlechaDerecha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnFlechaD.png"))); // NOI18N
         btnFlechaDerecha.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(btnFlechaDerecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 410, -1, -1));
+        getContentPane().add(btnFlechaDerecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 670, -1, -1));
 
         btnFlechaIzquierda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnFlechaI.png"))); // NOI18N
         btnFlechaIzquierda.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(btnFlechaIzquierda, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, -1, -1));
+        getContentPane().add(btnFlechaIzquierda, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 670, -1, -1));
 
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BackGroundGeneral.jpg"))); // NOI18N
         getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -110,6 +327,11 @@ public class FrmGestionarAlumno extends javax.swing.JFrame {
         new FrmAdminMenu().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAtrasMouseClicked
+
+    private void btnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMouseClicked
+        FrmAgregarAlumno frm = new FrmAgregarAlumno();
+        frm.setVisible(true);
+    }//GEN-LAST:event_btnAgregarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -149,14 +371,12 @@ public class FrmGestionarAlumno extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnAgregar;
     private javax.swing.JLabel btnAtras;
-    private javax.swing.JLabel btnEditar;
-    private javax.swing.JLabel btnEliminar;
     private javax.swing.JLabel btnFlechaDerecha;
     private javax.swing.JLabel btnFlechaIzquierda;
     private javax.swing.JLabel fondo;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblCentroDeComputo;
     private javax.swing.JLabel lblGestionar;
+    private javax.swing.JTable tblEstudiantes;
     // End of variables declaration//GEN-END:variables
 }
