@@ -37,7 +37,7 @@ public class FrmReporteCarrera extends javax.swing.JFrame {
     CarreraNegocio carreraNegcio = new CarreraNegocio();
     DateTimePicker dateTimePicker = new DateTimePicker();
     DateTimePicker dateTimePicker2 = new DateTimePicker();
-    List<CarreraDTO> listaCarrerasAFiltrar = new ArrayList<>();
+    List<String> listaCarrerasAFiltrar = new ArrayList<>();
 
     /**
      * Creates new form FrmReporteCarrera
@@ -92,59 +92,8 @@ public class FrmReporteCarrera extends javax.swing.JFrame {
      * reportes
      * @return Lista de objetos del reporte
      */
-    public void generarReporteCarrera(Calendar inicio, Calendar fin, List<CarreraDTO> listaCarreras) {
-
-        String dest = "reporteCarrera.pdf";
-
-        try {
-            PdfWriter writer = new PdfWriter(dest);
-            PdfDocument pdfDoc = new PdfDocument(writer);
-            Document document = new Document(pdfDoc);
-
-            document.add(new Paragraph("Reporte de uso de computadoras desde: " + inicio.toString() + " hasta: " + fin.toString()));
-
-            // Crear la consulta JPQL
-            EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
-            EntityManager entityManager = entityManagerFactory.createEntityManager();
-            TypedQuery<Object[]> query = entityManager.createQuery(
-                    "SELECT e.carrera.nombre "
-                    + "FROM ApartadoEntidad a "
-                    + "JOIN a.estudiante e "
-                    + "WHERE a.fechaInicio BETWEEN :inicio AND :fin "
-                    + "AND e.carrera IN (:listaCarreras) "
-                    + "GROUP BY e.carrera.nombre", Object[].class
-            );
-            query.setParameter("inicio", inicio);
-            query.setParameter("fin", fin);
-            query.setParameter("listaCarreras", listaCarreras);
-
-            // Ejecutar la consulta
-            List<Object[]> resultados = query.getResultList();
-
-            // Crear tabla para el PDF
-            float[] columnWidths = {200, 200};
-            Table table = new Table(columnWidths);
-            table.addCell("Carrera");
-            table.addCell("Minutos Usados");
-
-            // Agregar los resultados a la tabla
-            for (Object[] resultado : resultados) {
-                table.addCell((String) resultado[0]); // Carrera
-                table.addCell(String.valueOf(resultado[1])); // Minutos usados
-            }
-
-            document.add(table);
-            document.close();
-
-            System.out.println("¡Reporte generado con éxito!");
-            JOptionPane.showMessageDialog(null, "Reporte de carrera generado con éxito!");
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace(); // Manejo de otros posibles errores
-        }
-
+    public void generarReporteCarrera(Calendar inicio, Calendar fin, List<String> listaCarreras) {
+        
     }
 
     /**
@@ -260,7 +209,7 @@ public class FrmReporteCarrera extends javax.swing.JFrame {
 
     private void btnAgregarCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCarreraActionPerformed
         CarreraDTO carrera = carreraNegcio.buscarCarreras().get(comboBoxCarrera.getSelectedIndex());
-        listaCarrerasAFiltrar.add(carrera);
+        listaCarrerasAFiltrar.add(carrera.getNombre());
         txtAreaNotificador.append("Se agrego la carrera: " + carrera.getNombre() + " a la lista del filtro.\n");
     }//GEN-LAST:event_btnAgregarCarreraActionPerformed
 
@@ -275,6 +224,8 @@ public class FrmReporteCarrera extends javax.swing.JFrame {
         LocalDateTime fechaFin = dateTimePicker2.getDateTimePermissive();
 
         generarReporteCarrera(convertirDateTimePickerACalendar(fechaInicio), convertirDateTimePickerACalendar(fechaFin), listaCarrerasAFiltrar);
+//        CarreraDTO carrera = carreraNegcio.buscarCarreras().get(comboBoxCarrera.getSelectedIndex());
+//        generarReporteCarrera(convertirDateTimePickerACalendar(fechaInicio), convertirDateTimePickerACalendar(fechaFin), carrera);
     }//GEN-LAST:event_btnGenerarReporteActionPerformed
 
     /**
