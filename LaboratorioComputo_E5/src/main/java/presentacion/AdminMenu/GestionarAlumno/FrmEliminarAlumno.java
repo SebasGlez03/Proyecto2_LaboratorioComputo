@@ -105,12 +105,22 @@ public class FrmEliminarAlumno extends javax.swing.JFrame {
 
                     // Aquí puedes implementar la lógica de eliminación o cualquier otra acción
 //                    System.out.println("Estudiante a eliminar: " + estudiante.toString());
-                    try {
-                        estudianteNegocio.eliminarEstudiante(estudiante);
-                        JOptionPane.showMessageDialog(null, "El alumno se ha eliminado correctamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-                        dispose();
-                    } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(null, "Ha ocurrido un error inesperado al eliminar el alumno: " + ex, "ERROR", JOptionPane.ERROR_MESSAGE);
+                    int respuesta = JOptionPane.showConfirmDialog(
+                            null,
+                            "¿Está seguro de que desea eliminar este alumno?",
+                            "Confirmar eliminación",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.QUESTION_MESSAGE
+                    );
+
+                    if (respuesta == JOptionPane.YES_OPTION) {
+                        try {
+                            estudianteNegocio.eliminarEstudiante(estudiante);
+                            JOptionPane.showMessageDialog(null, "El alumno se ha eliminado correctamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                            dispose();
+                        } catch (Exception ex) {
+                            JOptionPane.showMessageDialog(null, "Ha ocurrido un error inesperado al eliminar el alumno: " + ex, "ERROR", JOptionPane.ERROR_MESSAGE);
+                        }
                     }
 
                 }
