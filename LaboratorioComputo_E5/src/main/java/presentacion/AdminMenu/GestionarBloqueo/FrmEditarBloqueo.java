@@ -4,17 +4,82 @@
  */
 package presentacion.AdminMenu.GestionarBloqueo;
 
+import com.github.lgooddatepicker.components.DateTimePicker;
+import java.awt.FlowLayout;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
+import javax.swing.JOptionPane;
+import negocio.DTO.BloqueoDTO;
+import negocio.DTO.EstudianteDTO;
+import negocio.logica.BloqueoNegocio;
+import negocio.logica.EstudianteNegocio;
+
 /**
  *
  * @author nomar
  */
 public class FrmEditarBloqueo extends javax.swing.JFrame {
 
+    DateTimePicker dateTimePicker = new DateTimePicker();
+    DateTimePicker dateTimePicker2 = new DateTimePicker();
+
+    BloqueoNegocio bloqueoNegocio = new BloqueoNegocio();
+    EstudianteNegocio estudianteNegocio = new EstudianteNegocio();
+    BloqueoDTO bloqueo;
+
     /**
-     * Creates new form FrmEditarBloqueo
+     * Creates new form FrmAgregarBloqueo
      */
-    public FrmEditarBloqueo() {
+    public FrmEditarBloqueo(BloqueoDTO bloqueo) {
         initComponents();
+        this.bloqueo = bloqueo;
+
+        llenarBoxCarreras(estudianteNegocio.buscarTodosLosEstudiantes());
+
+        campoTextoMotivo.setText(bloqueo.getMotivo());
+
+        fldFechaBloqueo.setLayout(new FlowLayout());
+        fldFechaBloqueo.add(dateTimePicker);
+        fldFechaLiberacion.setLayout(new FlowLayout());
+        fldFechaLiberacion.add(dateTimePicker2);
+    }
+
+    public FrmEditarBloqueo() {
+    }
+
+    /**
+     * Metodo que se encarga de llenar el comboBox con los estudiantes de la
+     * base de datos
+     *
+     * @param estudiante Lista de estudiantes que pueden recibir un bloqueo
+     */
+    private void llenarBoxCarreras(List<EstudianteDTO> estudiante) {
+        int i = 0;
+        while (estudiante.size() > i) {
+            comboBoxEstudiante.addItem(estudiante.get(i).getId().toString());
+            i++;
+        }
+    }
+
+    /**
+     * Metodo que transforma el ID de el estudiante que se le bloqueo la
+     * computadora a un EstudianteDTO
+     *
+     * @param idEstudiante id del estudiante
+     * @return EstudianteDTO proveniente de el idEstudiante
+     */
+    public EstudianteDTO obtenerEstudianteDTOdeString(Long idEstudiante) {
+
+        for (EstudianteDTO estudiante : estudianteNegocio.buscarTodosLosEstudiantes()) {
+            if (estudiante.getId() == idEstudiante) {
+                return estudiante;
+            }
+        }
+        return null;
     }
 
     /**
@@ -26,21 +91,156 @@ public class FrmEditarBloqueo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        campoTextoMotivo = new javax.swing.JTextField();
+        lblEstudiante1 = new javax.swing.JLabel();
+        lblEstudiante = new javax.swing.JLabel();
+        comboBoxEstudiante = new javax.swing.JComboBox<>();
+        lblFechaLiberacion = new javax.swing.JLabel();
+        fldFechaLiberacion = new javax.swing.JPanel();
+        fldFechaBloqueo = new javax.swing.JPanel();
+        lblFechaBloqueo = new javax.swing.JLabel();
+        btnEditar = new javax.swing.JButton();
+        btnReiniciar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        Titulo = new javax.swing.JLabel();
+        fondo = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(campoTextoMotivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 400, 350, 90));
+
+        lblEstudiante1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblEstudiante1.setForeground(new java.awt.Color(255, 255, 255));
+        lblEstudiante1.setText("Motivo");
+        getContentPane().add(lblEstudiante1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, -1, -1));
+
+        lblEstudiante.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblEstudiante.setForeground(new java.awt.Color(255, 255, 255));
+        lblEstudiante.setText("Estudiante");
+        getContentPane().add(lblEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, -1, -1));
+
+        getContentPane().add(comboBoxEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, 180, 40));
+
+        lblFechaLiberacion.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblFechaLiberacion.setForeground(new java.awt.Color(255, 255, 255));
+        lblFechaLiberacion.setText("Fecha Liberación");
+        getContentPane().add(lblFechaLiberacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, -1, -1));
+        getContentPane().add(fldFechaLiberacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 350, 40));
+        getContentPane().add(fldFechaBloqueo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 350, 40));
+
+        lblFechaBloqueo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblFechaBloqueo.setForeground(new java.awt.Color(255, 255, 255));
+        lblFechaBloqueo.setText("Fecha Bloqueo");
+        getContentPane().add(lblFechaBloqueo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, -1));
+
+        btnEditar.setBackground(new java.awt.Color(255, 153, 0));
+        btnEditar.setForeground(new java.awt.Color(0, 0, 0));
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 550, -1, -1));
+
+        btnReiniciar.setText("Reiniciar");
+        btnReiniciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReiniciarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnReiniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 550, -1, -1));
+
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 550, -1, -1));
+
+        Titulo.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        Titulo.setForeground(new java.awt.Color(255, 255, 255));
+        Titulo.setText("Agregar Bloqueo");
+        getContentPane().add(Titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, -1));
+
+        fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/backgroundChico.jpg"))); // NOI18N
+        getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    /**
+     * Boton que edita el bloqueo
+     *
+     * @param evt presionar el boton Agregar
+     */
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        try {
+            // Obtener la fecha de bloqueo y de liberación de los componentes DateTimePicker
+            LocalDateTime fechaBloqueoLocal = dateTimePicker.getDateTimePermissive();
+            LocalDateTime fechaLiberacionLocal = dateTimePicker2.getDateTimePermissive();
+
+            if (fechaBloqueoLocal == null || fechaLiberacionLocal == null) {
+                JOptionPane.showMessageDialog(this, "Debe seleccionar ambas fechas.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Convertir LocalDateTime a Date
+            Date fechaBloqueoDate = Date.from(fechaBloqueoLocal.atZone(ZoneId.systemDefault()).toInstant());
+            Date fechaLiberacionDate = Date.from(fechaLiberacionLocal.atZone(ZoneId.systemDefault()).toInstant());
+
+            // Convertir Date a Calendar
+            Calendar fechaBloqueo = Calendar.getInstance();
+            fechaBloqueo.setTime(fechaBloqueoDate);
+
+            Calendar fechaLiberacion = Calendar.getInstance();
+            fechaLiberacion.setTime(fechaLiberacionDate);
+
+            // Obtener el ID del estudiante seleccionado y el motivo del campo de texto
+            String estudianteId = (String) comboBoxEstudiante.getSelectedItem();
+            String motivo = campoTextoMotivo.getText().trim();
+
+            if (motivo.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Debe proporcionar un motivo.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            EstudianteDTO estudiante = estudianteNegocio.buscarTodosLosEstudiantes().get(comboBoxEstudiante.getSelectedIndex());
+            
+            // Agregar los cambios al bloqueo
+            bloqueo.setMotivo(motivo);
+            bloqueo.setFechaBloqueo(fechaBloqueo);
+            bloqueo.setFechaLiberacion(fechaLiberacion);
+            bloqueo.setEstudiante(estudiante);
+
+
+            // Llamar al método de negocio para editar el bloqueo
+            bloqueoNegocio.modificarBloqueo(bloqueo);
+
+            // Confirmar éxito al usuario
+            JOptionPane.showMessageDialog(this, "Bloqueo modificado exitosamente.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+
+            // Limpiar campos si es necesario
+            dateTimePicker.clear();
+            dateTimePicker2.clear();
+            campoTextoMotivo.setText("");
+            comboBoxEstudiante.setSelectedIndex(0);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ocurrió un error al agregar el bloqueo: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnReiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnReiniciarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -68,6 +268,7 @@ public class FrmEditarBloqueo extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(FrmEditarBloqueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -78,5 +279,18 @@ public class FrmEditarBloqueo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Titulo;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnReiniciar;
+    private javax.swing.JTextField campoTextoMotivo;
+    private javax.swing.JComboBox<String> comboBoxEstudiante;
+    private javax.swing.JPanel fldFechaBloqueo;
+    private javax.swing.JPanel fldFechaLiberacion;
+    private javax.swing.JLabel fondo;
+    private javax.swing.JLabel lblEstudiante;
+    private javax.swing.JLabel lblEstudiante1;
+    private javax.swing.JLabel lblFechaBloqueo;
+    private javax.swing.JLabel lblFechaLiberacion;
     // End of variables declaration//GEN-END:variables
 }

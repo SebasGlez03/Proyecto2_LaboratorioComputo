@@ -178,7 +178,7 @@ public class FrmGestionarAlumno extends javax.swing.JFrame {
 
     /**
      * Metodo que agrega el boton en la tabla, que a su vez contiene la logica
-     * para eliminar el esutidante deseado
+     * para editar el esutidante deseado
      */
     private void botonEditarEnTabla() {
 
