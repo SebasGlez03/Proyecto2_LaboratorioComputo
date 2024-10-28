@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
 import persistencia.Interfaces.ICentroComputoDAO;
 
 /**
- * La clase {@code CentroComputoDAO} maneja las operaciones de persistencia
+ * La clasee {@code CentroComputoDAO} maneja las operaciones de persistencia
  * relacionadas con la entidad {@code CentroComputoEntidad}. 
  * Esta clase implementa métodos para guardar, eliminar y modificar registros
  * en la base de datos utilizando JPA y {@code EntityManager}.
