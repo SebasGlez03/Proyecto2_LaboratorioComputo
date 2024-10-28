@@ -10,6 +10,13 @@ import java.util.List;
 import negocio.DTO.CarreraDTO;
 import negocio.logica.CarreraNegocio;
 import presentacion.AdminMenu.FrmReportes;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import com.itextpdf.kernel.pdf.PdfWriter;
 
 /**
  *
@@ -20,6 +27,7 @@ public class FrmReporteCarrera extends javax.swing.JFrame {
     CarreraNegocio carreraNegcio = new CarreraNegocio();
     DateTimePicker dateTimePicker = new DateTimePicker();
     DateTimePicker dateTimePicker2 = new DateTimePicker();
+    List<CarreraDTO> listaCarrerasAFiltrar = new ArrayList<>();
 
     /**
      * Creates new form FrmReporteCarrera
@@ -47,8 +55,28 @@ public class FrmReporteCarrera extends javax.swing.JFrame {
             i++;
         }
     }
-    
-    public void generarReporteCarrera(){
+
+    /**
+     * Metodo que transforma una fecha LocalDateTime a Calendar
+     *
+     * @param fechaAConvertir Fecha de tipo LocalDateTime a convertir
+     * @return Fecha convertida a Calendar
+     */
+    private Calendar convertirDateTimePickerACalendar(LocalDateTime fechaAConvertir) {
+
+        Date FechaConvertidaADate = Date.from(fechaAConvertir.atZone(ZoneId.systemDefault()).toInstant());
+
+        Calendar fechaConvertidaCalendar = Calendar.getInstance();
+        fechaConvertidaCalendar.setTime(FechaConvertidaADate);
+
+        return fechaConvertidaCalendar;
+    }
+
+    public void generarReporteCarrera(Timestamp inicio, Timestamp fin, List<CarreraDTO> listaCarreras) {
+        
+        String dest = "reporteCarrera.pdf";
+        
+//        PdfWriter writer = new PdfWriter();
         
     }
 
@@ -61,12 +89,17 @@ public class FrmReporteCarrera extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnGenerarReporte = new javax.swing.JButton();
+        btnLimpiar = new javax.swing.JButton();
+        btnAgregarCarrera = new javax.swing.JButton();
         lblCarreras = new javax.swing.JLabel();
         lblFechaFin = new javax.swing.JLabel();
         lblFechaInicio = new javax.swing.JLabel();
         comboBoxCarrera = new javax.swing.JComboBox<>();
         fldFechaFin = new javax.swing.JPanel();
         fldFechaInicio = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtAreaNotificador = new javax.swing.JTextArea();
         reporte = new javax.swing.JLabel();
         carrera = new javax.swing.JLabel();
         btnAtras = new javax.swing.JLabel();
@@ -76,10 +109,30 @@ public class FrmReporteCarrera extends javax.swing.JFrame {
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        btnGenerarReporte.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnGenerarReporte.setText("Generar Reporte");
+        getContentPane().add(btnGenerarReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 460, 240, 100));
+
+        btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 630, -1, -1));
+
+        btnAgregarCarrera.setText("Agregar");
+        btnAgregarCarrera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarCarreraActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnAgregarCarrera, new org.netbeans.lib.awtextra.AbsoluteConstraints(315, 430, 90, 40));
+
         lblCarreras.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblCarreras.setForeground(new java.awt.Color(255, 255, 255));
         lblCarreras.setText("Carreras");
-        getContentPane().add(lblCarreras, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 440, -1, -1));
+        getContentPane().add(lblCarreras, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 390, -1, -1));
 
         lblFechaFin.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblFechaFin.setForeground(new java.awt.Color(255, 255, 255));
@@ -91,9 +144,15 @@ public class FrmReporteCarrera extends javax.swing.JFrame {
         lblFechaInicio.setText("Fecha Inicio");
         getContentPane().add(lblFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, -1, -1));
 
-        getContentPane().add(comboBoxCarrera, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 480, 210, 40));
+        getContentPane().add(comboBoxCarrera, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 430, 250, 40));
         getContentPane().add(fldFechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 300, 350, 40));
         getContentPane().add(fldFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, 350, 40));
+
+        txtAreaNotificador.setColumns(20);
+        txtAreaNotificador.setRows(5);
+        jScrollPane1.setViewportView(txtAreaNotificador);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 500, 350, 120));
 
         reporte.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         reporte.setForeground(new java.awt.Color(255, 255, 255));
@@ -126,6 +185,18 @@ public class FrmReporteCarrera extends javax.swing.JFrame {
         new FrmReportes().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAtrasMouseClicked
+
+    private void btnAgregarCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCarreraActionPerformed
+        CarreraDTO carrera = carreraNegcio.buscarCarreras().get(comboBoxCarrera.getSelectedIndex());
+        listaCarrerasAFiltrar.add(carrera);
+        txtAreaNotificador.append("Se agrego la carrera: " + carrera.getNombre() + " a la lista del filtro.\n");
+    }//GEN-LAST:event_btnAgregarCarreraActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        listaCarrerasAFiltrar.clear();
+
+        txtAreaNotificador.setText("Se vacio le lista de carreras a filtrar!\n");
+    }//GEN-LAST:event_btnLimpiarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -163,15 +234,20 @@ public class FrmReporteCarrera extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarCarrera;
     private javax.swing.JLabel btnAtras;
+    private javax.swing.JButton btnGenerarReporte;
+    private javax.swing.JButton btnLimpiar;
     private javax.swing.JLabel carrera;
     private javax.swing.JComboBox<String> comboBoxCarrera;
     private javax.swing.JPanel fldFechaFin;
     private javax.swing.JPanel fldFechaInicio;
     private javax.swing.JLabel fondo;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCarreras;
     private javax.swing.JLabel lblFechaFin;
     private javax.swing.JLabel lblFechaInicio;
     private javax.swing.JLabel reporte;
+    private javax.swing.JTextArea txtAreaNotificador;
     // End of variables declaration//GEN-END:variables
 }
