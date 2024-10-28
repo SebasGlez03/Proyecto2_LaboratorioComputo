@@ -29,6 +29,8 @@ public class FrmInsertarUnidad extends javax.swing.JFrame {
         centroDeComputo = new javax.swing.JLabel();
         reporte = new javax.swing.JLabel();
         btnAtras = new javax.swing.JLabel();
+        fldUnidad = new javax.swing.JTextField();
+        centroDeComputo1 = new javax.swing.JLabel();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -37,7 +39,7 @@ public class FrmInsertarUnidad extends javax.swing.JFrame {
         centroDeComputo.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         centroDeComputo.setForeground(new java.awt.Color(255, 255, 255));
         centroDeComputo.setText("Unidad");
-        getContentPane().add(centroDeComputo, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 90, -1, -1));
+        getContentPane().add(centroDeComputo, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 90, -1, -1));
 
         reporte.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         reporte.setForeground(new java.awt.Color(255, 255, 255));
@@ -51,6 +53,13 @@ public class FrmInsertarUnidad extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 680, -1, -1));
+        getContentPane().add(fldUnidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 310, 270, 50));
+
+        centroDeComputo1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        centroDeComputo1.setForeground(new java.awt.Color(255, 255, 255));
+        centroDeComputo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        centroDeComputo1.setText("Unidad");
+        getContentPane().add(centroDeComputo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 230, 1000, -1));
 
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BackGroundGeneral.jpg"))); // NOI18N
         getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -103,6 +112,8 @@ public class FrmInsertarUnidad extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnAtras;
     private javax.swing.JLabel centroDeComputo;
+    private javax.swing.JLabel centroDeComputo1;
+    private javax.swing.JTextField fldUnidad;
     private javax.swing.JLabel fondo;
     private javax.swing.JLabel reporte;
     // End of variables declaration//GEN-END:variables
