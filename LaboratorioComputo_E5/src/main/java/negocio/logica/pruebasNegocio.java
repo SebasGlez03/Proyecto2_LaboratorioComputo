@@ -80,34 +80,34 @@ public class pruebasNegocio {
         
         ApartadoEntidad apartadoEntidad = new ApartadoEntidad(Calendar.getInstance(), Calendar.getInstance(), estudianteEntidad, computadoraEntidad);
      
-        ApartadoDTO apNeg = new ApartadoDTO(apartadoEntidad);
-        List<ApartadoDTO> apN = new ArrayList<>();    
-
-        apN.add(apNeg);
-        
-        caEntidad.setEstudiante(estudiantes);
-        
-
-
-        CarreraDTO carreraDTO = new CarreraDTO(caEntidad);
-        
-        carreraN.guardarCarrera(carreraDTO);
-
-        apartadoN.guardarApartado(apNeg);
+//        ApartadoDTO apNeg = new ApartadoDTO(apartadoEntidad);
+//        List<ApartadoDTO> apN = new ArrayList<>();    
+//
+//        apN.add(apNeg);
 //        
-        UnidadAcademicaDTO unidadAcademicaDTO = new UnidadAcademicaDTO(uaEntidad);
-        
-        unidadAcademicaN.guardarUnidadAcademica(unidadAcademicaDTO);
+//        caEntidad.setEstudiante(estudiantes);
+//        
 
-        CentroComputoDTO centroComputoDTO = new CentroComputoDTO(centroComputoEntidad);
-        
-        centroComputoN.guardarCentroComputo(centroComputoDTO);
-        
-        Long id = Long.decode("1");
+//
+//        CarreraDTO carreraDTO = new CarreraDTO(caEntidad);
+//        
+//        carreraN.guardarCarrera(carreraDTO);
+//
+//        apartadoN.guardarApartado(apNeg);
+////        
+//        UnidadAcademicaDTO unidadAcademicaDTO = new UnidadAcademicaDTO(uaEntidad);
+//        
+//        unidadAcademicaN.guardarUnidadAcademica(unidadAcademicaDTO);
+//
+//        CentroComputoDTO centroComputoDTO = new CentroComputoDTO(centroComputoEntidad);
+//        
+//        centroComputoN.guardarCentroComputo(centroComputoDTO);
+//        
+//        Long id = Long.decode("1");
+//
 
+        System.out.println(centroComputoN.buscarCentrosComputos().toString());
 
-        System.out.println(centroComputoN.buscarCentroComputo(id).toString());
-        System.out.println(computadoraN.buscarComputadorasPorCentro(id).toString());
 
         
 

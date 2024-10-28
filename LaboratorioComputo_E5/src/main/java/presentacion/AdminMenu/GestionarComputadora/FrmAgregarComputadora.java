@@ -7,6 +7,11 @@ package presentacion.AdminMenu.GestionarComputadora;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+import negocio.DTO.CentroComputoDTO;
+import negocio.DTO.ComputadoraDTO;
+import negocio.logica.CentroComputoNegocio;
+import negocio.logica.ComputadoraNegocio;
 import utilerias.LectorIp;
 
 /**
@@ -15,6 +20,10 @@ import utilerias.LectorIp;
  */
 public class FrmAgregarComputadora extends javax.swing.JFrame {
 
+    DefaultListModel<String> listModel = new DefaultListModel<>();
+    CentroComputoNegocio centroComputoNegocio = new CentroComputoNegocio();
+    List<CentroComputoDTO> centros = new ArrayList<>();
+    CentroComputoDTO centro = new CentroComputoDTO();
     /**
      * Creates new form FrmAgregarComputadora
      */
@@ -23,6 +32,19 @@ public class FrmAgregarComputadora extends javax.swing.JFrame {
     
     public FrmAgregarComputadora() {
         initComponents();
+                
+        centros = centroComputoNegocio.buscarCentrosComputos();
+        llenarBoxCentros(centros);
+                
+    }
+    
+    
+    private void llenarBoxCentros(List<CentroComputoDTO> CentroComputo) {
+        int i = 0;
+        while (CentroComputo.size() > i) {
+            boxCentroComputo.addItem(CentroComputo.get(i).getNombre());
+            i++;
+        }
     }
 
     /**
@@ -52,6 +74,8 @@ public class FrmAgregarComputadora extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         listSoftware = new javax.swing.JList<>();
         btnAgregarIP = new javax.swing.JButton();
+        lblSoftware2 = new javax.swing.JLabel();
+        boxCentroComputo = new javax.swing.JComboBox<>();
         fondo = new javax.swing.JLabel();
 
         checkAdmin1.addActionListener(new java.awt.event.ActionListener() {
@@ -134,12 +158,12 @@ public class FrmAgregarComputadora extends javax.swing.JFrame {
 
         lblSoftware1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblSoftware1.setForeground(new java.awt.Color(255, 255, 255));
-        lblSoftware1.setText("Software a agregar");
-        getContentPane().add(lblSoftware1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 340, -1, -1));
+        lblSoftware1.setText("Centro de Cómputo");
+        getContentPane().add(lblSoftware1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 450, -1, -1));
 
         jScrollPane1.setViewportView(listSoftware);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 370, 270, 110));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 370, 270, 70));
 
         btnAgregarIP.setText("Conseguir Ip de esta computadora");
         btnAgregarIP.addActionListener(new java.awt.event.ActionListener() {
@@ -148,6 +172,18 @@ public class FrmAgregarComputadora extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnAgregarIP, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 93, 250, 20));
+
+        lblSoftware2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblSoftware2.setForeground(new java.awt.Color(255, 255, 255));
+        lblSoftware2.setText("Software a agregar");
+        getContentPane().add(lblSoftware2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 340, -1, -1));
+
+        boxCentroComputo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boxCentroComputoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(boxCentroComputo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 480, 270, 40));
 
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/backgroundChico.jpg"))); // NOI18N
         getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -166,8 +202,29 @@ public class FrmAgregarComputadora extends javax.swing.JFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
-        System.out.println(software.toString());
+        String ip = campoTextoIP.getText();
+        int numMaquina = Integer.parseInt(campoTextoNumeroMaquina.getText());
+        Boolean esAdmin = checkAdmin.isSelected();
         
+
+        try {
+            ComputadoraNegocio computadoraNegocio = new ComputadoraNegocio();
+
+            ComputadoraDTO computadora = new ComputadoraDTO();
+            
+            computadora.setIp(ip);
+            computadora.setEsAdmin(esAdmin);
+            computadora.setSoftware(software);
+            computadora.setNumComputadora(numMaquina);
+            computadora.setCentroComputo(centro);
+
+            computadoraNegocio.guardarComputadora(computadora);
+            JOptionPane.showMessageDialog(this, "La computadora se ha agregado correctamente.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ha ocurrido un error inesperado: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void checkAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkAdminActionPerformed
@@ -180,10 +237,9 @@ public class FrmAgregarComputadora extends javax.swing.JFrame {
 
     private void btnSoftwareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSoftwareActionPerformed
         // TODO add your handling code here:
-        DefaultListModel<String> listModel = new DefaultListModel<>();
-        listModel.setSize(softwareCounter);
-        listModel.add(softwareCounter,fldSoftware.getText());
         listSoftware.setModel(listModel);
+        listModel.add(softwareCounter,fldSoftware.getText());
+        listModel.setSize(20);
         this.software.add(fldSoftware.getText());
         fldSoftware.setText("");
         softwareCounter++;
@@ -195,6 +251,12 @@ public class FrmAgregarComputadora extends javax.swing.JFrame {
         LectorIp lector = new LectorIp();
         campoTextoIP.setText(lector.getLocalIPAddress());
     }//GEN-LAST:event_btnAgregarIPActionPerformed
+
+    private void boxCentroComputoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxCentroComputoActionPerformed
+        // TODO add your handling code here:
+        this.centro = centros.get(boxCentroComputo.getSelectedIndex() );
+       
+    }//GEN-LAST:event_boxCentroComputoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -233,6 +295,7 @@ public class FrmAgregarComputadora extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Titulo;
+    private javax.swing.JComboBox<String> boxCentroComputo;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnAgregarIP;
     private javax.swing.JButton btnCancelar;
@@ -250,6 +313,7 @@ public class FrmAgregarComputadora extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblSoftware;
     private javax.swing.JLabel lblSoftware1;
+    private javax.swing.JLabel lblSoftware2;
     private javax.swing.JList<String> listSoftware;
     // End of variables declaration//GEN-END:variables
 }
