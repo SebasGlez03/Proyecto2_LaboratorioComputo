@@ -14,45 +14,48 @@ import utilerias.LectorIp;
 
 /**
  *
- * @author santiago
+ * Clase `buscarComputadoraIp` que verifica si una computadora con una IP específica está registrada en el sistema,
+ * y abre el formulario correspondiente según el perfil del usuario
+ * (admin o usuario regular).
  */
 public class buscarComputadoraIp {
 
-    
-        ComputadoraNegocio computadoraNegocio = new ComputadoraNegocio();
-    ComputadoraDTO computadoraUsuario = new ComputadoraDTO();
-    LectorIp lector = new LectorIp();
-    
+    // Instancias de clases necesarias para la funcionalidad
+    ComputadoraNegocio computadoraNegocio = new ComputadoraNegocio(); // Negocio para gestionar computadoras
+    ComputadoraDTO computadoraUsuario = new ComputadoraDTO(); // DTO de la computadora del usuario
+    LectorIp lector = new LectorIp(); // Utilidad para obtener la IP local
+
+    /**
+     * Método para buscar una computadora en el sistema usando su dirección IP local.
+     * Si la computadora existe en el sistema, verifica si el usuario es admin o no
+     * y abre el formulario correspondiente.
+     */
     public void buscarComputadoraPorIP(){
     
+        // Obtener la dirección IP de la computadora local
         String ip;
         ip = lector.getLocalIPAddress();
-        System.out.println(ip);
+        System.out.println(ip); // Imprimir la IP para depuración
+
+        // Verificar si la computadora con esa IP está registrada en el sistema
         if (computadoraNegocio.buscarComputadorasPorIP(ip).isEmpty()){
 
+           // Mostrar mensaje si la computadora no está registrada
            JOptionPane.showMessageDialog(new JFrame(), "Esta computadora no es parte del sistema" ); 
            
-            
-        }else
-        {
-            
+        } else {
+            // Obtener la primera computadora encontrada con la IP
             this.computadoraUsuario = computadoraNegocio.buscarComputadorasPorIP(ip).getFirst();  
-                    if(computadoraUsuario.isEsAdmin()){
-        FrmLogin frm = new FrmLogin();
-        frm.setVisible(true);
-        }
-        else{
-        
-            FrmComputadora frm = new FrmComputadora(computadoraUsuario);
-            frm.setVisible(true);
+
+            // Verificar si el usuario es admin y abrir el formulario adecuado
+            if (computadoraUsuario.isEsAdmin()) {
+                FrmLogin frm = new FrmLogin(); // Abrir formulario de inicio de sesión para admin
+                frm.setVisible(true);
+            } else {
+                // Abrir formulario de uso de computadora para usuario regular
+                FrmComputadora frm = new FrmComputadora(computadoraUsuario);
+                frm.setVisible(true);
             }
         }
     }
 }
-
-        
-        
-    
-    
-
-    

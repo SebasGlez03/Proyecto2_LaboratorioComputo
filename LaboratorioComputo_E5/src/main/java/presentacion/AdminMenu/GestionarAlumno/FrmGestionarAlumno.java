@@ -12,9 +12,13 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import negocio.DTO.CarreraDTO;
+import negocio.DTO.CentroComputoDTO;
 import negocio.DTO.EstudianteDTO;
+import negocio.DTO.UnidadAcademicaDTO;
 import negocio.logica.CarreraNegocio;
+import negocio.logica.CentroComputoNegocio;
 import negocio.logica.EstudianteNegocio;
+import negocio.logica.UnidadAcademicaNegocio;
 import presentacion.AdminMenu.FrmAdminMenu;
 import utilerias.JButtonCellEditor;
 import utilerias.JButtonRenderer;
@@ -29,7 +33,7 @@ public class FrmGestionarAlumno extends javax.swing.JFrame {
     EstudianteNegocio estudianteNegocio = new EstudianteNegocio();
     int pagina = 0;
     int limite = 3;
-
+   
     /**
      * Creates new form FrmGestionarAlumno
      */
@@ -39,6 +43,10 @@ public class FrmGestionarAlumno extends javax.swing.JFrame {
         botonEditarEnTabla();
         botonEliminarEnTabla();
         llenarTablaEstudiantes(obtenerPagina(pagina, limite));
+        
+        EstudianteNegocio estudianteNegocio = new EstudianteNegocio();
+        UnidadAcademicaNegocio unidadAcademicaNegocio = new UnidadAcademicaNegocio();
+        CentroComputoNegocio centroComputoNegocio = new CentroComputoNegocio();
     }
     
     /**
@@ -390,37 +398,7 @@ public class FrmGestionarAlumno extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmGestionarAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmGestionarAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmGestionarAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmGestionarAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrmGestionarAlumno().setVisible(true);
-            }
-        });
-    }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnAgregar;
