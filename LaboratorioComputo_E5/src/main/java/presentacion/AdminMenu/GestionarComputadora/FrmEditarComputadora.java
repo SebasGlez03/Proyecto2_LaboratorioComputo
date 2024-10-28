@@ -37,6 +37,10 @@ public class FrmEditarComputadora extends javax.swing.JFrame {
     List<String> software = new ArrayList<>();
     int numMaquina;
     
+    /**
+     * Constructor que inicializa los parametros computadora de tipo ComputadoraDTO
+     * @param computadora 
+     */
     public FrmEditarComputadora(ComputadoraDTO computadora) {
         initComponents();
         this.computadora = computadora;
@@ -53,7 +57,12 @@ public class FrmEditarComputadora extends javax.swing.JFrame {
         
                 
     }
-    
+    /**
+    * Agrega los nombres de los centros de cómputo presentes en la lista proporcionada al combo box `boxCentroComputo`.
+    * 
+    * @param CentroComputo Lista de objetos `CentroComputoDTO` que contiene la información
+    *                      de los centros de cómputo disponibles en el sistema.
+    */
     private void llenarBoxCentros(List<CentroComputoDTO> CentroComputo) {
         int i = 0;
         while (CentroComputo.size() > i) {

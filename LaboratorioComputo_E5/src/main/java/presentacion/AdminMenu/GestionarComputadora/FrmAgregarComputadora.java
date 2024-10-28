@@ -36,6 +36,9 @@ public class FrmAgregarComputadora extends javax.swing.JFrame {
     List<String> software = new ArrayList<>();
     int numMaquina;
     
+    /**
+     * Constructor que inicializa los componentes
+     */
     public FrmAgregarComputadora() {
         initComponents();
                 
@@ -46,7 +49,13 @@ public class FrmAgregarComputadora extends javax.swing.JFrame {
         
                 
     }
-    
+    /**
+    * Calcula el número de máquina más alto en la lista de computadoras proporcionada
+    * y actualiza el campo de texto correspondiente con el siguiente número disponible.
+    * 
+    * @param computadoras Lista de objetos `ComputadoraDTO` que contiene la información
+    *                     de las computadoras en el sistema.
+    */
     public void obtenerNumMaquinaMayor(List<ComputadoraDTO> computadoras){
     
             OptionalInt maxValor = computadoras.stream()
@@ -57,7 +66,13 @@ public class FrmAgregarComputadora extends javax.swing.JFrame {
             campoTextoNumeroMaquina.setText(Integer.toString(maxValor.getAsInt() + 1));
             
     }
-    
+    /**
+    * Rellena el combo box `boxCentroComputo` con los nombres de los centros de cómputo 
+    * presentes en la lista proporcionada.
+    * 
+    * @param CentroComputo Lista de objetos `CentroComputoDTO` que contiene los datos de los
+    *                      centros de cómputo disponibles.
+    */
     private void llenarBoxCentros(List<CentroComputoDTO> CentroComputo) {
         int i = 0;
         while (CentroComputo.size() > i) {
