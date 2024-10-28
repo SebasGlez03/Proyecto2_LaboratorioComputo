@@ -145,6 +145,7 @@ public class EstudianteDTO {
         CarreraDTO c = new CarreraDTO();
         c.setId(e.getCarrera().getIdCarrera()) ;
         c.setTiempoDiario(e.getCarrera().getTiempoDiario());
+        c.setNombre(e.getNombre());
 
         this.carrera = c;
         this.contrasenia = e.getContrasenia();
