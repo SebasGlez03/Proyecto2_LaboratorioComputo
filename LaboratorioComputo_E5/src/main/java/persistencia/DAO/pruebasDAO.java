@@ -45,34 +45,34 @@ public class pruebasDAO {
         sfwr.add("Netbeans");
         List<EstudianteEntidad> estudiantes = new ArrayList<>();
 
-        UnidadAcademicaEntidad uaEntidad = new UnidadAcademicaEntidad("Nainari");
-        EstudianteEntidad estudianteEntidad = new EstudianteEntidad("Pedro", "Ramirez", "Lopez", "123est321", "Inscrito");
-        EstudianteEntidad estudianteEntidad2 = new EstudianteEntidad("Juan", "Ramirez", "Lopez", "123est321", "Inscrito");
-        CentroComputoEntidad centroComputoEntidad = new CentroComputoEntidad("Cisco", "10cntro01comp1209", new GregorianCalendar(0, 0, 0, 14, 30, 0), new GregorianCalendar(0, 0, 0, 19, 30, 0), uaEntidad);
-        ComputadoraEntidad computadoraEntidad = new ComputadoraEntidad(false, centroComputoEntidad, "192.168.0.1", sfwr, 1);
-        BloqueoEntidad bloqueoEntidad = new BloqueoEntidad("Ladrón", Calendar.getInstance(), Calendar.getInstance(), estudianteEntidad);
-
-        estudiantes.add(estudianteEntidad);
-        estudiantes.add(estudianteEntidad2);
-        CarreraEntidad caEntidad = new CarreraEntidad("Software", Date.from(Instant.now()), estudiantes);
-
-        List<BloqueoEntidad> bloqueos = new ArrayList<>();
-        bloqueos.add(bloqueoEntidad);
-
-        estudianteEntidad.setCarrera(caEntidad);
-        estudianteEntidad2.setCarrera(caEntidad);
-        estudianteEntidad.setBloqueo(bloqueos);
-
-        ApartadoEntidad apartadoEntidad = new ApartadoEntidad(Calendar.getInstance(), Calendar.getInstance(), estudianteEntidad, computadoraEntidad);
-        apartadoDAO.guardarApartado(apartadoEntidad);
-
-        apartadoDAO.eliminarApartado(apartadoEntidad);
-        unidadAcademicaDAO.guardarUnidadAcademica(uaEntidad);
-        bloqueoDAO.guardarBloqueo(bloqueoEntidad);
-        estudianteDAO.guardarEstudiante(estudianteEntidad);
-        computadoraDAO.guardarComputadora(computadoraEntidad);
-        centroComputoDAO.guardarCentroComputo(centroComputoEntidad);
-        carreraDAO.guardarCarrera(caEntidad);
+//        UnidadAcademicaEntidad uaEntidad = new UnidadAcademicaEntidad("Nainari");
+//        EstudianteEntidad estudianteEntidad = new EstudianteEntidad("Pedro", "Ramirez", "Lopez", "123est321", "Inscrito");
+//        EstudianteEntidad estudianteEntidad2 = new EstudianteEntidad("Juan", "Ramirez", "Lopez", "123est321", "Inscrito");
+//        CentroComputoEntidad centroComputoEntidad = new CentroComputoEntidad("Cisco", "10cntro01comp1209", new GregorianCalendar(0, 0, 0, 14, 30, 0), new GregorianCalendar(0, 0, 0, 19, 30, 0), uaEntidad);
+//        ComputadoraEntidad computadoraEntidad = new ComputadoraEntidad(false, centroComputoEntidad, "192.168.0.1", sfwr, 1);
+//        BloqueoEntidad bloqueoEntidad = new BloqueoEntidad("Ladrón", Calendar.getInstance(), Calendar.getInstance(), estudianteEntidad);
+//
+//        estudiantes.add(estudianteEntidad);
+//        estudiantes.add(estudianteEntidad2);
+//        CarreraEntidad caEntidad = new CarreraEntidad("Software", Date.from(Instant.now()), estudiantes);
+//
+//        List<BloqueoEntidad> bloqueos = new ArrayList<>();
+//        bloqueos.add(bloqueoEntidad);
+//
+//        estudianteEntidad.setCarrera(caEntidad);
+//        estudianteEntidad2.setCarrera(caEntidad);
+//        estudianteEntidad.setBloqueo(bloqueos);
+//
+//        ApartadoEntidad apartadoEntidad = new ApartadoEntidad(Calendar.getInstance(), Calendar.getInstance(), estudianteEntidad, computadoraEntidad);
+//        apartadoDAO.guardarApartado(apartadoEntidad);
+//
+////        apartadoDAO.eliminarApartado(apartadoEntidad);
+//        unidadAcademicaDAO.guardarUnidadAcademica(uaEntidad);
+//        bloqueoDAO.guardarBloqueo(bloqueoEntidad);
+//        estudianteDAO.guardarEstudiante(estudianteEntidad);
+//        computadoraDAO.guardarComputadora(computadoraEntidad);
+//        centroComputoDAO.guardarCentroComputo(centroComputoEntidad);
+//        carreraDAO.guardarCarrera(caEntidad);
 //
 //        System.out.println("Una = " + carreraDAO.buscarUnaCarrera(caEntidad.getIdCarrera()).toString());
 //        System.out.println("Todas = " + carreraDAO.buscarTodasCarrera().toString());
@@ -82,36 +82,36 @@ public class pruebasDAO {
 ////        System.out.println(centroComputoDAO.buscarCentrosPorUnidad(Long.parseLong("1")).toString());
 //        System.out.println(computadoraDAO.buscarComputadorasPorCentro(Long.parseLong("1")).toString());
 
-//        List<String> carreras = new ArrayList<>();
-//        carreras.add("Software");
-//        List<String> centro = new ArrayList<>();
-//        carreras.add("Cisco");
-//        
-//        // Crear la primera instancia de Calendar
-//        Calendar calendar1 = Calendar.getInstance();
-//        calendar1.set(1924, Calendar.OCTOBER, 28); // Establecer una fecha específica (por ejemplo, 28 de octubre de 1924)
-//
-//        // Crear la segunda instancia de Calendar con 100 años de diferencia
-//        Calendar calendar2 = (Calendar) calendar1.clone(); // Clonar la primera instancia
-//        calendar2.add(Calendar.YEAR, 150); // Sumar 100 años a la segunda instancia
-//        
-////        centroComputoDAO.obtenerReporteCentroComputo(centro, carreras, calendar1, calendar2);
-//        List<Object[]> reporte = new ArrayList<>();
-//        reporte = centroComputoDAO.obtenerReporteCentroComputoSinFiltro(calendar1, calendar2);
-//        List<Object[]> reporteConMinutosUso = new ArrayList<>();
-//        for (Object[] row : reporte) {
-//            String centronombre = (String) row[0];
-//            int numMaquina = (int) row[1];
-//            Long cantidadAlumnos = (Long) row[2];
-//            int minutosActivos = (int) row[3];
-//
-//            
-//
-//            System.out.println(centronombre);
-//            System.out.println(numMaquina);
-//            System.out.println(cantidadAlumnos);
-//
-//        }
+        List<String> carreras = new ArrayList<>();
+        carreras.add("Software");
+        List<String> centro = new ArrayList<>();
+        carreras.add("Cisco");
+        
+        // Crear la primera instancia de Calendar
+        Calendar calendar1 = Calendar.getInstance();
+        calendar1.set(1924, Calendar.OCTOBER, 28); // Establecer una fecha específica (por ejemplo, 28 de octubre de 1924)
+
+        // Crear la segunda instancia de Calendar con 100 años de diferencia
+        Calendar calendar2 = (Calendar) calendar1.clone(); // Clonar la primera instancia
+        calendar2.add(Calendar.YEAR, 150); // Sumar 100 años a la segunda instancia
+        
+//        centroComputoDAO.obtenerReporteCentroComputo(centro, carreras, calendar1, calendar2);
+        List<Object[]> reporte = new ArrayList<>();
+        reporte = centroComputoDAO.obtenerReporteCentroComputoSinFiltro(calendar1, calendar2);
+        List<Object[]> reporteConMinutosUso = new ArrayList<>();
+        for (Object[] row : reporte) {
+            String centronombre = (String) row[0];
+            int numMaquina = (int) row[1];
+            Long cantidadAlumnos = (Long) row[2];
+            int minutosActivos = (int) row[3];
+
+            
+
+            System.out.println(centronombre);
+            System.out.println(numMaquina);
+            System.out.println(cantidadAlumnos);
+
+        }
         
     }
 
