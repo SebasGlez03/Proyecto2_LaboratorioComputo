@@ -36,6 +36,13 @@ public class FrmEliminarAlumno extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Metodo que llena la tabla de estudiantes con la informacion de la base de
+     * datos
+     *
+     * @param listaEstudiantes lista de estudiantes proveniente de la base de
+     * datos.
+     */
     public void llenarTablaEstudiantes(List<EstudianteDTO> listaEstudiantes) {
         DefaultTableModel modeloTabla = (DefaultTableModel) this.tblEstudiantes.getModel();
 
@@ -61,6 +68,13 @@ public class FrmEliminarAlumno extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Metodo que transforma el nombre de la carrera del estudiante a una
+     * CarreraDTO
+     *
+     * @param nombreCarrera nombre de la carrera del esutidante
+     * @return CarreraDTO proveniente del nombre de la carrera del estudiante
+     */
     public CarreraDTO obtenerCarreraDTOdeString(String nombreCarrera) {
 
         for (CarreraDTO carrera : carreraNegocio.buscarCarreras()) {
@@ -71,6 +85,10 @@ public class FrmEliminarAlumno extends javax.swing.JFrame {
         return null;
     }
 
+    /**
+     * Metodo que agrega el boton en la tabla, que a su vez contiene la logica
+     * para eliminar el esutidante deseado
+     */
     private void cargarConfiguracionInicialTablaCartelera() {
 
         ActionListener onEliminarClickListener = new ActionListener() {
@@ -199,6 +217,11 @@ public class FrmEliminarAlumno extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Metodo que cierra el frame
+     *
+     * @param evt presionar el boton cancelar
+     */
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
         this.dispose();
