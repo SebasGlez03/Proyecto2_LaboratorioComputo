@@ -4,11 +4,21 @@
  */
 package presentacion.AdminMenu.GestionarBloqueo;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import negocio.DTO.BloqueoDTO;
+import negocio.DTO.CarreraDTO;
+import negocio.DTO.EstudianteDTO;
 import negocio.logica.BloqueoNegocio;
+import negocio.logica.EstudianteNegocio;
 import presentacion.AdminMenu.FrmAdminMenu;
+import utilerias.JButtonCellEditor;
+import utilerias.JButtonRenderer;
 
 /**
  *
@@ -17,6 +27,7 @@ import presentacion.AdminMenu.FrmAdminMenu;
 public class FrmGestionarBloqueo extends javax.swing.JFrame {
 
     BloqueoNegocio bloqueoNegocio = new BloqueoNegocio();
+    EstudianteNegocio estudianteNegocio = new EstudianteNegocio();
 
     /**
      * Creates new form FrmGestionarBloqueo
@@ -24,6 +35,7 @@ public class FrmGestionarBloqueo extends javax.swing.JFrame {
     public FrmGestionarBloqueo() {
         initComponents();
 
+        botonEliminarEnTabla();
         llenarTablaBloqueos(bloqueoNegocio.buscarBloqueos());
     }
 
@@ -53,6 +65,69 @@ public class FrmGestionarBloqueo extends javax.swing.JFrame {
                 modeloTabla.addRow(fila);
             });
         }
+    }
+
+    /**
+     * Metodo que transforma el ID de el estudiante que se le bloqueo la
+     * computadora a un EstudianteDTO
+     *
+     * @param idEstudiante id del estudiante
+     * @return EstudianteDTO proveniente de el idEstudiante
+     */
+    public EstudianteDTO obtenerEstudianteDTOdeString(Long idEstudiante) {
+
+        for (EstudianteDTO estudiante : estudianteNegocio.buscarTodosLosEstudiantes()) {
+            if (estudiante.getId() == idEstudiante) {
+                return estudiante;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Metodo que agrega el boton en la tabla, que a su vez contiene la logica
+     * para eliminar el esutidante deseado
+     */
+    private void botonEliminarEnTabla() {
+
+        ActionListener onEliminarClickListener = new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Obtén la fila seleccionada
+                int filaSeleccionada = tblBloqueos.getSelectedRow();
+
+                if (filaSeleccionada != -1) { // Verifica que haya una fila seleccionada
+                    // Usa el modelo para obtener los datos del estudiante en esa fila
+                    DefaultTableModel modeloTabla = (DefaultTableModel) tblBloqueos.getModel();
+
+                    Long idBloqueo = (Long) modeloTabla.getValueAt(filaSeleccionada, 0); // Suponiendo que el ID esté en la columna 0
+                    Date fechaBloqueoDate = (Date) modeloTabla.getValueAt(filaSeleccionada, 1);
+                    Calendar fechaBloqueo = Calendar.getInstance(); // Se parsea el Date a Calendar
+                    fechaBloqueo.setTime(fechaBloqueoDate); // Se establece el valor del Date al Calendar
+                    Date fechaLiberacionDate = (Date) modeloTabla.getValueAt(filaSeleccionada, 2);
+                    Calendar fechaLiberacion = Calendar.getInstance(); // Se parsea el Date a Calendar
+                    fechaLiberacion.setTime(fechaLiberacionDate); // Se establece el valor del Date al Calendar
+                    String motivoBloqueo = (String) modeloTabla.getValueAt(filaSeleccionada, 3);
+                    Long estudiante = (Long) modeloTabla.getValueAt(filaSeleccionada, 4);
+
+                    // Crea un EstudianteDTO usando los datos obtenidos de la fila
+                    BloqueoDTO bloqueo = new BloqueoDTO();
+                    bloqueo.setId(idBloqueo);
+                    bloqueo.setFechaBloqueo(fechaBloqueo);
+                    bloqueo.setFechaLiberacion(fechaLiberacion);
+                    bloqueo.setMotivo(motivoBloqueo);
+                    bloqueo.setEstudiante(obtenerEstudianteDTOdeString(estudiante));
+
+                    // Aquí puedes implementar la lógica de eliminación o cualquier otra acción
+                    System.out.println("bloqueo a eliminar: " + bloqueo.toString());
+                }
+            }
+        };
+
+        TableColumnModel modeloColumnas = this.tblBloqueos.getColumnModel();
+        modeloColumnas.getColumn(6).setCellRenderer(new JButtonRenderer("Eliminar"));
+        modeloColumnas.getColumn(6).setCellEditor(new JButtonCellEditor("Eliminar", onEliminarClickListener));
     }
 
     /**
