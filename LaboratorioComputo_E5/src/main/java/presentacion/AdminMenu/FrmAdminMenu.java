@@ -42,9 +42,11 @@ public class FrmAdminMenu extends javax.swing.JFrame {
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnReportes.png"))); // NOI18N
+        btnReporte.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnReporte.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnReporteMouseClicked(evt);
@@ -53,6 +55,7 @@ public class FrmAdminMenu extends javax.swing.JFrame {
         getContentPane().add(btnReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 280, -1, -1));
 
         btnGestionarAlumnos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnGestionarAlumno.png"))); // NOI18N
+        btnGestionarAlumnos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGestionarAlumnos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnGestionarAlumnosMouseClicked(evt);
@@ -61,6 +64,7 @@ public class FrmAdminMenu extends javax.swing.JFrame {
         getContentPane().add(btnGestionarAlumnos, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 280, -1, -1));
 
         btnInsetarUnidades.setIcon(new javax.swing.ImageIcon(getClass().getResource("/InsetarUnidades.png"))); // NOI18N
+        btnInsetarUnidades.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnInsetarUnidades.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnInsetarUnidadesMouseClicked(evt);
@@ -69,6 +73,7 @@ public class FrmAdminMenu extends javax.swing.JFrame {
         getContentPane().add(btnInsetarUnidades, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 400, -1, -1));
 
         btnGestionarBloqueos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GestionarBloqueo.png"))); // NOI18N
+        btnGestionarBloqueos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGestionarBloqueos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnGestionarBloqueosMouseClicked(evt);
@@ -77,6 +82,7 @@ public class FrmAdminMenu extends javax.swing.JFrame {
         getContentPane().add(btnGestionarBloqueos, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 400, -1, -1));
 
         btnGestionarCarrera.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GestionarCarrera.png"))); // NOI18N
+        btnGestionarCarrera.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGestionarCarrera.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnGestionarCarreraMouseClicked(evt);
@@ -85,6 +91,7 @@ public class FrmAdminMenu extends javax.swing.JFrame {
         getContentPane().add(btnGestionarCarrera, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 520, -1, -1));
 
         btnGestionarComputadora.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GestionarComputadora.png"))); // NOI18N
+        btnGestionarComputadora.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGestionarComputadora.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnGestionarComputadoraMouseClicked(evt);
@@ -93,6 +100,7 @@ public class FrmAdminMenu extends javax.swing.JFrame {
         getContentPane().add(btnGestionarComputadora, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 520, -1, -1));
 
         btnAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnAtras.png"))); // NOI18N
+        btnAtras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAtras.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnAtrasMouseClicked(evt);
