@@ -52,7 +52,6 @@ public class FrmDetallesApartado extends javax.swing.JFrame {
      * incluyendo la selección de fechas y la visualización de software.
      * </p>
      *
-     * @author nomar
      */
     public FrmDetallesApartado(Long idComputadora, Long idEstudiante, Long idCComputo) {
 

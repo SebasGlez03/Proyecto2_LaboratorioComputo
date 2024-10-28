@@ -26,6 +26,7 @@ import persistencia.entidades.ApartadoEntidad;
  *
  * @version 1.0
  * @since 2024-10-28
+ * @author sebas
  */
 public class pruebasDAO {
 
@@ -87,7 +88,6 @@ public class pruebasDAO {
 //        System.out.println("Una = " + carreraDAO.buscarUnaCarrera(caEntidad.getIdCarrera()).toString());
 //        System.out.println("Todas = " + carreraDAO.buscarTodasCarrera().toString());
 //        System.out.println(bloqueoDAO.buscarUnBloqueo(bloqueoEntidad.getId()));
-
         // Listas de filtros para centros y carreras
         List<String> carreras = new ArrayList<>();
         carreras.add("Software");

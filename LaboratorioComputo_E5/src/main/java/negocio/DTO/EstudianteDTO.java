@@ -13,6 +13,7 @@ import persistencia.entidades.EstudianteEntidad;
 
 /**
  * a
+ *
  * @hidden
  */
 public class EstudianteDTO {
@@ -47,9 +48,10 @@ public class EstudianteDTO {
      */
     String estatusInscripcion;
 
-    /** Carrera del estudiante */
+    /**
+     * Carrera del estudiante
+     */
     CarreraDTO carrera;
-
 
     /**
      * Lista de bloqueos asociados al estudiante
@@ -70,16 +72,15 @@ public class EstudianteDTO {
     /**
      * Constructor completo.
      *
-     * @param id Identificador único del estudiante
-     * @param nombre Nombre del estudiante
-     * @param apellidoPaterno Apellido paterno del estudiante
-     * @param apellidoMaterno Apellido materno del estudiante
-     * @param computadora Computadora asignada al estudiante
-     * @param contrasenia Contraseña del estudiante
-     * @param estatusInscripcion Estado de inscripción del estudiante
-     * @param bloqueos Lista de bloqueos asociados al estudiante
-     * @param apartados Lista de apartados realizados por el estudiante
-     * @param carrera Carrera del estudiante
+     * @param id Identificador unico del estudiante.
+     * @param nombre Nombre del estudiante.
+     * @param apellidoPaterno Apellido paterno del estudiante.
+     * @param carrera Carrera que cursa el estudiatne.
+     * @param apellidoMaterno Apellido materno del estudiante.
+     * @param contrasenia Contrasenia del estudiante.
+     * @param estatusInscripcion Estatus de inscripcion del estudiante.
+     * @param bloqueos Bloqueos que haya podido obtener el estudiante.
+     * @param apartados Apartados que haya podido realizar el estudiante.
      */
     public EstudianteDTO(Long id, String nombre, String apellidoPaterno, CarreraDTO carrera, String apellidoMaterno, String contrasenia, String estatusInscripcion, List<BloqueoDTO> bloqueos, List<ApartadoDTO> apartados) {
         this.id = id;
@@ -142,7 +143,7 @@ public class EstudianteDTO {
         this.apellidoPaterno = e.getApellidoPaterno();
         this.apellidoMaterno = e.getApellidoMaterno();
         CarreraDTO c = new CarreraDTO();
-        c.setId(e.getCarrera().getIdCarrera()) ;
+        c.setId(e.getCarrera().getIdCarrera());
         c.setTiempoDiario(e.getCarrera().getTiempoDiario());
         c.setNombre(e.getCarrera().getNombre());
 

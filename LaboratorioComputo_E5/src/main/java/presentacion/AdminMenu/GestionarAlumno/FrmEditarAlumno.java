@@ -15,6 +15,7 @@ import utilerias.CaesarCipher;
 
 /**
  * a
+ *
  * @hidden
  */
 public class FrmEditarAlumno extends javax.swing.JFrame {
@@ -268,10 +269,6 @@ public class FrmEditarAlumno extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_comboBoxEstatusInscripcionActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Titulo;

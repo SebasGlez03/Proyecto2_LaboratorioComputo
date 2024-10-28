@@ -9,31 +9,47 @@ import java.util.List;
 import persistencia.entidades.ApartadoEntidad;
 import persistencia.entidades.CentroComputoEntidad;
 import persistencia.entidades.ComputadoraEntidad;
+
 /**
  * a
+ *
  * @hidden
  */
 public class ComputadoraDTO {
 
-    /** Identificador único de la computadora */
+    /**
+     * Identificador único de la computadora
+     */
     Long id;
 
-    /** Indica si la computadora es administradora (esAdmin = true) o no */
+    /**
+     * Indica si la computadora es administradora (esAdmin = true) o no
+     */
     boolean esAdmin;
 
-    /** Centro de cómputo al que pertenece la computadora */
+    /**
+     * Centro de cómputo al que pertenece la computadora
+     */
     CentroComputoDTO centroComputo;
 
-    /** Dirección IP de la computadora */
+    /**
+     * Dirección IP de la computadora
+     */
     String ip;
 
-    /** Número de la computadora */
+    /**
+     * Número de la computadora
+     */
     int numComputadora;
 
-    /** Lista de apartados reservados en la computadora */
+    /**
+     * Lista de apartados reservados en la computadora
+     */
     List<ApartadoDTO> apartados;
 
-    /** Lista de software */
+    /**
+     * Lista de software
+     */
     List<String> software;
 
     /**
@@ -44,13 +60,14 @@ public class ComputadoraDTO {
 
     /**
      * Constructor completo
-     * 
-     * @param id Identificador único de la computadora
-     * @param esAdmin Estado de administrador de la computadora
-     * @param centroComputo Centro de cómputo al que pertenece la computadora
-     * @param estudiante Estudiante asignado a la computadora
-     * @param ip Dirección IP de la computadora
-     * @param apartados Lista de apartados reservados
+     *
+     * @param id Identificador unico de la computadora.
+     * @param esAdmin Estado de administrador de la computadora.
+     * @param centroComputo Centro de computo al que pertenece la computadora.
+     * @param ip Direccion IP de la computadora.
+     * @param apartados Lista de apartados de las computadoras.
+     * @param numComputadora Numero de computadora.
+     * @param software Lista de software de la computadora.
      */
     public ComputadoraDTO(Long id, boolean esAdmin, CentroComputoDTO centroComputo, String ip, List<ApartadoDTO> apartados, int numComputadora, List<String> software) {
         this.id = id;
@@ -60,12 +77,12 @@ public class ComputadoraDTO {
         this.apartados = apartados;
         this.numComputadora = numComputadora;
         this.software = software;
-        
+
     }
 
     /**
      * Constructor que convierte una entidad ComputadoraEntidad en un DTO.
-     * 
+     *
      * @param cE Entidad de tipo ComputadoraEntidad
      */
     public ComputadoraDTO(ComputadoraEntidad cE) {
@@ -89,7 +106,7 @@ public class ComputadoraDTO {
 
     /**
      * Obtiene el identificador único de la computadora
-     * 
+     *
      * @return id Identificador de la computadora
      */
     public Long getId() {
@@ -98,7 +115,7 @@ public class ComputadoraDTO {
 
     /**
      * Establece el identificador único de la computadora
-     * 
+     *
      * @param id Identificador de la computadora
      */
     public void setId(Long id) {
@@ -107,7 +124,7 @@ public class ComputadoraDTO {
 
     /**
      * Obtiene el estado de administrador de la computadora
-     * 
+     *
      * @return esAdmin Estado de administrador
      */
     public boolean isEsAdmin() {
@@ -116,7 +133,7 @@ public class ComputadoraDTO {
 
     /**
      * Establece el estado de administrador de la computadora
-     * 
+     *
      * @param esAdmin Estado de administrador
      */
     public void setEsAdmin(boolean esAdmin) {
@@ -125,7 +142,7 @@ public class ComputadoraDTO {
 
     /**
      * Obtiene el centro de cómputo al que pertenece la computadora
-     * 
+     *
      * @return centroComputo Centro de cómputo
      */
     public CentroComputoDTO getCentroComputo() {
@@ -134,18 +151,16 @@ public class ComputadoraDTO {
 
     /**
      * Establece el centro de cómputo al que pertenece la computadora
-     * 
+     *
      * @param centroComputo Centro de cómputo
      */
     public void setCentroComputo(CentroComputoDTO centroComputo) {
         this.centroComputo = centroComputo;
     }
 
-
-
     /**
      * Obtiene la dirección IP de la computadora
-     * 
+     *
      * @return ip Dirección IP
      */
     public String getIp() {
@@ -154,7 +169,7 @@ public class ComputadoraDTO {
 
     /**
      * Establece la dirección IP de la computadora
-     * 
+     *
      * @param ip Dirección IP
      */
     public void setIp(String ip) {
@@ -163,7 +178,7 @@ public class ComputadoraDTO {
 
     /**
      * Obtiene la lista de software en la computadora
-     * 
+     *
      * @return software
      */
     public List<String> getSoftware() {
@@ -172,8 +187,8 @@ public class ComputadoraDTO {
 
     /**
      * Establece la lista de software en la computadora
-     * 
-     * @param apartados Lista de software en la computadora
+     *
+     * @param software Lista de software a agregar
      */
     public void setSoftware(List<String> software) {
         this.software = software;
@@ -181,7 +196,7 @@ public class ComputadoraDTO {
 
     /**
      * Obtiene la lista de apartados reservados en la computadora
-     * 
+     *
      * @return apartados Lista de apartados
      */
     public List<ApartadoDTO> getApartados() {
@@ -190,7 +205,7 @@ public class ComputadoraDTO {
 
     /**
      * Establece la lista de apartados reservados en la computadora
-     * 
+     *
      * @param apartados Lista de apartados
      */
     public void setApartados(List<ApartadoDTO> apartados) {
@@ -199,7 +214,7 @@ public class ComputadoraDTO {
 
     /**
      * Obtiene numComputadora en la computadora
-     * 
+     *
      * @return numComputadora
      */
     public int getNumComputadora() {
@@ -208,25 +223,22 @@ public class ComputadoraDTO {
 
     /**
      * Establece numComputadora en la computadora
-     * 
+     *
      * @param numComputadora numComputadora en la computadora
      */
     public void setNumComputadora(int numComputadora) {
         this.numComputadora = numComputadora;
     }
 
-
-    
-
     /**
      * Método toString para representar el objeto en formato de texto
-     * 
-     * @return Cadena de texto con los valores de los atributos de la computadora
+     *
+     * @return Cadena de texto con los valores de los atributos de la
+     * computadora
      */
     @Override
     public String toString() {
         return "ComputadoraDTO{" + "id=" + id + ", esAdmin=" + esAdmin + ", centroComputo=" + centroComputo + ", ip=" + ip + ", numComputadora=" + numComputadora + ", apartados=" + apartados + ", software=" + software + '}';
     }
-
 
 }

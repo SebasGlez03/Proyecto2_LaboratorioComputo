@@ -18,17 +18,17 @@ import persistencia.Interfaces.IEstudianteDAO;
 
 /**
  * La clase {@code EstudianteDAO} maneja las operaciones de persistencia
- * relacionadas con la entidad {@code EstudianteEntidad}.
- * Esta clase implementa métodos para guardar, eliminar y modificar registros
- * en la base de datos utilizando JPA y {@code EntityManager}.
- * 
- * La clase se asegura de manejar las transacciones y cualquier error durante las
- * operaciones de persistencia, mostrando mensajes de error en una ventana emergente
- * mediante {@code JOptionPane} si es necesario.
- * 
+ * relacionadas con la entidad {@code EstudianteEntidad}. Esta clase implementa
+ * métodos para guardar, eliminar y modificar registros en la base de datos
+ * utilizando JPA y {@code EntityManager}.
+ *
+ * La clase se asegura de manejar las transacciones y cualquier error durante
+ * las operaciones de persistencia, mostrando mensajes de error en una ventana
+ * emergente mediante {@code JOptionPane} si es necesario.
+ *
  * @author santi
  */
-public class EstudianteDAO implements IEstudianteDAO{
+public class EstudianteDAO implements IEstudianteDAO {
 
     // Instancias para manejar el contexto de persistencia
     EntityManager entityManager = null;
@@ -37,8 +37,8 @@ public class EstudianteDAO implements IEstudianteDAO{
 
     /**
      * Constructor por defecto para inicializar un objeto {@code EstudianteDAO}.
-     * Este constructor no requiere parámetros y se puede utilizar para crear instancias
-     * de la clase.
+     * Este constructor no requiere parámetros y se puede utilizar para crear
+     * instancias de la clase.
      */
     public EstudianteDAO() {
         // Constructor vacío
@@ -46,12 +46,14 @@ public class EstudianteDAO implements IEstudianteDAO{
 
     /**
      * Guarda un nuevo estudiante en la base de datos.
-     * 
-     * Este método inicia una transacción, persiste la entidad {@code EstudianteEntidad}
-     * en la base de datos y confirma la transacción si no ocurre ningún error.
-     * En caso de error, se realiza un rollback de la transacción para deshacer los cambios.
-     * 
-     * @param estudiante La entidad {@code EstudianteEntidad} que se desea persistir en la base de datos.
+     *
+     * Este método inicia una transacción, persiste la entidad
+     * {@code EstudianteEntidad} en la base de datos y confirma la transacción
+     * si no ocurre ningún error. En caso de error, se realiza un rollback de la
+     * transacción para deshacer los cambios.
+     *
+     * @param estudiante La entidad {@code EstudianteEntidad} que se desea
+     * persistir en la base de datos.
      */
     public void guardarEstudiante(EstudianteEntidad estudiante) {
         try {
@@ -83,12 +85,14 @@ public class EstudianteDAO implements IEstudianteDAO{
 
     /**
      * Elimina un estudiante existente en la base de datos.
-     * 
-     * Este método inicia una transacción, elimina la entidad {@code EstudianteEntidad}
-     * de la base de datos y confirma la transacción si no ocurre ningún error.
-     * En caso de error, se realiza un rollback de la transacción para deshacer los cambios.
-     * 
-     * @param estudiante La entidad {@code EstudianteEntidad} que se desea eliminar de la base de datos.
+     *
+     * Este método inicia una transacción, elimina la entidad
+     * {@code EstudianteEntidad} de la base de datos y confirma la transacción
+     * si no ocurre ningún error. En caso de error, se realiza un rollback de la
+     * transacción para deshacer los cambios.
+     *
+     * @param estudiante La entidad {@code EstudianteEntidad} que se desea
+     * eliminar de la base de datos.
      */
     public void eliminarEstudiante(EstudianteEntidad estudiante) {
         try {
@@ -120,12 +124,14 @@ public class EstudianteDAO implements IEstudianteDAO{
 
     /**
      * Modifica un estudiante existente en la base de datos.
-     * 
-     * Este método inicia una transacción, actualiza la entidad {@code EstudianteEntidad}
-     * en la base de datos y confirma la transacción si no ocurre ningún error.
-     * En caso de error, se realiza un rollback de la transacción para deshacer los cambios.
-     * 
-     * @param estudiante La entidad {@code EstudianteEntidad} con los nuevos valores que se desean actualizar en la base de datos.
+     *
+     * Este método inicia una transacción, actualiza la entidad
+     * {@code EstudianteEntidad} en la base de datos y confirma la transacción
+     * si no ocurre ningún error. En caso de error, se realiza un rollback de la
+     * transacción para deshacer los cambios.
+     *
+     * @param estudiante La entidad {@code EstudianteEntidad} con los nuevos
+     * valores que se desean actualizar en la base de datos.
      */
     public void modificarEstudiante(EstudianteEntidad estudiante) {
         try {
@@ -154,27 +160,28 @@ public class EstudianteDAO implements IEstudianteDAO{
             }
         }
     }
-    
+
     /**
      * Busca un objeto de la tabla respectiva en la base de datos.
-     *  
-     * @param Long id
+     *
+     * @param id id del estudiante a obtener
+     * @return un estudiante obtenido a base de un id
      */
     public EstudianteEntidad buscarUnEstudiante(Long id) {
 
-        try{
+        try {
             // Construimos el EntityManager
             managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
             entityManager = managerFactory.createEntityManager();
-            
+
             // Buscamos la entidad en la base de datos
             EstudianteEntidad Estudiante = entityManager.find(EstudianteEntidad.class, id);
 
             // Regresamos la entidad
-            return Estudiante;     
-        } catch (Exception e){
-                JOptionPane.showMessageDialog(null, "Error en Persistencia = " + e.getMessage());
-                return null;
+            return Estudiante;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error en Persistencia = " + e.getMessage());
+            return null;
         } finally {
             if (entityManager != null) {
                 // Cerramos el EntityManager
@@ -182,30 +189,29 @@ public class EstudianteDAO implements IEstudianteDAO{
                 entityManager.close();
             }
         }
- 
-    }    
-    
+
+    }
+
     /**
      * Busca todos los objetos de la tabla respectiva en la base de datos.
-     * 
-     * 
-     * 
+     *
+     * @return lista de todos los estudiantes
      */
     public List<EstudianteEntidad> buscarTodosEstudiante() {
 
-        try{
+        try {
             // Construimos el EntityManager
             managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
             entityManager = managerFactory.createEntityManager();
-            
+
             // Buscamos las entidades en la base de datos
             TypedQuery<EstudianteEntidad> query = entityManager.createQuery("SELECT a FROM EstudianteEntidad a", EstudianteEntidad.class);
 
             // Regresamos la entidad
             return query.getResultList();
-            } catch (Exception e){
-                JOptionPane.showMessageDialog(null, "Error en Persistencia = " + e.getMessage());
-                return null;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error en Persistencia = " + e.getMessage());
+            return null;
         } finally {
             if (entityManager != null) {
                 // Cerramos el EntityManager

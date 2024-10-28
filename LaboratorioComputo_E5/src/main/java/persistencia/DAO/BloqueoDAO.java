@@ -17,17 +17,17 @@ import persistencia.Interfaces.IBloqueoDAO;
 
 /**
  * La clase {@code BloqueoDAO} maneja las operaciones de persistencia
- * relacionadas con la entidad {@code BloqueoEntidad}.
- * Esta clase implementa métodos para guardar, eliminar y modificar registros
- * en la base de datos utilizando JPA y {@code EntityManager}.
- * 
- * La clase se asegura de manejar las transacciones y cualquier error durante las
- * operaciones de persistencia, mostrando mensajes de error en una ventana emergente
- * mediante {@code JOptionPane} si es necesario.
- * 
+ * relacionadas con la entidad {@code BloqueoEntidad}. Esta clase implementa
+ * métodos para guardar, eliminar y modificar registros en la base de datos
+ * utilizando JPA y {@code EntityManager}.
+ *
+ * La clase se asegura de manejar las transacciones y cualquier error durante
+ * las operaciones de persistencia, mostrando mensajes de error en una ventana
+ * emergente mediante {@code JOptionPane} si es necesario.
+ *
  * @author santi
  */
-public class BloqueoDAO implements IBloqueoDAO{
+public class BloqueoDAO implements IBloqueoDAO {
 
     // Instancias para manejar el contexto de persistencia
     EntityManager entityManager = null;
@@ -36,8 +36,8 @@ public class BloqueoDAO implements IBloqueoDAO{
 
     /**
      * Constructor por defecto para inicializar un objeto {@code BloqueoDAO}.
-     * Este constructor no requiere parámetros y se puede utilizar para crear instancias
-     * de la clase.
+     * Este constructor no requiere parámetros y se puede utilizar para crear
+     * instancias de la clase.
      */
     public BloqueoDAO() {
         // Constructor vacío
@@ -45,12 +45,14 @@ public class BloqueoDAO implements IBloqueoDAO{
 
     /**
      * Guarda un nuevo bloqueo en la base de datos.
-     * 
-     * Este método inicia una transacción, persiste la entidad {@code BloqueoEntidad}
-     * en la base de datos y confirma la transacción si no ocurre ningún error.
-     * En caso de error, se realiza un rollback de la transacción para deshacer los cambios.
-     * 
-     * @param bloqueo La entidad {@code BloqueoEntidad} que se desea persistir en la base de datos.
+     *
+     * Este método inicia una transacción, persiste la entidad
+     * {@code BloqueoEntidad} en la base de datos y confirma la transacción si
+     * no ocurre ningún error. En caso de error, se realiza un rollback de la
+     * transacción para deshacer los cambios.
+     *
+     * @param bloqueo La entidad {@code BloqueoEntidad} que se desea persistir
+     * en la base de datos.
      */
     public void guardarBloqueo(BloqueoEntidad bloqueo) {
         try {
@@ -82,12 +84,14 @@ public class BloqueoDAO implements IBloqueoDAO{
 
     /**
      * Elimina un bloqueo existente en la base de datos.
-     * 
-     * Este método inicia una transacción, elimina la entidad {@code BloqueoEntidad}
-     * de la base de datos y confirma la transacción si no ocurre ningún error.
-     * En caso de error, se realiza un rollback de la transacción para deshacer los cambios.
-     * 
-     * @param bloqueo La entidad {@code BloqueoEntidad} que se desea eliminar de la base de datos.
+     *
+     * Este método inicia una transacción, elimina la entidad
+     * {@code BloqueoEntidad} de la base de datos y confirma la transacción si
+     * no ocurre ningún error. En caso de error, se realiza un rollback de la
+     * transacción para deshacer los cambios.
+     *
+     * @param bloqueo La entidad {@code BloqueoEntidad} que se desea eliminar de
+     * la base de datos.
      */
     public void eliminarBloqueo(BloqueoEntidad bloqueo) {
         try {
@@ -119,12 +123,14 @@ public class BloqueoDAO implements IBloqueoDAO{
 
     /**
      * Modifica un bloqueo existente en la base de datos.
-     * 
-     * Este método inicia una transacción, actualiza la entidad {@code BloqueoEntidad}
-     * en la base de datos y confirma la transacción si no ocurre ningún error.
-     * En caso de error, se realiza un rollback de la transacción para deshacer los cambios.
-     * 
-     * @param bloqueo La entidad {@code BloqueoEntidad} con los nuevos valores que se desean actualizar en la base de datos.
+     *
+     * Este método inicia una transacción, actualiza la entidad
+     * {@code BloqueoEntidad} en la base de datos y confirma la transacción si
+     * no ocurre ningún error. En caso de error, se realiza un rollback de la
+     * transacción para deshacer los cambios.
+     *
+     * @param bloqueo La entidad {@code BloqueoEntidad} con los nuevos valores
+     * que se desean actualizar en la base de datos.
      */
     public void modificarBloqueo(BloqueoEntidad bloqueo) {
         try {
@@ -153,27 +159,28 @@ public class BloqueoDAO implements IBloqueoDAO{
             }
         }
     }
-    
+
     /**
      * Busca un objeto de la tabla respectiva en la base de datos.
-     *  
-     * @param Long id
+     *
+     * @param id id del bloqueo a buscar
+     * @return bloqueo
      */
     public BloqueoEntidad buscarUnBloqueo(Long id) {
 
-        try{
+        try {
             // Construimos el EntityManager
             managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
             entityManager = managerFactory.createEntityManager();
-            
+
             // Buscamos la entidad en la base de datos
             BloqueoEntidad Bloqueo = entityManager.find(BloqueoEntidad.class, id);
 
             // Regresamos la entidad
-            return Bloqueo;     
-        } catch (Exception e){
-                JOptionPane.showMessageDialog(null, "Error en Persistencia = " + e.getMessage());
-                return null;
+            return Bloqueo;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error en Persistencia = " + e.getMessage());
+            return null;
         } finally {
             if (entityManager != null) {
                 // Cerramos el EntityManager
@@ -181,35 +188,34 @@ public class BloqueoDAO implements IBloqueoDAO{
                 entityManager.close();
             }
         }
- 
-    }    
-    
+
+    }
+
     /**
      * Busca todos los objetos de la tabla respectiva en la base de datos.
-     * 
-     * 
-     * 
+     *
+     * @return lista de todos los bloqueos
      */
     public List<BloqueoEntidad> buscarTodosBloqueos() {
 
-        try{
+        try {
             // Construimos el EntityManager
             managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
             entityManager = managerFactory.createEntityManager();
-            
+
             // Buscamos las entidades en la base de datos
             TypedQuery<BloqueoEntidad> query = entityManager.createQuery("SELECT a FROM BloqueoEntidad a", BloqueoEntidad.class);
 
             // Regresamos la entidad
             return query.getResultList();
-            } catch (Exception e){
-                JOptionPane.showMessageDialog(null, "Error en Persistencia = " + e.getMessage());
-                return null;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error en Persistencia = " + e.getMessage());
+            return null;
         } finally {
             if (entityManager != null) {
                 // Cerramos el EntityManager
                 entityManager.close();
             }
         }
-    } 
+    }
 }

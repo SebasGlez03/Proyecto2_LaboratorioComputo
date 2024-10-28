@@ -19,9 +19,9 @@ import persistencia.Interfaces.ICentroComputoDAO;
 
 /**
  * La clase {@code CentroComputoDAO} maneja las operaciones de persistencia
- * relacionadas con la entidad {@code CentroComputoEntidad}. 
- * Esta clase implementa métodos para guardar, eliminar y modificar registros
- * en la base de datos utilizando JPA y {@code EntityManager}.
+ * relacionadas con la entidad {@code CentroComputoEntidad}. Esta clase
+ * implementa métodos para guardar, eliminar y modificar registros en la base de
+ * datos utilizando JPA y {@code EntityManager}.
  *
  * La clase se asegura de manejar las transacciones y cualquier error durante
  * las operaciones de persistencia, mostrando mensajes de error en una ventana
@@ -29,7 +29,7 @@ import persistencia.Interfaces.ICentroComputoDAO;
  *
  * @author santi
  */
-public class CentroComputoDAO implements ICentroComputoDAO{
+public class CentroComputoDAO implements ICentroComputoDAO {
 
     // Instancias para manejar el contexto de persistencia
     EntityManager entityManager = null;
@@ -49,9 +49,9 @@ public class CentroComputoDAO implements ICentroComputoDAO{
      * Guarda un nuevo centro de cómputo en la base de datos.
      *
      * Este método inicia una transacción, persiste la entidad
-     * {@code CentroComputoEntidad} en la base de datos y confirma la transacción
-     * si no ocurre ningún error. En caso de error, se realiza un rollback de la
-     * transacción para deshacer los cambios.
+     * {@code CentroComputoEntidad} en la base de datos y confirma la
+     * transacción si no ocurre ningún error. En caso de error, se realiza un
+     * rollback de la transacción para deshacer los cambios.
      *
      * @param CentroComputo La entidad {@code CentroComputoEntidad} que se desea
      * persistir en la base de datos.
@@ -88,9 +88,9 @@ public class CentroComputoDAO implements ICentroComputoDAO{
      * Elimina un centro de cómputo existente en la base de datos.
      *
      * Este método inicia una transacción, elimina la entidad
-     * {@code CentroComputoEntidad} de la base de datos y confirma la transacción
-     * si no ocurre ningún error. En caso de error, se realiza un rollback de la
-     * transacción para deshacer los cambios.
+     * {@code CentroComputoEntidad} de la base de datos y confirma la
+     * transacción si no ocurre ningún error. En caso de error, se realiza un
+     * rollback de la transacción para deshacer los cambios.
      *
      * @param CentroComputo La entidad {@code CentroComputoEntidad} que se desea
      * eliminar de la base de datos.
@@ -127,12 +127,12 @@ public class CentroComputoDAO implements ICentroComputoDAO{
      * Modifica un centro de cómputo existente en la base de datos.
      *
      * Este método inicia una transacción, actualiza la entidad
-     * {@code CentroComputoEntidad} en la base de datos y confirma la transacción
-     * si no ocurre ningún error. En caso de error, se realiza un rollback de la
-     * transacción para deshacer los cambios.
+     * {@code CentroComputoEntidad} en la base de datos y confirma la
+     * transacción si no ocurre ningún error. En caso de error, se realiza un
+     * rollback de la transacción para deshacer los cambios.
      *
-     * @param CentroComputo La entidad {@code CentroComputoEntidad} con los nuevos
-     * valores que se desean actualizar en la base de datos.
+     * @param CentroComputo La entidad {@code CentroComputoEntidad} con los
+     * nuevos valores que se desean actualizar en la base de datos.
      */
     public void modificarCentroComputo(CentroComputoEntidad CentroComputo) {
         try {
@@ -161,27 +161,28 @@ public class CentroComputoDAO implements ICentroComputoDAO{
             }
         }
     }
-    
+
     /**
      * Busca un objeto de la tabla respectiva en la base de datos.
-     *  
-     * @param Long id
+     *
+     * @param id id de la carrera a buscar
+     * @return carrera a buscar
      */
     public CentroComputoEntidad buscarUnCentroComputo(Long id) {
 
-        try{
+        try {
             // Construimos el EntityManager
             managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
             entityManager = managerFactory.createEntityManager();
-            
+
             // Buscamos la entidad en la base de datos
             CentroComputoEntidad CentroComputo = entityManager.find(CentroComputoEntidad.class, id);
 
             // Regresamos la entidad
-            return CentroComputo;     
-        } catch (Exception e){
-                JOptionPane.showMessageDialog(null, "Error en Persistencia = " + e.getMessage());
-                return null;
+            return CentroComputo;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error en Persistencia = " + e.getMessage());
+            return null;
         } finally {
             if (entityManager != null) {
                 // Cerramos el EntityManager
@@ -189,48 +190,48 @@ public class CentroComputoDAO implements ICentroComputoDAO{
                 entityManager.close();
             }
         }
- 
-    }    
-    
+
+    }
+
     /**
      * Busca todos los objetos de la tabla respectiva en la base de datos.
-     * 
-     * 
-     * 
+     *
+     * @return lista de todos los centros de computo
      */
     public List<CentroComputoEntidad> buscarTodosCentroComputo() {
 
-        try{
+        try {
             // Construimos el EntityManager
             managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
             entityManager = managerFactory.createEntityManager();
-            
+
             // Buscamos las entidades en la base de datos
             TypedQuery<CentroComputoEntidad> query = entityManager.createQuery("SELECT a FROM CentroComputoEntidad a", CentroComputoEntidad.class);
 
             // Regresamos la entidad
             return query.getResultList();
-            } catch (Exception e){
-                JOptionPane.showMessageDialog(null, "Error en Persistencia = " + e.getMessage());
-                return null;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error en Persistencia = " + e.getMessage());
+            return null;
         } finally {
             if (entityManager != null) {
                 // Cerramos el EntityManager
                 entityManager.close();
             }
         }
-    } 
-    
+    }
+
     /**
-     *  Retorna una lista con todas las computadoras asociadas a un centroDeComputoespecífico.
-     * 
-     * @param uaID
-     * @return
+     * Retorna una lista con todas las computadoras asociadas a un
+     * centroDeComputoespecífico.
+     *
+     * @param uaID id de la unidad academica
+     * @return kusta de los centros de computo por id
      */
     public List<CentroComputoEntidad> buscarCentrosPorUnidad(Long uaID) {
         managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
         entityManager = managerFactory.createEntityManager();
-        
+
         TypedQuery<CentroComputoEntidad> query = entityManager.createQuery(
                 "SELECT a FROM CentroComputoEntidad a LEFT JOIN a.unidadAcademica p WHERE p.id = :uaID", CentroComputoEntidad.class);
         query.setParameter("uaID", uaID);
@@ -239,16 +240,18 @@ public class CentroComputoDAO implements ICentroComputoDAO{
         entityManager.close();
         return ccE;
     }
-    
-        /**
-         * Retorna un reporte de uso en un centro de cómputo, incluyendo la cantidad de alumnos,
-         * minutos de uso y minutos de inactividad de las computadoras asociadas.
-         * 
-         * @param nombresCentrosComputo Lista de nombres de centros de cómputo a incluir en el reporte.
-         * @param fechaInicio           Fecha de inicio del rango.
-         * @param fechaFin              Fecha de fin del rango.
-         * @return                      Lista de registros con información del centro de cómputo y uso.
-         */
+
+    /**
+     * Retorna un reporte de uso en un centro de cómputo, incluyendo la cantidad
+     * de alumnos, minutos de uso y minutos de inactividad de las computadoras
+     * asociadas.
+     *
+     * @param nombresCentrosComputo Lista de nombres de centros de cómputo a
+     * incluir en el reporte.
+     * @param fechaInicio Fecha de inicio del rango.
+     * @param fechaFin Fecha de fin del rango.
+     * @return Lista de registros con información del centro de cómputo y uso.
+     */
 //        public List<Object[]> obtenerReporteCentroComputo(List<String> nombresCarreras,List<String> nombresCentrosComputo, Calendar fechaInicio, Calendar fechaFin) {
 //           
 //                    managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
@@ -280,75 +283,89 @@ public class CentroComputoDAO implements ICentroComputoDAO{
 //            
 //            return reporte;
 //        }
-
+    /**
+     * Lista que obtiene los reportes del centro de computo
+     *
+     * @param nombresCarreras lista del nombre de las carreras
+     * @param nombresCentrosComputo lista del nombre de los centros de computo
+     * @param fechaInicio fecha de inicio
+     * @param fechaFin fecha din
+     * @return reporte de centro de computo
+     */
     public List<Object[]> obtenerReporteCentroComputo(List<String> nombresCarreras, List<String> nombresCentrosComputo, Calendar fechaInicio, Calendar fechaFin) {
-    
-    managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
-    entityManager = managerFactory.createEntityManager();
 
-    String jpql = "SELECT  comp.numMaquina, COUNT(e) " +
-                  "FROM ComputadoraEntidad comp " +
-                  "JOIN comp.centroComputoEntidad cc " +
-                  "JOIN comp.apartado u " +
-                  "JOIN u.estudiante e " +
-                  "JOIN e.carrera c " + 
-                  "WHERE cc.nombre IN :nombresCentrosComputo " +
-                  "AND c.nombre IN :nombresCarreras " +
-                  "AND u.fechaInicio BETWEEN :fechaInicio AND :fechaFin " +
-                  "GROUP BY comp.numMaquina";
+        managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
+        entityManager = managerFactory.createEntityManager();
 
-    TypedQuery<Object[]> query = entityManager.createQuery(jpql, Object[].class);
-    query.setParameter("nombresCarreras", nombresCarreras);
-    query.setParameter("nombresCentrosComputo", nombresCentrosComputo);
-    query.setParameter("fechaInicio", fechaInicio);
-    query.setParameter("fechaFin", fechaFin);
+        String jpql = "SELECT  comp.numMaquina, COUNT(e) "
+                + "FROM ComputadoraEntidad comp "
+                + "JOIN comp.centroComputoEntidad cc "
+                + "JOIN comp.apartado u "
+                + "JOIN u.estudiante e "
+                + "JOIN e.carrera c "
+                + "WHERE cc.nombre IN :nombresCentrosComputo "
+                + "AND c.nombre IN :nombresCarreras "
+                + "AND u.fechaInicio BETWEEN :fechaInicio AND :fechaFin "
+                + "GROUP BY comp.numMaquina";
 
-    List<Object[]> reporte = query.getResultList();
-    entityManager.close();
-    
-    // Calcular minutos de uso
-    List<Object[]> reporteConMinutosUso = new ArrayList<>();
-    for (Object[] row : reporte) {
-        String nombreCentro = (String) row[0];
-        String numMaquina = (String) row[1];
-        Long cantidadAlumnos = (Long) row[2];
-        Calendar fechaInicioUso = (Calendar) row[3];
-        Calendar fechaFinUso = (Calendar) row[4];
+        TypedQuery<Object[]> query = entityManager.createQuery(jpql, Object[].class);
+        query.setParameter("nombresCarreras", nombresCarreras);
+        query.setParameter("nombresCentrosComputo", nombresCentrosComputo);
+        query.setParameter("fechaInicio", fechaInicio);
+        query.setParameter("fechaFin", fechaFin);
 
-        // Calcular la diferencia en minutos
-        long minutosUso = (fechaFinUso.getTimeInMillis() - fechaInicioUso.getTimeInMillis()) / (60 * 1000);
+        List<Object[]> reporte = query.getResultList();
+        entityManager.close();
 
-        // Agregar al nuevo reporte
-        reporteConMinutosUso.add(new Object[] { nombreCentro, numMaquina, cantidadAlumnos, minutosUso });
+        // Calcular minutos de uso
+        List<Object[]> reporteConMinutosUso = new ArrayList<>();
+        for (Object[] row : reporte) {
+            String nombreCentro = (String) row[0];
+            String numMaquina = (String) row[1];
+            Long cantidadAlumnos = (Long) row[2];
+            Calendar fechaInicioUso = (Calendar) row[3];
+            Calendar fechaFinUso = (Calendar) row[4];
+
+            // Calcular la diferencia en minutos
+            long minutosUso = (fechaFinUso.getTimeInMillis() - fechaInicioUso.getTimeInMillis()) / (60 * 1000);
+
+            // Agregar al nuevo reporte
+            reporteConMinutosUso.add(new Object[]{nombreCentro, numMaquina, cantidadAlumnos, minutosUso});
+        }
+
+        return reporteConMinutosUso;
     }
-    
-    return reporteConMinutosUso;
-}
+
+    /**
+     * Metodo que obtiene el reporte del centro de computo sin filtros
+     *
+     * @param fechaInicio fecha inicio
+     * @param fechaFin fecha fin
+     * @return reporte sin filtros
+     */
     public List<Object[]> obtenerReporteCentroComputoSinFiltro(Calendar fechaInicio, Calendar fechaFin) {
-    
-    managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
-    entityManager = managerFactory.createEntityManager();
 
-    String jpql = "SELECT  cc.nombre, comp.numMaquina, COUNT(e), SUM(u.minutosActivos)" +
-                  "FROM ComputadoraEntidad comp " +
-                  "JOIN comp.centroComputoEntidad cc " +
-                  "JOIN comp.apartado u " +
-                  "JOIN u.estudiante e " +
-                  "JOIN e.carrera c " +
-                  "WHERE u.fechaInicio BETWEEN :fechaInicio AND :fechaFin " +
-                  "GROUP BY cc.nombre, comp.numMaquina";
+        managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
+        entityManager = managerFactory.createEntityManager();
 
-    TypedQuery<Object[]> query = entityManager.createQuery(jpql, Object[].class);
+        String jpql = "SELECT  cc.nombre, comp.numMaquina, COUNT(e), SUM(u.minutosActivos)"
+                + "FROM ComputadoraEntidad comp "
+                + "JOIN comp.centroComputoEntidad cc "
+                + "JOIN comp.apartado u "
+                + "JOIN u.estudiante e "
+                + "JOIN e.carrera c "
+                + "WHERE u.fechaInicio BETWEEN :fechaInicio AND :fechaFin "
+                + "GROUP BY cc.nombre, comp.numMaquina";
 
-    query.setParameter("fechaInicio", fechaInicio);
-    query.setParameter("fechaFin", fechaFin);
+        TypedQuery<Object[]> query = entityManager.createQuery(jpql, Object[].class);
 
-    List<Object[]> reporte = query.getResultList();
-    entityManager.close();
+        query.setParameter("fechaInicio", fechaInicio);
+        query.setParameter("fechaFin", fechaFin);
 
-    
-    return reporte;
-}
+        List<Object[]> reporte = query.getResultList();
+        entityManager.close();
 
-    
+        return reporte;
+    }
+
 }

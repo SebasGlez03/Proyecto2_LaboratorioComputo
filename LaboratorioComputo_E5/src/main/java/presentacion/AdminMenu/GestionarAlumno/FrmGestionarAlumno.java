@@ -25,6 +25,7 @@ import utilerias.JButtonRenderer;
 
 /**
  * a
+ *
  * @hidden
  */
 public class FrmGestionarAlumno extends javax.swing.JFrame {
@@ -33,7 +34,7 @@ public class FrmGestionarAlumno extends javax.swing.JFrame {
     EstudianteNegocio estudianteNegocio = new EstudianteNegocio();
     int pagina = 0;
     int limite = 3;
-   
+
     /**
      * Creates new form FrmGestionarAlumno
      */
@@ -43,12 +44,12 @@ public class FrmGestionarAlumno extends javax.swing.JFrame {
         botonEditarEnTabla();
         botonEliminarEnTabla();
         llenarTablaEstudiantes(obtenerPagina(pagina, limite));
-        
+
         EstudianteNegocio estudianteNegocio = new EstudianteNegocio();
         UnidadAcademicaNegocio unidadAcademicaNegocio = new UnidadAcademicaNegocio();
         CentroComputoNegocio centroComputoNegocio = new CentroComputoNegocio();
     }
-    
+
     /**
      * Metodo que llena la tabla de estudiantes con la informacion de la base de
      * datos
@@ -56,18 +57,16 @@ public class FrmGestionarAlumno extends javax.swing.JFrame {
      * @param listaEstudiantes lista de estudiantes proveniente de la base de
      * datos.
      */
-
     private List<EstudianteDTO> obtenerPagina(int indiceInicio, int indiceFin) {
-        List<EstudianteDTO> todas= estudianteNegocio.buscarTodosLosEstudiantes();
+        List<EstudianteDTO> todas = estudianteNegocio.buscarTodosLosEstudiantes();
         List<EstudianteDTO> todasLasPaginas = new ArrayList<>();
         indiceFin = Math.min(indiceFin, todas.size());
         for (int i = indiceInicio; i < indiceFin; i++) {
             todasLasPaginas.add(todas.get(i));
         }
         return todasLasPaginas;
-    }    
-    
-    
+    }
+
     /**
      * Metodo que llena la tabla de estudiantes con la informacion de la base de
      * datos
@@ -375,30 +374,23 @@ public class FrmGestionarAlumno extends javax.swing.JFrame {
 
     private void btnFlechaIzquierdaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFlechaIzquierdaMouseClicked
         // TODO add your handling code here:
-        if (pagina -3 < 0)
-        {
+        if (pagina - 3 < 0) {
             JOptionPane.showMessageDialog(this, "No hay más páginas atrás");
+        } else {
+            pagina -= 3;
+            limite -= 3;
+            llenarTablaEstudiantes(obtenerPagina(pagina, limite));
         }
-        else
-        {
-        pagina -= 3;
-        limite -= 3;   
-        llenarTablaEstudiantes(obtenerPagina(pagina, limite));
-        } 
 
 
     }//GEN-LAST:event_btnFlechaIzquierdaMouseClicked
 
     private void btnFlechaDerechaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFlechaDerechaMouseClicked
         pagina += 3;
-        limite += 3;   
+        limite += 3;
         llenarTablaEstudiantes(obtenerPagina(pagina, limite));
     }//GEN-LAST:event_btnFlechaDerechaMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnAgregar;

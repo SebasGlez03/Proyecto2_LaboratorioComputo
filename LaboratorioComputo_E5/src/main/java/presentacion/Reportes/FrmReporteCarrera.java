@@ -30,6 +30,7 @@ import javax.swing.JOptionPane;
 
 /**
  * a
+ *
  * @hidden
  */
 public class FrmReporteCarrera extends javax.swing.JFrame {
@@ -83,17 +84,16 @@ public class FrmReporteCarrera extends javax.swing.JFrame {
     }
 
     /**
-     * Metodo que genera el reporte que muestra los minutos que un estudiante
+     * Metodo que genera el repoorte que muestra los minutos que un estudiante
      * usa la computadora en un cierto periodo y segun la carrera
      *
      * @param inicio Fecha de inicio de los reportes
      * @param fin Fecha de fin de los reportes
      * @param listaCarreras Lista de carreras por las que se filtraran los
      * reportes
-     * @return Lista de objetos del reporte
      */
     public void generarReporteCarrera(Calendar inicio, Calendar fin, List<String> listaCarreras) {
-        
+
     }
 
     /**

@@ -18,17 +18,18 @@ import javax.swing.JOptionPane;
 import persistencia.Interfaces.IApartadoDAO;
 
 /**
- * La clase {@code ApartadoDAO} maneja las operaciones de persistencia relacionadas con la entidad {@code ApartadoEntidad}.
- * Esta clase implementa métodos para guardar, eliminar y modificar registros en la base de datos
+ * La clase {@code ApartadoDAO} maneja las operaciones de persistencia
+ * relacionadas con la entidad {@code ApartadoEntidad}. Esta clase implementa
+ * métodos para guardar, eliminar y modificar registros en la base de datos
  * utilizando JPA y {@code EntityManager}.
- * 
+ *
  * @author santi
  */
-public class ApartadoDAO implements IApartadoDAO{
+public class ApartadoDAO implements IApartadoDAO {
 
     EntityManager entityManager = null;
-    EntityManagerFactory managerFactory = null;             
-    EntityTransaction transaction = null;   
+    EntityManagerFactory managerFactory = null;
+    EntityTransaction transaction = null;
     EstudianteDAO estudianteDAO = new EstudianteDAO();
 
     /**
@@ -40,14 +41,15 @@ public class ApartadoDAO implements IApartadoDAO{
 
     /**
      * Guarda una nueva renta en la base de datos.
-     * 
-     * @param apartado La entidad {@code ApartadoEntidad} que se desea persistir en la base de datos.
+     *
+     * @param apartado La entidad {@code ApartadoEntidad} que se desea persistir
+     * en la base de datos.
      */
     public void guardarApartado(ApartadoEntidad apartado) {
         try {
             // Construimos el EntityManager
             managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
-            entityManager = managerFactory.createEntityManager();    
+            entityManager = managerFactory.createEntityManager();
             transaction = entityManager.getTransaction();
             transaction.begin();
 
@@ -73,14 +75,15 @@ public class ApartadoDAO implements IApartadoDAO{
 
     /**
      * Elimina una renta existente en la base de datos.
-     * 
-     * @param renta La entidad {@code ApartadoEntidad} que se desea eliminar de la base de datos.
+     *
+     * @param renta La entidad {@code ApartadoEntidad} que se desea eliminar de
+     * la base de datos.
      */
     public void eliminarApartado(ApartadoEntidad renta) {
         try {
             // Construimos el EntityManager
             managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
-            entityManager = managerFactory.createEntityManager();    
+            entityManager = managerFactory.createEntityManager();
             transaction = entityManager.getTransaction();
             transaction.begin();
 
@@ -106,14 +109,15 @@ public class ApartadoDAO implements IApartadoDAO{
 
     /**
      * Modifica una renta existente en la base de datos.
-     * 
-     * @param renta La entidad {@code ApartadoEntidad} con los nuevos valores que se desean actualizar en la base de datos.
+     *
+     * @param renta La entidad {@code ApartadoEntidad} con los nuevos valores
+     * que se desean actualizar en la base de datos.
      */
     public void modificarApartado(ApartadoEntidad renta) {
         try {
             // Construimos el EntityManager
             managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
-            entityManager = managerFactory.createEntityManager();    
+            entityManager = managerFactory.createEntityManager();
             transaction = entityManager.getTransaction();
             transaction.begin();
 
@@ -136,27 +140,28 @@ public class ApartadoDAO implements IApartadoDAO{
             }
         }
     }
-    
+
     /**
      * Busca un objeto de la tabla respectiva en la base de datos.
-     *  
-     * @param Long id
+     *
+     * @param id id del apartado a buscar
+     * @return El apartado buscado
      */
     public ApartadoEntidad buscarUnApartado(Long id) {
 
-        try{
+        try {
             // Construimos el EntityManager
             managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
             entityManager = managerFactory.createEntityManager();
-            
+
             // Buscamos la entidad en la base de datos
             ApartadoEntidad Renta = entityManager.find(ApartadoEntidad.class, id);
 
             // Regresamos la entidad
-            return Renta;     
-        } catch (Exception e){
-                JOptionPane.showMessageDialog(null, "Error en Persistencia = " + e.getMessage());
-                return null;
+            return Renta;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error en Persistencia = " + e.getMessage());
+            return null;
         } finally {
             if (entityManager != null) {
                 // Cerramos el EntityManager
@@ -164,30 +169,29 @@ public class ApartadoDAO implements IApartadoDAO{
                 entityManager.close();
             }
         }
- 
-    }    
-    
+
+    }
+
     /**
      * Busca todos los objetos de la tabla respectiva en la base de datos.
-     * 
-     * 
-     * 
+     *
+     * @return lista de todos los apartados
      */
     public List<ApartadoEntidad> buscarTodosApartados() {
 
-        try{
+        try {
             // Construimos el EntityManager
             managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
             entityManager = managerFactory.createEntityManager();
-            
+
             // Buscamos las entidades en la base de datos
             TypedQuery<ApartadoEntidad> query = entityManager.createQuery("SELECT a FROM RentaEntidad a", ApartadoEntidad.class);
 
             // Regresamos la entidad
             return query.getResultList();
-            } catch (Exception e){
-                JOptionPane.showMessageDialog(null, "Error en Persistencia = " + e.getMessage());
-                return null;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error en Persistencia = " + e.getMessage());
+            return null;
         } finally {
             if (entityManager != null) {
                 // Cerramos el EntityManager
@@ -195,13 +199,19 @@ public class ApartadoDAO implements IApartadoDAO{
             }
         }
     }
-    
+
+    /**
+     * Metodo que busca un apartado por estudiante
+     *
+     * @param idE idEstudiante
+     * @param idC idComputadora
+     * @return apartad
+     */
     public List<ApartadoEntidad> buscarApartadoPorEstudiante(Long idE, Long idC) {
-    
 
         managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
         entityManager = managerFactory.createEntityManager();
-        
+
         TypedQuery<ApartadoEntidad> query = entityManager.createQuery(
                 "SELECT a FROM ApartadoEntidad a LEFT JOIN a.estudiante p LEFT JOIN a.computadora c WHERE p.idEstudiante = :idE AND c.idComputadora = :idC", ApartadoEntidad.class);
         query.setParameter("idE", idE);
@@ -210,6 +220,6 @@ public class ApartadoDAO implements IApartadoDAO{
 
         entityManager.close();
         return ccE;
-        
+
     }
 }

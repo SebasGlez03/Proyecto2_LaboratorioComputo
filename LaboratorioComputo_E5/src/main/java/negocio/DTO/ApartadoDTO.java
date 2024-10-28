@@ -11,6 +11,7 @@ import persistencia.entidades.EstudianteEntidad;
 
 /**
  * a
+ *
  * @hidden
  */
 public class ApartadoDTO {
@@ -45,14 +46,16 @@ public class ApartadoDTO {
     ComputadoraDTO computadora;
 
     /**
-     * Constructor vacío para inicializar un objeto ApartadoDTO sin datos predefinidos.
+     * Constructor vacío para inicializar un objeto ApartadoDTO sin datos
+     * predefinidos.
      */
     public ApartadoDTO() {
     }
 
     /**
-     * Constructor que inicializa un objeto ApartadoDTO con los valores proporcionados.
-     * 
+     * Constructor que inicializa un objeto ApartadoDTO con los valores
+     * proporcionados.
+     *
      * @param id El identificador único del apartado.
      * @param fechaInicio La fecha de inicio del apartado.
      * @param fechaFin La fecha de fin del apartado.
@@ -66,13 +69,14 @@ public class ApartadoDTO {
         this.estudiante = estudiante;
         this.computadora = computadora;
     }
-    
+
     /**
-     * Constructor que convierte una entidad de ApartadoEntidad en un objeto ApartadoDTO.
-     * 
+     * Constructor que convierte una entidad de ApartadoEntidad en un objeto
+     * ApartadoDTO.
+     *
      * @param aE La entidad ApartadoEntidad que contiene los datos del apartado.
      */
-    public ApartadoDTO(ApartadoEntidad aE){
+    public ApartadoDTO(ApartadoEntidad aE) {
         this.id = aE.getId();
         this.fechaInicio = aE.getFechaInicio();
         this.fechaFin = aE.getFechaFin();
@@ -84,10 +88,9 @@ public class ApartadoDTO {
     }
 
     // Getters y setters
-
     /**
      * Obtiene el identificador único del apartado.
-     * 
+     *
      * @return El identificador del apartado.
      */
     public Long getId() {
@@ -96,7 +99,7 @@ public class ApartadoDTO {
 
     /**
      * Establece el identificador único del apartado.
-     * 
+     *
      * @param id El identificador del apartado.
      */
     public void setId(Long id) {
@@ -105,7 +108,7 @@ public class ApartadoDTO {
 
     /**
      * Obtiene la fecha de inicio del apartado.
-     * 
+     *
      * @return La fecha de inicio del apartado.
      */
     public Calendar getFechaInicio() {
@@ -114,7 +117,7 @@ public class ApartadoDTO {
 
     /**
      * Establece la fecha de inicio del apartado.
-     * 
+     *
      * @param fechaInicio La nueva fecha de inicio del apartado.
      */
     public void setFechaInicio(Calendar fechaInicio) {
@@ -123,7 +126,7 @@ public class ApartadoDTO {
 
     /**
      * Obtiene la fecha de fin del apartado.
-     * 
+     *
      * @return La fecha de fin del apartado.
      */
     public Calendar getFechaFin() {
@@ -132,7 +135,7 @@ public class ApartadoDTO {
 
     /**
      * Establece la fecha de fin del apartado.
-     * 
+     *
      * @param fechaFin La nueva fecha de fin del apartado.
      */
     public void setFechaFin(Calendar fechaFin) {
@@ -141,7 +144,7 @@ public class ApartadoDTO {
 
     /**
      * Obtiene el DTO del estudiante asociado al apartado.
-     * 
+     *
      * @return El DTO del estudiante.
      */
     public EstudianteDTO getEstudiante() {
@@ -150,7 +153,7 @@ public class ApartadoDTO {
 
     /**
      * Establece el DTO del estudiante asociado al apartado.
-     * 
+     *
      * @param estudiante El nuevo DTO del estudiante.
      */
     public void setEstudiante(EstudianteDTO estudiante) {
@@ -159,7 +162,7 @@ public class ApartadoDTO {
 
     /**
      * Obtiene el DTO de la computadora asignada al apartado.
-     * 
+     *
      * @return El DTO de la computadora.
      */
     public ComputadoraDTO getComputadora() {
@@ -168,40 +171,40 @@ public class ApartadoDTO {
 
     /**
      * Establece el DTO de la computadora asignada al apartado.
-     * 
+     *
      * @param computadora El nuevo DTO de la computadora.
      */
     public void setComputadora(ComputadoraDTO computadora) {
         this.computadora = computadora;
     }
-    
+
     /**
      * Obtiene el DTO de la computadora asignada al apartado.
-     * 
+     *
      * @return El DTO de la computadora.
      */
     public int getMinutosActivo() {
         return minutosActivo;
     }
+
     /**
-     * 
-     * Establece el DTO de la computadora asignada al apartado.
-     * 
-     * @param computadora El nuevo DTO de la computadora.
+     * stablece el DTO de la computadora asignada al apartado.
+     *
+     * @param minutosActivo minutos activo de la computadora
      */
     public void setMinutosActivo(int minutosActivo) {
         this.minutosActivo = minutosActivo;
     }
 
     /**
-     * Retorna una representación en cadena de caracteres del objeto ApartadoDTO.
-     * 
+     * Retorna una representación en cadena de caracteres del objeto
+     * ApartadoDTO.
+     *
      * @return Una cadena de caracteres que contiene los datos del apartado.
      */
     @Override
     public String toString() {
         return "ApartadoDTO{" + "id=" + id + ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", estudiante=" + estudiante + ", computadora=" + computadora + '}';
     }
-
 
 }
