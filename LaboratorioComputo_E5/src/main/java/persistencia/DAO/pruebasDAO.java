@@ -83,11 +83,11 @@ public class pruebasDAO {
 //        System.out.println(centroComputoDAO.buscarCentrosPorUnidad(Long.parseLong("1")).toString());
 //        System.out.println(computadoraDAO.buscarComputadorasPorCentro(Long.parseLong("1")).toString());
 
-//        List<String> carreras = new ArrayList<>();
-//        carreras.add("Software");
-//        List<String> centro = new ArrayList<>();
-//        carreras.add("Cisco");
-//        
+        List<String> carreras = new ArrayList<>();
+        carreras.add("Ingeniería en Sistemas");
+        List<String> centro = new ArrayList<>();
+        centro.add("Cisco");
+        
         // Crear la primera instancia de Calendar
         Calendar calendar1 = Calendar.getInstance();
         calendar1.set(1924, Calendar.OCTOBER, 28); // Establecer una fecha específica (por ejemplo, 28 de octubre de 1924)
@@ -95,10 +95,10 @@ public class pruebasDAO {
         // Crear la segunda instancia de Calendar con 100 años de diferencia
         Calendar calendar2 = (Calendar) calendar1.clone(); // Clonar la primera instancia
         calendar2.add(Calendar.YEAR, 150); // Sumar 100 años a la segunda instancia
-        
-//        centroComputoDAO.obtenerReporteCentroComputo(centro, carreras, calendar1, calendar2);
-        List<Object[]> reporte = new ArrayList<>();
-        reporte = centroComputoDAO.obtenerReporteCentroComputoSinFiltro(calendar1, calendar2);
+                List<Object[]> reporte = new ArrayList<>();
+         reporte = centroComputoDAO.obtenerReporteCentroComputo(centro, carreras, calendar1, calendar2);
+
+//        centroComputoDAO.obtenerReporteCentroComputoSinFiltro(calendar1, calendar2);
         List<Object[]> reporteConMinutosUso = new ArrayList<>();
         for (Object[] row : reporte) {
             String centronombre = (String) row[0];
