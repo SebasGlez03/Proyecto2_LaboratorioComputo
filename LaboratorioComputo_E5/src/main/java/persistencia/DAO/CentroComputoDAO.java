@@ -4,7 +4,7 @@
  */
 package persistencia.DAO;
 
-import persistencia.entidades.BloqueoEntidad;
+import java.time.LocalDateTime;
 import persistencia.entidades.CentroComputoEntidad;
 import java.util.List;
 import javax.persistence.EntityManager;
