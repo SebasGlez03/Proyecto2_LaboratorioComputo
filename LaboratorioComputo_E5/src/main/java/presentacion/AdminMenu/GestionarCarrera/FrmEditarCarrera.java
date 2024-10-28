@@ -4,19 +4,47 @@
  */
 package presentacion.AdminMenu.GestionarCarrera;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import negocio.DTO.CarreraDTO;
+import negocio.logica.CarreraNegocio;
+
 /**
  *
  * @author nomar
  */
 public class FrmEditarCarrera extends javax.swing.JFrame {
 
+    CarreraNegocio carreraNegocio = new CarreraNegocio();
+    
+    CarreraDTO carrera;
+    
+    public FrmEditarCarrera() {
+    }
+    
     /**
      * Creates new form FrmEditarCarrera
      */
-    public FrmEditarCarrera() {
+    public FrmEditarCarrera(CarreraDTO carrera) {
         initComponents();
+        
+        this.carrera = carrera;
+        mostrarInformacionActualCarrera();
     }
 
+    public void mostrarInformacionActualCarrera() {
+        campoTextoNombreCarrera.setText(carrera.getNombre());
+        
+        Date tiempoDiarioDate = carrera.getTiempoDiario(); 
+        SimpleDateFormat formato = new SimpleDateFormat("HH:mm:ss"); 
+        String tiempoDiarioString = formato.format(tiempoDiarioDate);
+
+        campoTextoTiempo.setText(tiempoDiarioString);
+
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -86,6 +114,7 @@ public class FrmEditarCarrera extends javax.swing.JFrame {
         getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -98,7 +127,34 @@ public class FrmEditarCarrera extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReiniciarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
+        
+        
+        String nombreCarrera = campoTextoNombreCarrera.getText(); // Campo para el nombre de la carrera
+        String tiempoDiarioStr = campoTextoTiempo.getText(); // Campo para el tiempo diario
+
+        try {
+            // Convierte el tiempo diario de String a Date
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss"); // Define el formato esperado
+            Date tiempoDiario = timeFormat.parse(tiempoDiarioStr); // Convierte el String a Date
+
+            // Establece los atributos de la carrera
+            carrera.setNombre(nombreCarrera);
+            carrera.setTiempoDiario(tiempoDiario); // Establece el tiempo diario como Date
+
+            // Inicializa CarreraNegocio y modifica la carrera
+            CarreraNegocio carreraNegocio = new CarreraNegocio();
+            carreraNegocio.modificarCarrera(carrera);
+
+            JOptionPane.showMessageDialog(this, "La Carrera se ha editado correctamente.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            dispose();
+
+        } catch (ParseException parseException) {
+            JOptionPane.showMessageDialog(this, "El formato del tiempo diario es incorrecto. Use HH:mm:ss.", "ERROR", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ha ocurrido un error inesperado: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+
+
     }//GEN-LAST:event_btnEditarActionPerformed
 
     /**

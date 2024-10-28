@@ -32,6 +32,7 @@ public class FrmGestionarCarrera extends javax.swing.JFrame {
     public FrmGestionarCarrera() {
         initComponents();
         
+        botonEditarEnTabla();
         botonEliminarEnTabla();
         llenarTablaCarrera(carreraNegocio.buscarCarreras());
     }
@@ -113,8 +114,62 @@ private void botonEliminarEnTabla() {
         modeloColumnas.getColumn(4).setCellEditor(new JButtonCellEditor("Eliminar", onEliminarClickListener));
     }
 
-    
-    
+    private void botonEditarEnTabla() {
+
+        ActionListener onEliminarClickListener = new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Obtén la fila seleccionada
+                int filaSeleccionada = tblCarrera.getSelectedRow();
+
+                if (filaSeleccionada != -1) { // Verifica que haya una fila seleccionada
+                    // Usa el modelo para obtener los datos del estudiante en esa fila
+                    DefaultTableModel modeloTabla = (DefaultTableModel) tblCarrera.getModel();
+
+                    Long idCarrera = (Long) modeloTabla.getValueAt(filaSeleccionada, 0); // Suponiendo que el ID esté en la columna 0
+                    String nombreCarrera = (String) modeloTabla.getValueAt(filaSeleccionada, 1);
+                    Date tiempoDiario = (Date) modeloTabla.getValueAt(filaSeleccionada, 2);
+
+                    // Crea un carreraDTO usando los datos obtenidos de la fila
+                    
+                    CarreraDTO carrera = new CarreraDTO();
+                    carrera.setId(idCarrera);
+                    carrera.setNombre(nombreCarrera);
+                    carrera.setTiempoDiario(tiempoDiario);
+
+                    // Aquí puedes implementar la lógica de eliminación o cualquier otra acción
+                    System.out.println("Estudiante a eliminar: " + carrera.toString());
+                    FrmEditarCarrera frmEC = new FrmEditarCarrera(carrera);
+                    frmEC.setVisible(true);
+//                    int respuesta = JOptionPane.showConfirmDialog(
+//                            null,
+//                            "¿Está seguro de que desea editar este alumno?",
+//                            "Confirmar eliminación",
+//                            JOptionPane.YES_NO_OPTION,
+//                            JOptionPane.QUESTION_MESSAGE
+//                    );
+//                    
+//                    if (respuesta == JOptionPane.YES_OPTION) {
+//                        try {
+//                            estudianteNegocio.modificarEstudiante(estudiante);
+//                            JOptionPane.showMessageDialog(null, "El alumno se ha eliminado correctamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+//                            dispose();
+//                            FrmGestionarAlumno frm = new FrmGestionarAlumno();
+//                            frm.setVisible(true);
+//                        } catch (Exception ex) {
+//                            JOptionPane.showMessageDialog(null, "Ha ocurrido un error inesperado al eliminar el alumno: " + ex, "ERROR", JOptionPane.ERROR_MESSAGE);
+//                        }
+//                    }
+
+                }
+            }
+        };
+
+        TableColumnModel modeloColumnas = this.tblCarrera.getColumnModel();
+        modeloColumnas.getColumn(3).setCellRenderer(new JButtonRenderer("Editar"));
+        modeloColumnas.getColumn(3).setCellEditor(new JButtonCellEditor("Editar", onEliminarClickListener));
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
