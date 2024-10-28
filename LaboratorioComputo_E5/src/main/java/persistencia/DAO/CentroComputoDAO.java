@@ -5,6 +5,8 @@
 package persistencia.DAO;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Calendar;
 import persistencia.entidades.CentroComputoEntidad;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -247,24 +249,106 @@ public class CentroComputoDAO implements ICentroComputoDAO{
          * @param fechaFin              Fecha de fin del rango.
          * @return                      Lista de registros con información del centro de cómputo y uso.
          */
-        public List<Object[]> obtenerReporteCentroComputo(String centroComputo,List<String> nombresCentrosComputo, LocalDateTime fechaInicio, LocalDateTime fechaFin) {
-            String jpql = "SELECT cc.nombre, comp.numeroComputadora, COUNT(e), SUM(u.minutosUsoPorDia), " +
-                          "(SUM(TIMESTAMPDIFF(MINUTE, u.inicio, u.fin)) - SUM(u.minutosUsoPorDia)) AS minutosInactividad " +
-                          "FROM CentroComputo cc " +
-                          "JOIN cc.computadoras comp " +
-                          "JOIN comp.estudiantes e " +
-                          "JOIN e.usoDiario u " +
-                          "WHERE cc.nombre IN :nombresCentrosComputo " +
-                          "AND u.fecha BETWEEN :fechaInicio AND :fechaFin " +
-                          "GROUP BY cc.nombre, comp.numeroComputadora";
+//        public List<Object[]> obtenerReporteCentroComputo(List<String> nombresCarreras,List<String> nombresCentrosComputo, Calendar fechaInicio, Calendar fechaFin) {
+//           
+//                    managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
+//                    entityManager = managerFactory.createEntityManager();
+//        
+//            
+//    String jpql = "SELECT cc.nombre, comp.numMaquina, COUNT(e), SUM(TIMESTAMPDIFF(MINUTE, u.fechaInicio, u.fechaFin)) " +
+//                  "FROM ComputadoraEntidad comp " +
+//                  "JOIN comp.centroComputoEntidad cc " +
+//                  "JOIN comp.apartado u " +
+//                  "JOIN u.estudiante e " +
+//                  "JOIN e.carrera c " + 
+//                  "WHERE cc.nombre IN :nombresCentrosComputo " +
+//                  "AND c.nombre IN :nombresCarreras " +
+//                  "AND u.fechaInicio BETWEEN :fechaInicio AND :fechaFin " +
+//                  "GROUP BY cc.nombre, comp.numMaquina";
+//
+//            TypedQuery<Object[]> query = entityManager.createQuery(jpql, Object[].class);
+//            query.setParameter("nombresCarreras", nombresCarreras);
+//            query.setParameter("nombresCentrosComputo", nombresCentrosComputo);
+//            query.setParameter("fechaInicio", fechaInicio);
+//            query.setParameter("fechaFin", fechaFin);
+//
+//            List<Object[]> reporte = new ArrayList<>();
+//                    
+//            reporte = query.getResultList();
+//            entityManager.close();
+//            
+//            
+//            return reporte;
+//        }
 
-            TypedQuery<Object[]> query = entityManager.createQuery(jpql, Object[].class);
-            query.setParameter("nombresCentrosComputo", nombresCentrosComputo);
-            query.setParameter("fechaInicio", fechaInicio);
-            query.setParameter("fechaFin", fechaFin);
+    public List<Object[]> obtenerReporteCentroComputo(List<String> nombresCarreras, List<String> nombresCentrosComputo, Calendar fechaInicio, Calendar fechaFin) {
+    
+    managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
+    entityManager = managerFactory.createEntityManager();
 
-            return query.getResultList();
-        }
+    String jpql = "SELECT  comp.numMaquina, COUNT(e) " +
+                  "FROM ComputadoraEntidad comp " +
+                  "JOIN comp.centroComputoEntidad cc " +
+                  "JOIN comp.apartado u " +
+                  "JOIN u.estudiante e " +
+                  "JOIN e.carrera c " + 
+                  "WHERE cc.nombre IN :nombresCentrosComputo " +
+                  "AND c.nombre IN :nombresCarreras " +
+                  "AND u.fechaInicio BETWEEN :fechaInicio AND :fechaFin " +
+                  "GROUP BY comp.numMaquina";
+
+    TypedQuery<Object[]> query = entityManager.createQuery(jpql, Object[].class);
+    query.setParameter("nombresCarreras", nombresCarreras);
+    query.setParameter("nombresCentrosComputo", nombresCentrosComputo);
+    query.setParameter("fechaInicio", fechaInicio);
+    query.setParameter("fechaFin", fechaFin);
+
+    List<Object[]> reporte = query.getResultList();
+    entityManager.close();
+    
+    // Calcular minutos de uso
+    List<Object[]> reporteConMinutosUso = new ArrayList<>();
+    for (Object[] row : reporte) {
+        String nombreCentro = (String) row[0];
+        String numMaquina = (String) row[1];
+        Long cantidadAlumnos = (Long) row[2];
+        Calendar fechaInicioUso = (Calendar) row[3];
+        Calendar fechaFinUso = (Calendar) row[4];
+
+        // Calcular la diferencia en minutos
+        long minutosUso = (fechaFinUso.getTimeInMillis() - fechaInicioUso.getTimeInMillis()) / (60 * 1000);
+
+        // Agregar al nuevo reporte
+        reporteConMinutosUso.add(new Object[] { nombreCentro, numMaquina, cantidadAlumnos, minutosUso });
+    }
+    
+    return reporteConMinutosUso;
+}
+    public List<Object[]> obtenerReporteCentroComputoSinFiltro(Calendar fechaInicio, Calendar fechaFin) {
+    
+    managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
+    entityManager = managerFactory.createEntityManager();
+
+    String jpql = "SELECT  cc.nombre, comp.numMaquina, COUNT(e), SUM(u.minutosActivos)" +
+                  "FROM ComputadoraEntidad comp " +
+                  "JOIN comp.centroComputoEntidad cc " +
+                  "JOIN comp.apartado u " +
+                  "JOIN u.estudiante e " +
+                  "JOIN e.carrera c " +
+                  "WHERE u.fechaInicio BETWEEN :fechaInicio AND :fechaFin " +
+                  "GROUP BY cc.nombre, comp.numMaquina";
+
+    TypedQuery<Object[]> query = entityManager.createQuery(jpql, Object[].class);
+
+    query.setParameter("fechaInicio", fechaInicio);
+    query.setParameter("fechaFin", fechaFin);
+
+    List<Object[]> reporte = query.getResultList();
+    entityManager.close();
+
+    
+    return reporte;
+}
 
     
 }

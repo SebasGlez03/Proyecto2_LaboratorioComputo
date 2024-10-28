@@ -39,6 +39,9 @@ public class ApartadoEntidad implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "fechaFin", nullable = false)
     private Calendar fechaFin;
+    
+    @Column(name = "MinutosActivo", nullable = false)
+    private int minutosActivo;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "idEstudiante", nullable = false)
@@ -159,6 +162,27 @@ public class ApartadoEntidad implements Serializable {
         this.computadora = computadora;
     }
 
+    
+    /**
+     * Metodo que obtiene la lista de computadoras asociadas a la renta
+     *
+     * @return La lista de computadoras
+     */
+    public int getMinutosActivo() {
+        return minutosActivo;
+    }
+
+        /**
+     * Metodo que establece la lista de computadoras asociadas a la renta
+     *
+     * @param computadora La lista de computadoras
+     */
+    public void setMinutosActivo(int minutosActivo) {
+        this.minutosActivo = minutosActivo;
+    }
+
+    
+    
     /**
      * Metodo que devuelve el valor de los atributos de la clase de forma de
      * string

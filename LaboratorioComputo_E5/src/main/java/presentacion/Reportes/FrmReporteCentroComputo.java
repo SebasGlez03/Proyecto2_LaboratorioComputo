@@ -6,9 +6,15 @@ package presentacion.Reportes;
 
 import com.github.lgooddatepicker.components.DateTimePicker;
 import java.awt.FlowLayout;
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultListModel;
+import main.buscarComputadoraIp;
 import negocio.DTO.CarreraDTO;
+import negocio.DTO.CentroComputoDTO;
 import negocio.logica.CarreraNegocio;
+import negocio.logica.CentroComputoNegocio;
+import negocio.logica.ComputadoraNegocio;
 import presentacion.AdminMenu.FrmReportes;
 
 /**
@@ -20,7 +26,18 @@ public class FrmReporteCentroComputo extends javax.swing.JFrame {
     CarreraNegocio carreraNegcio = new CarreraNegocio();
     DateTimePicker dateTimePicker = new DateTimePicker();
     DateTimePicker dateTimePicker2 = new DateTimePicker();
+    DefaultListModel<String> listModel = new DefaultListModel<>();
+    DefaultListModel<String> listModel2 = new DefaultListModel<>();
+    CentroComputoNegocio centroComputoNegocio = new CentroComputoNegocio();
+    
+    List<CarreraDTO> carrerasDTO = new ArrayList<>();
+    List<CentroComputoDTO> centrosDTO = new ArrayList<>();
 
+    int carreraCounter = 0;
+    int centroCounter = 0;
+    List<String> carreras = new ArrayList<>();
+    List<String> centros = new ArrayList<>();
+    int numMaquina;
     /**
      * Creates new form FrmReporteCarrera
      */
@@ -31,7 +48,12 @@ public class FrmReporteCentroComputo extends javax.swing.JFrame {
         fldFechaInicio.add(dateTimePicker);
         fldFechaFin.setLayout(new FlowLayout());
         fldFechaFin.add(dateTimePicker2);
-        llenarBoxCarreras(carreraNegcio.buscarCarreras());
+        this.carrerasDTO = carreraNegcio.buscarCarreras();
+        llenarBoxCarreras(carrerasDTO);
+        this.centrosDTO = centroComputoNegocio.buscarCentrosComputos();
+        llenarBoxCentros(centrosDTO);
+        System.out.println(carrerasDTO.toString());
+        
     }
 
     /**
@@ -44,6 +66,20 @@ public class FrmReporteCentroComputo extends javax.swing.JFrame {
         int i = 0;
         while (carrera.size() > i) {
             comboBoxCarrera.addItem(carrera.get(i).getNombre());
+            i++;
+        }
+    }
+
+    /**
+     * Metodo que se encarga de llenar el comboBox con las carreras de la base
+     * de datos
+     *
+     * @param centro Lista de carreras que hay en una unidad academica
+     */
+    private void llenarBoxCentros(List<CentroComputoDTO> centro) {
+        int i = 0;
+        while (centro.size() > i) {
+            comboBoxCentro.addItem(centro.get(i).getNombre());
             i++;
         }
     }
@@ -61,6 +97,8 @@ public class FrmReporteCentroComputo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         lblCarreras = new javax.swing.JLabel();
         lblFechaFin = new javax.swing.JLabel();
         lblFechaInicio = new javax.swing.JLabel();
@@ -70,7 +108,20 @@ public class FrmReporteCentroComputo extends javax.swing.JFrame {
         reporte = new javax.swing.JLabel();
         carrera = new javax.swing.JLabel();
         btnAtras = new javax.swing.JLabel();
+        lblCarreras1 = new javax.swing.JLabel();
+        comboBoxCentro = new javax.swing.JComboBox<>();
+        btnAgregarCarrera = new javax.swing.JButton();
+        btnAgregarCentro = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listCarreras = new javax.swing.JList<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        listCentros = new javax.swing.JList<>();
+        btnGenerarReporte = new javax.swing.JButton();
         fondo = new javax.swing.JLabel();
+
+        jButton1.setText("jButton1");
+
+        jButton2.setText("jButton2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -79,7 +130,7 @@ public class FrmReporteCentroComputo extends javax.swing.JFrame {
         lblCarreras.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblCarreras.setForeground(new java.awt.Color(255, 255, 255));
         lblCarreras.setText("Carreras");
-        getContentPane().add(lblCarreras, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 440, -1, -1));
+        getContentPane().add(lblCarreras, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 350, -1, -1));
 
         lblFechaFin.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblFechaFin.setForeground(new java.awt.Color(255, 255, 255));
@@ -91,7 +142,7 @@ public class FrmReporteCentroComputo extends javax.swing.JFrame {
         lblFechaInicio.setText("Fecha Inicio");
         getContentPane().add(lblFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, -1, -1));
 
-        getContentPane().add(comboBoxCarrera, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 480, 210, 40));
+        getContentPane().add(comboBoxCarrera, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 390, 210, 40));
         getContentPane().add(fldFechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 300, 350, 40));
         getContentPane().add(fldFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, 350, 40));
 
@@ -114,8 +165,52 @@ public class FrmReporteCentroComputo extends javax.swing.JFrame {
         });
         getContentPane().add(btnAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 680, -1, -1));
 
+        lblCarreras1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblCarreras1.setForeground(new java.awt.Color(255, 255, 255));
+        lblCarreras1.setText("Centro de Cómputo");
+        getContentPane().add(lblCarreras1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 350, -1, -1));
+
+        getContentPane().add(comboBoxCentro, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 390, 210, 40));
+
+        btnAgregarCarrera.setText("Agregar");
+        btnAgregarCarrera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarCarreraActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnAgregarCarrera, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 440, -1, -1));
+
+        btnAgregarCentro.setText("Agregar");
+        btnAgregarCentro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarCentroActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnAgregarCentro, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 440, -1, -1));
+
+        jScrollPane1.setViewportView(listCarreras);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 470, 210, 90));
+
+        jScrollPane2.setViewportView(listCentros);
+
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 470, 210, 90));
+
+        btnGenerarReporte.setText("Generar");
+        btnGenerarReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerarReporteActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnGenerarReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 600, 280, 90));
+
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BackGroundGeneral.jpg"))); // NOI18N
-        getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        fondo.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                fondoMouseMoved(evt);
+            }
+        });
+        getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, -1));
 
         pack();
         setLocationRelativeTo(null);
@@ -126,6 +221,39 @@ public class FrmReporteCentroComputo extends javax.swing.JFrame {
         new FrmReportes().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAtrasMouseClicked
+
+    private void fondoMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fondoMouseMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fondoMouseMoved
+
+    private void btnAgregarCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCarreraActionPerformed
+        listCarreras.setModel(listModel);
+        int fila = (int) comboBoxCarrera.getSelectedIndex();
+
+        listModel.add(carreraCounter, carreraNegcio.buscarCarrera(carrerasDTO.get(fila).getId()).getNombre());
+        listModel.setSize(20);
+        this.carreras.add(carreraNegcio.buscarCarrera(carrerasDTO.get(fila).getId()).getNombre());
+ 
+        carreraCounter++;
+
+    }//GEN-LAST:event_btnAgregarCarreraActionPerformed
+
+    
+    
+    private void btnAgregarCentroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCentroActionPerformed
+        listCentros.setModel(listModel2);
+        int fila = (int) comboBoxCentro.getSelectedIndex();
+        
+        listModel2.add(centroCounter, centrosDTO.get(fila).getNombre());
+        listModel2.setSize(20);
+        this.carreras.add(centrosDTO.get(fila).getNombre());
+ 
+        centroCounter++;
+    }//GEN-LAST:event_btnAgregarCentroActionPerformed
+
+    private void btnGenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarReporteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGenerarReporteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -164,15 +292,26 @@ public class FrmReporteCentroComputo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarCarrera;
+    private javax.swing.JButton btnAgregarCentro;
     private javax.swing.JLabel btnAtras;
+    private javax.swing.JButton btnGenerarReporte;
     private javax.swing.JLabel carrera;
     private javax.swing.JComboBox<String> comboBoxCarrera;
+    private javax.swing.JComboBox<String> comboBoxCentro;
     private javax.swing.JPanel fldFechaFin;
     private javax.swing.JPanel fldFechaInicio;
     private javax.swing.JLabel fondo;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblCarreras;
+    private javax.swing.JLabel lblCarreras1;
     private javax.swing.JLabel lblFechaFin;
     private javax.swing.JLabel lblFechaInicio;
+    private javax.swing.JList<String> listCarreras;
+    private javax.swing.JList<String> listCentros;
     private javax.swing.JLabel reporte;
     // End of variables declaration//GEN-END:variables
 }

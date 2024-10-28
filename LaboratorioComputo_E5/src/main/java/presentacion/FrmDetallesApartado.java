@@ -68,7 +68,7 @@ public class FrmDetallesApartado extends javax.swing.JFrame {
 
         if (sofwtare != null) {
             sofwtare.forEach(row -> {
-                Object[] fila = new Object[7];
+                Object[] fila = new Object[1];
                 fila[0] = row;
 
                 modeloTabla.addRow(fila);
@@ -205,13 +205,20 @@ public class FrmDetallesApartado extends javax.swing.JFrame {
             fechaFinApartado.add(Calendar.HOUR, estudianteNegocio.buscarEstudiante(idEstudiante).getCarrera().getTiempoDiario().getHours());
             fechaFinApartado.add(Calendar.MINUTE, estudianteNegocio.buscarEstudiante(idEstudiante).getCarrera().getTiempoDiario().getMinutes());
             
+            long milisegundosInicio = fechaInicioApartado.getTimeInMillis();
+            long milisegundosFin = fechaFinApartado.getTimeInMillis();
 
+            // Calcula la diferencia en minutos
+            long diferenciaMilisegundos = (milisegundosFin - milisegundosInicio)/ (60 * 1000);
             
+            
+            int valorInt = (int) diferenciaMilisegundos;
             ApartadoDTO aDTO = new ApartadoDTO();
             aDTO.setFechaInicio(fechaInicioApartado);
             aDTO.setFechaFin(fechaFinApartado);
             aDTO.setEstudiante(estudianteNegocio.buscarEstudiante(idEstudiante));
             aDTO.setComputadora(computadoraNegocio.buscarComputadora(idComputadora));
+            aDTO.setMinutosActivo(valorInt);
             apartadoNegocio.guardarApartado(aDTO);
             
             FrmPopUp frm = new FrmPopUp();
