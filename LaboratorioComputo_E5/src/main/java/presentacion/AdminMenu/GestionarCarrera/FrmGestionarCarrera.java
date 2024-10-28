@@ -6,6 +6,7 @@ package presentacion.AdminMenu.GestionarCarrera;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -13,6 +14,7 @@ import javax.swing.table.TableColumnModel;
 import negocio.DTO.CarreraDTO;
 import negocio.logica.CarreraNegocio;
 import presentacion.AdminMenu.FrmAdminMenu;
+
 import utilerias.JButtonCellEditor;
 import utilerias.JButtonRenderer;
 
@@ -22,11 +24,16 @@ import utilerias.JButtonRenderer;
  */
 public class FrmGestionarCarrera extends javax.swing.JFrame {
 
+    CarreraNegocio carreraNegocio = new CarreraNegocio();
+    
     /**
      * Creates new form FrmGestionarCarrera
      */
     public FrmGestionarCarrera() {
         initComponents();
+        
+        botonEliminarEnTabla();
+        llenarTablaCarrera(carreraNegocio.buscarCarreras());
     }
 
     public void llenarTablaCarrera(List<CarreraDTO> listaCarrera) {
@@ -50,8 +57,61 @@ public class FrmGestionarCarrera extends javax.swing.JFrame {
         }
     }
     
+private void botonEliminarEnTabla() {
 
+        ActionListener onEliminarClickListener = new ActionListener() {
 
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Obtén la fila seleccionada
+                int filaSeleccionada = tblCarrera.getSelectedRow();
+
+                if (filaSeleccionada != -1) { // Verifica que haya una fila seleccionada
+                    // Usa el modelo para obtener los datos de la carrera en esa fila
+                    DefaultTableModel modeloTabla = (DefaultTableModel) tblCarrera.getModel();
+
+                    Long idCarrera = (Long) modeloTabla.getValueAt(filaSeleccionada, 0); // Suponiendo que el ID esté en la columna 0
+                    String nombreCarrera = (String) modeloTabla.getValueAt(filaSeleccionada, 1);
+                    Date tiempoDiario = (Date) modeloTabla.getValueAt(filaSeleccionada, 2);
+                    
+
+                    // Crea un carreraDTO usando los datos obtenidos de la fila
+                    
+                    CarreraDTO carrera = new CarreraDTO();
+                    carrera.setId(idCarrera);
+                    carrera.setNombre(nombreCarrera);
+                    carrera.setTiempoDiario(tiempoDiario);
+        
+                    // Aquí puedes implementar la lógica de eliminación o cualquier otra acción
+//                    System.out.println("Carrera a eliminar: " + carrera.toString());
+                    int respuesta = JOptionPane.showConfirmDialog(
+                            null,
+                            "¿Está seguro de que desea eliminar esta Carrera?",
+                            "Confirmar eliminación",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.QUESTION_MESSAGE
+                    );
+
+                    if (respuesta == JOptionPane.YES_OPTION) {
+                        try {
+                            carreraNegocio.eliminarCarrera(carrera);
+                            JOptionPane.showMessageDialog(null, "La Carrera se ha eliminado correctamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                            dispose();
+                            FrmGestionarCarrera frm = new FrmGestionarCarrera();
+                            frm.setVisible(true);
+                        } catch (Exception ex) {
+                            JOptionPane.showMessageDialog(null, "Ha ocurrido un error inesperado al eliminar la carrera: " + ex, "ERROR", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+
+                }
+            }
+        };
+
+        TableColumnModel modeloColumnas = this.tblCarrera.getColumnModel();
+        modeloColumnas.getColumn(4).setCellRenderer(new JButtonRenderer("Eliminar"));
+        modeloColumnas.getColumn(4).setCellEditor(new JButtonCellEditor("Eliminar", onEliminarClickListener));
+    }
 
     
     
@@ -108,13 +168,13 @@ public class FrmGestionarCarrera extends javax.swing.JFrame {
 
         tblCarrera.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Nombre de la Carrera", "Tiempo de uso Diario", "Editar", "Eliminar"
+                "idCarrera", "Nombre de la Carrera", "Tiempo de uso Diario", "Editar", "Eliminar"
             }
         ));
         jScrollPane1.setViewportView(tblCarrera);
