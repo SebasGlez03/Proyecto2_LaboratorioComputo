@@ -33,8 +33,7 @@ public class FrmGestionarAlumno extends javax.swing.JFrame {
     EstudianteNegocio estudianteNegocio = new EstudianteNegocio();
     int pagina = 0;
     int limite = 3;
-    UnidadAcademicaNegocio unidadAcademicaNegocio;
-    CentroComputoNegocio centroComputoNegocio;
+   
     /**
      * Creates new form FrmGestionarAlumno
      */
@@ -48,29 +47,8 @@ public class FrmGestionarAlumno extends javax.swing.JFrame {
         EstudianteNegocio estudianteNegocio = new EstudianteNegocio();
         UnidadAcademicaNegocio unidadAcademicaNegocio = new UnidadAcademicaNegocio();
         CentroComputoNegocio centroComputoNegocio = new CentroComputoNegocio();
-        
-        this.centroComputoNegocio = centroComputoNegocio;
-        this.estudianteNegocio = estudianteNegocio;
-        this.unidadAcademicaNegocio = unidadAcademicaNegocio;
-        
-        llenarBoxUnidades(unidadAcademicaNegocio.buscarUnidadAcademica());
     }
     
-    private void llenarBoxUnidades(List<UnidadAcademicaDTO> UnidadAcademica) {
-        int i = 0;
-        while (UnidadAcademica.size() > i) {
-            boxUnidadesAcademicas.addItem(UnidadAcademica.get(i).getNombre());
-            i++;
-        }
-    }
-    
-    private void llenarBoxCentros(List<CentroComputoDTO> CentroComputo) {
-        int i = 0;
-        while (CentroComputo.size() > i) {
-            boxCentroComputo.addItem(CentroComputo.get(i).getNombre());
-            i++;
-        }
-    }
     /**
      * Metodo que llena la tabla de estudiantes con la informacion de la base de
      * datos
@@ -292,9 +270,6 @@ public class FrmGestionarAlumno extends javax.swing.JFrame {
         btnAgregar = new javax.swing.JLabel();
         btnFlechaDerecha = new javax.swing.JLabel();
         btnFlechaIzquierda = new javax.swing.JLabel();
-        boxUnidadesAcademicas = new javax.swing.JComboBox<>();
-        boxCentroComputo = new javax.swing.JComboBox<>();
-        lblCentroComputo = new javax.swing.JLabel();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -380,25 +355,6 @@ public class FrmGestionarAlumno extends javax.swing.JFrame {
         });
         getContentPane().add(btnFlechaIzquierda, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 670, -1, -1));
 
-        boxUnidadesAcademicas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                boxUnidadesAcademicasActionPerformed(evt);
-            }
-        });
-        getContentPane().add(boxUnidadesAcademicas, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 60, 200, 40));
-
-        boxCentroComputo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                boxCentroComputoActionPerformed(evt);
-            }
-        });
-        getContentPane().add(boxCentroComputo, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 140, 210, 40));
-
-        lblCentroComputo.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        lblCentroComputo.setForeground(new java.awt.Color(255, 255, 255));
-        lblCentroComputo.setText("Centro Cómputo");
-        getContentPane().add(lblCentroComputo, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 100, 280, 30));
-
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BackGroundGeneral.jpg"))); // NOI18N
         getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -439,34 +395,18 @@ public class FrmGestionarAlumno extends javax.swing.JFrame {
         llenarTablaEstudiantes(obtenerPagina(pagina, limite));
     }//GEN-LAST:event_btnFlechaDerechaMouseClicked
 
-    private void boxUnidadesAcademicasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxUnidadesAcademicasActionPerformed
-
-        Long unidadSeleccionada = (long) boxCentroComputo.getSelectedIndex() + 2;
-        llenarBoxCentros(centroComputoNegocio.buscarCentrosComputosPorUnidad(unidadSeleccionada));
-
-    }//GEN-LAST:event_boxUnidadesAcademicasActionPerformed
-
-    private void boxCentroComputoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxCentroComputoActionPerformed
-        // TODO add your handling code here:
-        this.idcC = (long) boxCentroComputo.getSelectedIndex() +1 ;
-        System.out.println(idcC);
-    }//GEN-LAST:event_boxCentroComputoActionPerformed
-
     /**
      * @param args the command line arguments
      */
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> boxCentroComputo;
-    private javax.swing.JComboBox<String> boxUnidadesAcademicas;
     private javax.swing.JLabel btnAgregar;
     private javax.swing.JLabel btnAtras;
     private javax.swing.JLabel btnFlechaDerecha;
     private javax.swing.JLabel btnFlechaIzquierda;
     private javax.swing.JLabel fondo;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblCentroComputo;
     private javax.swing.JLabel lblCentroDeComputo;
     private javax.swing.JLabel lblGestionar;
     private javax.swing.JTable tblEstudiantes;
