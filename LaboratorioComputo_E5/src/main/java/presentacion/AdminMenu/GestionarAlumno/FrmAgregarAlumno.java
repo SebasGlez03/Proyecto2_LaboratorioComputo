@@ -110,31 +110,13 @@ public class FrmAgregarAlumno extends javax.swing.JFrame {
         lblApellidoPaterno.setForeground(new java.awt.Color(255, 255, 255));
         lblApellidoPaterno.setText("Apellido Paterno");
         getContentPane().add(lblApellidoPaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, -1, -1));
-
-        campoTextoNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoTextoNombreActionPerformed(evt);
-            }
-        });
         getContentPane().add(campoTextoNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 220, 30));
-
-        campoTextoApellidoPaterno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoTextoApellidoPaternoActionPerformed(evt);
-            }
-        });
         getContentPane().add(campoTextoApellidoPaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 220, 30));
 
         Titulo.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         Titulo.setForeground(new java.awt.Color(255, 255, 255));
         Titulo.setText("Agregar Alumno");
         getContentPane().add(Titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, -1, -1));
-
-        campoTextoApellidoMaterno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoTextoApellidoMaternoActionPerformed(evt);
-            }
-        });
         getContentPane().add(campoTextoApellidoMaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 280, 220, 30));
 
         lblCarrera.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -193,6 +175,11 @@ public class FrmAgregarAlumno extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    /**
+     * Boton que agrega un estudiante con su carrera en la base de datos.
+     *
+     * @param evt presionar el boton agregar
+     */
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         String nombre = campoTextoNombre.getText();
         String aPaterno = campoTextoApellidoPaterno.getText();
@@ -232,18 +219,6 @@ public class FrmAgregarAlumno extends javax.swing.JFrame {
         campoTextoApellidoMaterno.setText("");
         campoTextoContrasenia.setText("");
     }//GEN-LAST:event_btnReiniciarActionPerformed
-
-    private void campoTextoNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoTextoNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoTextoNombreActionPerformed
-
-    private void campoTextoApellidoPaternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoTextoApellidoPaternoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoTextoApellidoPaternoActionPerformed
-
-    private void campoTextoApellidoMaternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoTextoApellidoMaternoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoTextoApellidoMaternoActionPerformed
 
     private void comboBoxCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxCarreraActionPerformed
         // TODO add your handling code here:
