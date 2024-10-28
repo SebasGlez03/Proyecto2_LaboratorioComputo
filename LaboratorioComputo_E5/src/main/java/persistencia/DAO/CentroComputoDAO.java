@@ -237,4 +237,34 @@ public class CentroComputoDAO implements ICentroComputoDAO{
         entityManager.close();
         return ccE;
     }
+    
+        /**
+         * Retorna un reporte de uso en un centro de cómputo, incluyendo la cantidad de alumnos,
+         * minutos de uso y minutos de inactividad de las computadoras asociadas.
+         * 
+         * @param nombresCentrosComputo Lista de nombres de centros de cómputo a incluir en el reporte.
+         * @param fechaInicio           Fecha de inicio del rango.
+         * @param fechaFin              Fecha de fin del rango.
+         * @return                      Lista de registros con información del centro de cómputo y uso.
+         */
+        public List<Object[]> obtenerReporteCentroComputo(String centroComputo,List<String> nombresCentrosComputo, LocalDateTime fechaInicio, LocalDateTime fechaFin) {
+            String jpql = "SELECT cc.nombre, comp.numeroComputadora, COUNT(e), SUM(u.minutosUsoPorDia), " +
+                          "(SUM(TIMESTAMPDIFF(MINUTE, u.inicio, u.fin)) - SUM(u.minutosUsoPorDia)) AS minutosInactividad " +
+                          "FROM CentroComputo cc " +
+                          "JOIN cc.computadoras comp " +
+                          "JOIN comp.estudiantes e " +
+                          "JOIN e.usoDiario u " +
+                          "WHERE cc.nombre IN :nombresCentrosComputo " +
+                          "AND u.fecha BETWEEN :fechaInicio AND :fechaFin " +
+                          "GROUP BY cc.nombre, comp.numeroComputadora";
+
+            TypedQuery<Object[]> query = entityManager.createQuery(jpql, Object[].class);
+            query.setParameter("nombresCentrosComputo", nombresCentrosComputo);
+            query.setParameter("fechaInicio", fechaInicio);
+            query.setParameter("fechaFin", fechaFin);
+
+            return query.getResultList();
+        }
+
+    
 }

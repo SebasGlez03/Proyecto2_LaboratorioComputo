@@ -31,6 +31,7 @@ public class FrmReporteBloqueos extends javax.swing.JFrame {
         reporte = new javax.swing.JLabel();
         bloqueo = new javax.swing.JLabel();
         btnAtras = new javax.swing.JLabel();
+        fldDateTime = new javax.swing.JPanel();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -55,6 +56,7 @@ public class FrmReporteBloqueos extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 680, -1, -1));
+        getContentPane().add(fldDateTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 1000, 60));
 
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BackGroundGeneral.jpg"))); // NOI18N
         getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -107,6 +109,7 @@ public class FrmReporteBloqueos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bloqueo;
     private javax.swing.JLabel btnAtras;
+    private javax.swing.JPanel fldDateTime;
     private javax.swing.JLabel fondo;
     private javax.swing.JLabel reporte;
     // End of variables declaration//GEN-END:variables
