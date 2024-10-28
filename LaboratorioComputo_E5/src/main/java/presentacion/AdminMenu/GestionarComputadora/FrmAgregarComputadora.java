@@ -29,12 +29,14 @@ public class FrmAgregarComputadora extends javax.swing.JFrame {
      */
     int softwareCounter = 0;
     List<String> software = new ArrayList<>();
+    int numMaquina;
     
     public FrmAgregarComputadora() {
         initComponents();
                 
         centros = centroComputoNegocio.buscarCentrosComputos();
         llenarBoxCentros(centros);
+        
                 
     }
     
@@ -208,6 +210,8 @@ public class FrmAgregarComputadora extends javax.swing.JFrame {
         
         if(esAdmin){
 
+            
+            
         }else {
         
         try {
