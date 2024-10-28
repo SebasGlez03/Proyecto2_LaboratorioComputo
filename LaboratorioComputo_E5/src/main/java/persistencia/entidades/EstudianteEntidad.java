@@ -89,17 +89,16 @@ public class EstudianteEntidad implements Serializable {
     }
 
     /**
-     * Constructor que establece todos los valores de los atributos de la clase.
+     * Constructor que establece todos los valores de los catributos de la
+     * calse.
      *
      * @param id identificador del estudiante.
      * @param nombre nombre del estudiante.
      * @param apellidoPaterno apellido paterno del estudiante.
-     * @param computadora entidad que representa la computadora rentada por el
-     * estudiante.
      * @param apellidoMaterno apellido materno del estudiante.
-     * @param contrasenia contraseña del estudiante.
-     * @param estatusInscripcion estatus de la inscripción del estudiante.
-     * @param carrera relación entre el estudiante y una carrera.
+     * @param contrasenia contrasenia del estudiante.
+     * @param estatusInscripcion estatus de inscripcion del estudiante.
+     * @param carrera relacion entre el estudiante y una carrera.
      */
     public EstudianteEntidad(Long id, String nombre, String apellidoPaterno, String apellidoMaterno, String contrasenia, String estatusInscripcion, CarreraEntidad carrera) {
         this.idEstudiante = id;
@@ -273,6 +272,5 @@ public class EstudianteEntidad implements Serializable {
     public void setCarrera(CarreraEntidad carrera) {
         this.carrera = carrera;
     }
-
 
 }

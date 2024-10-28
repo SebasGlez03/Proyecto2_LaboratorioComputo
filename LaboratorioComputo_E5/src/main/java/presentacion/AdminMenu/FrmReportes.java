@@ -9,13 +9,17 @@ import presentacion.Reportes.FrmReporteBloqueos;
 import presentacion.Reportes.FrmReporteCentroComputo;
 
 /**
+ * JFrame para la gestión de reportes en la aplicación administrativa. Permite
+ * al usuario navegar a diferentes tipos de reportes como bloqueos, carreras y
+ * centros de cómputo, así como regresar al menú anterior.
  *
  * @author nomar
  */
 public class FrmReportes extends javax.swing.JFrame {
 
     /**
-     * Creates new form FrmReportes
+     * Crea una nueva instancia de FrmReportes. Inicializa los componentes de la
+     * interfaz gráfica.
      */
     public FrmReportes() {
         initComponents();
@@ -82,31 +86,50 @@ public class FrmReportes extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Maneja el evento de clic en el botón de bloqueos. Abre la ventana de
+     * reporte de bloqueos y cierra la ventana actual.
+     *
+     * @param evt el evento de clic del mouse.
+     */
     private void btnBloqueosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBloqueosMouseClicked
         // TODO add your handling code here:
         new FrmReporteBloqueos().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnBloqueosMouseClicked
-
+    /**
+     * Maneja el evento de clic en el botón de carrera. Abre la ventana de
+     * reporte de carrera y cierra la ventana actual.
+     *
+     * @param evt el evento de clic del mouse.
+     */
     private void btnCarreraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCarreraMouseClicked
         // TODO add your handling code here:
         new FrmReporteCarrera().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCarreraMouseClicked
-
+    /**
+     * Maneja el evento de clic en el botón de centro de cómputo. Abre la
+     * ventana de reporte de centro de cómputo y cierra la ventana actual.
+     *
+     * @param evt el evento de clic del mouse.
+     */
     private void btnCentroDeComputoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCentroDeComputoMouseClicked
         // TODO add your handling code here:
         new FrmReporteCentroComputo().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCentroDeComputoMouseClicked
-
+    /**
+     * Maneja el evento de clic en el botón de atrás. Abre el menú
+     * administrativo y cierra la ventana actual.
+     *
+     * @param evt el evento de clic del mouse.
+     */
     private void btnAtrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtrasMouseClicked
         // TODO add your handling code here:
         new FrmAdminMenu().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAtrasMouseClicked
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -22,13 +22,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * La clase {@code CarreraEntidad} representa una carrera universitaria en la
- * base de datos. Cada carrera tiene un nombre, un tiempo diario y una lista de
- * estudiantes asociados.
- *
- * Esta clase está mapeada a la tabla {@code tblCarrera} en la base de datos.
- *
- * @author santi
+ * a
+ * @hidden
  */
 @Entity
 @Table(name = "tblCarrera")
@@ -59,12 +54,10 @@ public class CarreraEntidad implements Serializable {
     @Column(name = "tiempoDiario", nullable = false)
     private Date tiempoDiario;
 
-
     /**
      * Lista de estudiantes asociados a la carrera. Esta es una relación de uno
      * a muchos con la entidad {@code EstudianteEntidad}.
      */
-
     @OneToMany()
     @JoinColumn(name = "idEstudiante")
     private List<EstudianteEntidad> estudiante;
@@ -81,8 +74,6 @@ public class CarreraEntidad implements Serializable {
      *
      * @param nombre El nombre de la carrera.
      * @param tiempoDiario El tiempo diario que se dedica a la carrera.
-     * @param unidadAcademica La unidad academica en la que se encuentra la
-     * carrera,
      * @param estudiante La lista de estudiantes asociados a la carrera.
      */
     public CarreraEntidad(String nombre, Date tiempoDiario, List<EstudianteEntidad> estudiante) {
@@ -90,15 +81,13 @@ public class CarreraEntidad implements Serializable {
         this.tiempoDiario = tiempoDiario;
         this.estudiante = estudiante;
     }
+
     /**
      * Constructor que inicializa una carrera con su nombre, tiempo diario,
      * unidad academica y lista de estudiantes.
      *
      * @param nombre El nombre de la carrera.
      * @param tiempoDiario El tiempo diario que se dedica a la carrera.
-     * @param unidadAcademica La unidad academica en la que se encuentra la
-     * carrera,
-     * @param estudiante La lista de estudiantes asociados a la carrera.
      */
     public CarreraEntidad(String nombre, Date tiempoDiario) {
         this.nombre = nombre;
@@ -184,8 +173,7 @@ public class CarreraEntidad implements Serializable {
      */
     @Override
     public String toString() {
-        return "CarreraEntidad{" + "idCarrera=" + idCarrera + ", nombre=" + nombre + ", tiempoDiario=" + tiempoDiario +  ", estudiante=" + estudiante + '}';
+        return "CarreraEntidad{" + "idCarrera=" + idCarrera + ", nombre=" + nombre + ", tiempoDiario=" + tiempoDiario + ", estudiante=" + estudiante + '}';
     }
 
-    
 }

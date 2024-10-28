@@ -30,88 +30,64 @@ import persistencia.entidades.EstudianteEntidad;
 import persistencia.entidades.UnidadAcademicaEntidad;
 
 /**
+ * Clase de pruebas para realizar distintas operaciones de negocio relacionadas
+ * con entidades de estudiantes, apartados, carreras, y otros componentes de un
+ * sistema de gestión.
  *
- * @author santi
+ * @version 1.0
+ * @since 2024-10-28
  */
 public class pruebasNegocio {
 
     /**
-     * @param args the command line arguments
+     * Método principal para ejecutar pruebas de negocio.
+     *
+     * @param args los argumentos de la línea de comandos (no utilizados).
      */
     public static void main(String[] args) {
-        
+
+        // Instancias de las clases de negocio para realizar operaciones CRUD
         ApartadoNegocio apartadoN = new ApartadoNegocio();
         CarreraNegocio carreraN = new CarreraNegocio();
         UnidadAcademicaNegocio unidadAcademicaN = new UnidadAcademicaNegocio();
         CentroComputoNegocio centroComputoN = new CentroComputoNegocio();
         ComputadoraNegocio computadoraN = new ComputadoraNegocio();
         EstudianteNegocio estudianteN = new EstudianteNegocio();
- 
+
+        // Lista de software para la configuración de una computadora
         List<String> sfwr = new ArrayList<>();
         sfwr.add("Photoshop");
         sfwr.add("Illustrator");
         sfwr.add("Netbeans");
-        List<EstudianteEntidad> estudiantes = new ArrayList<>();
 
+        // Creación de entidades de estudiantes
+        List<EstudianteEntidad> estudiantes = new ArrayList<>();
         UnidadAcademicaEntidad uaEntidad = new UnidadAcademicaEntidad("Nainari");
         EstudianteEntidad estudianteEntidad = new EstudianteEntidad("Pedro", "Ramirez", "Lopez", "123est321", "Inscrito");
         EstudianteEntidad estudianteEntidad2 = new EstudianteEntidad("Juan", "Ramirez", "Lopez", "123est321", "Inscrito");
+
+        // Configuración de una entidad de centro de cómputo con horario y asignación a la unidad académica
         CentroComputoEntidad centroComputoEntidad = new CentroComputoEntidad("Cisco", "10cntro01comp1209", new GregorianCalendar(0, 0, 0, 14, 30, 0), new GregorianCalendar(0, 0, 0, 19, 30, 0), uaEntidad);
+
+        // Configuración de una entidad de computadora con dirección IP y lista de software
         ComputadoraEntidad computadoraEntidad = new ComputadoraEntidad(false, centroComputoEntidad, "192.168.0.1", sfwr, 1);
+
+        // Creación de un bloqueo de estudiante y asignación a la computadora
         BloqueoEntidad bloqueoEntidad = new BloqueoEntidad("Ladrón", Calendar.getInstance(), Calendar.getInstance(), estudianteEntidad);
-
-        
-
         List<BloqueoEntidad> bloqueos = new ArrayList<>();
         bloqueos.add(bloqueoEntidad);
-
         computadoraEntidad.setCentroComputoEntidad(centroComputoEntidad);
-
         estudianteEntidad.setBloqueo(bloqueos);
-        
+
+        // Agregación de estudiantes a una entidad de carrera
         estudiantes.add(estudianteEntidad);
         estudiantes.add(estudianteEntidad2);
         CarreraEntidad caEntidad = new CarreraEntidad("Software", Date.from(Instant.now()), estudiantes);
-        
 
-        
-        
-        
-        
+        // Configuración de un apartado de una computadora para un estudiante
         ApartadoEntidad apartadoEntidad = new ApartadoEntidad(Calendar.getInstance(), Calendar.getInstance(), estudianteEntidad, computadoraEntidad);
-     
-//        ApartadoDTO apNeg = new ApartadoDTO(apartadoEntidad);
-//        List<ApartadoDTO> apN = new ArrayList<>();    
-//
-//        apN.add(apNeg);
-//        
-//        caEntidad.setEstudiante(estudiantes);
-//        
 
-//
-//        CarreraDTO carreraDTO = new CarreraDTO(caEntidad);
-//        
-//        carreraN.guardarCarrera(carreraDTO);
-//
-//        apartadoN.guardarApartado(apNeg);
-////        
-//        UnidadAcademicaDTO unidadAcademicaDTO = new UnidadAcademicaDTO(uaEntidad);
-//        
-//        unidadAcademicaN.guardarUnidadAcademica(unidadAcademicaDTO);
-//
-//        CentroComputoDTO centroComputoDTO = new CentroComputoDTO(centroComputoEntidad);
-//        
-//        centroComputoN.guardarCentroComputo(centroComputoDTO);
-//        
-//        Long id = Long.decode("1");
-//
-
+        // Ejemplo de consulta de centros de cómputo
         System.out.println(centroComputoN.buscarCentrosComputos().toString());
-
-
-        
-
-        
     }
-    
 }

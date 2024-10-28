@@ -1,11 +1,17 @@
 package utilerias;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * a
+ *
+ * @hidden
+ */
 public class JListExample extends JFrame {
-    
+
     private JList<String> list;
     private DefaultListModel<String> listModel;
     private JTextField textField;
@@ -20,7 +26,7 @@ public class JListExample extends JFrame {
         // Crear el modelo de la lista y la JList
         listModel = new DefaultListModel<>();
         list = new JList<>(listModel);
-        
+
         // Crear campo de texto y botón para agregar
         textField = new JTextField(15);
         addButton = new JButton("Agregar");

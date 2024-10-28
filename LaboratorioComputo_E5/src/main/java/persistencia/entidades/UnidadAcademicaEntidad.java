@@ -15,16 +15,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
- * La clase {@code UnidadAcademicaEntidad} representa una unidad de ITSON en la
- * bd.
- *
- * @author sebasglez
+ * a
+ * @hidden
  */
 @Entity
 @Table(name = "tblUnidadAcademica")
 public class UnidadAcademicaEntidad implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idUnidadAcademica")
@@ -37,76 +36,74 @@ public class UnidadAcademicaEntidad implements Serializable {
     private List<CentroComputoEntidad> centrosComputo;
 
     /**
-     * Constructor por omision
+     * Constructor por omisión que inicializa una nueva instancia de
+     * {@code UnidadAcademicaEntidad}.
      */
     public UnidadAcademicaEntidad() {
     }
 
     /**
-     * Constructor que inicializa el atributo de la clase "nombre"
+     * Constructor que inicializa el atributo de la clase "nombre".
      *
-     * @param nombre nombre a agregar
+     * @param nombre El nombre de la unidad académica a establecer.
      */
     public UnidadAcademicaEntidad(String nombre) {
         this.nombre = nombre;
     }
 
     /**
-     * Metodo que obtiene el id de la Unidad Academica
+     * Método que obtiene el ID de la unidad académica.
      *
-     * @return id de la Unidad Academica a obtener
+     * @return El ID de la unidad académica.
      */
     public Long getId() {
         return id;
     }
 
     /**
-     * Metodo que establece el id de la Unidad Academica
+     * Método que establece el ID de la unidad académica.
      *
-     * @param id id de la Unidad Academica a establecer
+     * @param id El ID de la unidad académica a establecer.
      */
     public void setId(Long id) {
         this.id = id;
     }
 
     /**
-     * Metodo que obtiene el nombre de la Unidad Academica
+     * Método que obtiene el nombre de la unidad académica.
      *
-     * @return nombre de la Unidad Academica a obtener
+     * @return El nombre de la unidad académica.
      */
     public String getNombre() {
         return nombre;
     }
 
     /**
-     * Metodo que establece el nombre de la Unidad Academica
+     * Método que establece el nombre de la unidad académica.
      *
-     * @param nombre nombre de la Unidad Academica a establecer
+     * @param nombre El nombre de la unidad académica a establecer.
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
     /**
-     * Metodo que obtiene la lista de la relacion entre los centros de computo y
-     * la unidadAcademica
+     * Método que obtiene la lista de centros de cómputo asociados a la unidad
+     * académica.
      *
-     * @return lista de relacion entre los centros de computo y la
-     * unidadAcademica
+     * @return La lista de centros de cómputo.
      */
     public List<CentroComputoEntidad> getCentrosComputo() {
         return centrosComputo;
     }
 
     /**
-     * Metodo que establece la lista de la relacion entre los centros de computo
-     * y la unidadAcademica
+     * Método que establece la lista de centros de cómputo asociados a la unidad
+     * académica.
      *
-     * @param centrosComputo lista de relacion entre los centros de computo y la
-     * unidadAcademica
+     * @param centrosComputo La lista de centros de cómputo a establecer.
      */
     public void setCentrosComputo(List<CentroComputoEntidad> centrosComputo) {
         this.centrosComputo = centrosComputo;
     }
-
 }

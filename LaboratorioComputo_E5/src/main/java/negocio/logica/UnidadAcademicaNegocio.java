@@ -17,7 +17,7 @@ import persistencia.entidades.*;
  * CRUD (Crear, Leer, Actualizar, Eliminar) y gestionar la conversión entre objetos DTO y entidades de persistencia.
  * </p>
  * 
- * @autor santi
+ * @author santi
  */
 public class UnidadAcademicaNegocio {
 

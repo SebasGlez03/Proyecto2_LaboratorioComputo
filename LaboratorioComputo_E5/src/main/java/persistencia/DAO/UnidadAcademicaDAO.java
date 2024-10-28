@@ -17,17 +17,17 @@ import persistencia.Interfaces.IUnidadAcademicaDAO;
 
 /**
  * La clase {@code UnidadAcademicaDAO} maneja las operaciones de persistencia
- * relacionadas con la entidad {@code UnidadAcademicaEntidad}.
- * Esta clase implementa métodos para guardar, eliminar y modificar registros
- * en la base de datos utilizando JPA y {@code EntityManager}.
- * 
- * La clase se asegura de manejar las transacciones y cualquier error durante las
- * operaciones de persistencia, mostrando mensajes de error en una ventana emergente
- * mediante {@code JOptionPane} si es necesario.
- * 
+ * relacionadas con la entidad {@code UnidadAcademicaEntidad}. Esta clase
+ * implementa métodos para guardar, eliminar y modificar registros en la base de
+ * datos utilizando JPA y {@code EntityManager}.
+ *
+ * La clase se asegura de manejar las transacciones y cualquier error durante
+ * las operaciones de persistencia, mostrando mensajes de error en una ventana
+ * emergente mediante {@code JOptionPane} si es necesario.
+ *
  * @author santi
  */
-public class UnidadAcademicaDAO implements IUnidadAcademicaDAO{
+public class UnidadAcademicaDAO implements IUnidadAcademicaDAO {
 
     // Instancias para manejar el contexto de persistencia
     EntityManager entityManager = null;
@@ -35,9 +35,9 @@ public class UnidadAcademicaDAO implements IUnidadAcademicaDAO{
     EntityTransaction transaction = null;
 
     /**
-     * Constructor por defecto para inicializar un objeto {@code UnidadAcademicaDAO}.
-     * Este constructor no requiere parámetros y se puede utilizar para crear instancias
-     * de la clase.
+     * Constructor por defecto para inicializar un objeto
+     * {@code UnidadAcademicaDAO}. Este constructor no requiere parámetros y se
+     * puede utilizar para crear instancias de la clase.
      */
     public UnidadAcademicaDAO() {
         // Constructor vacío
@@ -45,12 +45,14 @@ public class UnidadAcademicaDAO implements IUnidadAcademicaDAO{
 
     /**
      * Guarda una nueva unidad académica en la base de datos.
-     * 
-     * Este método inicia una transacción, persiste la entidad {@code UnidadAcademicaEntidad}
-     * en la base de datos y confirma la transacción si no ocurre ningún error.
-     * En caso de error, se realiza un rollback de la transacción para deshacer los cambios.
-     * 
-     * @param unidadAcademica La entidad {@code UnidadAcademicaEntidad} que se desea persistir en la base de datos.
+     *
+     * Este método inicia una transacción, persiste la entidad
+     * {@code UnidadAcademicaEntidad} en la base de datos y confirma la
+     * transacción si no ocurre ningún error. En caso de error, se realiza un
+     * rollback de la transacción para deshacer los cambios.
+     *
+     * @param unidadAcademica La entidad {@code UnidadAcademicaEntidad} que se
+     * desea persistir en la base de datos.
      */
     public void guardarUnidadAcademica(UnidadAcademicaEntidad unidadAcademica) {
         try {
@@ -82,12 +84,14 @@ public class UnidadAcademicaDAO implements IUnidadAcademicaDAO{
 
     /**
      * Elimina una unidad académica existente en la base de datos.
-     * 
-     * Este método inicia una transacción, elimina la entidad {@code UnidadAcademicaEntidad}
-     * de la base de datos y confirma la transacción si no ocurre ningún error.
-     * En caso de error, se realiza un rollback de la transacción para deshacer los cambios.
-     * 
-     * @param unidadAcademica La entidad {@code UnidadAcademicaEntidad} que se desea eliminar de la base de datos.
+     *
+     * Este método inicia una transacción, elimina la entidad
+     * {@code UnidadAcademicaEntidad} de la base de datos y confirma la
+     * transacción si no ocurre ningún error. En caso de error, se realiza un
+     * rollback de la transacción para deshacer los cambios.
+     *
+     * @param unidadAcademica La entidad {@code UnidadAcademicaEntidad} que se
+     * desea eliminar de la base de datos.
      */
     public void eliminarUnidadAcademica(UnidadAcademicaEntidad unidadAcademica) {
         try {
@@ -119,12 +123,14 @@ public class UnidadAcademicaDAO implements IUnidadAcademicaDAO{
 
     /**
      * Modifica una unidad académica existente en la base de datos.
-     * 
-     * Este método inicia una transacción, actualiza la entidad {@code UnidadAcademicaEntidad}
-     * en la base de datos y confirma la transacción si no ocurre ningún error.
-     * En caso de error, se realiza un rollback de la transacción para deshacer los cambios.
-     * 
-     * @param unidadAcademica La entidad {@code UnidadAcademicaEntidad} con los nuevos valores que se desean actualizar en la base de datos.
+     *
+     * Este método inicia una transacción, actualiza la entidad
+     * {@code UnidadAcademicaEntidad} en la base de datos y confirma la
+     * transacción si no ocurre ningún error. En caso de error, se realiza un
+     * rollback de la transacción para deshacer los cambios.
+     *
+     * @param unidadAcademica La entidad {@code UnidadAcademicaEntidad} con los
+     * nuevos valores que se desean actualizar en la base de datos.
      */
     public void modificarUnidadAcademica(UnidadAcademicaEntidad unidadAcademica) {
         try {
@@ -153,27 +159,28 @@ public class UnidadAcademicaDAO implements IUnidadAcademicaDAO{
             }
         }
     }
-    
+
     /**
      * Busca un objeto de la tabla respectiva en la base de datos.
-     *  
-     * @param Long id
+     *
+     * @param id id de una unidad acaedmica
+     * @return unidad academica obtenida por un id
      */
     public UnidadAcademicaEntidad buscarUnaUnidadAcademica(Long id) {
 
-        try{
+        try {
             // Construimos el EntityManager
             managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
             entityManager = managerFactory.createEntityManager();
-            
+
             // Buscamos la entidad en la base de datos
             UnidadAcademicaEntidad UnidadAcademica = entityManager.find(UnidadAcademicaEntidad.class, id);
 
             // Regresamos la entidad
-            return UnidadAcademica;     
-        } catch (Exception e){
-                JOptionPane.showMessageDialog(null, "Error en Persistencia = " + e.getMessage());
-                return null;
+            return UnidadAcademica;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error en Persistencia = " + e.getMessage());
+            return null;
         } finally {
             if (entityManager != null) {
                 // Cerramos el EntityManager
@@ -181,30 +188,29 @@ public class UnidadAcademicaDAO implements IUnidadAcademicaDAO{
                 entityManager.close();
             }
         }
- 
-    }    
-    
+
+    }
+
     /**
      * Busca todos los objetos de la tabla respectiva en la base de datos.
-     * 
-     * 
-     * 
+     *
+     * @return lista de todas las unidades academicas
      */
     public List<UnidadAcademicaEntidad> buscarTodasUnidadAcademica() {
 
-        try{
+        try {
             // Construimos el EntityManager
             managerFactory = Persistence.createEntityManagerFactory("ConexionJPA");
             entityManager = managerFactory.createEntityManager();
-            
+
             // Buscamos las entidades en la base de datos
             TypedQuery<UnidadAcademicaEntidad> query = entityManager.createQuery("SELECT a FROM UnidadAcademicaEntidad a", UnidadAcademicaEntidad.class);
 
             // Regresamos la entidad
             return query.getResultList();
-            } catch (Exception e){
-                JOptionPane.showMessageDialog(null, "Error en Persistencia = " + e.getMessage());
-                return null;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error en Persistencia = " + e.getMessage());
+            return null;
         } finally {
             if (entityManager != null) {
                 // Cerramos el EntityManager

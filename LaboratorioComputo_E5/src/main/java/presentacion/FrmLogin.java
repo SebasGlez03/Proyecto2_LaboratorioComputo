@@ -16,18 +16,19 @@ import presentacion.AdminMenu.FrmAdminMenu;
 import utilerias.CaesarCipher;
 
 /**
- *
- * @author PC
+ * Clase que representa la ventana de inicio de sesión del sistema. Permite al
+ * usuario ingresar sus credenciales y seleccionar un centro de cómputo y unidad
+ * académica. Redirige al menú administrativo o al sistema de apartado según el
+ * tipo de usuario.
  */
 public class FrmLogin extends javax.swing.JFrame {
 
     /**
      * Creates new form FrmLogin
      */
-
     @Override
     public void setExtendedState(int state) {
-        super.setExtendedState(FrmLogin.MAXIMIZED_BOTH); 
+        super.setExtendedState(FrmLogin.MAXIMIZED_BOTH);
     }
     EstudianteNegocio estudianteNegocio;
     UnidadAcademicaNegocio unidadAcademicaNegocio;
@@ -35,24 +36,32 @@ public class FrmLogin extends javax.swing.JFrame {
     Long CentroSeleccionado;
     Long idcC;
     CaesarCipher encriptar = new CaesarCipher();
-    
+
+    /**
+     * Constructor de FrmLogin. Inicializa componentes y establece las
+     * instancias necesarias para las capas de negocio.
+     */
     public FrmLogin() {
         initComponents();
-        
-        
+
         EstudianteNegocio estudianteNegocio = new EstudianteNegocio();
         UnidadAcademicaNegocio unidadAcademicaNegocio = new UnidadAcademicaNegocio();
         CentroComputoNegocio centroComputoNegocio = new CentroComputoNegocio();
-        
+
         this.centroComputoNegocio = centroComputoNegocio;
         this.estudianteNegocio = estudianteNegocio;
         this.unidadAcademicaNegocio = unidadAcademicaNegocio;
-        
+
         llenarBoxUnidades(unidadAcademicaNegocio.buscarUnidadAcademica());
 
-        
     }
 
+    /**
+     * Llena el combo box de unidades académicas con la lista proporcionada.
+     *
+     * @param UnidadAcademica Lista de objetos UnidadAcademicaDTO a mostrar en
+     * el combo box.
+     */
     private void llenarBoxUnidades(List<UnidadAcademicaDTO> UnidadAcademica) {
         int i = 0;
         while (UnidadAcademica.size() > i) {
@@ -60,7 +69,13 @@ public class FrmLogin extends javax.swing.JFrame {
             i++;
         }
     }
-    
+
+    /**
+     * Llena el combo box de centros de cómputo con la lista proporcionada.
+     *
+     * @param CentroComputo Lista de objetos CentroComputoDTO a mostrar en el
+     * combo box.
+     */
     private void llenarBoxCentros(List<CentroComputoDTO> CentroComputo) {
         int i = 0;
         while (CentroComputo.size() > i) {
@@ -68,6 +83,7 @@ public class FrmLogin extends javax.swing.JFrame {
             i++;
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -171,72 +187,99 @@ public class FrmLogin extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+     * Cierra la ventana actual al hacer clic en el botón de cerrar.
+     *
+     * @param evt Evento de clic.
+     */
     private void btnCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseClicked
         dispose();
     }//GEN-LAST:event_btnCloseMouseClicked
-
+    /**
+     * Maneja el evento de clic en el botón de cancelar, imprimiendo un mensaje
+     * en la consola.
+     *
+     * @param evt Evento de clic.
+     */
     private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
         System.out.println("boton cancelar click!");
     }//GEN-LAST:event_btnCancelarMouseClicked
-
+    /**
+     * Maneja el evento de clic en el botón de aceptar. Valida las credenciales
+     * del usuario y, si son correctas, lo redirige al sistema de apartado.
+     *
+     * @param evt Evento de clic.
+     */
     private void btnAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAceptarMouseClicked
         System.out.println("boton aceptar click!");
-        
+
         EstudianteDTO eD = new EstudianteDTO();
-        if (txtId.getText().matches(".*\\D+.*") || txtId.getText().isEmpty())
-        {JOptionPane.showMessageDialog(this, "Un ID no puede contener letras, caracteres especiales o estar vacío" );}
-        else{
-            
-        Long id = Long.decode(txtId.getText());
-        eD.setId(Long.decode(txtId.getText()));
-        eD.setContrasenia(txtContrasenia.getText());
-        EstudianteDTO estudiante = estudianteNegocio.buscarEstudiante(id);
+        if (txtId.getText().matches(".*\\D+.*") || txtId.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Un ID no puede contener letras, caracteres especiales o estar vacío");
+        } else {
 
-        if (estudiante != null)
-        {
+            Long id = Long.decode(txtId.getText());
+            eD.setId(Long.decode(txtId.getText()));
+            eD.setContrasenia(txtContrasenia.getText());
+            EstudianteDTO estudiante = estudianteNegocio.buscarEstudiante(id);
 
-            if(encriptar.decrypt(estudiante.getContrasenia(), 3).equals(eD.getContrasenia())){
-        
-            Long idE = estudiante.getId();
-            FrmSistemaApartado frm = new FrmSistemaApartado(idcC, idE);
-            frm.setVisible(true);
-            this.dispose();
+            if (estudiante != null) {
 
-            
-        } else{
+                if (encriptar.decrypt(estudiante.getContrasenia(), 3).equals(eD.getContrasenia())) {
 
-            JOptionPane.showMessageDialog(this, "Contraseña incorrecta" );          
-                
+                    Long idE = estudiante.getId();
+                    FrmSistemaApartado frm = new FrmSistemaApartado(idcC, idE);
+                    frm.setVisible(true);
+                    this.dispose();
+
+                } else {
+
+                    JOptionPane.showMessageDialog(this, "Contraseña incorrecta");
+
+                }
+            } else {
+
+                JOptionPane.showMessageDialog(this, "No existe un estudiante con ese ID o contraseña");
+
             }
         }
-        else{
-        
-            JOptionPane.showMessageDialog(this, "No existe un estudiante con ese ID o contraseña" );
-            
-        }
-        }
-               
-    }//GEN-LAST:event_btnAceptarMouseClicked
 
+    }//GEN-LAST:event_btnAceptarMouseClicked
+    /**
+     * Evento que se activa al hacer clic en el botón de acceso a
+     * administración, abre la ventana de administración y cierra la actual.
+     *
+     * @param evt evento de clic.
+     */
     private void btnAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdminMouseClicked
         new FrmAdminMenu().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAdminMouseClicked
-
+    /**
+     * Evento que se activa al seleccionar un centro de cómputo en el comboBox.
+     *
+     * @param evt evento de selección.
+     */
     private void boxCentroComputoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxCentroComputoActionPerformed
         // TODO add your handling code here:
-        this.idcC = (long) boxCentroComputo.getSelectedIndex() +1 ;
+        this.idcC = (long) boxCentroComputo.getSelectedIndex() + 1;
         System.out.println(idcC);
 
     }//GEN-LAST:event_boxCentroComputoActionPerformed
-
+    /**
+     * Evento que se activa al seleccionar una unidad académica en el comboBox,
+     * actualiza el comboBox de centros de cómputo en función de la unidad
+     * seleccionada.
+     *
+     * @param evt evento de selección.
+     */
     private void boxUnidadesAcademicasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxUnidadesAcademicasActionPerformed
        
         boxCentroComputo.removeAllItems();
         int unidadSeleccionada = boxUnidadesAcademicas.getSelectedIndex();
         llenarBoxCentros(centroComputoNegocio.buscarCentrosComputosPorUnidad(unidadAcademicaNegocio.buscarUnidadAcademica().get(unidadSeleccionada).getId()));
         
+
     }//GEN-LAST:event_boxUnidadesAcademicasActionPerformed
 
     public static void main(String args[]) {
@@ -272,7 +315,7 @@ public class FrmLogin extends javax.swing.JFrame {
         });
     }
 
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel background_img;
     private javax.swing.JComboBox<String> boxCentroComputo;

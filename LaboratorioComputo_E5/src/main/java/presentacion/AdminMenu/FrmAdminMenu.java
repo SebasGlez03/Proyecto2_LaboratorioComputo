@@ -11,13 +11,18 @@ import presentacion.AdminMenu.GestionarAlumno.FrmGestionarAlumno;
 import presentacion.FrmLogin;
 
 /**
+ * Clase que representa el menú principal del administrador. Esta clase extiende
+ * JFrame y proporciona la interfaz para gestionar diferentes entidades dentro
+ * del sistema. Contiene botones para acceder a las funcionalidades de gestión
+ * de alumnos, carreras, bloqueos, computadoras, y generar reportes.
  *
  * @author nomar
  */
 public class FrmAdminMenu extends javax.swing.JFrame {
 
     /**
-     * Creates new form AdminMenu
+     * Crea una nueva instancia de FrmAdminMenu. Inicializa los componentes de
+     * la interfaz gráfica.
      */
     public FrmAdminMenu() {
         initComponents();
@@ -114,50 +119,85 @@ public class FrmAdminMenu extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+ /**
+     * Evento que se ejecuta al hacer clic en el botón de reportes. Abre el
+     * formulario de reportes y cierra el formulario actual.
+     *
+     * @param evt el evento de clic del mouse
+     */
     private void btnReporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReporteMouseClicked
         // TODO add your handling code here:
         new FrmReportes().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnReporteMouseClicked
-
+    /**
+     * Evento que se ejecuta al hacer clic en el botón de insertar unidades.
+     * Abre el formulario para insertar unidades y cierra el formulario actual.
+     *
+     * @param evt el evento de clic del mouse
+     */
     private void btnInsetarUnidadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInsetarUnidadesMouseClicked
         // TODO add your handling code here:
         new FrmInsertarUnidad().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnInsetarUnidadesMouseClicked
-
+    /**
+     * Evento que se ejecuta al hacer clic en el botón de gestionar carreras.
+     * Abre el formulario de gestión de carreras y cierra el formulario actual.
+     *
+     * @param evt el evento de clic del mouse
+     */
     private void btnGestionarCarreraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGestionarCarreraMouseClicked
         // TODO add your handling code here:
         new FrmGestionarCarrera().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnGestionarCarreraMouseClicked
-
+    /**
+     * Evento que se ejecuta al hacer clic en el botón de gestionar alumnos.
+     * Abre el formulario de gestión de alumnos y cierra el formulario actual.
+     *
+     * @param evt el evento de clic del mouse
+     */
     private void btnGestionarAlumnosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGestionarAlumnosMouseClicked
         // TODO add your handling code here:
         new FrmGestionarAlumno().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnGestionarAlumnosMouseClicked
-
+    /**
+     * Evento que se ejecuta al hacer clic en el botón de gestionar bloqueos.
+     * Abre el formulario de gestión de bloqueos y cierra el formulario actual.
+     *
+     * @param evt el evento de clic del mouse
+     */
     private void btnGestionarBloqueosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGestionarBloqueosMouseClicked
         // TODO add your handling code here:
         new FrmGestionarBloqueo().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnGestionarBloqueosMouseClicked
-
+    /**
+     * Evento que se ejecuta al hacer clic en el botón de gestionar
+     * computadoras. Abre el formulario de gestión de computadoras y cierra el
+     * formulario actual.
+     *
+     * @param evt el evento de clic del mouse
+     */
     private void btnGestionarComputadoraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGestionarComputadoraMouseClicked
         // TODO add your handling code here:
         new FrmGestionarComputadora().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnGestionarComputadoraMouseClicked
-
+    /**
+     * Evento que se ejecuta al hacer clic en el botón de atrás. Abre el
+     * formulario de inicio de sesión y cierra el formulario actual.
+     *
+     * @param evt el evento de clic del mouse
+     */
     private void btnAtrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtrasMouseClicked
         // TODO add your handling code here:
         new FrmLogin().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAtrasMouseClicked
 
- 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnAtras;

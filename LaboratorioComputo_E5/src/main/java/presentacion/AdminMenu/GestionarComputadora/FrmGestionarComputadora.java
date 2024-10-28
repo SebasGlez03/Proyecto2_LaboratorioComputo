@@ -25,8 +25,8 @@ import utilerias.JButtonCellEditor;
 import utilerias.JButtonRenderer;
 
 /**
- *
- * @author nomar
+ * a
+ * @hidden
  */
 public class FrmGestionarComputadora extends javax.swing.JFrame {
 

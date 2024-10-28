@@ -10,9 +10,8 @@ import persistencia.entidades.CentroComputoEntidad;
 import persistencia.entidades.UnidadAcademicaEntidad;
 
 /**
- * Clase DTO (Data Transfer Object) que representa una unidad académica.
- * Contiene los datos básicos de la unidad académica, como su identificador, nombre y
- * una lista de centros de cómputo asociados.
+ * a
+ * @hidden
  */
 public class UnidadAcademicaDTO {
     

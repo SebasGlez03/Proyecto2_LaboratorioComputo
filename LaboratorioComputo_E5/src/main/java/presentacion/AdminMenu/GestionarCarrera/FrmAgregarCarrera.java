@@ -13,8 +13,9 @@ import persistencia.DAO.CarreraDAO;
 import persistencia.entidades.CarreraEntidad;
 
 /**
+ * a
  *
- * @author nomar
+ * @hidden
  */
 public class FrmAgregarCarrera extends javax.swing.JFrame {
 
@@ -110,32 +111,30 @@ public class FrmAgregarCarrera extends javax.swing.JFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
-        
+
         String nombreCarrera = campoTextoNombreCarrera.getText();
-    String tiempoStr = campoTextoTiempoDiario.getText();
-    
-    try {
-        // Convertir el tiempo de String a LocalTime y luego a Date
-        LocalTime tiempoDiarioLocal = LocalTime.parse(tiempoStr);
-        Date tiempoDiarioDate = Date.from(tiempoDiarioLocal.atDate(LocalDate.now())
-                .atZone(ZoneId.systemDefault())
-                .toInstant());
-        
-        // Crear instancia de CarreraEntidad con Date
-        CarreraEntidad carrera = new CarreraEntidad(nombreCarrera, tiempoDiarioDate, null);
-        
-        // Guardar en la base de datos
-        CarreraDAO carreraDAO = new CarreraDAO();
-        carreraDAO.guardarCarrera(carrera);
-        
-        JOptionPane.showMessageDialog(this, "Carrera agregada con éxito.");
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, "Error al guardar: " + e.getMessage());
-    }
+        String tiempoStr = campoTextoTiempoDiario.getText();
+
+        try {
+            // Convertir el tiempo de String a LocalTime y luego a Date
+            LocalTime tiempoDiarioLocal = LocalTime.parse(tiempoStr);
+            Date tiempoDiarioDate = Date.from(tiempoDiarioLocal.atDate(LocalDate.now())
+                    .atZone(ZoneId.systemDefault())
+                    .toInstant());
+
+            // Crear instancia de CarreraEntidad con Date
+            CarreraEntidad carrera = new CarreraEntidad(nombreCarrera, tiempoDiarioDate, null);
+
+            // Guardar en la base de datos
+            CarreraDAO carreraDAO = new CarreraDAO();
+            carreraDAO.guardarCarrera(carrera);
+
+            JOptionPane.showMessageDialog(this, "Carrera agregada con éxito.");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al guardar: " + e.getMessage());
+        }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
- 
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Titulo;

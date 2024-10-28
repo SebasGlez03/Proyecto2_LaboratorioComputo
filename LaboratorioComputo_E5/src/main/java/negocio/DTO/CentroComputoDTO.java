@@ -8,32 +8,40 @@ import java.util.Calendar;
 import persistencia.entidades.CentroComputoEntidad;
 
 /**
+ * a
  *
- * @author santi
- */
-/**
- * Clase DTO (Data Transfer Object) para representar un Centro de Cómputo.
- * Esta clase contiene los datos básicos de un centro de cómputo, tales como
- * su nombre, contraseña maestra, horas de servicio y la unidad académica asociada.
+ * @hidden
  */
 public class CentroComputoDTO {
 
-    /** Identificador único del centro de cómputo */
+    /**
+     * Identificador único del centro de cómputo
+     */
     Long id;
 
-    /** Nombre del centro de cómputo */
+    /**
+     * Nombre del centro de cómputo
+     */
     String nombre;
 
-    /** Contraseña maestra para el centro de cómputo */
+    /**
+     * Contraseña maestra para el centro de cómputo
+     */
     String contraseniaMaestra;
 
-    /** Hora de inicio de servicio del centro de cómputo */
+    /**
+     * Hora de inicio de servicio del centro de cómputo
+     */
     Calendar horaInicioServicio;
 
-    /** Hora de fin de servicio del centro de cómputo */
+    /**
+     * Hora de fin de servicio del centro de cómputo
+     */
     Calendar horaFinServicio;
 
-    /** Unidad académica asociada al centro de cómputo */
+    /**
+     * Unidad académica asociada al centro de cómputo
+     */
     UnidadAcademicaDTO unidad;
 
     /**
@@ -44,7 +52,7 @@ public class CentroComputoDTO {
 
     /**
      * Constructor completo
-     * 
+     *
      * @param id Identificador único del centro de cómputo
      * @param nombre Nombre del centro de cómputo
      * @param contraseniaMaestra Contraseña maestra para el centro de cómputo
@@ -63,10 +71,10 @@ public class CentroComputoDTO {
 
     /**
      * Constructor que convierte una entidad CentroComputoEntidad en un DTO.
-     * 
+     *
      * @param ccE Entidad de tipo CentroComputoEntidad
      */
-    public CentroComputoDTO(CentroComputoEntidad ccE){
+    public CentroComputoDTO(CentroComputoEntidad ccE) {
         this.id = ccE.getId();
         this.nombre = ccE.getNombre();
         this.contraseniaMaestra = ccE.getContraseniaMaestra();
@@ -78,7 +86,7 @@ public class CentroComputoDTO {
 
     /**
      * Obtiene el identificador único del centro de cómputo
-     * 
+     *
      * @return id Identificador del centro de cómputo
      */
     public Long getId() {
@@ -87,7 +95,7 @@ public class CentroComputoDTO {
 
     /**
      * Establece el identificador único del centro de cómputo
-     * 
+     *
      * @param id Identificador del centro de cómputo
      */
     public void setId(Long id) {
@@ -96,7 +104,7 @@ public class CentroComputoDTO {
 
     /**
      * Obtiene el nombre del centro de cómputo
-     * 
+     *
      * @return nombre Nombre del centro de cómputo
      */
     public String getNombre() {
@@ -105,7 +113,7 @@ public class CentroComputoDTO {
 
     /**
      * Establece el nombre del centro de cómputo
-     * 
+     *
      * @param nombre Nombre del centro de cómputo
      */
     public void setNombre(String nombre) {
@@ -114,7 +122,7 @@ public class CentroComputoDTO {
 
     /**
      * Obtiene la contraseña maestra del centro de cómputo
-     * 
+     *
      * @return contraseniaMaestra Contraseña maestra
      */
     public String getContraseniaMaestra() {
@@ -123,7 +131,7 @@ public class CentroComputoDTO {
 
     /**
      * Establece la contraseña maestra del centro de cómputo
-     * 
+     *
      * @param contraseniaMaestra Contraseña maestra
      */
     public void setContraseniaMaestra(String contraseniaMaestra) {
@@ -132,7 +140,7 @@ public class CentroComputoDTO {
 
     /**
      * Obtiene la hora de inicio de servicio
-     * 
+     *
      * @return horaInicioServicio Hora de inicio de servicio
      */
     public Calendar getHoraInicioServicio() {
@@ -141,7 +149,7 @@ public class CentroComputoDTO {
 
     /**
      * Establece la hora de inicio de servicio
-     * 
+     *
      * @param horaInicioServicio Hora de inicio de servicio
      */
     public void setHoraInicioServicio(Calendar horaInicioServicio) {
@@ -150,7 +158,7 @@ public class CentroComputoDTO {
 
     /**
      * Obtiene la hora de fin de servicio
-     * 
+     *
      * @return horaFinServicio Hora de fin de servicio
      */
     public Calendar getHoraFinServicio() {
@@ -159,7 +167,7 @@ public class CentroComputoDTO {
 
     /**
      * Establece la hora de fin de servicio
-     * 
+     *
      * @param horaFinServicio Hora de fin de servicio
      */
     public void setHoraFinServicio(Calendar horaFinServicio) {
@@ -168,7 +176,7 @@ public class CentroComputoDTO {
 
     /**
      * Obtiene la unidad académica asociada al centro de cómputo
-     * 
+     *
      * @return unidad Unidad académica
      */
     public UnidadAcademicaDTO getUnidad() {
@@ -177,8 +185,8 @@ public class CentroComputoDTO {
 
     /**
      * Establece la unidad académica asociada al centro de cómputo
-     * 
-     * @param unidad Unidad académica
+     *
+     * @param unidad unidadAcademica a establecer
      */
     public void setUnidad(UnidadAcademicaDTO unidad) {
         this.unidad = unidad;
@@ -186,8 +194,9 @@ public class CentroComputoDTO {
 
     /**
      * Método toString para representar el objeto en formato de texto
-     * 
-     * @return Cadena de texto con los valores de los atributos del centro de cómputo
+     *
+     * @return Cadena de texto con los valores de los atributos del centro de
+     * cómputo
      */
     @Override
     public String toString() {

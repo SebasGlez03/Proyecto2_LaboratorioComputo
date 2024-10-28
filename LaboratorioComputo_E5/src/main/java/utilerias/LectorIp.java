@@ -1,7 +1,13 @@
 package utilerias;
+
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+/**
+ * a
+ *
+ * @hidden
+ */
 public class LectorIp {
 
     // Método para obtener la dirección IP local

@@ -21,13 +21,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * La clase {@code CentroComputoEntidad} representa un centro de cómputo en la
- * base de datos. Se almacena información como el nombre, las horas de servicio,
- * una contraseña maestra y la relación con una unidad académica.
- * <p>
- * Esta entidad está mapeada a la tabla "tblCentroComputo" en la base de datos.
- * 
- * @author santi
+ * a
+ * @hidden
  */
 @Entity
 @Table(name = "tblCentroComputo")

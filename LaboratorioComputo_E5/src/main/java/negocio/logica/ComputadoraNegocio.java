@@ -18,11 +18,12 @@ import persistencia.entidades.ComputadoraEntidad;
  * Clase ComputadoraNegocio
  * <p>
  * Esta clase proporciona la lógica de negocio para la gestión de computadoras,
- * permitiendo realizar operaciones CRUD (Crear, Leer, Actualizar y Eliminar) sobre
- * computadoras y gestionar la conversión entre objetos DTO y entidades de persistencia.
+ * permitiendo realizar operaciones CRUD (Crear, Leer, Actualizar y Eliminar)
+ * sobre computadoras y gestionar la conversión entre objetos DTO y entidades de
+ * persistencia.
  * </p>
- * 
- * @autor santi
+ *
+ * @author santi
  */
 public class ComputadoraNegocio {
 
@@ -31,8 +32,8 @@ public class ComputadoraNegocio {
     /**
      * Constructor de ComputadoraNegocio.
      * <p>
-     * Inicializa un nuevo objeto ComputadoraDAO para manejar la persistencia de los datos
-     * relacionados con las computadoras.
+     * Inicializa un nuevo objeto ComputadoraDAO para manejar la persistencia de
+     * los datos relacionados con las computadoras.
      * </p>
      */
     public ComputadoraNegocio() {
@@ -42,9 +43,10 @@ public class ComputadoraNegocio {
 
     /**
      * Convierte un objeto ComputadoraDTO a una entidad ComputadoraEntidad.
-     * 
+     *
      * @param dto el objeto ComputadoraDTO que se desea convertir.
-     * @return la entidad ComputadoraEntidad correspondiente al DTO proporcionado.
+     * @return la entidad ComputadoraEntidad correspondiente al DTO
+     * proporcionado.
      */
     public ComputadoraEntidad convertir(ComputadoraDTO dto) {
         EstudianteNegocio eN = new EstudianteNegocio();
@@ -63,7 +65,7 @@ public class ComputadoraNegocio {
 
     /**
      * Guarda una computadora en la base de datos.
-     * 
+     *
      * @param c el objeto ComputadoraDTO que se desea guardar.
      */
     public void guardarComputadora(ComputadoraDTO c) {
@@ -72,8 +74,9 @@ public class ComputadoraNegocio {
 
     /**
      * Modifica una computadora existente en la base de datos.
-     * 
-     * @param c el objeto ComputadoraDTO con los datos actualizados de la computadora.
+     *
+     * @param c el objeto ComputadoraDTO con los datos actualizados de la
+     * computadora.
      */
     public void modificarComputadora(ComputadoraDTO c) {
         computadoraDAO.modificarComputadora(convertir(c));
@@ -81,7 +84,7 @@ public class ComputadoraNegocio {
 
     /**
      * Elimina una computadora de la base de datos.
-     * 
+     *
      * @param c el objeto ComputadoraDTO que se desea eliminar.
      */
     public void eliminarComputadora(ComputadoraDTO c) {
@@ -90,9 +93,10 @@ public class ComputadoraNegocio {
 
     /**
      * Busca una computadora específica por su identificador.
-     * 
+     *
      * @param id el identificador único de la computadora a buscar.
-     * @return un objeto ComputadoraDTO con los datos de la computadora encontrada.
+     * @return un objeto ComputadoraDTO con los datos de la computadora
+     * encontrada.
      */
     public ComputadoraDTO buscarComputadora(Long id) {
         ComputadoraDTO computadora = new ComputadoraDTO(computadoraDAO.buscarUnaComputadora(id));
@@ -101,9 +105,9 @@ public class ComputadoraNegocio {
 
     /**
      * Obtiene una lista de todas las computadoras registradas.
-     * 
-     * @return una lista de objetos ComputadoraDTO que representa todas las computadoras.
-     *         Si no hay computadoras, retorna null.
+     *
+     * @return una lista de objetos ComputadoraDTO que representa todas las
+     * computadoras. Si no hay computadoras, retorna null.
      */
     public List<ComputadoraDTO> buscarComputadora() {
         List<ComputadoraDTO> computadoras = new ArrayList<>();
@@ -120,45 +124,46 @@ public class ComputadoraNegocio {
             return null;
         }
     }
-    
+
     /**
      * Obtiene una lista de todos los PC de cómputo registrados en la CC.
-     * 
-     * @return una lista de objetos Computadoras de la unidad.
-     *         Si no hay Computadoras, retorna null.
+     *
+     * @return una lista de objetos Computadoras de la unidad. Si no hay
+     * Computadoras, retorna null.
      */
     public List<ComputadoraDTO> buscarComputadorasPorCentro(Long id) {
         List<ComputadoraDTO> computadoras = new ArrayList<>();
         List<ComputadoraEntidad> bE = new ArrayList<>();
         bE = computadoraDAO.buscarComputadorasPorCentro(id);
-        
+
         if (computadoras != null) {
             for (ComputadoraEntidad y : bE) {
                 ComputadoraDTO x = new ComputadoraDTO(y);
                 computadoras.add(x);
             }
             return computadoras;
-        } else { 
+        } else {
             return null;
         }
     }
+
     /**
      * Obtiene una lista de todos los PC por IP.
-     * 
-     * @return una lista de objetos 
+     *
+     * @return una lista de objetos
      */
     public List<ComputadoraDTO> buscarComputadorasPorIP(String ip) {
         List<ComputadoraDTO> computadoras = new ArrayList<>();
         List<ComputadoraEntidad> bE = new ArrayList<>();
         bE = computadoraDAO.buscarComputadorasPorIP(ip);
-        
+
         if (computadoras != null) {
             for (ComputadoraEntidad y : bE) {
                 ComputadoraDTO x = new ComputadoraDTO(y);
                 computadoras.add(x);
             }
             return computadoras;
-        } else { 
+        } else {
             return null;
         }
     }

@@ -21,17 +21,24 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
+import javax.swing.JOptionPane;
 
 /**
+ * a
  *
- * @author nomar
+ * @hidden
  */
 public class FrmReporteCarrera extends javax.swing.JFrame {
 
     CarreraNegocio carreraNegcio = new CarreraNegocio();
     DateTimePicker dateTimePicker = new DateTimePicker();
     DateTimePicker dateTimePicker2 = new DateTimePicker();
-    List<CarreraDTO> listaCarrerasAFiltrar = new ArrayList<>();
+    List<String> listaCarrerasAFiltrar = new ArrayList<>();
 
     /**
      * Creates new form FrmReporteCarrera
@@ -76,20 +83,16 @@ public class FrmReporteCarrera extends javax.swing.JFrame {
         return fechaConvertidaCalendar;
     }
 
-    public void generarReporteCarrera(Timestamp inicio, Timestamp fin, List<CarreraDTO> listaCarreras) {
-
-        String dest = "reporteCarrera.pdf";
-
-        try {
-            PdfWriter writer = new PdfWriter(dest);
-            PdfDocument pdfDoc = new PdfDocument(writer);
-            Document document = new Document(pdfDoc);
-
-            document.add(new Paragraph("Reporte de ventas de las sucursales del siguiente periodo desde: " + inicio.toString() + " hasta: " + fin.toString()));
-            
-        } catch (FileNotFoundException e) {
-
-        }
+    /**
+     * Metodo que genera el repoorte que muestra los minutos que un estudiante
+     * usa la computadora en un cierto periodo y segun la carrera
+     *
+     * @param inicio Fecha de inicio de los reportes
+     * @param fin Fecha de fin de los reportes
+     * @param listaCarreras Lista de carreras por las que se filtraran los
+     * reportes
+     */
+    public void generarReporteCarrera(Calendar inicio, Calendar fin, List<String> listaCarreras) {
 
     }
 
@@ -124,6 +127,11 @@ public class FrmReporteCarrera extends javax.swing.JFrame {
 
         btnGenerarReporte.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         btnGenerarReporte.setText("Generar Reporte");
+        btnGenerarReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerarReporteActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnGenerarReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 460, 240, 100));
 
         btnLimpiar.setText("Limpiar");
@@ -201,7 +209,7 @@ public class FrmReporteCarrera extends javax.swing.JFrame {
 
     private void btnAgregarCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCarreraActionPerformed
         CarreraDTO carrera = carreraNegcio.buscarCarreras().get(comboBoxCarrera.getSelectedIndex());
-        listaCarrerasAFiltrar.add(carrera);
+        listaCarrerasAFiltrar.add(carrera.getNombre());
         txtAreaNotificador.append("Se agrego la carrera: " + carrera.getNombre() + " a la lista del filtro.\n");
     }//GEN-LAST:event_btnAgregarCarreraActionPerformed
 
@@ -210,6 +218,15 @@ public class FrmReporteCarrera extends javax.swing.JFrame {
 
         txtAreaNotificador.setText("Se vacio le lista de carreras a filtrar!\n");
     }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void btnGenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarReporteActionPerformed
+        LocalDateTime fechaInicio = dateTimePicker.getDateTimePermissive();
+        LocalDateTime fechaFin = dateTimePicker2.getDateTimePermissive();
+
+        generarReporteCarrera(convertirDateTimePickerACalendar(fechaInicio), convertirDateTimePickerACalendar(fechaFin), listaCarrerasAFiltrar);
+//        CarreraDTO carrera = carreraNegcio.buscarCarreras().get(comboBoxCarrera.getSelectedIndex());
+//        generarReporteCarrera(convertirDateTimePickerACalendar(fechaInicio), convertirDateTimePickerACalendar(fechaFin), carrera);
+    }//GEN-LAST:event_btnGenerarReporteActionPerformed
 
     /**
      * @param args the command line arguments

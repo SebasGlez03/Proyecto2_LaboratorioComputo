@@ -95,18 +95,16 @@ public class ComputadoraEntidad implements Serializable {
 
     /**
      * Constructor para inicializar una entidad Computadora con los valores
-     * proporcionados.
+     * proporcionados
      *
-     * @param esAdmin Si la computadora es admin (true si es admin, false en
-     * caso contrario).
+     * @param esAdmin Si la computadora es admin (true si es admun, false en
+     * caso contrario)
      * @param centroComputoEntidad La entidad que representa el centro de
      * computo al que pertenece la computadora.
-     * @param estudiante La entidad que representa al estudiante asignado a la
-     * computadora.
      * @param ip La direccion IP de la computadora.
      * @param software Lista de software que puede utilizar la computadora.
-     * @param numMaquina El numero de maquna de la computadora dentro del centro
-     * de computo.
+     * @param numMaquina El numero de maquina de la computadora dentro del
+     * centro de computo.
      */
     public ComputadoraEntidad(boolean esAdmin, CentroComputoEntidad centroComputoEntidad, String ip, List<String> software, int numMaquina) {
         this.esAdmin = esAdmin;
@@ -238,14 +236,12 @@ public class ComputadoraEntidad implements Serializable {
      * Establece la lista de apartado que estan asociadas a una computadora.
      *
      * @param rentas Lista de apartado que estan asociadas a una computadora a
- establecer.
+     * establecer.
      */
     public void setApartado(List<ApartadoEntidad> rentas) {
         this.apartado = rentas;
     }
 
-    
-    
     /**
      * Proporciona una representación en cadena de la entidad.
      *

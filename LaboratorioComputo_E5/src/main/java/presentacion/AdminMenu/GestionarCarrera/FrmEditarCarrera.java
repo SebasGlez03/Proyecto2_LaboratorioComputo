@@ -12,8 +12,8 @@ import negocio.DTO.CarreraDTO;
 import negocio.logica.CarreraNegocio;
 
 /**
- *
- * @author nomar
+ * a
+ * @hidden
  */
 public class FrmEditarCarrera extends javax.swing.JFrame {
 
