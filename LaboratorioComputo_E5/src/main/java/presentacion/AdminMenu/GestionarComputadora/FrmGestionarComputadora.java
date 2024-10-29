@@ -365,7 +365,7 @@ public class FrmGestionarComputadora extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAtrasMouseClicked
 
     private void btnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMouseClicked
-        FrmAgregarAlumno frm = new FrmAgregarAlumno();
+        FrmAgregarComputadora frm = new FrmAgregarComputadora();
         frm.setVisible(true);
     }//GEN-LAST:event_btnAgregarMouseClicked
 

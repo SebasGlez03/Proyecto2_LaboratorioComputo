@@ -59,10 +59,6 @@ public class CentroComputoEntidad implements Serializable {
     @JoinColumn(name = "idUnidadAcademica", nullable = false)
     private UnidadAcademicaEntidad unidadAcademica;
     
-    @OneToMany(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "idComputadora")
-    private List<ComputadoraEntidad> computadoras;
-
     /**
      * Constructor por defecto. Crea una instancia vacía de {@code CentroComputoEntidad}.
      */
