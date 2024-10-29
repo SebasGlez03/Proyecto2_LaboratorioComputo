@@ -89,5 +89,6 @@ public class pruebasNegocio {
 
         // Ejemplo de consulta de centros de cómputo
         System.out.println(centroComputoN.buscarCentrosComputos().toString());
+        
     }
 }
